@@ -1,0 +1,17 @@
+Package name:     libpng
+Version number:   0.89c
+Original author:  Guy Eric Schalnat <group42@interserv.com>
+Original URL:     ftp://interserv.com/
+Dependencies:     zlib-1.0.4
+Install tree:     /opt/libpng-0.89c
+Report bugs to:   steff@csc.liv.ac.uk
+Tested on:        HP 9000/715/E running HP-UX 10.10
+C compiler used:  Version A.10.32.10
+Purpose:
+Portable Network Graphics (PNG) library. This is a set of function calls to
+support the reading and writing of PNG format files in a portable manner. It
+requires the zlib library (see /hpux/Misc category) to be installed prior to
+compilation. This package was previous known as pnglib, but has been renamed to
+libpng.
+Date archived:    Fri 25 Apr 1997
+Special notes:    HPUX.Install is worth a read.

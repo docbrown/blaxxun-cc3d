@@ -1,0 +1,1021 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>blaxxun Contact 4.2 class overview</TITLE>
+</HEAD>
+<BODY>
+
+<OL>
+
+<B><FONT FACE="Arial" SIZE=5><LI>blaxxun Contact 4.2 class overview</LI>
+</B></FONT><FONT SIZE=2>
+<P>&nbsp;</P>
+<P>The system can be subdived into the following components</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>CORE - Utility classes, Rendering, Polyhedron handling</LI>
+<LI>VRML - VRML 1.0 / 2.0 scene graph</LI>
+<LI>Media - Image - image library, libpng, libjpeg, zlib, tga, rgb, gif, </LI>
+<LI>Media - Movie - Amimated gif , Direct X Media, Real Player G2</LI>
+<LI>Media - Sound / WAV Intel RSX / Microsoft Direct Sound </LI>
+<LI>Scripting JavaScript / COM-EAI interfaces</LI>
+<LI>Navigation / Collisiondetection / Viewer control</LI>
+<LI>Highlevel clients standalone / OCX Control / Netscape plugin</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>Aanatomy overview</LI>
+<OL>
+
+</FONT><FONT FACE="Arial"><LI>Rendering</LI>
+</B></FONT><FONT SIZE=2><P>Rendering is abstracted using the RenderState class to encapsulated 3D API state managment and GShell and derivate classes to handle the rendering  primitves. Currently theres is conditional ccompiled oded for Direct 3D and OpenGL. The rendering supports still Direct X 3 requiring the packaging of all 3D state and drawing calls into ExecuteBuffers, a very difficult API compared to OpenGL.</P>
+
+</FONT><B><FONT FACE="Arial"><LI>Scenegraph</LI>
+</B></FONT><FONT SIZE=2><P>The scenegraph model is based on Node classes having a list of fields. GvNode and GvField are supporting class Meta information inorder to have dynamic scene graph access and interfaces for scripting/EAI during runtime.</P>
+<P>The basic model is similar to Open Inventor from SGI which also provided the QvLib VRML 1.0 parser  used as a starting point for GLView.</P>
+<P>In the standard case for built in nodes, Fields are direct members of classes implementing a node. PROTO definitions are storing the Node interface with the default values and the definition scene graph. IS information is stored as special type of low-level connection entrys at the node or field level.</P>
+<P>Proto Instancec are storing a pointer to a PROTO definition. The instances’s field list and instanced scene graph is created during instancing. (Normally done in a special process after parsing.) A flag copyOnInstance in the definition Nodes of the PROTO are indicating if a Node is copied or simply referenced from the PROTO definition Node.</P>
+<P>EXTERNPROTO’S are recognizing built in extension nodes and in the standard case are maintaining a pointer to the PROTO which is acutally defining the EXTERNPROTO.</P>
+<P>The Viewer maintains/caches a list of  url –PROTO list  in order to speed up EXTERNPROTO url lookup.</P>
+
+<P>VRML Geometry Nodes are never rendered directly. There are many possible options (convex FALSE, Normal generation, bad index values in the content etc) so the nodes are creating and maintaining internal GShell objects instead.</P>
+<P>Some rendering depending code is also  concentrated in the implementation of Light and Texture nodes.</P>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><LI>EventModel</LI>
+</B></FONT><FONT SIZE=2><P>The event model uses a simple store and forward scheme. As soon field values are changed, ROUTES, Observers, Script functions connected to the field are triggered immideately. Circular ROUTES are avoided via a flag in GvField. Also the owning Node of a field will be notified about the changed GvNode::OnFieldChanged and parent nodes (OnChildNodeChanged)  if the child node was referenced by an SFNode field..</P>
+
+<P>The implementation uses linked lists of GvConnection elements stored at the field level. The run-time execution speed is because of this low overhead very fast and does not require any name lookup etc.</P>
+<P>A route can connect to a another field and copies the field value or can call a Member function of a node.</P>
+<P>Time dependent nodes and some other resource specific nodes are collected at the viewer level in a GvSceneInfo structure. Using the list in SceneInfo  TimeSensors  can be triggered and are so creating initial event casscades.</P>
+<P>Geometry selection Sensors (TouchSensor, Anchor etc) are detected using a separte GRaySelectTraversal traversal action.</P>
+<P>Some nodes like VisibilitySensor, ProximitySensor, Billboard, LOD are currently evaluated during the rendering. </P>
+
+</FONT><B><FONT FACE="Arial"><LI>Scripting</LI>
+</B></FONT><FONT SIZE=2><P>Scripting is implemented based on the VrmlScript parser from SGI. The Scenegraph objects are directly accesible from the script interpreter resulting in a close coupling and good performance.</P>
+
+</FONT><B><FONT FACE="Arial"><LI>Traversal</LI>
+</B></FONT><FONT SIZE=2><P>Scene graph traversal uses a generic Traversal and state managment mechanism. In short in GNode there are the different type of traversal action defined as virtual member functions.</P>
+
+<P> More information in the section „Scene Traversal Actions&quot; below.</P>
+
+</FONT><B><FONT FACE="Arial"><LI>Viewer</LI>
+</B></FONT><FONT SIZE=2><P>The top level scene graph is stored in the viewer class GView, there are many other functions dealing with top-level scene graph managment, event triggering, collission detection and mouse selection.</P>
+<P>Navigation is currently done in the OCX  or GLVIEW standalone front end using services and members of GView</P>
+</FONT><B><FONT FACE="Arial"><LI>EAI</LI>
+</B></FONT><FONT SIZE=2><P>The EAI is realised using a set of COM (blaxxunVRML) interfaces modelled after the VRML Java EAI. The C++ Node and Field classes are direclty implementing these COM-Interfaces.</P>
+<P>For Micrsoft Java VM (Supporting COM) the VRML Java EAI is realised used small Java wrapper classes calling the blaxxunVRML COM Interfaces.</P>
+
+</FONT><B><FONT FACE="Arial"><LI>Plugin</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>blaxxunCC3D is the Active X OLE Control. The Control directly supports browser functions. The Netscape plugin is realised by embedding the blaxxunCC3D.ocx into an small wrapper. HTTP Download/ Status Message Display/Anchor handling is redirected from CC3D to the Netscape plugin in this case. The Netscape Java EAI interfaces using the COM-EAI services of the OCX.</P>
+
+</FONT><B><FONT FACE="Arial"><P>&nbsp;</P>
+</FONT><U><FONT FACE="Arial" SIZE=4><LI>General classes</LI>
+</U><LI>RTRoot&#9;Root Node supporting Runtime-type information</LI>
+</B></FONT><FONT SIZE=2><P>&nbsp;</P>
+</FONT><B><U><FONT FACE="Arial" SIZE=4><LI>VRML Scene Tree database</LI>
+</U><LI>GNode: RTRoot</LI>
+</B></FONT><FONT SIZE=2><P>Root node for scene database objects, defines virtual member functions for different traversal actions.</P>
+<P>Default implementation of specific traversal actions are passing control to general traversal actions.</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GvNode: GNode</LI>
+</B></FONT><FONT SIZE=2><P>Roote node for VRML Scene objects.</P>
+<P>Nodes are containing fields and are maintaing Runtime type information for their fields.</P>
+<P>A reference counter allows multiple instantiation of nodes.</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GObject&#9;low level display objects</LI>
+<OL>
+
+<LI>GShell </LI>
+</B></FONT><FONT SIZE=2><P>low level polyhedron display object direct support for OpenGL and Direct3D Rendering</P>
+<OL>
+
+</FONT><FONT FACE="Arial"><LI>GMesh&#9;quad mesh display object</LI>
+<LI>GShellI&#9;polyhedron with extra indirection level</LI>
+<LI>GPolygon&#9;</LI>
+<LI>GPolyline&#9;polyline</LI>
+<LI>GPolylineI polyline with extra indirection level</LI>
+<LI>GSphereSubdiv&#9;sphere rendered by subdivision</LI>
+<LI>GNurbsShell&#9;NURBSSurface implementation</LI></OL>
+</OL>
+
+<B><LI>GView&#9;GLView viewer class</B> (see detailed description below)</LI>
+<B><LI>Gv2FontStyle&#9;VRML 2.0 Font Attribute</LI>
+<LI>Gv2Group&#9;&#9;VRML 2.0 Group Node</LI>
+<OL>
+
+<LI>Gv2Anchor&#9;VRML 2.0 Anchor</LI>
+<LI>Gv2Billboard&#9;VRML 2.0 Billboard</LI>
+<LI>Gv2Collision&#9;VRML 2.0 Collision</LI>
+<LI>Gv2Transform&#9;VRML 2.0 Transform, Group with Transformation</LI>
+<LI>GvScene&#9;VRML Scene managment node</LI>
+<OL>
+
+</B><LI>Gv2Inline&#9;VRML 2.0 Inline Node</LI></OL>
+
+<B><LI>Gv2LOD&#9;VRML 2.0</LI>
+<LI>Gv2Material &#9;VRML 2.0</LI>
+<LI>Gv2Normal &#9;VRML 2.0</LI>
+<LI>Gv2Switch &#9;VRML 2.0</LI>
+<LI>Gv2TextureTransform &#9;VRML 2.0</LI>
+<LI>GvAppearance &#9;VRML 2.0</LI>
+<LI>GvAudioClip&#9;&#9;VRML 2.0</LI>
+<LI>GvAxisAlignment</LI>
+<LI>GvComplexity&#9;Inventor compatibility</LI>
+<LI>GvCoordinate&#9;VRML 2.0</LI>
+<LI>GvCoordinate3&#9;VRML 1.0</LI>
+<LI>GvFog &#9;VRML 2.0</LI>
+<LI>GvFontStyle &#9;VRML 2.0</LI>
+<LI>GvGroup &#9;VRML 1.0</LI>
+<OL>
+
+</B><LI>GvLayer&#9;GLView scene composing node</LI>
+<LI>GvLevelOfDetail&#9;Inventor compatibility</LI>
+<LI>GvLOD &#9;VRML 1.0</LI>
+<LI>GvMorph&#9;GLView morphing node </LI>
+<LI>GvSeparator &#9;VRML 1.0</LI>
+<OL>
+
+<LI>GvWWWAnchor &#9;VRML 1.0</LI></OL>
+
+<LI>GvSpinGroup&#9;(compatibility)</LI>
+<LI>GvSwitch &#9;VRML 1.0</LI>
+<OL>
+
+<LI>GvBlinker&#9;GLView time dependent switch</LI></OL>
+
+<LI>GvTransformSeparator &#9;VRML 1.0</LI>
+<LI>GvUnknownNode &#9;VRML 1.0</LI>
+<LI>GvWWWInline &#9;VRML 1.0</LI></OL>
+
+<B><LI>GvInfo&#9;VRML 1.0/Inventor</LI>
+<LI>GvInterpolator&#9;Root for VRML 2.0 interpolators </LI>
+<OL>
+
+</B><LI>GvColorInterpolator &#9;VRML 2.0</LI>
+<LI>GvCoordinate2Interpolator &#9;VRML 2.0</LI>
+<LI>GvCoordinateInterpolator &#9;VRML 2.0</LI>
+<LI>GvNurbsPositionInterpolator - VRML 2.0 extension<BR>
+position interpolator based on NURBS spline</LI>
+<LI>GvOrientationInterpolator &#9;VRML 2.0</LI>
+<LI>GvPositionInterpolator &#9;VRML 2.0</LI>
+<LI>GvScalarInterpolator &#9;VRML 2.0</LI></OL>
+
+<B><LI>GvLabel&#9;Inventor</LI>
+<LI>GvLight</LI>
+<OL>
+
+</B><LI>GvDirectionalLight &#9;VRML 2.0</LI>
+<LI>GvPointLight &#9;VRML 2.0</LI>
+<LI>GvSpotLight &#9;VRML 2.0</LI></OL>
+
+<B><LI>GvLightModel&#9;&#9;Inventor</LI>
+<LI>GvMaterial&#9;VRML 1.0</LI>
+<LI>GvMaterialBinding&#9;VRML 1.0</LI>
+<LI>GvMatrixTransform&#9;VRML 1.0</LI>
+<LI>GvNavigationInfo &#9;VRML 2.0</LI>
+<LI>GvNodeShell - node containing a GShell as display object </LI>
+<OL>
+
+</B><LI>Gv2Cone - VRML 2.0 Cone</LI>
+<LI>Gv2Cylinder - VRML 2.0 Cylinder</LI>
+<LI>Gv2IndexedFaceSet - VRML 2.0 IndexedFaceSet</LI>
+<LI>Gv2IndexedLineSet - VRML 2.0 IndexedLineSet</LI>
+<LI>Gv2PointSet - VRML 2.0 PointSet</LI>
+<LI>Gv2Sphere - VRML 2.0 Sphere</LI>
+<LI>Gv2Text - VRML 2.0 Text</LI>
+<LI>GvAsciiText - VRML 1.0 Text (+ GLView 3D Extrusion)</LI>
+<LI>GvBox - VRML 2.0 Box</LI>
+<LI>GvCone - VRML 2.0/Inventor Cone</LI>
+<LI>GvCube - VRML 1.0/Inventor Cube</LI>
+<LI>GvCylinder - VRML 1.0/Inventor Cylinder</LI>
+<LI>GvElevationGrid - VRML 2.0 ElevationGrid</LI>
+<OL>
+
+<LI>GvImageElevationGrid - GLView extension, ElevationGrid from Image data</LI></OL>
+
+<LI>GvExtrusion - VRML 2.0</LI>
+<LI>GvIndexedFaceSet - VRML 1.0/Inventor IndexedFaceSet</LI>
+<LI>GvIndexedLineSet - VRML 1.0/Inventor IndexedLineSet</LI>
+<LI>GvIndexedTriangleStripSet - Inventor TriangleStripSet</LI>
+<LI>GvNurbsCurve - VRML 2.0 extension</LI>
+<LI>GvNurbsSurface - VRML 2.0 extension</LI>
+<LI>GvPointSet - VRML 1.0/Inventor PointSet</LI>
+<LI>GvQuadMesh - Inventor</LI>
+<LI>GvSphere - VRML 1.0 Sphere</LI>
+<LI>GvSweep - GLView</LI>
+<LI>GvTriangleStripSet - Inventor</LI></OL>
+
+<B><LI>GvNormal</LI>
+<LI>GvNormalBinding &#9;VRML 1.0</LI>
+<LI>GvOrthographicCamera &#9;VRML 1.0</LI>
+<LI>GvPerspectiveCamera &#9;VRML 1.0</LI>
+<LI>GvProto &#9;VRML 2.0 Pseudonode, defines new node type</LI>
+<OL>
+
+</B><LI>GvExternProto &#9;VRML 2.0</LI></OL>
+
+<B><LI>GvProtoInstance&#9;VRML 2.0 Pseudonode, instance of PROTO definition</LI>
+<LI>GvRotation &#9;VRML 1.0</LI>
+<OL>
+
+</B><LI>GvPendulum</LI>
+<LI>GvRotor</LI>
+<LI>GvTextureRotor</LI></OL>
+
+<B><LI>GvRotationXYZ</LI>
+<LI>GvRoute &#9;VRML 2.0 Pseudonode, Connection between two nodes</LI>
+<LI>GvScale &#9;VRML 1.0</LI>
+<LI>GvScript &#9;VRML 2.0</LI>
+<LI>GvSensor&#9;Root for Nodes sensing conditions and  sending events</LI>
+<OL>
+
+</B><LI>GvGeometrySensor</LI>
+<OL>
+
+<LI>GvCylinderSensor &#9;VRML 2.0</LI>
+<LI>GvPlaneSensor &#9;VRML 2.0</LI>
+<LI>GvSphereSensor &#9;VRML 2.0</LI>
+<LI>GvTouchSensor &#9;VRML 2.0</LI></OL>
+
+<LI>GvProximitySensor &#9;VRML 2.0</LI>
+<LI>GvRayHitSensor&#9;&#9;GLView extension, detects a hit between ray and scene graph</LI>
+<LI>GvTimeSensor &#9;VRML 2.0</LI>
+<LI>GvVisibilitySensor &#9;VRML 2.0</LI></OL>
+
+<B><LI>GvShape &#9;VRML 2.0 displayable object</LI>
+<LI>GvShapeHints &#9;VRML 1.0</LI>
+<LI>GvSound &#9;VRML 2.0</LI>
+<LI>GvSpin&#9;</LI>
+<LI>GvSprite</LI>
+<LI>GvTexture&#9;</B>Root for Texture Nodes</LI>
+<OL>
+
+<LI>GvImageTexture &#9;VRML 2.0</LI>
+<LI>GvMovieTexture &#9;VRML 2.0</LI>
+<LI>GvPixelTexture &#9;VRML 2.0</LI>
+<LI>GvTexture2 &#9;VRML 1.0</LI>
+<OL>
+
+<LI>GvImage</LI></OL>
+</OL>
+
+<B><LI>GvTexture2Transform &#9;VRML 1.0</LI>
+<LI>GvTextureCoordinate &#9;VRML 2.0</LI>
+<LI>GvTextureCoordinate2 &#9;VRML 1.0</LI>
+<LI>GvTextureCoordinateBinding&#9;Inventor</LI>
+<LI>GvTimeTransform&#9;</B>GLView extensions, transforms local time </LI>
+<B><LI>GvTranslation&#9;VRML 1.0</LI>
+<OL>
+
+</B><LI>GvShuttle&#9;shuttles between two positions</LI>
+<LI>GvTextureShutte - shuttles texture transform</LI></OL>
+
+<B><LI>GvViewpoint &#9;VRML 2.0</LI>
+<LI>GvWordInfo &#9;VRML 2.0</LI></OL>
+</OL>
+</OL>
+
+</FONT><U><FONT FACE="Arial" SIZE=4><LI>Scene traversal actions</LI>
+</U><LI>GTraversal: RTRoot</LI>
+</B></FONT><FONT SIZE=2><P>Root for all Traversalactions, mantains general state mangment with push/pop/query functions</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GGeometryTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;root for all Traversal actions requiring geometric attributes like modelling and texture matrix</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GBBoxTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;traversal computes the bounding box of a node tree</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GGvBBoxTraversal</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&#9;&#9;&#9;additional registers VRML attributes</P>
+</FONT><B><FONT FACE="Arial"><LI>GDisplayTreeTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;build the tree representation display in the tree editor</P>
+</FONT><B><FONT FACE="Arial"><LI>GLoadInlinesTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;load unload inline nodes / external file references, optionaly resolves base URL's for URL nodes</P>
+</FONT><B><FONT FACE="Arial"><LI>GPathTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;root for all traversals requiring the possibilty to construct a node path</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GFindNodeTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;find a specific node in the tree</P>
+</FONT><B><FONT FACE="Arial"><LI>GRaySelectTraversal</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&#9;&#9;intersect nodes with a ray and record hits</P>
+</FONT><B><FONT FACE="Arial"><LI>GGvSceneInfoTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;traveral for general VRML scene information traversal</P>
+</FONT><B><FONT FACE="Arial"><LI>GRenderTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;root for rendering traversals, requiring certain attributes like color etc.</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GBuildShellTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;a traversal constructing one shell out of all geometry of node tree</P>
+</FONT><B><FONT FACE="Arial"><LI>GglRenderTraversal</LI>
+</B></FONT><FONT SIZE=2><P>&#9;OpenGL GL Rendering action</P>
+<OL>
+
+</FONT><FONT FACE="Arial"><LI>GglTransparencyRenderTraversal</LI></OL>
+</OL>
+</OL>
+
+</FONT><FONT SIZE=2><P>&#9;&#9;&#9;OpenGL Rendering action with special Transmission Processing</P>
+</FONT><B><FONT FACE="Arial"><LI>GioTraversal</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&#9;&#9;save of tree to VRML 1.0/2.0 file</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvField :RTRoot</LI>
+</B></FONT><FONT SIZE=2><P>Abstract base class for fields. VRML nodes (derived from GvNode) are containing fields.</P>
+
+<P>Fields have highlevel functions to read/write/query values and to store connections to other fields or nodes.</P>
+<P>Fields are directly stored as members in nodes, for PROTOS's and Scripts fields are stored in a separater field list.</P>
+<P>If the _COM preprocessor symbol is defined fields are implementing  COM EAI interfaces</P>
+
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GvSField</LI>
+</B></FONT><FONT SIZE=2><P>&#9;single valued fields</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GvSFBitMask (VRML 1.0 / Inventor) </LI>
+<LI>GvSFBool</LI>
+<LI>GvSFColor</LI>
+<LI>GvSFEnum (VRML 1.0 / Inventor)</LI>
+<LI>GvSFFloat</LI>
+<LI>GvSFImage</LI>
+<LI>GvSFLong </LI>
+<OL>
+
+<LI>GvSFInt32 (VRML 2.0)</LI></OL>
+
+<LI>GvSFMatrix</LI>
+<LI>GvSFNode</LI>
+<LI>GvSFRotation</LI>
+<LI>GvSFString</LI>
+<LI>GvSFTime</LI>
+<LI>GvSFVec2f</LI>
+<LI>GvSFVec3f</LI></OL>
+
+<LI>GvMField</LI>
+</B></FONT><FONT SIZE=2><P>&#9;multi valued fields (arrays)</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GvMFColor</LI>
+<LI>GvMFLoat</LI>
+<LI>GvMFLong</LI>
+<OL>
+
+<LI>GvMFInt32 (VRML 2.0)</LI></OL>
+
+<LI>GvMFNode</LI>
+<LI>GvMFRotation</LI>
+<LI>GvMFString</LI>
+<LI>GvMFTime (VRML 97)</LI>
+<LI>GvMFVec2f</LI>
+<LI>GvMFVec3f</LI></OL>
+</OL>
+
+</FONT><FONT FACE="Arial" SIZE=4><LI>GvFieldData</LI>
+</B></FONT><FONT SIZE=2><P>describes the list of fields of a node. All GvNode derived classes are maintaing a fieldata class to describe themselves. For builtin nodes the field data structure is global to that class, for scripts the data is dynamic for Proto-Instances field data is stored in the PROTO definition ndoe.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvFieldEntry</LI>
+</B></FONT><FONT SIZE=2><P>Describes a single field, eg. Field name, offset / index in node, type.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvFieldList</LI>
+</B></FONT><FONT SIZE=2><P>Stores a list of fields, for nodes containing dynamic fields like GvUnknownNode, GvScript, GvProto, GvProtoInstance.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvString&#9;&#9;String class</LI>
+<LI>GvName&#9;&#9;Unique name class</LI>
+</B></FONT><FONT SIZE=2><P>A GvName can be seen like a string, but different occurences of the same string literal are mapped to one unique reference.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvDict&#9;&#9;&#9;Dictionary</LI>
+<LI>GvNameSpace&#9;Dictionary for Nodes, Protos</LI>
+<LI>GvInput&#9;&#9;VRML parser state</LI>
+<LI>GvReadError&#9;VRML parser error message handling</LI>
+<LI>GvNodeHandle&#9;smart pointer to a GvNode</LI>
+</B></FONT><FONT SIZE=2><P>Instead of "GvNode *ptr" "GvNodeHandle ptr" supports automatically handles</P>
+<P>node reference counter increment and decrement on assignments.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvSceneInfo &#9;structure for holding scene information</LI>
+</B></FONT><FONT SIZE=2><P>Certain nodes like Viewpoints, NavigationInfo, Lights, AudioClips are need globally for a scene, SceneInfo stores these nodes. Information is collected by a GvSceneInfoTraversal</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvPath&#9; &#9;&#9;storing a path from the root to a specif node instance</LI>
+</B></FONT><FONT SIZE=2><P>Certain traversal actions like GRaySelectTraversal,GFindNodeTraversal can create a path to a specific node.</P>
+<P>The path can be used for query and edit operations on the node.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvPathElement&#9;an element of a GvPath</LI>
+</B></FONT><FONT SIZE=2><P>Stored elements are the node, the field of the node and an index in the case the field was an MF Field.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GHitInfo&#9;&#9;records ray-selection information</LI>
+</B></FONT><FONT SIZE=2><P>A RaySelect Traversal returns one of more HitInfo, recording hit information like intersection point, path, effective transformation matrix etc.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvDB</LI>
+</B></FONT><FONT SIZE=2><P>GvDatabase , contatins some global initialization / termination of static data</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GvDebugError&#9; DEBUG messages</LI>
+<LI>GvCopyContext&#9;structure needed during the creation of a copy of a node tree</LI>
+<LI>GFile : RTRoot</LI>
+</B></FONT><FONT SIZE=2><P>Manages Internet File handling, caching, handling of mime-types etc. For internet download, multi-threading is supported. Current implementation use Win32 wininet functions.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GFileRef</LI>
+</B></FONT><FONT SIZE=2><P>References a GFile object, allow sharing of multiple download requests for the same URL.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GStackableAttribute : RTRoot</LI>
+</B></FONT><FONT SIZE=2><P>Baseclass for attributes storable in a GTraversal object. Attributes can be pushed and popped from the attribute stack in GTRaversal. The current attribute can be queried. Attributes are registered at the beginning of a traversal.</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GMatrixStack</LI>
+</B></FONT><FONT SIZE=2><P>&#9;the 4*4 modelling matrix</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GglMatrixStack</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&#9;&#9;special class, handling OpenGl Matrix on push and pop</P>
+</FONT><B><FONT FACE="Arial"><LI>GTextureMatrixStack</LI>
+<OL>
+
+<LI>GglTextureMatrixStack</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&#9;&#9;special class, handling OpenGl Texture Matrix on push and pop</P>
+</FONT><B><FONT FACE="Arial"><LI>GvElement</LI>
+</B></FONT><FONT SIZE=2><P>&#9;base class for VRML nodes, needing state / stack handling</P>
+<P>&#9;VRML 2.0 greately reduces the need for stack handling</P>
+</FONT><B><FONT FACE="Arial"><LI>GvCoordinate3Element&#9;</B>VRML 1.0 Coordinate3 node</LI>
+<B><LI>GvMaterialElement&#9;</B>VRML 1.0 Material node</LI>
+<B><LI>GvglMaterialElement&#9;</B>VRML 1.0 Material node</LI>
+<B><LI>GvMaterialBindingElement&#9;</B>VRML 1.0 MateralBinding node</LI>
+<B><LI>GvTextureCoordinateBindingElement&#9;</B>VRML 1.0 TextureCoordinateBinding node</LI>
+<B><LI>GvNormalBindingElement&#9;</B>VRML 1.0 NormalBinding node</LI>
+<B><LI>GvNormalElement&#9;</B>VRML 1.0 Normal node</LI>
+<B><LI>GvShapeHintsElement&#9;</B>VRML 1.0 ShapeHints node</LI>
+<B><LI>GvglShapeHintsElement&#9;</LI>
+<LI>GvTexture2Element&#9;</B>VRML 1.0 Texture2 node</LI>
+<B><LI>GvglTexture2Element&#9;</B>VRML 1.0 Texture2 node</LI>
+<B><LI>GvTextureCoordinate2Element&#9;</B>VRML 1.0 TextureCoordinate2 node</LI>
+<B><LI>GvComplexityElement&#9;</B>Inventor Complexity node</LI>
+<B><LI>GvFontStyleElement&#9;</B>VRML 1.0 FontSytle node</LI>
+<B><LI>GvLightElement&#9;</B>Light source handling</LI>
+<B><LI>GvglLightElement&#9;</B>Light source handling for GlRender</LI>
+<B><LI>GvLightModelElement&#9;</B>Inventor LightModel node</LI>
+<B><LI>GvglLightModelElement&#9;</B>special GlRender processing</LI>
+<B><LI>GvWWWAnchorElement&#9;</B>VRML 1.0 WWWAnchor / VRML 2.0 Anchor node</LI>
+<B><LI>GvWWWInlineElement&#9;</B>VRML 1.0 WWWInline / VRML 2.0 Inline node</LI>
+<OL>
+
+<B><LI></LI></OL>
+</OL>
+
+</FONT><FONT FACE="Arial" SIZE=4><LI>GvConnection</LI>
+</B></FONT><FONT SIZE=2><P>Base class for connections, managing a connection between fields of two nodes. Mainly used to implement VRML 2.0 Routes.</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GvComEventOutObserverConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;Represents the advise callback on eventOut's, stored at field level, call the eventOutObserver callback function on trigger. </P>
+</FONT><B><FONT FACE="Arial"><LI>GvIsFieldConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;stored at field level, copy field value from field of other node at readtime</P>
+</FONT><B><FONT FACE="Arial"><LI>GvNodeMethodConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;stored at field level, call method of node on touch of field</P>
+</FONT><B><FONT FACE="Arial"><LI>GvOwnerConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;connection points to owner of object, inform owner that field has changed</P>
+<P>SFNode fields are automatically maintianing the OwnerConnection, used for node - child notification as in IndexedFaceSet - Coordinate or Sound - AudioClip.</P>
+</FONT><B><FONT FACE="Arial"><LI>GvProtoEventIsConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;needed to represent VRML 2.0 PROTO IS definition, used on PROTO instancing</P>
+</FONT><B><FONT FACE="Arial"><LI>GvProtoFieldIsConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;needed to represent VRML 2.0 PROTO IS definition</P>
+</FONT><B><FONT FACE="Arial"><LI>GvProtoIsConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;needed to represent VRML 2.0 PROTO IS definition</P>
+</FONT><B><FONT FACE="Arial"><LI>GvRouteFromConnection</LI>
+</B></FONT><FONT SIZE=2><P>&#9;Stored at  target node of  ROUTE, used to delete ROUTE connections in node destructor</P>
+</FONT><B><FONT FACE="Arial"><LI>GvRouteToConnection</LI>
+</B></FONT><FONT SIZE=2><P>Base for VRML 2.0 forward ROUTE, stored at field level</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GvNodeMethodConnection</LI>
+</B></FONT><FONT SIZE=2><P>call method of node on touch of field</P>
+
+</FONT><B><FONT FACE="Arial"><LI>GvSetFieldConnection</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>copy field value to field of other node on touch</P>
+
+</FONT><B><FONT FACE="Arial"><LI>GvScriptFunctionConnection</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>stored at field level in GvScript nodes, execute script function on touch</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GEventHandler : RTRoot</LI>
+</B></FONT><FONT SIZE=2><P>abstract object, manages Mouse interactions.</P>
+<P>EventHandlers are normally associated with a view (GView) and are performing the actual mouse event processing.</P>
+
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GPathHandler</LI>
+<OL>
+
+<LI>GTransformPathHandler</LI>
+</B></FONT><FONT SIZE=2><P>&#9;&#9;works on a Gv2Transform group</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>GMoveTransformHandler</LI>
+</B></FONT><FONT SIZE=2><P>allows translation / scale / rotation of a Gv2Transform group</P>
+</FONT><B><FONT FACE="Arial"><LI>GSensorHandler</LI></OL>
+</OL>
+</OL>
+
+</B></FONT><FONT SIZE=2><P>handles VRML sensor node</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>General helper classes</LI>
+<OL>
+
+</FONT><FONT FACE="Arial"><LI>Point&#9;&#9;3D Point and Point arithmethic</LI>
+<OL>
+
+<LI>Vector&#9;3D Vector</LI></OL>
+
+<LI>BBox&#9;&#9;3D Bounding Box and arithmetic</LI>
+<LI>Ray&#9;&#9;3D Ray</LI>
+<OL>
+
+<LI>RayRange&#9;3D Ray with range information</LI></OL>
+
+<LI>Matrix&#9;&#9;4*4 Matrix and arithmetic</LI>
+<LI>MatrixAndInverse&#9;contains a matrix and its inverse</LI>
+<LI>Quaternation&#9;quaternation for handling rotations, rotation interpolation</LI>
+<LI>QuaternationWithSpin&#9;quaternation with extra spin</LI>
+<LI>GCamera&#9;complete 3D perspective/orthographic camera specification</LI>
+<LI>GCameraInterpolator&#9;&#9;interpolates between 2 cameras</LI>
+<LI>GReporter&#9;Status, Warning, Error Reporting</LI>
+<LI>TemplateClasses</LI>
+<OL>
+
+<LI>Array&lt;Type&gt;&#9;stores a list of values (use malloc/free/realloc)</LI>
+<OL>
+
+<LI>NumericArray&lt;Type&gt;&#9;like Array&lt;Type&gt; with additional arithmetic operators</LI>
+<OL>
+
+</B><LI>PointArray&#9;Array for Point</LI>
+<LI>IntArray&#9;&#9;Array for Int</LI>
+<LI>FloatArray&#9;Array for floats</LI></OL>
+
+<B><LI>Stack</LI></OL>
+
+<LI>ArrayNew&lt;Type&gt;&#9;same as Array&lt;Type&gt; but uses new/delete for allocation</LI>
+<LI>FloatArrayAligned - float array 16 byte aligned  (Pentium III)</LI></OL>
+
+<LI>AStream&#9;&#9;ASCII Input/OuputStream</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>&#9;Replacement for fprintf/fscanf or iostream. Supports comments, tabs, indentitation and basic types.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>RenderState&#9;3D Graphics library state managment</LI>
+</B></FONT><FONT SIZE=2><P>The renderstate maintains abstractions of render mode settings, like shading mode, rendering settings, texture mapping switches, lighting state etc.</P>
+
+<P>There are currently implementations for OpenGL and Direct3D.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>VRMLScript classes</LI>
+</B></FONT><FONT SIZE=2><P>One supported script language for the VRML 2.0 Script node is VrmlScript / JavaScript.</P>
+<P>The Vs* classes originally based from SGI vrmlscript paraser are implemting this language.</P>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GView&#9;top level view class</LI></OL>
+
+</B></FONT><FONT SIZE=2><P>GView inplements the actual VRMLviewer.</P>
+
+<P>GvScene* theScene&#9;the top level scene graph rendered by this view</P>
+<P>RenderState renderState&#9;the graphical rendering contex / rendering state of this view</P>
+<P>GEventHandler *&#9;the current eventhandler for mouse processing</P>
+<P>GCamera*camera&#9;the current camera settings affected by navigation – local coordinate space</P>
+<P>GCamera*globalCamera&#9;global  camera settings – camear transformed by any transforms above viewpoint</P>
+<P>GCamera *physicalCamear  gobal camera possibly tranforemed by 3<SUP>rd</SUP> person view / stereo – used for rendering</P>
+
+<P>A view object is embedded in some platform/user interface dependent frame work like:</P>
+
+<P>&#9;-An MFC-Application (the GView object would belong to the CView derived class)</P><DIR>
+<DIR>
+
+<P>- an Active X control (the GView objects belongs do the control and does the rendering for the control)</P></DIR>
+</DIR>
+
+<P>&#9;- an Motif- Application where the GView objects would be associated with an OpenGL / drawing area widget.</P>
+
+<P>Many memberfunctions for</P>
+
+<UL TYPE="SQUARE">
+<LI>initialization / termination</LI>
+<LI>model reading</LI>
+<LI>renderstate settings / query</LI>
+<LI>traversing the scene graph</LI>
+<LI>rendering the scene graph</LI>
+<LI>passing windowing system information (OnSize, OnMove )</LI>
+<LI>collection of scene information, BoundingBox information</LI>
+<LI>viewpoint handling functions / viewpoint animation</LI>
+<LI>VRML 2.0 bounded nodes handling </LI>
+<LI>list of already loaded VRML 2.0 EXTERNPROTO url´s</LI>
+<LI>time sensor triggering </LI></UL>
+
+<OL>
+
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>Implementing new Nodes</LI>
+</B></FONT><FONT SIZE=2><P>A minimal implementation of a node new requires the following steps:</P>
+<P>Define the classheader:</P>
+</FONT><FONT FACE="Courier New" SIZE=1><P>class GvInfo : public GvNode {</P>
+
+<P>    GV_NODE_HEADER(GvInfo);</P>
+
+<P>  public:</P>
+<P>    // Fields</P>
+<P>    GvSFString&#9;&#9;string;&#9;&#9;// Info string</P>
+
+<P>};</P>
+</FONT><FONT SIZE=2>
+<P>Provide the class constructor and destructor functions:</P>
+</FONT><FONT FACE="Courier New" SIZE=1><P>//</P>
+<P>// GvInfo</P>
+<P>//</P>
+<P>GV_NODE_SOURCE_IMP(GvInfo,GvNode);</P>
+
+<P>GvInfo::GvInfo()</P>
+<P>{</P>
+<P>    GV_NODE_CONSTRUCTOR(GvInfo);</P>
+
+<P>    GV_NODE_ADD_FIELD(string);</P>
+
+<P>    string.value = "&lt;Undefined info&gt;";</P>
+<P>}</P>
+
+<P>GvInfo::~GvInfo()</P>
+<P>{</P>
+<P>}</P>
+</FONT><FONT SIZE=2>
+<P>Make the new class known for dynamic class construction in GvNode.cpp:</P>
+</FONT><FONT FACE="Courier New" SIZE=1><P>ADD_CLASS(Info);</P>
+</FONT><FONT SIZE=2>
+<P>Implementing a node which contains a scene graph requires the implementation of the</P>
+</FONT><FONT FACE="Courier New" SIZE=1>
+<P>int Do(GTraversal &amp;state;) </P>
+
+</FONT><FONT SIZE=2><P>action.</P>
+<P>Fieldtypes containing a scene graph are GvSFNode and GvMFNode, a node traversing children depending on a flag could be written as:</P>
+
+</FONT><FONT FACE="Courier New" SIZE=1><P>class GvBoolSwitch: public GvNode {</P>
+
+<P>GV_NODE_HEADER(GvBoolSwitch);</P>
+
+<P>  public:</P>
+<P>// Fields</P>
+<P>GvSFBool&#9;&#9;switch;&#9;&#9;// switch value</P>
+<P>GvMFNode&#9;&#9;children;&#9;// children</P>
+
+<P>&#9;int Do(GTraversal &amp;state);</P>
+<P>&#9;int Do(GPathTraversal &amp;state);</P>
+
+<P>};</P>
+
+<P>//</P>
+<P>// GvBoolSwitch</P>
+<P>//</P>
+<P>GV_NODE_SOURCE_IMP(GvBoolSwitch,GvNode);</P>
+
+<P>GvBoolSwitch:: GvBoolSwitch(): switch(TRUE),children(0)</P>
+<P>{</P>
+<P>GV_NODE_CONSTRUCTOR(GvBoolSwitch);</P>
+
+<P>GV_NODE_ADD_FIELD(switch);</P>
+<P>GV_NODE_ADD_FIELD(children);</P>
+
+<P>}</P>
+
+<P>GvBoolSwitch::~GvBoolSwitch()</P>
+<P>{</P>
+<P>}</P>
+
+<P>int GvBoolSwitch::Do(GTraversal &amp;state)</P>
+<P>{</P>
+<P>&#9;if (switch) return(children.Traverse(state));</P>
+<P>&#9;else return(0);</P>
+<P>}</P>
+
+<P>// for traversal action needing a path (e.g. ray select)</P>
+<P>int Gv2Switch::Do(GPathTraversal &amp;state)</P>
+<P>{</P>
+<P>&#9;int ret=-1;</P>
+<P>&#9;GPUSH_PATH(state,this);</P>
+<P>&#9;&#9;if (switch) ret = children.Traverse(state);</P>
+<P>&#9;GPOP_PATH(state);</P>
+<P>return ret;</P>
+<P>}</P>
+</FONT><FONT SIZE=2>
+<P>As defined above these classes now automatically fully support VRML import and export, dynamic field modification, dynamic node creation, inspection by tree editor and so on.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>Implementing graphical nodes</LI>
+</B></FONT><FONT SIZE=2><P>For implementing a node with a graphical representation, there are several options:</P>
+<P>The node could be derived from GvNodeShell. A GvNodeShell contains a low level graphic GShell object supporting rendering, picking, face/vertex normal computation, triangulation, collision detetection and so on.</P>
+<P>In this case the node needs to implement the </P>
+</FONT><FONT FACE="Courier New" SIZE=1>
+<P>int BuildShell(GglRenderTraversal &amp;state);</P>
+
+</FONT><FONT SIZE=2><P>action, which is computing the lowlevel graphical representation.</P>
+
+<P>&nbsp;</P>
+<P>If the node should render directly to OpenGL and Direct3D</P>
+<P>the nodes would be derived from GvNode and needs to implement the </P>
+</FONT><FONT FACE="Courier New" SIZE=1>
+<P>int Do(GglRenderTraversal &amp;state);</P>
+
+</FONT><FONT SIZE=2><P>action.</P>
+<P>The state contains a RenderState object with all current information about the current graphic state of OpenGL/Direct3D.</P>
+<P>In this case the node should probably also implement the </P>
+</FONT><FONT FACE="Courier New" SIZE=1>
+<P>int Do(GRaySelectTraversal &amp;state);</P>
+
+</FONT><FONT SIZE=2><P>action, for beeing able to pick the object with the mouse.</P>
+
+<P>A third way is to derive from an already defined geometric node like Gv2Sphere etc, or by constructing a node containing graphical child nodes.</P>
+
+<P>Examples:</P>
+<P>See GvSphere or Gv2Sphere implementation.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>GLView MFC Browser Implementation</LI>
+<LI>CMyglView : CView (MFC)</LI>
+</B></FONT><FONT SIZE=2><P>The GLView browser for Windows/95 Windows NT supports a MFC (Microsoft Foundation Classes) user interface.</P>
+<P>The MFC model is based on the main class application, document and view.</P>
+<P>The view class derived from the MFC CView class is called CMyglView. CMyglView contains a GView object,</P>
+<P>the GView object actually implements most viewer functionality like changing display mode, loading scenes,</P>
+<P>changing the camera.</P>
+<P>MFC Menuactions are associated with CMyglView memberfunctions. The implementation acutally calls GView member functions.  The same applies to "OnDraw", "OnSize" messages etc.</P>
+
+<P>So the user interface (MFC) is separated from Viewer and database functionality.</P>
+
+<P>All curent GLView dialogs (D* classes) are interacting with the MFC-View or with the GView object.</P>
+<P>There are many dialogs, including a simple MaterialEditor, a visual Node tree browser and inspector.</P>
+
+<P>Porting GLView to a not MFC-frame work would only require a rewrite of the MFC-UI Part (Window creationg, Menu-Callback structure).</P>
+
+<P>&nbsp;</P>
+<P>GLView API-Examples:</P>
+<OL>
+
+</FONT><B><FONT FACE="Arial"><LI>Implementing the VRML 1.0 cube node:</LI></OL>
+
+</B></FONT><FONT SIZE=2>
+<P>&nbsp;</P>
+</FONT><FONT FACE="Courier New" SIZE=1><P>class GvCube : public GvNodeShell</P>
+<P>{</P>
+
+<P>    GV_NODE_HEADER(GvCube);</P>
+
+<P>  public:</P>
+<P>    // Fields</P>
+<P>    GvSFFloat&#9;&#9;width;&#9;&#9;// Size in x dimension</P>
+<P>    GvSFFloat&#9;&#9;height;&#9;&#9;// Size in y dimension</P>
+<P>    GvSFFloat&#9;&#9;depth;&#9;&#9;// Size in z dimension</P>
+
+<P>&#9;int BuildShell(GTraversal &amp;state);</P>
+<P>&#9;int Do(GBBoxTraversal &amp;state);</P>
+<P>};</P>
+
+<P>int&#9;&#9;&#9;</P>
+<P>GvCube::BuildShell(GTraversal &amp;state)</P>
+<P>{</P>
+<P>   SetShell(NewBox(-width*0.5,-height*0.5,-depth*0.5,width,height,depth));</P>
+<P>   return(1);</P>
+<P>}</P>
+<P>// do boundingbox </P>
+<P>int GvCube::Do(GBBoxTraversal &amp;state)</P>
+<P>{</P>
+<P>  BBox box;</P>
+
+<P>  box.mi.Set(-width*0.5,-height*0.5,-depth*0.5);</P>
+<P>  box.ma.Set(width*0.5,height*0.5,depth*0.5);</P>
+<P>  state.Union(box);</P>
+<P>  return(1);</P>
+<P>}</P>
+</FONT><FONT SIZE=2>
+<P>&nbsp;</P>
+<P>Add node to node table in GvNode.cpp</P>
+</FONT><FONT FACE="Courier New" SIZE=1><P>ADD_CLASS(Cube);</P>
+</FONT><FONT SIZE=2>
+<P>Because it is easy to compute the bounding box, Do(GBBoxTraversal &amp;state) is also implemented, otherwise it would be handled by the GShell object in GvNodeShell. GRaySelectTraversal is handling by GvNodeShell on the computed shell object.</P>
+<P>NewBox is a little bit more code, because in VRML a box the vertex of each of the 6 faces needs a separate texture parameters :</P>
+</FONT><FONT FACE="Courier New" SIZE=1><P>// Make a box</P>
+<P>// Each face shares vertices, but has</P>
+<P>// separate normals</P>
+<P>// and is indepently textured to unit square</P>
+
+<P>GShellI * NewBox(float atx, float aty,float atz,</P>
+<P>&#9;&#9;&#9;&#9;&#9;&#9;float dx,float dy,float dz,GShellI *cube)</P>
+<P>{</P>
+<P>   Point _p[8];</P>
+<P>   Point params[4];</P>
+<P>   int p,i,j,k;</P>
+<P>   float x,y,z;</P>
+
+<P>   p= 0;</P>
+<P>   for (k=0;k&lt;=1;k++) {</P>
+<P>&#9;&#9; z=atz+dz*float(k);</P>
+<P>&#9;&#9; for (i=0;i&lt;=1;i++) {</P>
+<P>&#9;&#9;&#9;&#9;y=aty+float(i)*dy;</P>
+<P>&#9;&#9;&#9;&#9;for (j=0;j&lt;=1;j++) {</P>
+<P>&#9;&#9;&#9;&#9;  x=atx+float(j)*dx;</P>
+<P>&#9;&#9;&#9;&#9;  {</P>
+<P>&#9;&#9;&#9;&#9;&#9;_p[p].Set(x,y,z);</P>
+<P>&#9;&#9;&#9;&#9;  }</P>
+<P>&#9;&#9;&#9;&#9;  p++;</P>
+<P>&#9;&#9;&#9;&#9;}</P>
+<P>&#9;&#9; } /*  i */</P>
+<P>   }</P>
+<P>   if (!cube)</P>
+<P>&#9;&#9;  cube = new GShellI;</P>
+
+<P>   GVertexI *v = new GVertexI[4*6];</P>
+<P>   int *flist = new int [5*6];</P>
+
+<P>   int *flistp=flist;</P>
+<P>   const int *fp =cube_connectivity;</P>
+<P>   int f,vi=0;</P>
+<P>   for (f=0; f&lt;6; f++) {</P>
+
+<P>&#9;&#9; *flistp++ = *fp++;</P>
+<P>&#9;&#9; for(i=0; i&lt;4;i++) {</P>
+<P>&#9;&#9;&#9;&#9;v[vi].v = *fp++;&#9;&#9;// share v</P>
+<P>&#9;&#9;&#9;&#9;v[vi].n = vi;&#9;&#9;&#9;// separate vn</P>
+<P>&#9;&#9;&#9;&#9;v[vi].p = i;&#9;&#9;&#9;// separate parameter</P>
+<P>&#9;&#9;&#9;&#9;v[vi].c = v[vi].v;&#9;&#9;// color</P>
+<P>&#9;&#9;&#9;&#9;*flistp ++ = vi;</P>
+<P>&#9;&#9;&#9;&#9;vi++;</P>
+<P>&#9;&#9; }</P>
+<P>   }</P>
+
+<P>   params[0].Set(1.0,0.0,0.0);</P>
+<P>   params[1].Set(1.0,1.0,0.0);</P>
+<P>   params[2].Set(0.0,1.0,0.0);</P>
+<P>   params[3].Set(0.0,0.0,0.0);</P>
+
+<P>   cube-&gt;SetV(8,_p);</P>
+<P>   cube-&gt;SetVN(4*6,(Point *)NULL);</P>
+<P>   cube-&gt;SetVP(4,params);</P>
+<P>   cube-&gt;SetVertices(vi,v);</P>
+<P>   cube-&gt;SetFN(6,(Point *)NULL);</P>
+<P>   delete v;</P>
+
+<P>&nbsp;</P>
+<P>   cube-&gt;SetFaceList(flistp-flist,flist);</P>
+
+<P>delete flist;</P>
+
+<P>   return (cube);</P>
+<P>}</P>
+<P>static int cube_connectivity[] = {</P>
+<P>&#9;&#9;// face length, vertex indices</P>
+<P>&#9;&#9;4,0,2,3,1,</P>
+<P>&#9;&#9;4,1,3,7,5,</P>
+<P>&#9;&#9;4,5,7,6,4,</P>
+<P>&#9;&#9;4,4,6,2,0,</P>
+<P>&#9;&#9;4,7,3,2,6,</P>
+<P>&#9;&#9;4,1,5,4,0 };</P>
+
+</FONT><FONT SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><LI>Creation of a VRML 2.0 scene, containing a grid of moving spheres </LI></OL>
+<DIR>
+
+</B></FONT><FONT FACE="Courier New" SIZE=1><P>/*</P>
+<P>  create a VRML 2.0 scene containing a grid of moving spheres</P>
+<P>*/</P>
+
+<P>&nbsp;</P>
+<P>GvScene *newSphereGrid()</P>
+<P>{</P>
+
+<P>&#9;// size of grid </P>
+<P>&#9;int xcnt=5; // 7 </P>
+<P>&#9;int ycnt=xcnt;</P>
+
+<P>&#9;float dx = 2.0 / xcnt;</P>
+<P>&#9;float dy = 2.0 / xcnt;</P>
+
+<P>&#9;int ncolors=3;</P>
+<P>&#9;Point colors[3];</P>
+
+<P>&nbsp;</P>
+<P>&#9;int ntextures = 3;</P>
+
+<P>&#9;char *textures[] = {</P>
+<P>&#9;&#9;&#9;&#9;&#9; "mandrill.bmp",</P>
+<P>&#9;&#9;&#9;&#9;&#9; "brick.rgb",</P>
+<P>&#9;&#9;&#9;&#9;&#9; ""</P>
+<P>&#9;&#9;&#9;};</P>
+
+<P>&nbsp;</P>
+<P>&#9;colors[0].Set(0.9, 0.4, 0.3);</P>
+<P>   colors[1].Set(0.372549, 0.247059, 0.878431);</P>
+<P>&#9;colors[2].Set(0.882353, 0.439216, 0.000000);</P>
+<P>&#9;</P>
+<P>&#9;Point pmin(-1,-1,0);</P>
+<P>&#9;Point pmax(1,1,0);</P>
+<P>&#9;Point jitterR;</P>
+<P>&#9;Point p;</P>
+<P>&#9;int i;</P>
+<P>&#9;</P>
+<P>&#9;jitterR.Set(dx * 0.5, dy * 0.5, 2*dx); // the amount each particles move about center</P>
+
+<P>&#9;// create top leve scene object </P>
+<P>&#9;GvScene *scene = new GvScene;</P>
+<P>&#9;Gv2Sphere *object = new Gv2Sphere();</P>
+<P>&#9;GvTimeSensor *timeSensor = new GvTimeSensor();</P>
+
+<P>&#9;// create 3 VRML 2.0 materials for the 3 colors above</P>
+<P>&#9;Gv2Material * material[3];</P>
+<P>&#9;for (i=0; i&lt;ncolors; i++) {</P>
+<P>&#9;&#9;material[i] = new Gv2Material();</P>
+<P>&#9;&#9;material[i]-&gt;diffuseColor.set(colors[i]);</P>
+<P>&#9;&#9;material[i]-&gt;specularColor.set(Point(1.0,1.0,1.0));</P>
+<P>&#9;}</P>
+
+<P>&#9;// create 3 VRML 2.0 image textures</P>
+<P>&#9;GvImageTexture *texture[3];</P>
+
+<P>&#9;for (i=0; i&lt;ntextures; i++) {</P>
+<P>&#9;&#9;texture[i]= new GvImageTexture();</P>
+<P>&#9;&#9;//texture[i]-&gt;url.set(textures[i]);</P>
+<P>&#9;}</P>
+
+<P>&#9;// create VRML 2.0 appearance nodes using the above materials </P>
+<P>&#9;int napps = ncolors; </P>
+<P>&#9;GvAppearance *appearance[3];</P>
+
+<P>&#9;for (i=0; i&lt;ncolors; i++) {</P>
+<P>&#9;&#9;appearance[i]= new GvAppearance();</P>
+<P>&#9;&#9;appearance[i]-&gt;texture.set(texture[1]);</P>
+<P>&#9;&#9;appearance[i]-&gt;material.set(material[i]);</P>
+
+<P>&#9;}</P>
+<P>&#9;</P>
+<P> </P>
+<P>&#9;object-&gt;radius.set(dx *0.6) ; </P>
+
+<P>&#9;scene-&gt;vrml2.set(TRUE);</P>
+
+<P>&nbsp;</P>
+<P>&#9;// create a grid of objects </P>
+<P>&#9;int x,y;</P>
+<P>&#9;for (y=0; y&lt;ycnt; y++) {</P>
+<P>&#9;for (x=0; x&lt;xcnt; x++) {</P>
+<P>&#9;&#9;p= pmin;</P>
+<P>&#9;&#9;p.x += x * dx;</P>
+<P>&#9;&#9;p.y += y * dy;</P>
+
+<P>&#9;&#9;// create a transform node containing the moving shape</P>
+<P>&#9;&#9;Gv2Transform *t = new Gv2Transform();</P>
+
+<P>&#9;&#9;// vrml 2.0 needs a shape node containing the geometry and appearance nodes</P>
+<P>&#9;&#9;GvShape *s= new GvShape();</P>
+<P>&#9;&#9;// geometry is the reference to the sphere</P>
+<P>&#9;&#9;s-&gt;geometry.set(object);</P>
+<P>&#9;&#9;// choose among the appearances</P>
+<P>&#9;&#9;s-&gt;appearance.set(appearance[rnd(napps)]);</P>
+<P>&#9;&#9;// set the translation of the object</P>
+<P>&#9;&#9;t-&gt;translation.set(p);</P>
+<P>&#9;&#9;// add the shape</P>
+<P>&#9;&#9;t-&gt;addChild(s);</P>
+
+<P>&#9;&#9;// create a position interpolator</P>
+<P>&#9;&#9;GvPositionInterpolator *pi = new GvPositionInterpolator();</P>
+<P>&#9;&#9;PointArray vals;</P>
+<P>&#9;&#9;FloatArray keys;</P>
+<P>&#9;&#9;int njumps = 30;</P>
+
+<P>&#9;&#9;// compute keyframes for some movement</P>
+<P>&#9;&#9;int period = 10;</P>
+<P>&#9;&#9;for (int i=0; i&lt;= njumps; i++) {</P>
+<P>&#9;&#9;&#9;Point px;</P>
+<P>&#9;&#9;&#9;if (i%6 ==0) px= p;</P>
+<P>&#9;&#9;&#9;else if (i == njumps) px= p;</P>
+<P>&#9;&#9;&#9;else if (i%period == 2) px = p*1.5; </P>
+<P>&#9;&#9;&#9;else if (i%period == 4) px = p*0.5; </P>
+<P>&#9;&#9;&#9;else if (i%period == 6) px = p_sphere( (float) x / (xcnt-1),(float) y / (ycnt-1),1.3);</P>
+<P>&#9;&#9;&#9;else if (i%period == 8) px = p_circle(  (float) (y * (xcnt-1) + x) / ((xcnt-1) * (ycnt -1)),1.5);</P>
+
+<P>&#9;&#9;&#9;else px = p + jitter(jitterR);</P>
+<P>&#9;&#9;&#9;// add a keyframe</P>
+<P>&#9;&#9;&#9;vals.Append(px);</P>
+<P>&#9;&#9;&#9;keys.Append( (float) i /  njumps);</P>
+<P>&#9;&#9;}</P>
+
+<P>&#9;&#9;pi-&gt;keyValue.set(vals);</P>
+<P>&#9;&#9;pi-&gt;key.set(keys.Length(),keys.Data());</P>
+<P>&#9;&#9;t-&gt;addChild(pi);</P>
+
+<P>&#9;&#9;// add the prepared transform to the scene</P>
+<P>&#9;&#9;scene-&gt;addChild(t);</P>
+<P>&#9;&#9;// connect the output from the position interpolator to the translation field of the transform&#9;&#9;</P>
+<P>&#9;&#9;scene-&gt;addRoute(pi,pi-&gt;getFieldIndex(&amp;pi-&gt;value),t,t-&gt;getFieldIndex(&amp;t-&gt;translation));</P>
+<P>&#9;&#9;</P>
+<P>&#9;&#9;// connect the output from the timer to the fraction_changed innput of the timesensor</P>
+<P>&#9;&#9;scene-&gt;addRoute(timeSensor,timeSensor-&gt;getFieldIndex(&amp;timeSensor-&gt;fraction),</P>
+<P>&#9;&#9;&#9;pi,pi-&gt;getFieldIndex(&amp;pi-&gt;fraction));</P>
+<P>&#9;}</P>
+<P>&#9;}</P>
+
+<P>&#9;// set timesensor parameters</P>
+<P>&#9;timeSensor-&gt;loop.set(TRUE);&#9;&#9;// loop for ever</P>
+<P>&#9;timeSensor-&gt;cycleInterval.set(25);&#9;// 25 secs is one interval</P>
+<P>&#9;timeSensor-&gt;startTime.set(1);&#9;// start time at beginning of scene</P>
+<P>&#9;scene-&gt;addChild(timeSensor);&#9;</P>
+<P>&#9;</P>
+<P>&#9;// thats it, scene references all created nodes</P>
+
+<P>&#9;return scene;</P>
+
+<P>}</P>
+
+<P>&nbsp;</P></DIR>
+</FONT></BODY>
+</HTML>

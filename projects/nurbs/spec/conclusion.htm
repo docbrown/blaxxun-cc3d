@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>Document Title</TITLE>
+</HEAD>
+<BODY>
+
+<h1>
+<a name="conclusion">Conclusion</a></h1>
+<blockquote><a href="#comparison">Nurbs versus Meshes</a>
+<br><a href="#subdivision">Subdivision of Surfaces</a></blockquote>
+
+<h2>
+<a NAME="comparison"></a>NURBS versus multi-resolution Meshes</h2>
+Multi-resolution meshes (MRM) like NURBS have the genereal capability of
+performance adaptability.
+<br>From our point of view NURBS are having the following benefits over
+MRM:
+<br>- Compact definition of&nbsp; NURBS, a MRM need to download all the
+discrete data for all levels.
+<br>- Infinite Smoothnees, MRM can only refine and display up to the defined/downloaded
+mesh data
+<br>- Animation of a few controlpoints are animating a significant part
+of the surface, we assume that MRM are difficult or costly to animate
+<br>- Computer generated Model may have already be designed using NURBS,
+so NURBS would be the natural data format
+<p>MRM could have the following benefits:
+<br>- storage of existing triangular mesh data or storage for 3D scanned
+objects
+<br>- does not require NURBS quadrilateral patch structure
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+<a NAME="subdivision"></a>Subdivision Surfaces</h2>
+Another technique, related to Bezier&nbsp; surfaces are subdivision surfaces.
+Subdivion surfaces like Catmull-Clark are using a general Polygonal Mesh
+similar to the VRML IndexedFaceSet as controlling mesh, instead of using
+a grid of control vertices. The surface can approximate or interpolate
+this control mesh.
+<p>The additional benefits to NURBS are that arbitrary topology meshes
+are serving as control geometry. Subdivision Surfaces could be an ideal
+replacement for&nbsp; Trimmed NURBSurface support.
+<br>The controlling mesh can be locally refined, a NURBS surface requires
+a new row or colum of control vertices for refinement.
+</BODY>
+</HTML>

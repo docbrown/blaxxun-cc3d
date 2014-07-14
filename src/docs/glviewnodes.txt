@@ -1,0 +1,563 @@
+==============================================================
+GLView version 2.08  24.04.65
+3D OpenGL Viewer for Windows NT 3.51, 4.0 / 95
+
+http://www.snafu.de/~hg/
+
+hg@berlin.snafu.de
+100575.266@compuserve.com
+
+==============================================================
+
+GLViewNodes.txt
+
+General info on VRML 1.0 file format :
+http://vag.vrml.org/vrml10c.html
+
+
+New 2.08 Nodes
+
+ElevationGrid
+==============
+from VRML 2.0 spec :
+    http://vag.vrml.org/vrml10c.html
+
+This node creates a rectangular grid of varying height, especially useful in modeling terrain.
+The model is primarily described by a scalar array of height values that specify the height of
+the surface above each point of the grid. 
+
+The verticesPerRow and verticesPerColumn fields indicate the number of grid points in the
+X and Z directions, respectively, defining a grid of (verticesPerRow-1) x
+(verticesPerColumn-1) rectangles. (Note that the number of columns of vertices is defined
+by verticesPerRow and the number of rows of vertices is defined by verticesPerColumn.
+Rows are numbered from 0 through verticesPerColumn-1; columns are numbered from 0
+through verticesPerRow-1.) 
+
+The vertex locations for the rectangles are defined by the height field and the gridStep field:
+
+     The height field is an array of scalar values representing the height above the grid for
+     each vertex. The height values are stored so that row 0 is first, followed by rows 1, 2, ...
+     verticesPerColumn-1. Within each row, the height values are stored so that column 0 is
+     first, followed by columns 1, 2, ... verticesPerRow-1. 
+     The gridStep field contains two values in the form of an SFVec2f field: gridStep[0]
+     indicates the distance between columns, and gridStep[1] indicates the distance between
+     rows. 
+
+Thus, the vertex corresponding to the ith row and jth column is placed at 
+
+( gridStep[0] * j, heights[ i*verticesPerRow + j ], gridStep[ 1 ] * i ) 
+
+in object space, where 
+
+0 <= i < verticesPerColumn, and 
+
+0 <= j < verticesPerRow. 
+
+All points in a given row have the same Z value, with row 0 having the smallest Z value. All
+points in a given column have the same X value, with column 0 having the smallest X value. 
+
+The default texture coordinates range from [0,0] at the first vertex to [1,1] at the far side of
+the diagonal. The S texture coordinate will be aligned with X, and the T texture coordinate
+with Z. 
+
+
+
+ElevationGrid {
+  field        SFInt32  verticesPerColumn 0
+  field        SFInt32  verticesPerRow    0
+  field        SFVec2f  gridStep          [ 1 1 ]
+  field        MFFloat  height            [ ]
+}
+
+ShapeHints + per vertex material bindings can be applied as usual in VRML 1.0
+
+See Landscape.java as an example on how to create an elevation Grid.
+
+
+
+
+Extrusion (Vrml 2.0 Node)
+-------------------------
+from VRML 2.0 spec :
+    http://vag.vrml.org/vrml10c.html
+
+
+Extrusion
+
+The Extrusion node is used to define shapes based on a two dimensional cross
+section extruded along a three dimensional spine. The cross section can be scaled
+and rotated at each spine point to produce a wide variety of shapes. 
+
+An Extrusion is defined by a 2D crossSection piecewise linear curve (described
+as a series of connected vertices), a 3D spine piecewise linear curve (also
+described as a series of connected vertices), a list of 2D scale parameters, and a
+list of 3D orientation parameters. Shapes are constructed as follows: The
+cross-section curve, which starts as a curve in the XZ plane, is first scaled about
+the origin by the first scale parameter (first value scales in X, second value scales
+in Z). It is then rotated about the origin by the first orientation parameter, and
+translated by the vector given as the first vertex of the spine curve. It is then
+extruded through space along the first segment of the spine curve. Next, it is
+scaled and rotated by the second scale and orientation parameters and extruded
+by the second segment of the spine, and so on. 
+
+A transformed cross section is found for each joint (that is, at each vertex of the
+spine curve, where segments of the extrusion connect), and the joints and
+segments are connected to form the surface. No check is made for
+self-penetration. Each transformed cross section is determined as follows: 
+
+  1.Start with the cross section as specified, in the XZ plane. 
+  2.Scale it about (0, 0, 0) by the value for scale given for the current joint. 
+  3.Apply a rotation so that when the cross section is placed at its proper location
+     on the spine it will be oriented properly. Essentially, this means that the cross
+     section's Y axis (up vector coming out of the cross section) is rotated to align
+     with an approximate tangent to the spine curve. 
+
+     For all points other than the first or last: The tangent for spine[i] is found by
+     normalizing the vector defined by (spine[i+1] - spine[i-1]). 
+
+     If the spine curve is closed: The first and last points need to have the same
+     tangent. This tangent is found as above, but using the points spine[0] for
+     spine[i], spine[1] for spine[i+1] and spine[n-2] for spine[i-1], where
+     spine[n-2] is the next to last point on the curve. The last point in the curve,
+     spine[n-1], is the same as the first, spine[0]. 
+
+     If the spine curve is not closed: The tangent used for the first point is just the
+     direction from spine[0] to spine[1], and the tangent used for the last is the
+     direction from spine[n-2] to spine[n-1]. 
+
+     In the simple case where the spine curve is flat in the XY plane, these
+     rotations are all just rotations about the Z axis. In the more general case
+     where the spine curve is any 3D curve, you need to find the destinations for
+     all 3 of the local X, Y, and Z axes so you can completely specify the rotation.
+     The Z axis is found by taking the cross product of 
+
+     (spine[i-1] - spine[i]) and (spine[i+1] - spine[i]). 
+
+     If the three points are collinear then this value is zero, so take the value from
+     the previous point. Once you have the Z axis (from the cross product) and the
+     Y axis (from the approximate tangent), calculate the X axis as the cross
+     product of the Y and Z axes. 
+
+  4.Given the plane computed in step 3, apply the orientation to the cross-section
+     relative to this new plane. Rotate it counter-clockwise about the axis and by
+     the angle specified in the orientation field at that joint. 
+  5.Finally, the cross section is translated to the location of the spine point. 
+
+Surfaces of revolution: If the cross section is an approximation of a circle and the
+spine is straight, then the Extrusion is equivalent to a surface of revolution, where
+the scale parameters define the size of the cross section along the spine. 
+
+Cookie-cutter extrusions: If the scale is 1, 1 and the spine is straight, then the
+cross section acts like a cookie cutter, with the thickness of the cookie equal to
+the length of the spine. 
+
+Bend/twist/taper objects: These shapes are the result of using all fields. The spine
+curve bends the extruded shape defined by the cross section, the orientation
+parameters twist it around the spine, and the scale parameters taper it (by scaling
+about the spine). 
+
+Extrusion has three parts: the sides, the beginCap (the surface at the initial end of
+the spine) and the endCap (the surface at the final end of the spine). The caps
+have an associated SFBool field that indicates whether it exists (TRUE) or doesn't
+exist (FALSE). 
+
+When the beginCap or endCap fields are specified as TRUE, planar cap surfaces
+will be generated regardless of whether the crossSection is a closed curve. (If
+crossSection isn't a closed curve, the caps are generated as if it were -- equivalent
+to adding a final point to crossSection that's equal to the initial point. Note that an
+open surface can still have a cap, resulting (for a simple case) in a shape
+something like a soda can sliced in half vertically.) These surfaces are generated
+even if spine is also a closed curve. If a field value is FALSE, the corresponding
+cap is not generated. 
+
+Extrusion automatically generates its own normals. Orientation of the normals is
+determined by the vertex ordering of the triangles generated by Extrusion. The
+vertex ordering is in turn determined by the crossSection curve. If the
+crossSection is drawn counterclockwise, then the polygons will have
+counterclockwise ordering when viewed from the 'outside' of the shape (and vice
+versa for clockwise ordered crossSection curves). 
+
+Texture coordinates are automatically generated by extrusions. Textures are
+mapped like the label on a soup can: the coordinates range in the U direction from
+0 to 1 along the crossSection curve (with 0 corresponding to the first point in
+crossSection and 1 to the last) and in the V direction from 0 to 1 along the spine
+curve (again with 0 corresponding to the first listed spine point and 1 to the last).
+When crossSection is closed, the texture has a seam that follows the line traced
+by the crossSection's start/end point as it travels along the spine. If the endCap
+and/or beginCap exist, the crossSection curve is cut out of the texture square and
+applied to the endCap and/or beginCap planar surfaces. The beginCap and
+endCap textures' U and V directions correspond to the X and Z directions in
+which the crossSection coordinates are defined. 
+
+Extrusion {
+  MFVec3f    spine            
+  MFVec2f    crossSection     
+  MFVec2f    scale            
+  SFBool     beginCap         TRUE
+  SFBool     endCap           TRUE
+}
+
+
+
+ColorGradient
+-------------
+
+ColorGradient is a modifier property node.
+
+Vertex colors of lower level geometry nodes are computed from the
+geometry vertex values.
+
+Colors are automatically animated during rendering if cylce is set to 
+TRUE;
+
+
+ColorGradient {
+    enum Axis {
+        X           // use x value of geometry coordinate
+        Y           // use y value
+        Z           // use z value
+        RADIAL2     // compute distance from point to origin in xy plane
+        RADIAL,     //   "                      "  to origin
+        SINXY       // sin(x) * sin(y)
+    };
+
+    MFColor colors;    // a table of colors for cycling through
+    MFFloat keys;      // optional key frame values, default [] // to be done
+    SFEnum  axis;      // the axis or coordinate to use as source parameter, default Y
+   
+
+    SFBool cycle;      // if true, parametrizations is cylcled by the nodes current time frame. default : false
+    
+    SFFloat scaleFactor;  // a optional scale factor for input value, default: 1.0
+}
+
+
+Example :
+Colored*.wrl
+
+Separator {
+    ColorGradient {
+    }
+    ...
+    IndexedFaceSet { ...}
+}
+
+
+
+
+GLView 2.05 VRML node extensions
+
+Additional fields to VRML 1.0 nodes
+===================================
+
+
+WWWInline
+---------
+fileName can point to a local file.
+Fileformats/extensions wrl, vrml, raw, geo and 3dv are supported
+
+
+WWWAnchor
+---------
+additional field 
+    description     ""      #SFString
+
+
+name "#cameraname" will jump to a defined camera in the scene
+
+
+QvAsciiText
+-----------
+additional fields for 3D extruded text
+    extrusion           #MFVec3f        extrusion path
+    parts               #SFBitMask      Visible parts of extrusion
+    invertScale         #SFVec2f        size of invertion box
+
+Parts = ALL | SIDES|TOP|BOTTOM|INVERT
+
+For extruded text the value for extrusion should be [0 0 0, 0 0 DEPTH] where DEPTH is the
+desired depth of the extrusion. 
+
+Standard attribute width of AsciiText is not implemented.
+
+if parts has the INVERT property explicitely set, GLView compute a 2d bounding box for text,
+scales this box by invertScale and subtracts the text from this box, to create a "inverted"
+string.
+
+
+Example: GLViewLogo.wrl Logo*.wrl
+
+TextFont
+    the font name can specify an arbitrary Windows True Type font.
+
+
+Common Node Extensions
+======================
+BaseColor {
+    rgb     0.8 0.8 0.8         #MFColor
+}
+
+Replaces the diffuse part of the current material
+
+
+New experimental Nodes:
+=======================
+
+
+Rotor
+-----
+Rotor {
+    rotation 0 0 1 TWOPI    #SFRotation  Rotation axis and value
+    speed 1.0           #SFFloat     Rotation speed
+    on TRUE             #SFBool      enable/disable switch
+    offset  0           #SFFloat        additional offset 
+}
+Derived from Rotation:
+Applies a rotation depending on time. For the above values 
+a 360 degree rotation during one time step will be applied.
+
+Animation starts using the Render->Time->Start button.
+
+
+Shuttle
+-------
+Shuttle {
+    translation0 0 0 0      #SFSVec3f    Translation value 0
+    translation1 0 0 0      #SFSVec3f    Translation value 1
+    speed   1.0             #SFFloat     speed
+    on  TRUE                #SFBool      enable/disable switch
+}
+Derived from Translation
+Applies a translation from translation0 to translation1 depending on time.
+
+
+Blinker
+-------
+Blinker {
+    speed       1.0         #SFFloat     speed (time scale)
+    offset      0.0         #SFFloat     time offset 
+    on          TRUE        #SFBool      enable/disable switch
+    upto        FALSE       #SFBool      traverse from children 0 upto current if TRUE
+    
+    ... List of Nodes
+}
+Derived from Switch
+
+Traverses childs depending on time. Cycles through all children in one time step. The global time
+is transformed to localTime = globalTime * speed + offset. If the Blinker has only one child,
+the child is toggled on and off.
+
+Blinker can be used to blink different childs with geometry, but could also blink some
+properties like Material, Texture2, Transforms and so on.
+To create a simple video animation create a node like 
+
+    Blinker {
+        Texture2{}
+        Texture2{}
+        Texture2{}
+    }
+
+Blinking of Coordinate3, TextureCoordinate2, Material nodes with local Materialbindings,
+Normals is currently not supported.
+
+
+TextureRotor
+------------
+
+TextureRotor {
+    rotation 0 0 1 TWOPI    #SFRotation  Rotation axis and value
+    speed       1.0         #SFFloat     Rotation speed
+    on          TRUE        #SFBool      enable/disable switch
+    offset      0           #SFFloat     additional offset 
+}
+Similar to Rotor, TextureRotor applies a time dependent rotation for the texture transformation.
+
+
+TextureShuttle
+--------------
+TexturShuttle {
+    translation0 0 0 0      #SFSVec3f    Translation value 0
+    translation1 0 0 0      #SFSVec3f    Translation value 1
+    speed   1.0             #SFFloat     speed
+    on  TRUE                #SFBool      enable/disable switch
+}
+
+Derived from Translation
+Similar to Shuttle, TextureShuttle applies a translation  of texture coordinate space 
+from translation0 to translation1 depending on time.
+
+Example Files :
+Rot*.wrl
+
+All the above nodes can put before geometry nodes as you normally would use
+the correspoding Scale Translation Rotation nodes. There is no limit on then number
+of combined nodes.
+To rotate about a specific point use a sequence like
+        Translation { ...)
+        Rotor {... }
+        Translation { ...)
+
+
+TimeTransform
+-------------
+TimeTransform {
+    function    TRANSFORM   # SFEnum time  mapping function
+    translation 0.0         # SFFloat Translation vector
+    scaleFactor 1.0         # SFFloat Scale factor
+    }
+
+Function {
+    TRANSFORM,
+    IDENTITY,
+    CLAMP,
+    CYCLE,
+    WRAP,
+
+    MIRROR,
+    SIN,
+    SQR,
+    CUB,
+    RND,
+    EASE_IN_OUT
+    }
+
+
+Example HGJumpWorld.wrl
+
+The TimeTransform property transforms the local time space for the following childs of the
+current separator.
+
+
+For reference here the actual time transform implementation functions are listed:
+
+static float f_tria(float x)
+{ if (x<=0.0) return (0);
+  if (x>=1.0) return (0.0);
+  if (x<=0.5) return (x*2.0);
+  return(1.0- (x-0.5)*2.0);
+}
+static float f_lin_i(float x) { return(1.0-x); }
+
+static float f_linclamp(float x)
+{ if (x<=0.0) return (0.0);
+  if (x>=1.0) return (1.0);
+  return(x);
+}
+
+static float f_rect(float x)
+{ if (x<0.5) return (0.0);
+  return(1.0);
+}
+
+static float f_saw(float x)
+{ float t0=0.3333333333;
+  float t1=2*t0;
+  float dt=t1-t0;
+  if (x<t0) return (0.0);
+  if (x>=t1) return (0.0);
+  /* triangle */
+  if (x<=0.5) return ((x-t0)/ (0.5-t0));
+  return(1.0- (x-0.5)/(t1-0.5));
+}
+
+
+static float f_sqr(float x) { return(x*x); }
+static float f_cub(float x) { return(x*x*x); }
+static float f_sin(float x) { return(sin(x*PI)); }
+static float f_smooth(float x) { return((-cos(x*PI)+1)*0.5); }
+static float f_rnd(float x) { return((float)rand() / (float)RAND_MAX); }
+
+
+float QvTimeTransform::Transform(GTraversal &state, float t)
+{
+
+  switch (function) {
+  case TRANSFORM : return(translation+t*scaleFactor);
+  case CLAMP : return(translation+f_linclamp(t/scaleFactor)*scaleFactor);
+  case CYCLE : return(translation+f_tria(t/scaleFactor)*scaleFactor);
+  case WRAP : return(translation+fmod(t,scaleFactor));
+
+  case MIRROR : return(translation+f_lin_i(t/scaleFactor)*scaleFactor);
+  
+  case SIN : return(translation+f_sin(t/scaleFactor)*scaleFactor);
+  case SQR : return(translation+f_sqr(t/scaleFactor)*scaleFactor);
+  case CUB : return(translation+f_tria(t/scaleFactor)*scaleFactor);
+  case RND : return(translation+f_rnd(t/scaleFactor)*scaleFactor);
+
+  case EASE_IN_OUT : return(translation+f_smooth(t/scaleFactor)*scaleFactor);
+
+  default : return(t);
+  }
+  return(t);
+}
+
+
+Some Nodes like Blinker, Rotor are implemented in Inventor too, but may be differently
+implemented. 
+
+
+Morph
+-----
+Morph {
+    type        SPHERE      #SFEnum     type of morphing 
+    on          TRUE        #SFBool     enable/disable switch
+    ....
+    ....
+    Separator {
+                ... somewhere a indexedFaceSet
+
+        }
+}
+
+Morph changes the coordinates of child shape nodes depending on time.
+Morph parameters of the first morph node in the scene can be edited using Tools->Morph.
+
+Morph {
+    type        SPHERE      #SFEnum     type of morphing 
+
+    enum MorphType {
+        NONE,
+        MELT,
+        SPHERE,
+        CYLINDER,
+        CONE,
+        BOX,
+        HANTEL,
+        WAVE,
+        WAVING,
+        SWIRL,
+        PINCH,
+        TAPER,
+        TWIST,
+        BEND
+    }
+
+   // animation control values      
+   SFFloat  speed;  // speed factor, default 1.0
+   SFBool    on;    // enable switch, default TRUE  
+   SFBool    cycle;  // cycle time internally back / forth, default TRUE
+
+   SFFloat   t0;    // morph only in this intervall ,Default 0 
+   SFFloat   t1;    // Default 1.0              
+
+   SFFloat rscale;  // an additional scale value for destination shape, default 1.0
+      
+   /* hermite interpolation */
+   SFFloat nscale1; // weights for hermite interpolation
+   SFFloat nscale2;
+
+   /* for wave effect */
+   SFFloat wave_nwaves; // how many waves per unit
+   SFFloat wave_offset; // a wave shift
+   SFFloat wave_radius; // a wave amplitude
+
+   /* swirl */
+   SFFloat swirl_nwaves; // how many rotations for swirl
+
+
+
+}
+
+Example Files :
+Morphed*.wrl
+

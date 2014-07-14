@@ -1,0 +1,410 @@
+#VRML V2.0 utf8
+
+# EXTERNAL Prototype fallback implementations for builtin blaxxunCC3D extension nodes
+# last updated 01/18/2000 for Contact 4.3
+#
+# 4.01
+
+PROTO BspTree [
+	exposedField SFRotation plane 0 0 1 0
+	
+	field SFNode front NULL
+	field SFNode overlap NULL
+	field SFNode back NULL
+
+#	eventIn SFNode set_front
+#	eventIn SFNode set_overlap
+#	eventIn SFNode set_back
+	]
+{
+DEF G Group {}
+
+Script {
+	directOutput TRUE			# problem in pure VRML Script does not support exposedField & IS
+	field SFNode group USE G
+	field SFNode a IS front
+	field SFNode b IS overlap
+	field SFNode c IS back
+	
+	url "javascript:
+		function initialize() {
+			group.set_children = new MFNode(a,b,c);
+		}
+	"
+}
+
+}
+
+PROTO BspGroup[
+ 			field SFVec3f bboxSize -1 -1 -1
+			field SFVec3f bboxCenter 0 0 0
+			exposedField MFNode children []
+			eventIn MFNode addChildren
+			eventIn MFNode removeChildren
+			eventOut SFNode bspTree
+]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+PROTO Occlusion[
+ 			field SFVec3f bboxSize -1 -1 -1
+			field SFVec3f bboxCenter 0 0 0
+			exposedField SFBool enabled TRUE
+			exposedField SFNode proxy NULL
+			exposedField MFNode children []
+			eventIn MFNode addChildren
+			eventIn MFNode removeChildren
+			eventOut SFBool isActive
+			eventOut SFTime enterTime
+			eventOut SFTime exitTime
+			]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+PROTO Inclusion[
+ 			field SFVec3f bboxSize -1 -1 -1
+			field SFVec3f bboxCenter 0 0 0
+			exposedField SFBool enabled TRUE
+			exposedField SFNode proxy NULL
+			exposedField MFNode portals []
+			exposedField MFNode children []
+			eventIn MFNode addChildren
+			eventIn MFNode removeChildren
+			eventOut SFBool isActive
+			eventOut SFBool isInside
+			eventOut SFTime enterTime
+			eventOut SFTime exitTime
+			]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+PROTO MenuSensor[
+	exposedField SFBool enabled TRUE
+	exposedField SFString title ""
+	exposedField MFInt32 choices []
+	exposedField MFString descriptions []
+	exposedField SFString position ""
+	eventOut SFBool isActive
+	eventOut SFInt32 choice
+	]
+{
+	Group {}
+}
+
+PROTO CullGroup[
+ 			field SFVec3f bboxSize -1 -1 -1
+			field SFVec3f bboxCenter 0 0 0
+			exposedField MFNode children []
+			eventIn MFNode addChildren
+			eventIn MFNode removeChildren
+			# 4.3
+			exposedField SFBool lod FALSE 
+			exposedField MFNode level []
+			exposedField MFFloat range []
+]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+PROTO Fog2 [
+	exposedField SFColor color 1 1 1
+	exposedField SFString fogType "LINEAR"
+	exposedField SFFloat visibilityRange 0
+	exposedField SFFloat visibilityStart 0
+	exposedField SFFloat density 1
+	eventIn SFBool set_bind
+	eventOut SFBool isBound
+]
+{
+  Fog {
+	color IS color
+	fogType IS fogType
+	visibilityRange IS visibilityRange
+	set_bind IS set_bind
+	isBound IS isBound
+
+  }
+}
+
+# CC3D 3.07
+
+PROTO Selection[
+ 			field SFVec3f bboxSize -1 -1 -1
+			field SFVec3f bboxCenter 0 0 0
+			exposedField SFBool collide TRUE
+			exposedField SFBool select TRUE	# if false, children are not existing for Anchor selection
+			exposedField SFNode proxy NULL
+			exposedField MFNode children []
+			eventIn MFNode addChildren
+			eventIn MFNode removeChildren
+]
+{
+	Collision {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		collide IS collide
+		#proxy IS proxy ## not exposed ? 
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+# CC3D 4.0
+PROTO HUD[
+ 			field SFVec3f bboxSize -1 -1 -1
+			field SFVec3f bboxCenter 0 0 0
+			exposedField MFNode children []
+			eventIn MFNode addChildren
+			eventIn MFNode removeChildren
+]
+{
+
+ 	Collision {
+      	collide FALSE
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children [
+	    	DEF UserPosition ProximitySensor {
+            	center 0 0 0
+            	size 1.E36 1.E36 1.E36
+         	}
+
+			DEF HUD Transform {
+				children IS children
+				addChildren	IS addChildren
+				removeChildren IS removeChildren
+			}
+		]
+	}
+    ROUTE UserPosition.position_changed TO HUD.translation
+    ROUTE UserPosition.orientation_changed TO HUD.rotation
+
+}
+
+# 4.2
+PROTO NurbsSurface[
+	exposedField SFInt32 uDimension 0
+	exposedField SFInt32 vDimension	0
+	exposedField MFVec3f controlPoint []
+	exposedField MFFloat weight []
+	exposedField SFNode texCoord NULL
+	exposedField SFInt32 uOrder	3
+	exposedField SFInt32 vOrder	3
+	exposedField MFFloat uKnot	[]
+	exposedField MFFloat vKnot	[]
+	exposedField SFInt32 uTessellation 0
+	exposedField SFInt32 vTessellation 0
+	exposedField SFBool solid TRUE
+	exposedField SFBool ccw	FALSE
+	]
+{ 
+	PointSet {}
+}
+
+# Cosmo is strict about  			field IS exposedField, is this correct ??
+
+PROTO NurbsGroup[
+	field SFVec3f bboxSize -1 -1 -1
+	field SFVec3f bboxCenter 0 0 0
+	exposedField SFFloat tessellationScale 1.0
+	exposedField MFNode children []
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+PROTO NurbsCurve[
+	exposedField SFInt32 dimension 0
+	exposedField SFInt32 tessellation 0
+	exposedField MFFloat knot []
+	exposedField SFInt32 order 3
+	exposedField MFVec3f controlPoint []
+	exposedField MFFloat weight []
+	]
+{ 
+	PointSet {}
+}
+
+# 4.3
+
+PROTO NurbsCurve2D[
+	exposedField SFInt32 tessellation 0
+	exposedField MFFloat knot []
+	exposedField SFInt32 order 3
+	exposedField MFVec2f controlPoint []
+	exposedField MFFloat weight []
+	]
+{ 
+	PointSet {}
+}
+
+PROTO Polyline2D[
+	exposedField MFVec2f point []
+	]
+{ 
+	PointSet {}
+}
+
+PROTO NurbsPositionInterpolator[
+	exposedField MFFloat knot []
+	exposedField SFInt32 order 3
+	exposedField SFBool fractionAbsolute FALSE
+	exposedField MFFloat keyWeight []
+	exposedField MFVec3f keyValue  []
+	eventIn SFFloat fraction
+	eventOut SFVec3f value
+	]
+{
+	PositionInterpolator { keyValue IS keyValue 
+						  set_fraction IS fraction 
+						  value_changed IS value
+						  }
+}
+PROTO TrimmedSurface[
+	exposedField MFNode trimmingContour	 []
+	exposedField SFNode surface	NULL
+	eventIn MFNode addTrimmingContour 
+	eventIn MFNode removeTrimmingContour
+	]
+{
+	PointSet {}
+}
+
+PROTO Contour2D[
+	field SFVec3f bboxSize -1 -1 -1 
+	field SFVec3f bboxCenter	0 0 0
+	exposedField SFBool fill FALSE
+	exposedField MFNode children []
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+PROTO CoordinateDeformer[
+	field SFVec3f bboxSize -1 -1 -1
+	field SFVec3f bboxCenter 0 0 0
+	exposedField SFInt32 uDimension 0
+	exposedField SFInt32 vDimension	0
+	exposedField SFInt32 wDimension	0
+	exposedField MFFloat uKnot []
+	exposedField MFFloat vKnot []
+	exposedField MFFloat wKnot []
+	exposedField SFInt32 uOrder	2
+	exposedField SFInt32 vOrder	2
+	exposedField SFInt32 wOrder	2
+	exposedField MFVec3f controlPoint []
+	exposedField MFFloat weight []
+	exposedField MFNode inputCoord []
+	exposedField MFNode inputTransform []
+	exposedField MFNode outputCoord	[]
+	exposedField MFNode children []
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+{
+	Group {
+		bboxSize IS bboxSize
+		bboxCenter IS bboxCenter
+		children IS children
+		addChildren	IS addChildren
+		removeChildren IS removeChildren
+	}
+}
+
+PROTO Layer3D[
+	exposedField SFVec3f bboxSize  -1 -1 -1
+	exposedField SFVec3f bboxCenter	0 0 0 
+	eventIn MFNode addChildrenLayer
+	eventIn MFNode removeChildrenLayer
+	exposedField MFNode childrenLayer []
+	exposedField SFVec2f translation 0 0
+	exposedField SFInt32 depth 0
+	exposedField SFVec2f size -1 -1
+	exposedField SFNode background NULL
+	exposedField SFNode fog NULL
+	exposedField SFNode navigationInfo NULL
+	exposedField SFNode viewpoint NULL
+	exposedField MFNode children []
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+{ 
+	Group {} 
+}
+
+PROTO MultiTexture[
+	exposedField MFString mode []
+	exposedField MFNode texture	[]
+	exposedField MFNode textureTransform []
+	exposedField MFInt32 textureOp []
+	]
+{
+	ImageTexture { }
+}
+
+PROTO Polygon[
+	exposedField SFNode color NULL
+	exposedField SFNode coord  NULL
+	exposedField SFNode normal  NULL
+	exposedField MFNode texCoord []
+	exposedField SFBool ccw	TRUE
+	exposedField MFInt32 coordIndex []
+	exposedField SFBool solid TRUE
+	]
+{ 
+	IndexedFaceSet { color IS color coord IS coord normal IS normal 
+			#ccw IS ccw	   # Cosmo
+			# coordIndex IS coordIndex # Cosmo
+			### texCoord = texCoord [0]
+			#solid IS solid # Cosmo
+
+	}
+}
+
+
+
+
+

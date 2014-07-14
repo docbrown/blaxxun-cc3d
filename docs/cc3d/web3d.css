@@ -1,0 +1,94 @@
+BODY {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+
+  /* margin: 0px, 50px, 50px, 50px; */ /* not supported in Netscape 4.5 */
+  
+  margin-top: 0px;
+  margin-right: 25px;
+  margin-left: 50px;
+  margin-bottom: 50px;
+  
+  font-size: 10pt;
+  color: black;
+  background-color: white;
+}  
+
+
+H1, H2 {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+  font-weight: bold;
+  color: #336699; 
+}
+
+H3, H4  {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14pt;
+  font-weight: bold;
+  color: #666666;
+}
+H5  {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  color: #666666;
+}
+P {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+} 
+
+LI {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+} 
+
+UL {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+} 
+
+TD, TR, TH {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+} 
+
+
+PRE { 
+  font-family: monospace;
+  color: #003366;
+  }
+
+CODE { 
+  font-family: monospace;
+  color: #003366;
+  }
+
+.copyright  {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  color: #666666;
+} 
+
+A:link	{
+		text-decoration: none;
+		color: #336699;
+		font-weight: bold;
+		}
+
+A:visited    {
+		text-decoration: none;
+		color: #336699;
+		font-weight: bold;
+		}
+
+A:active     {
+		text-decoration: underline;
+		color: #003366;
+		font-weight: bold;
+		}
+
+A:hover     {
+		text-decoration: underline;
+		color: #003366;
+		font-weight: bold;
+		}

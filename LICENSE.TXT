@@ -1,0 +1,260 @@
+
+Files in this directory & subbranches
+tagged with the following header are subject to the  Web3D-blaxxun Community Source License.
+
+/*=============================================================================
+
+This code is licensed under the Web3D-blaxxun Community Source License,
+provided in distribution file LICENSE.TXT and available online at
+http://www.web3D.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceAgreement.html
+and may only be used for non-commercial use as specified in that license.
+
+THE WEB3D CONSORTIUM AND BLAXXUN DO NOT MAKE AND HEREBY DISCLAIM ANY EXPRESS
+OR IMPLIED WARRANTIES RELATING TO THIS CODE, INCLUDING BUT NOT LIMITED TO,
+WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE, OR ANY WARRANTIES THAT MIGHT ARISE FROM A COURSE OF DEALING, USAGE
+OR TRADE PRACTICE.  THE COMMUNITY SOURCE CODE IS PROVIDED UNDER THIS
+AGREEMENT "AS IS," WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE COMMUNITY SOURCE CODE ARE
+FREE OF DEFECTS, MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR
+NON-INFRINGING OR IN ANY WAY CONSTITUTE THE COMPLETE PRODUCT MARKETED UNDER
+THE NAMES GIVEN SAID CODE.
+
+==============================================================================*/
+
+For other files review the license information in headers or documentation files.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+             
+			 
+			 Web3D-blaxxun Community Source Agreement
+
+              Appendix B:  Community Source License
+
+     http://www.web3D.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceAgreement.html
+      
+     
+     1.0  Definitions. Capitalized terms used in this License are defined
+     in the Glossary.
+
+
+     2.0  LICENSE GRANT
+
+     2.1  The Web3D Consortium grants to you "Licensee" a
+     non-transferable, nonexclusive, royalty-free, limited license to use a
+     copy of the VRML COMPONENT CODE in the United States,
+     Canada, Japan, Australia and the European Union, exclusively for
+     non-commercial use in connection with research and development. 
+     Licensee acquires no right, title or interest in or to the Licensed
+     VRML COMPONENT CODE other than the limited rights granted in
+     this License. All modifications, enhancements and bug fixes made
+     by or for Licensee to the Licensed VRML COMPONENT CODE may
+     not be offered for sale or reuse without including notification of all
+     pertaining copyrights retained by copyright owners, including
+     blaxxun interactive.
+
+     2.2  In the event Licensee wishes to license the VRML
+     COMPONENT CODE for any commercial or other use not
+     consistent with the provisions of Section 2.1, Licensee shall contact
+
+     blaxxun interactive, Inc. 
+     1550 Bryant Street, Suite 770
+     San Francisco, CA 94103
+     tel: (415) 437-6160; fax (415) 437-6170 
+     email: info@blaxxun.com 
+
+     for further information.  Licensee understands and agrees that no
+     license is hereby granted for any other such use and that such
+     additional use may only be authorized under a separate written
+     license agreement between blaxxun and Licensee.
+
+     2.3 Licensee retains all rights to Modifications to the VRML
+     COMPONENT CODE created by the Licensee.  Licensees are
+     encouraged to share and submit back to the Web3D Consortium
+     such Modifications by submitting them back to the Web3D
+     Consortium for consideration and inclusion in the source code
+     covered by this license.  In the case of such a submission, licensee
+     grants to the Web3D Consortium and to blaxxun interactive, Inc.
+     perpetual, worldwide, non-exclusive, royalty-free, transferable license
+     to use, reproduce, modify, perform, display, make, integrate,
+     embed, combine, sell, distribute (through multiple tiers of
+     distribution), to make derivative works, to compile to create object
+     code and to exercise all of the foregoing rights with respect to such
+     object code for all uses and purposes.  Nothing in this section
+     grants Licensee the right to commercially distribute the VRML
+     COMPONENT CODE as specified in section 2.1 and 2.2.
+
+     3.0 COPYRIGHTS AND TRADEMARKS
+
+     3.1 Licensee shall reproduce and apply any copyright or other
+     proprietary rights notices included on or embedded in VRML
+     COMPONENT CODE to any copies of VRML COMPONENT CODE,
+     in whole or in part, in any form.
+
+     3.2 Licensee acknowledges that, as between itself and the Web3D
+     Consortium, the Web3D Consortium possesses all rights to
+     CONSORTIUM INTELLECTUAL PROPERTY-related trademarks,
+     logos and icons and agrees to: (i) not use CONSORTIUM
+     INTELLECTUAL PROPERTY - related trademarks or icons in the
+     names of internet domains or businesses, or applets, applications,
+     implementations, modifications, or enhancements; and (ii) not use
+     CONSORTIUM INTELLECTUAL PROPERTY -related logos or icons
+     in Apps, webpages or other marketing materials, except as may be
+     authorized separately by the Web3D Consortium.
+
+     3.3 Licensee agrees that any software developed by it pursuant to
+     this License shall, when launched by any end-user, display the
+     blaxxun name and logo for a reasonable amount of time.  Such
+     name and logo are included in the VRML COMPONENT CODE.
+
+
+     4.0 FEES
+
+     4.1 Use of VRML COMPONENT CODE in accordance with the
+     terms of this License shall not require payment of a license fee.
+
+
+     5.0 TERM AND TERMINATION
+
+     5.1 This License shall commence on the date the Web3D
+     Consortium makes the VRML COMPONENT CODE available to
+     Licensee without expiration date.
+
+     5.2 The Web3D Consortium may immediately terminate this License
+     upon written notice to Licensee, if Licensee fails to comply with any
+     of the material terms or conditions of this License. Upon termination
+     of this License, use of VRML COMPONENT CODE by Licensee
+     shall be immediately discontinued, all copies of VRML
+     COMPONENT CODE shall be destroyed by Licensee, and the
+     License granted hereunder shall expire.  Sections 2.2, 2.3, 6.1, 6.2,
+     6.3, 7.1 and 8.1 shall survive any termination of this License.
+
+     5.3  Licensee understands and agrees that blaxxun interactive, Inc.
+     may exercise any right or remedy of the Web3D Consortium under
+     this agreement and may enforce the terms of this agreement, and
+     that blaxxun interactive, Inc. is an intended third party beneficiary of
+     this agreement, entitled to enforce its terms. 
+
+
+     6.0 DISCLAIMER OF WARRANTY
+
+     6.1 VRML COMPONENT CODE is provided "AS IS" and without any
+     warranty of any kind, and Licensee accepts all risks and liabilities
+     associated with its use of VRML COMPONENT CODE.
+
+     6.2 The Web3D Consortium DOES NOT MAKE AND HEREBY
+     DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES
+     RELATING TO THE VRML COMPONENT CODE, INCLUDING BUT
+     NOT LIMITED TO, WARRANTIES OF NON-INFRINGEMENT,
+     MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+     PURPOSE, OR ANY WARRANTIES THAT MIGHT ARISE FROM A
+     COURSE OF DEALING, USAGE OR TRADE PRACTICE.
+
+     6.3 VRML COMPONENT CODE is not designed or intended for use
+     in on-line control of aircraft, air traffic, aircraft navigation or aircraft
+     communications; or in the design, construction, operation or
+     maintenance of any nuclear facility.  Licensee warrants that it will
+     not use or redistribute the Software for such purposes.
+
+
+     7.0 LIMITATION OF LIABILITY
+
+     7.1 In no event will the Web3D Consortium be liable for any lost
+     revenues, data, or profits, or direct, indirect, special, punitive or
+     consequential damages, even if the Web3D Consortium has been
+     advised of the possibility or probability of such damages.
+
+
+     8.0 EXPORT
+
+     8.1 Licensee shall not export, re-export or transfer, whether directly
+     or indirectly, VRML COMPONENT CODE to any person or company
+     who is a legal resident or is controlled by a legal resident of any
+     proscribed country listed in the U.S. Export Administration
+     Regulations (or any equivalent thereof) unless properly authorized by
+     the U.S. Government.
+
+
+     9.0 U.S. GOVERNMENT RESTRICTED RIGHTS
+
+     9.1 VRML COMPONENT CODE is provided with RESTRICTED
+     RIGHTS. Use, duplication, or disclosure by the Government is
+     subject to the restrictions as set forth in subparagraph (c) (1) (ii) of
+     the Rights in Technical Data and Computer Software Clause as
+     DFARS 252.227-7013 and FAR 52.227-19, as applicable.
+
+
+     10.0 GOVERNING LAW
+
+     10.1 Any action related to this License will be governed by California
+     law, excluding choice of law rules.
+
+
+     Glossary:
+
+     "Authorized Submitter" means blaxxun.
+
+     "Contributor" means each entity that creates or contributes to the
+     creation of Modifications. 
+
+     "Contributor Version" means the combination of the Original Code,
+     prior Modifications used by a Contributor, and the Modifications
+     made by that particular Contributor. 
+
+     "Covered Code" means the Original Code (VRML COMPONENT
+     CODE) or Modifications or the combination of the Original Code and
+     Modifications, in each case including portions thereof, as accepted
+     for redistribution by the Web3D Consortium.
+
+     "Executable" means Covered Code in any form other than Source
+     Code. 
+
+     "License" means this document. 
+
+     "Licensee" means an individual or a legal entity exercising rights
+     under, and complying with all of the terms of, this License or a future
+     version of this License issued under Section 6.1. For legal entities,
+     "Licensee" includes any entity which controls, is controlled by, or is
+     under common control with Licensee. For purposes of this definition,
+     "control" means (a) the power, direct or indirect, to cause the
+     direction or management of such entity, whether by contract or
+     otherwise, or (b) ownership of fifty percent (50%) or more of the
+     outstanding shares or beneficial ownership of such entity.
+
+     "Modifications" means any addition to or deletion from the substance
+     or structure of either the Original Code or any previous Modifications.
+     When Covered Code is released as a series of files, a Modification
+     is: 
+
+                  A. Any addition to or deletion from the contents of a file
+     containing Original Code or previous Modifications. 
+
+                  B. Any new file that contains any part of the Original Code
+     or previous Modifications. 
+
+     "Original Code" means Source Code of computer software code
+     identified, or identifiable as being created by blaxxun interactive, Inc.
+     and which, at the time of its release under this License is not
+     already Covered Code governed by this License. 
+
+     "Source Code" means the preferred form of the Covered Code for
+     making modifications to it, including all modules it contains, plus
+     any associated interface definition files, scripts used to control
+     compilation and installation of an Executable, or a list of source
+     code differential comparisons against either the Original Code or
+     another well known, available Covered Code of the Contributor's
+     choice. The Source Code can be in a compressed or archival form,
+     provided the appropriate decompression or de-archiving software is
+     widely available for no charge. 
+
+     "Submitting Author" means blaxxun.
+
+     "VRML COMPONENT CODE" means the blaxxun CC3D version
+     4.2001 source code. 
+
+     "CONSORTIUM INTELLECTUAL PROPERTY" means assets,
+     code,  trademarks, copyrights or other protectable intellectual
+     property assets owned, licensed to or effectively controlled by the
+     Web3D Consortium not specifically treated otherwise in this
+     agreement.
+     

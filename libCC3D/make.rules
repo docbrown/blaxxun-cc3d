@@ -1,0 +1,1794 @@
+# GNU Make version 3.75, by Richard Stallman and Roland McGrath.
+# Copyright (C) 1988, 89, 90, 91, 92, 93, 94, 95, 96
+# 	Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# Report bugs to <bug-gnu-utils@prep.ai.mit.edu>.
+
+
+# Make data base, printed on Mon Sep 13 19:13:50 1999
+
+# Variables
+
+# default
+F77 = $(FC)
+# default
+PREPROCESS.r = $(FC) $(FFLAGS) $(RFLAGS) $(TARGET_ARCH) -F
+# environment
+PROMPT = $p$g
+# automatic
+@F = $(notdir $@)
+# environment
+BLASTER = A220 I5 D1 T4
+# environment
+COMSPEC = C:\COMMAND.COM
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+SUFFIXES := .out .a .ln .o .c .cc .C .p .f .F .r .y .l .s .S .mod .sym .def .h .info .dvi .tex .texinfo .texi .txinfo .w .ch .web .sh .elc .el
+# default
+COMPILE.r = $(FC) $(FFLAGS) $(RFLAGS) $(TARGET_ARCH) -c
+# default
+LINK.F = $(FC) $(FFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+# default
+LINK.s = $(CC) $(ASFLAGS) $(LDFLAGS) $(TARGET_MACH)
+# default
+LINK.o = $(CC) $(LDFLAGS) $(TARGET_ARCH)
+# default
+TEXI2DVI = texi2dvi
+# environment
+!C: = C:\CLIENT\CC3D\LIBCC3D
+# makefile
+LIB32 = link.exe -lib
+# automatic
++F = $(notdir $+)
+# default
+COMPILE.f = $(FC) $(FFLAGS) $(TARGET_ARCH) -c
+# automatic
+%F = $(notdir $%)
+# environment
+TMP = C:\WINDOWS\TEMP
+# default
+LINK.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+# default
+CO = co
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# default
+PREPROCESS.F = $(FC) $(FFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -F
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# default
+M2C = m2c
+# environment
+CMDLINE = make -p 
+# default
+FC = f77
+# makefile
+CC = gcc
+# default
+LINK.S = $(CC) $(ASFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_MACH)
+# default
+CXX = gcc
+# default
+AR = ar
+# default
+CWEAVE = cweave
+# default
+COMPILE.F = $(FC) $(FFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# makefile
+LIB32_OBJS = $(INTDIR)/array.o $(INTDIR)/astream.o $(INTDIR)/build.o $(INTDIR)/collide.o $(INTDIR)/gclass.o $(INTDIR)/gifread.o $(INTDIR)/glrender.o $(INTDIR)/glutils.o $(INTDIR)/gperlinnoise.o $(INTDIR)/greadgv.o $(INTDIR)/greporter.o $(INTDIR)/gshell.o $(INTDIR)/gshelli.o $(INTDIR)/gshellio.o $(INTDIR)/gshellop.o $(INTDIR)/gutils.o $(INTDIR)/gv2geometry.o $(INTDIR)/gv2group.o $(INTDIR)/gvbasecolor.o $(INTDIR)/gvblinker.o $(INTDIR)/gvbsp.o $(INTDIR)/gvcallback.o $(INTDIR)/gvchildlist.o $(INTDIR)/gvcomplexity.o $(INTDIR)/gvcoordinate3.o $(INTDIR)/gvdb.o $(INTDIR)/gvdebugerror.o $(INTDIR)/gvdict.o $(INTDIR)/gvdirectionallight.o $(INTDIR)/gvedit.o $(INTDIR)/gvelement.o $(INTDIR)/gvfield.o $(INTDIR)/gvfielddata.o $(INTDIR)/gvfontstyle.o $(INTDIR)/gvgeometry.o $(INTDIR)/gvgroup.o $(INTDIR)/gvhandle.o $(INTDIR)/gvinfo.o $(INTDIR)/gvinput.o $(INTDIR)/gvinterpolators.o $(INTDIR)/gvisibility.o $(INTDIR)/gvkeyword.o $(INTDIR)/gvktx.o $(INTDIR)/gvlabel.o $(INTDIR)/gvlayer.o $(INTDIR)/gvlevelofdetail.o $(INTDIR)/gvlists.o $(INTDIR)/gvlod.o $(INTDIR)/gvmaterial.o $(INTDIR)/gvmaterialbinding.o $(INTDIR)/gvmediathread.o $(INTDIR)/gvmfields.o $(INTDIR)/gvmodifier.o $(INTDIR)/gvmorph.o $(INTDIR)/gvname.o $(INTDIR)/gvnamespace.o $(INTDIR)/gvnode.o $(INTDIR)/gvnodeshell.o $(INTDIR)/gvnormal.o $(INTDIR)/gvnormalbinding.o $(INTDIR)/gvnurbs.o $(INTDIR)/gvorthographiccamera.o $(INTDIR)/gvpath.o $(INTDIR)/gvperspectivecamera.o $(INTDIR)/gvplist.o $(INTDIR)/gvpointlight.o $(INTDIR)/gvproto.o $(INTDIR)/gvreaderror.o $(INTDIR)/gvscene.o $(INTDIR)/gvscript.o $(INTDIR)/gvsensors.o $(INTDIR)/gvseparator.o $(INTDIR)/gvsfields.o $(INTDIR)/gvshapehints.o $(INTDIR)/gvsound.o $(INTDIR)/gvspotlight.o $(INTDIR)/gvstring.o $(INTDIR)/gvsweep.o $(INTDIR)/gvswitch.o $(INTDIR)/gvtexture2.o $(INTDIR)/gvtexturecoordinate2.o $(INTDIR)/gvtexturecoordinatebinding.o $(INTDIR)/gvtimetransform.o $(INTDIR)/gvtransforms.o $(INTDIR)/gvtransformseparator.o $(INTDIR)/gvtraverse.o $(INTDIR)/gvunknownnode.o $(INTDIR)/gvwebfx.o $(INTDIR)/gvwwwanchor.o $(INTDIR)/gvwwwinline.o $(INTDIR)/matrix.o $(INTDIR)/overlap.o $(INTDIR)/parse.o $(INTDIR)/point.o $(INTDIR)/pointa.o $(INTDIR)/quaternation.o $(INTDIR)/rapid.o $(INTDIR)/rt.o $(INTDIR)/scan.o $(INTDIR)/triangulate.o $(INTDIR)/vbplist.o $(INTDIR)/vsexpr.o $(INTDIR)/vsfields.o $(INTDIR)/vsfunction.o $(INTDIR)/vsparse.o $(INTDIR)/vsstatement.o
+# default
+COMPILE.s = $(AS) $(ASFLAGS) $(TARGET_MACH)
+# default
+SHELL := command.com
+# default
+YACC = bison -y
+# default
+COMPILE.def = $(M2C) $(M2FLAGS) $(DEFFLAGS) $(TARGET_ARCH)
+# default
+LINK.C = $(LINK.cc)
+# makefile
+CPPFLAGS = -I . -I ../src/core  -I ../src/core/gl -I ../src/jpeghgnt -I /client/cc3d/src/vrml/include -I ../src/vrmlscript -I /hg/download/graphics/Mesa-3.0/include -D_OGL -D_DEBUG -w
+# makefile
+MAKEFLAGS = --win32 -p
+# default
+LINK.p = $(PC) $(PFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+# default
+OUTPUT_OPTION = -o $@
+# default
+MAKE_VERSION := 3.75
+# default
+PREPROCESS.S = $(CC) -E $(CPPFLAGS)
+# environment
+MAKELEVEL := 0
+# makefile
+CFLAGS = -O2 -funroll-loops -ansi -pedantic -ffast-math -I/usr/X11R6/include 
+# default
+YACC.y = $(YACC) $(YFLAGS)
+# default
+COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+# default
+TANGLE = tangle
+# default
+CHECKOUT,v = +$(patsubst $@-noexist,$(CO) $(COFLAGS) $< $@,		 $(filter-out $@,$(firstword $(wildcard $@) $@-noexist)))
+# default
+LD = ld
+# makefile
+CPP_SBRS = .
+# makefile
+LIB32_FLAGS = /nologo /out:$(OUTDIR)\libCC3D.lib 
+# environment
+MFLAGS = --win32 -p
+# default
+GET = get
+# default
+COMPILE.S = $(CC) $(ASFLAGS) $(CPPFLAGS) $(TARGET_MACH) -c
+# environment
+MSVCDIR = C:\Program Files\DevStudio\VC
+# default
+PC = pc
+# default
+AS = as
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# default
+TEX = tex
+# environment
+TERM = cygwin
+# makefile
+PROGS = xdemo
+# environment
+MSDEVDIR = C:\Program Files\DevStudio\SharedIDE
+# default
+COMPILE.C = $(COMPILE.cc)
+# default
+LINT = lint
+# environment
+WINBOOTDIR = C:\WINDOWS
+# default
+F77FLAGS = $(FFLAGS)
+# default
+COMPILE.p = $(PC) $(PFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+# default
+RM = rm -f
+# environment
+TEMP = C:\WINDOWS\TEMP
+# makefile
+GL_LIBS = -lglut -lMesaGLU -lMesaGL -lm $(XLIBS)
+# environment
+LIB = C:\Program Files\DevStudio\VC\LIB;C:\Program Files\DevStudio\VC\MFC\LIB;
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile
+OUTDIR = .
+# default
+WEAVE = weave
+# automatic
+?F = $(notdir $?)
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+CPP = $(CC) -E
+# automatic
+<F = $(notdir $<)
+# default
+LEX = flex
+# makefile
+XLIBS = -L/usr/X11/lib -L/usr/X11R6/lib -lX11 -lXext -lXmu -lXt -lXi -lSM -lICE
+# default
+LINK.cc = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+# makefile
+CPP_OBJS = .
+# default
+LEX.l = $(LEX) $(LFLAGS) -t
+# default
+COMPILE.mod = $(M2C) $(M2FLAGS) $(MODFLAGS) $(TARGET_ARCH)
+# default
+ARFLAGS = rv
+# makefile
+INTDIR = .
+# automatic
+*F = $(notdir $*)
+# automatic
+^F = $(notdir $^)
+# environment
+WINDIR = C:\WINDOWS
+# default
+LINT.c = $(LINT) $(LINTFLAGS) $(CPPFLAGS) $(TARGET_ARCH)
+# default
+LINK.r = $(FC) $(FFLAGS) $(RFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+# default
+COMPILE.cc = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+# default
+MAKEFILES := 
+# default
+CTANGLE = ctangle
+# default
+MAKE_COMMAND := /CYGNUS/CYGWIN\~1/H-I586\~1/BIN/MAKE.EXE
+# environment
+PATH = /WINDOWS:/WINDOWS/COMMAND:/PROGRA~1/INTEL/IPEAK/IBASES/DOC:/PROGRA~1/INTEL/IPEAK/IBASES/MONITOR:/CYGNUS/CYGWIN~1/H-I586~1/BIN:/JDK1.2.1/BIN
+# environment
+PLSHOME = C:\SDK0E\plsuite
+# environment
+INCLUDE = C:\Program Files\DevStudio\VC\INCLUDE;C:\Program Files\DevStudio\VC\MFC\INCLUDE;C:\Program Files\DevStudio\VC\ATL\INCLUDE;
+# default
+LINK.f = $(FC) $(FFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+# default
+MAKEINFO = makeinfo
+# 105 variables in 523 hash buckets.
+# average of 0.2 variables per bucket, max 3 in one bucket.
+
+# Directories
+
+# SCCS: could not be stat'd.
+# /WINDOWS:/WINDOWS/COMMAND:/PROGRA~1/INTEL/IPEAK/IBASES/DOC:/PROGRA~1/INTEL/IPEAK/IBASES/MONITOR:/CYGNUS/CYGWIN~1/H-I586~1/BIN:/JDK1.2.1/BIN: could not be stat'd.
+# . (device 4096, inode 390731426): 126 files, 90 impossibilities.
+# RCS: could not be stat'd.
+
+# 126 files, 90 impossibilities in 4 directories.
+
+# Implicit Rules
+
+%.out:
+
+%.a:
+
+%.ln:
+
+%.o:
+
+%: %.o
+#  commands to execute (built-in):
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.c:
+
+%: %.c
+#  commands to execute (built-in):
+	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.ln: %.c
+#  commands to execute (built-in):
+	$(LINT.c) -C$* $<
+
+%.o: %.c
+#  commands to execute (from `Makefile', line 25):
+	$(CC) -c $(CFLAGS) $<
+	
+
+%.cc:
+
+%: %.cc
+#  commands to execute (built-in):
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.cc
+#  commands to execute (built-in):
+	$(COMPILE.cc) $< $(OUTPUT_OPTION)
+
+%.C:
+
+%: %.C
+#  commands to execute (built-in):
+	$(LINK.C) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.C
+#  commands to execute (built-in):
+	$(COMPILE.C) $< $(OUTPUT_OPTION)
+
+%.p:
+
+%: %.p
+#  commands to execute (built-in):
+	$(LINK.p) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.p
+#  commands to execute (built-in):
+	$(COMPILE.p) $< $(OUTPUT_OPTION)
+
+%.f:
+
+%: %.f
+#  commands to execute (built-in):
+	$(LINK.f) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.f
+#  commands to execute (built-in):
+	$(COMPILE.f) $< $(OUTPUT_OPTION)
+
+%.F:
+
+%: %.F
+#  commands to execute (built-in):
+	$(LINK.F) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.F
+#  commands to execute (built-in):
+	$(COMPILE.F) $< $(OUTPUT_OPTION)
+
+%.f: %.F
+#  commands to execute (built-in):
+	$(PREPROCESS.F) $< $(OUTPUT_OPTION)
+
+%.r:
+
+%: %.r
+#  commands to execute (built-in):
+	$(LINK.r) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.r
+#  commands to execute (built-in):
+	$(COMPILE.r) $< $(OUTPUT_OPTION)
+
+%.f: %.r
+#  commands to execute (built-in):
+	$(PREPROCESS.r) $< $(OUTPUT_OPTION)
+
+%.y:
+
+%.ln: %.y
+#  commands to execute (built-in):
+	$(YACC.y) $< 
+	$(LINT.c) -C$* y.tab.c 
+	$(RM) y.tab.c
+
+%.c: %.y
+#  commands to execute (built-in):
+	$(YACC.y) $< 
+	mv -f y.tab.c $@
+
+%.l:
+
+%.ln: %.l
+#  commands to execute (built-in):
+	@$(RM) $*.c
+	$(LEX.l) $< > $*.c
+	$(LINT.c) -i $*.c -o $@
+	$(RM) $*.c
+
+%.c: %.l
+#  commands to execute (built-in):
+	@$(RM) $@ 
+	$(LEX.l) $< > $@
+
+%.r: %.l
+#  commands to execute (built-in):
+	$(LEX.l) $< > $@ 
+	mv -f lex.yy.r $@
+
+%.s:
+
+%: %.s
+#  commands to execute (built-in):
+	$(LINK.s) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.s
+#  commands to execute (built-in):
+	$(COMPILE.s) -o $@ $<
+
+%.S:
+
+%: %.S
+#  commands to execute (built-in):
+	$(LINK.S) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+%.o: %.S
+#  commands to execute (built-in):
+	$(COMPILE.S) -o $@ $<
+
+%.s: %.S
+#  commands to execute (built-in):
+	$(PREPROCESS.S) $< > $@
+
+%.mod:
+
+%: %.mod
+#  commands to execute (built-in):
+	$(COMPILE.mod) -o $@ -e $@ $^
+
+%.o: %.mod
+#  commands to execute (built-in):
+	$(COMPILE.mod) -o $@ $<
+
+%.sym:
+
+%.def:
+
+%.sym: %.def
+#  commands to execute (built-in):
+	$(COMPILE.def) -o $@ $<
+
+%.h:
+
+%.info:
+
+%.dvi:
+
+%.tex:
+
+%.dvi: %.tex
+#  commands to execute (built-in):
+	$(TEX) $<
+
+%.texinfo:
+
+%.info: %.texinfo
+#  commands to execute (built-in):
+	$(MAKEINFO) $(MAKEINFO_FLAGS) $< -o $@
+
+%.dvi: %.texinfo
+#  commands to execute (built-in):
+	$(TEXI2DVI) $(TEXI2DVI_FLAGS) $<
+
+%.texi:
+
+%.info: %.texi
+#  commands to execute (built-in):
+	$(MAKEINFO) $(MAKEINFO_FLAGS) $< -o $@
+
+%.dvi: %.texi
+#  commands to execute (built-in):
+	$(TEXI2DVI) $(TEXI2DVI_FLAGS) $<
+
+%.txinfo:
+
+%.info: %.txinfo
+#  commands to execute (built-in):
+	$(MAKEINFO) $(MAKEINFO_FLAGS) $< -o $@
+
+%.dvi: %.txinfo
+#  commands to execute (built-in):
+	$(TEXI2DVI) $(TEXI2DVI_FLAGS) $<
+
+%.w:
+
+%.c: %.w
+#  commands to execute (built-in):
+	$(CTANGLE) $< - $@
+
+%.tex: %.w
+#  commands to execute (built-in):
+	$(CWEAVE) $< - $@
+
+%.ch:
+
+%.web:
+
+%.p: %.web
+#  commands to execute (built-in):
+	$(TANGLE) $<
+
+%.tex: %.web
+#  commands to execute (built-in):
+	$(WEAVE) $<
+
+%.sh:
+
+%: %.sh
+#  commands to execute (built-in):
+	cat $< >$@ 
+	chmod a+x $@
+
+%.elc:
+
+%.el:
+
+(%): %
+#  commands to execute (built-in):
+	$(AR) $(ARFLAGS) $@ $<
+
+%.out: %
+#  commands to execute (built-in):
+	@rm -f $@ 
+	cp $< $@
+
+%.c: %.w %.ch
+#  commands to execute (built-in):
+	$(CTANGLE) $^ $@
+
+%.tex: %.w %.ch
+#  commands to execute (built-in):
+	$(CWEAVE) $^ $@
+
+%:: %,v
+#  commands to execute (built-in):
+	$(CHECKOUT,v)
+
+%:: RCS/%,v
+#  commands to execute (built-in):
+	$(CHECKOUT,v)
+
+%:: s.%
+#  commands to execute (built-in):
+	$(GET) $(GFLAGS) $(SCCS_OUTPUT_OPTION) $<
+
+%:: SCCS/s.%
+#  commands to execute (built-in):
+	$(GET) $(GFLAGS) $(SCCS_OUTPUT_OPTION) $<
+
+# 82 implicit rules, 4 (4.9%) terminal.
+
+# Files
+
+# Not a target:
+.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+.texinfo.info:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(MAKEINFO) $(MAKEINFO_FLAGS) $< -o $@
+
+# Not a target:
+gvmaterialbinding.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.mod.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.mod) -o $@ $<
+
+.c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 25):
+	$(CC) -c $(CFLAGS) $<
+	
+
+# Not a target:
+gshellio.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvwebfx.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gclass.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.s:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.s) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+targets: xdemo
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\gutils.h:
+#  Implicit rule search has been done.
+#  Last modified Mon Sep 06 12:11:30 1999 (936612690)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gifread.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+greadgv.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified Mon Sep 13 19:12:54 1999 (937242774)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvtimetransform.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvcoordinate3.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvpointlight.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvscene.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvmediathread.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvfielddata.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsstatement.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.txinfo.dvi:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(TEXI2DVI) $(TEXI2DVI_FLAGS) $<
+
+# Not a target:
+gvscript.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvname.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvunknownnode.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvtexture2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvsweep.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvtexturecoordinate2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvreaderror.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gshelli.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvpath.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.y.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(YACC.y) $< 
+	mv -f y.tab.c $@
+
+# Not a target:
+gvswitch.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.l:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvwwwinline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsfields.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.web.tex:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(WEAVE) $<
+
+# Not a target:
+vsexpr.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\astream.cpp:
+#  Implicit rule search has been done.
+#  Last modified Tue Jul 06 18:54:14 1999 (931280054)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvinterpolators.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvshapehints.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvmorph.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvnurbs.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvlevelofdetail.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.s.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.s) -o $@ $<
+
+# Not a target:
+.sym:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.texi:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\astream.h:
+#  Implicit rule search has been done.
+#  Last modified Mon Sep 06 11:58:42 1999 (936611922)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvktx.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvtexturecoordinatebinding.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.F.f:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(PREPROCESS.F) $< $(OUTPUT_OPTION)
+
+# Not a target:
+gv2geometry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+glrender.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvdict.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+overlap.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\point.h:
+#  Implicit rule search has been done.
+#  Last modified Mon Sep 06 12:37:18 1999 (936614238)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+glutils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gutils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvmaterial.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.dvi:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+default: array.o astream.o build.o collide.o gclass.o gifread.o glrender.o glutils.o gperlinnoise.o greadgv.o greporter.o gshell.o gshelli.o gshellio.o gshellop.o gutils.o gv2geometry.o gv2group.o gvbasecolor.o gvblinker.o gvbsp.o gvcallback.o gvchildlist.o gvcomplexity.o gvcoordinate3.o gvdb.o gvdebugerror.o gvdict.o gvdirectionallight.o gvedit.o gvelement.o gvfield.o gvfielddata.o gvfontstyle.o gvgeometry.o gvgroup.o gvhandle.o gvinfo.o gvinput.o gvinterpolators.o gvisibility.o gvkeyword.o gvktx.o gvlabel.o gvlayer.o gvlevelofdetail.o gvlists.o gvlod.o gvmaterial.o gvmaterialbinding.o gvmediathread.o gvmfields.o gvmodifier.o gvmorph.o gvname.o gvnamespace.o gvnode.o gvnodeshell.o gvnormal.o gvnormalbinding.o gvnurbs.o gvorthographiccamera.o gvpath.o gvperspectivecamera.o gvplist.o gvpointlight.o gvproto.o gvreaderror.o gvscene.o gvscript.o gvsensors.o gvseparator.o gvsfields.o gvshapehints.o gvsound.o gvspotlight.o gvstring.o gvsweep.o gvswitch.o gvtexture2.o gvtexturecoordinate2.o gvtexturecoordinatebinding.o gvtimetransform.o gvtransforms.o gvtransformseparator.o gvtraverse.o gvunknownnode.o gvwebfx.o gvwwwanchor.o gvwwwinline.o matrix.o overlap.o parse.o point.o pointa.o quaternation.o rapid.o rt.o scan.o triangulate.o vbplist.o vsexpr.o vsfields.o vsfunction.o vsparse.o vsstatement.o
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 150):
+	@echo default target
+	
+
+# Not a target:
+gvnamespace.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.web.p:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(TANGLE) $<
+
+# Not a target:
+gshell.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvnormal.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.def:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.F:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.F) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 154):
+	-rm *.o *~
+	
+
+# Not a target:
+.cc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.cc) $< $(OUTPUT_OPTION)
+
+# Not a target:
+..\src\core\array.h:
+#  Implicit rule search has been done.
+#  Last modified Tue Jul 06 18:54:14 1999 (931280054)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.S.s:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(PREPROCESS.S) $< > $@
+
+# Not a target:
+gvstring.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.ch:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\pointa.h:
+#  Implicit rule search has been done.
+#  Last modified Mon Sep 06 12:30:56 1999 (936613856)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.def.sym:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.def) -o $@ $<
+
+# Not a target:
+.F.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.F) $< $(OUTPUT_OPTION)
+
+# Not a target:
+.f:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.f) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+rapid.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.elc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\matrix.h:
+#  Implicit rule search has been done.
+#  Last modified Tue Jul 06 18:55:18 1999 (931280118)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+triangulate.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.y.ln:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(YACC.y) $< 
+	$(LINT.c) -C$* y.tab.c 
+	$(RM) y.tab.c
+
+# Not a target:
+gvbasecolor.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsfunction.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.texi.dvi:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(TEXI2DVI) $(TEXI2DVI_FLAGS) $<
+
+# Not a target:
+rt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.el:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvproto.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.texinfo.dvi:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(TEXI2DVI) $(TEXI2DVI_FLAGS) $<
+
+# Not a target:
+gvisibility.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vsparse.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvtransforms.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+stdafx.h:
+#  Implicit rule search has been done.
+#  Last modified Thu Sep 09 11:02:44 1999 (936867764)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvnormalbinding.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES: .out .a .ln .o .c .cc .C .p .f .F .r .y .l .s .S .mod .sym .def .h .info .dvi .tex .texinfo .texi .txinfo .w .ch .web .sh .elc .el
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvgeometry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.txinfo:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+point.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvlabel.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvspotlight.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvblinker.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\stack.h:
+#  Implicit rule search has been done.
+#  Last modified Tue Jul 06 18:55:22 1999 (931280122)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.p.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.p) $< $(OUTPUT_OPTION)
+
+# Not a target:
+.r.f:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(PREPROCESS.r) $< $(OUTPUT_OPTION)
+
+# Not a target:
+.w.tex:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(CWEAVE) $< - $@
+
+# Not a target:
+gvwwwanchor.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvcallback.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvsfields.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvmfields.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.txinfo.info:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(MAKEINFO) $(MAKEINFO_FLAGS) $< -o $@
+
+# Not a target:
+.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+gvlayer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+xdemo:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.c.ln:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINT.c) -C$* $<
+
+# Not a target:
+gvdirectionallight.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.w:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.ln:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvfield.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvdebugerror.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.l.r:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LEX.l) $< > $@ 
+	mv -f lex.yy.r $@
+
+# Not a target:
+gconfig.h:
+#  Implicit rule search has been done.
+#  Last modified Mon Sep 06 15:53:02 1999 (936625982)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvbsp.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+quaternation.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+parse.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvorthographiccamera.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.info:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvmodifier.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvedit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.r.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.r) $< $(OUTPUT_OPTION)
+
+# Not a target:
+gvcomplexity.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvgroup.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.C.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.C) $< $(OUTPUT_OPTION)
+
+# Not a target:
+.p:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.p) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+gvelement.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.l.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	@$(RM) $@ 
+	$(LEX.l) $< > $@
+
+# Not a target:
+gvinfo.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+realclean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 157):
+	-rm $(PROGS)
+	-rm *.o *~
+	
+
+# Not a target:
+.sh:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	cat $< >$@ 
+	chmod a+x $@
+
+# Not a target:
+gvchildlist.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.web:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\GReporter.h:
+#  Implicit rule search has been done.
+#  Last modified Tue Jul 06 18:54:50 1999 (931280090)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvhandle.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvinput.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.out:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.cc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+gvperspectivecamera.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.f.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.f) $< $(OUTPUT_OPTION)
+
+# Not a target:
+.texi.info:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(MAKEINFO) $(MAKEINFO_FLAGS) $< -o $@
+
+array.o: ..\src\core\array.cpp stdafx.h gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.a:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvtransformseparator.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvlists.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\rt.h:
+#  Implicit rule search has been done.
+#  Last modified Fri Sep 03 17:03:58 1999 (936371038)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvdb.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.tex:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+greporter.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.cpp.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 28):
+	$(CC) -c $(CFLAGS) $<
+	
+
+# Not a target:
+.l.ln:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	@$(RM) $*.c
+	$(LEX.l) $< > $*.c
+	$(LINT.c) -i $*.c -o $@
+	$(RM) $*.c
+
+# Not a target:
+gvtraverse.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+vbplist.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvnodeshell.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.y:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvkeyword.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.S.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.S) -o $@ $<
+
+# Not a target:
+gvsensors.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+..\src\core\array.cpp:
+#  Implicit rule search has been done.
+#  Last modified Tue Jul 06 18:54:14 1999 (931280054)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvfontstyle.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvsound.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.tex.dvi:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(TEX) $<
+
+# Not a target:
+gvlod.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvnode.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gperlinnoise.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+pointa.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+build.o:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+.r:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.r) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+gshellop.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+astream.o: ..\src\core\astream.cpp stdafx.h gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h ..\src\core\GReporter.h
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gvplist.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gvseparator.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.mod:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(COMPILE.mod) -o $@ -e $@ $^
+
+# Not a target:
+.C:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.C) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+..\src\core\rtabst.h:
+#  Implicit rule search has been done.
+#  Last modified Fri Sep 03 17:03:58 1999 (936371038)
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+collide.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(LINK.S) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# Not a target:
+.texinfo:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+matrix.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+gv2group.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.w.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (built-in):
+	$(CTANGLE) $< - $@
+
+# Not a target:
+scan.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# 191 files in 1007 hash buckets.
+# average 19.0 files per bucket, max 3 files in one bucket.
+
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# Finished Make data base on Mon Sep 13 19:13:50 1999
+

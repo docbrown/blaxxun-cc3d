@@ -1,0 +1,44 @@
+[Script for Search and Replace]
+[Options]
+Search_subdir=1
+Prompt_flag=0
+Output_File=
+String Color=255
+Show_Files=1
+Max Items Saved=5
+File Color=16711680
+Backup Path=
+Num Detail Entries=5
+Default Viewer=C:\WINDOWS\NOTEPAD.EXE
+Before Hit=<
+After Hit=>
+Max Reg Expr=32767
+Write to Backup Dir=0
+Unzip Dir=C:\WINDOWS\TEMP\
+Show Files Without Hits=0
+Display Replace String=0
+Display File Stats=1
+Min Size Filter=0
+Max Size Filter=0
+Min Date Filter=
+Max Date Filter=
+Keep file time stamp=0
+One hit=0
+Cache File List=1
+[Search /ix]
+#include (<|\")G[a-zA-Z0-9_]*.h(\>|\")
+[Replace]
+#include %1g%2<%3<.h%4
+[Search /iw]
+"WWW.h"
+[Replace]
+"www.h"
+[Search /i]
+#include <gl/gl
+[Replace]
+#include <GL/gl
+[Path]
+c:\client\cc3d\src\*.h
+[Path]
+c:\client\cc3d\src\*.cpp
+[End of Search and Replace Script]

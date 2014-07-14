@@ -1,0 +1,135 @@
+#VRML V2.0 utf8
+
+# composition
+WorldInfo {
+	title " Test MPEG 4 Layer 3D , Contact 4.3"
+}
+Background { skyColor [ 0.2 0.2 0.2 ] }
+
+NavigationInfo { 
+	headlight FALSE speed 1.0 
+	type "NONE"
+}
+
+EXTERNPROTO Layer3D[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	eventIn MFNode addChildrenLayer
+	eventIn MFNode removeChildrenLayer
+	exposedField MFNode childrenLayer
+	exposedField SFVec2f translation
+	exposedField SFInt32 depth
+	exposedField SFVec2f size
+	exposedField SFNode background
+	exposedField SFNode fog
+	exposedField SFNode navigationInfo
+	exposedField SFNode viewpoint
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:Layer3D","http://www.blaxxun.com/vrml/protos/nodes.wrl#Layer3D","nodes.wrl#Layer3D"]
+
+
+DEF l1 Layer3D
+{ 
+   translation 0.05 0.05
+   size 0.4 0.4
+
+   background Background { skyColor [ 1.0 0.3 1 ] }
+	viewpoint	DEF Viewpoint1 Viewpoint {
+			fieldOfView 0.96
+			orientation 0 -1 0 0.42
+			position -0.75 1.85 1.3
+			description "Entryview"
+		},
+
+
+
+   children [
+		DEF TS TouchSensor {} 
+		DEF Entry1 Inline { url "entry2.wrl" }
+			]
+}
+
+DEF l2 Layer3D
+{ 
+   translation 0.5 0.05
+   size 0.4 0.4
+
+   background Background { skyColor [ 1.0 0.3 1 ] }
+	viewpoint	DEF Overview Viewpoint {
+		position	-3.73903 19.9936 7.99328
+		orientation	-0.937372 -0.285335 -0.199794  1.28314
+		fieldOfView	0.96
+		description	"Overview"
+	}
+
+
+
+
+   children [
+			USE Entry1 
+			]
+}
+
+
+DEF l3 Layer3D
+{ 
+   translation 0.05 0.5
+   size 0.4 0.4
+
+   background Background { skyColor [ 1.0 0.3 1 ] }
+	viewpoint	DEF Viewpoint1 Viewpoint{
+	position	4.5 1.85 6
+	orientation	0 1 0  2.2
+	fieldOfView	0.95993
+	description	"Here_we_go"
+	}
+
+
+
+   children [
+		DEF Spider Inline { url "spider2.wrl" }
+			]
+}
+
+DEF l4 Layer3D
+{ 
+   translation 0.5 0.5
+   size 0.4 0.4
+
+   childrenLayer [
+		USE l1
+		USE l2
+		USE l3
+   ]
+}
+
+
+DEF Timer1 	TimeSensor
+{
+	cycleInterval 10
+}
+
+DEF S Script {
+
+	eventIn SFFloat anim
+
+	field SFNode l USE l1
+	directOutput TRUE
+
+	url "vrmlscript:
+
+	function anim(f) {
+		l.translation = new SFVec2f(f*0.6, 0.5 * (1.0+Math.sin(f*2*Math.PI)));
+		f*=2;
+		if (f>1) f = 1.0 - (f-1);
+		l.translation = new SFVec2f(0.05+f*0.5, 0.05 +f *0.5);
+	}
+	"
+
+}
+ROUTE TS.touchTime TO Timer1.set_startTime
+ROUTE Timer1.fraction_changed TO S.anim
+

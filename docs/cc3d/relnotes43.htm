@@ -1,0 +1,1855 @@
+<html>
+<HEAD>
+<TITLE>blaxxun Contact 3D Release Notes</TITLE> 
+
+</HEAD>
+
+<BODY bgcolor="#fffeee"
+      text="Black"
+      link="#4a9e6d"
+      vlink="#588C80"
+      alink="#68BC90">
+<FONT face="Arial, Helvetica, sans-serif"> 
+<h1 align="center">blaxxun Contact 3D</h1>
+<CENTER>
+  <p><b><font size="+1">4.3</font></b></p>
+  <H2>Release Notes</H2>
+  <p> <font size="-1">Updated 15 Jan 2000</font></p>
+</CENTER>
+<hr>
+<br>
+<br>
+<h2>Introduction</h2>
+<p> This document provides information about the new features and improvements 
+  in the different releases of blaxxun Contact 3D. It also describes some known 
+  limitations and difficulties. 
+<p>For the blaxxun - Web3D community source release please visit <a href="http://www.web3d.org/TaskGroups/source/" target="external">http://www.web3d.org/TaskGroups/source/</a>.<br>
+  <br>
+<hr>
+</font> 
+<ul>
+  <li><font face="Arial, Helvetica, sans-serif"><a href="#new43">New Features 
+    (Version 4.3)</a> </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif"><a href="#texture_text">Texture 
+        Text</a></font></li>
+      <li><font face="Arial, Helvetica, sans-serif">Bug fixes</font></li>
+      <li><font face="Arial, Helvetica, sans-serif"><a href="#d3d_fullscreen">Improved 
+        Full-screen handling in D3D</a></font></li>
+      <li><font face="Arial, Helvetica, sans-serif"><a href="#layer3d">Scene composition 
+        with the Layer3D node</a></font></li>
+    </ul>
+</ul>
+<FONT face="Arial, Helvetica, sans-serif">
+<ul>
+  <li><a href="#new41">New Features (Version 4.1/4.2)</a> 
+    <ul>
+      <li><a href="#nurbs">NURBS Technology</a></li>
+      <li><a href="#p3_support">Intel Pentium III ISSE Instruction Support</a></li>
+      <li><a href="#media_real">Real Player G2 Streaming Video & Sound</a></li>
+      <li><a href="#input">Raw Mouse & Keyboard Input</a></li>
+      <li><a href="#morph">Support for javascript-based Vertex Animation</a></li>
+      <li><a href="#urnsupport">Universal Media URN support</a></li>
+    </ul>
+  <li><a href="#new40">New Features (Version 4.0)</a> 
+    <UL>
+      <li><a href="#nav_panel">Navigation Panel</a></li>
+      <li><a href="#collision">New Collision detection</a></li>
+      <li><a href="#lighting">Improved lighting compatibility</a></li>
+      <li><a href="#advanced_options">Advanced Rendering Options (Trilinear Mip-Mapping, 
+        Anti-Aliasing)</a></li>
+      <li><A HREF="#third_person">Third-person Viewing Mode</A></li>
+      <LI> <A HREF="#caching">VRML local hard disk cache</A></LI>
+      <LI> <A HREF="#vrml2_compatibility">improved VRML 2 compatibility</A></LI>
+      <LI> <A HREF="#d3d">improved Direct3D Hardware Rendering</A></LI>
+      <LI><a href="#transparency">sorted alpha blended transparency</a></LI>
+      <li><a href="#culling">improved render culling</a></li>
+      <li><a href="#eai">direct HTML-Script VRML communication</a></li>
+    </UL>
+  <li><a href="#tips">Tips, Known Problems and Workarounds</a> 
+  <li><a href="#d3d">Direct3D Issues</a> 
+    <ul>
+      <li><a href="#d3d_hw">Hardware</a> 
+      <li><a href="#d3d_sw">Software Drivers</a> 
+      <li><a href="#d3d_tips">Tips</a> 
+    </ul>
+  <li><a href="#media">Media Issues</a> 
+    <ul>
+      <li><a href="#media_sound">Sound</a> 
+      <li><a href="#media_real">RealPlayer G2</a> 
+    </ul>
+  <li><a href="#files">Required Files</a> 
+  <li><a href="#embed">Embedding a VRML world in a Web Page</a> 
+  <li><a href="#vrml2_compatibility">VRML 2 Compatibility</a> 
+  <li><a href="#bsp">BSP Tree</a> 
+  <li><a href="#extensions">Extensions</a> 
+</ul>
+<br>
+<br>
+<hr>
+</font> 
+<h2><font face="Arial, Helvetica, sans-serif"><a name="new43">New Features (Version 
+  4.3)</a></font></h2>
+<a name="texture_text"></a>
+<h3><font face="Arial, Helvetica, sans-serif">Texture Text</font></h3>
+<p><font face="Arial, Helvetica, sans-serif">Per default blaxxun Contact 3D computes 
+  a 3D representation for VRML Text nodes by getting True-Type outlines for each 
+  character and tesselates these into a set of triangles. This gives high quality 
+  text, but performance suffers due to the tesselation step and the high amount 
+  of triangles produced. VRML authors expressed the need for more flexible Font 
+  performance handling.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">In Contact 4.3 there is the new option 
+  of creating a textured rectangle for each character. The user first must supply 
+  a special Font texture in a ImageTexture node and sets the fontstyle family 
+  attribute to &quot;TEXTURE&quot;.</font></p>
+<pre>Shape { <br>	appearance Appearance { <br>			texture DEF FONTT ImageTexture { url "font512tr.gif"    repeatS FALSE repeatT FALSE } <br>			material Material { diffuseColor 1 1 1 } 
+		} <br>	geometry    
+		Text { string [ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ] <br>			fontStyle FontStyle { family ["TEXTURE"]  justify "LEFT" <br>} } } </pre>
+<p><font face="Arial, Helvetica, sans-serif">The Text attributes length and maxExtent, 
+  the FontStyle attributes size, spacing, leftToRight, topToBottom, justify and 
+  style = PLANE or ITALIC are implemented for TEXTURE text. The square texture 
+  map is divided into 16*16 cells for 256 different characters, the character 
+  0 start in the upper left corner of the pixel image. The character width is 
+  scaled by 0.8. The Appearance node or Texture node should be reused between 
+  different text strings for speed. For special effects or fonts the texture map 
+  can be tuned. Using textures with alpha (or a transparent GIF) can give a transparent 
+  background. Using grayscale or black &amp; white textures allows color changes 
+  using the Material diffuseColor.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Test Examples: </font></p>
+<ul>
+  <li><font face="Arial, Helvetica, sans-serif"><a href="vrml/samples/bitmaptext_test.wrl" target=external>Texture 
+    Text test</a> with the font texture <a href="vrml/samples/font512.gif" target=external>font512.gif</a> 
+    </font>
+  <li><font face="Arial, Helvetica, sans-serif"><a href="vrml/samples/bitmaptext_test_emb.wrl" target=external>Texture 
+    Text test 1</a> with the embossed font texture <a href="vrml/samples/font512emb.gif" target=external>font512emb.gif</a> 
+    </font> 
+</ul>
+<p><font face="Arial, Helvetica, sans-serif">To further optimize the Text texture 
+  resolution and layout custom layout settings can be specified with up to 7 numbers 
+  after the family &quot;TEXTURE&quot; string. The format is &quot;TEXTURE minChar 
+  maxChar cols rows aspect extraSpace shift&quot;</font></p>
+<table width="75%" border="1">
+  <tr>
+    <td>minChar</td>
+    <td>minimal character code - default 0</td>
+  </tr>
+  <tr>
+    <td>maxChar</td>
+    <td>maximal character code - default 255</td>
+  </tr>
+  <tr>
+    <td>cols</td>
+    <td>number of characters per texture horizontal - 16</td>
+  </tr>
+  <tr>
+    <td>rows</td>
+    <td>number of character rows vertical - 16</td>
+  </tr>
+  <tr>
+    <td>aspect</td>
+    <td>float, default 0.8 - width scaling factor</td>
+  </tr>
+  <tr>
+    <td>extraSpace</td>
+    <td>float, default 0.0 extra spacing between characters</td>
+  </tr>
+  <tr>
+    <td>shift</td>
+    <td>float default 0, italic shift factor for top of character box</td>
+  </tr>
+</table>
+<p><font face="Arial, Helvetica, sans-serif">If an application only needs a certain 
+  continous range of characters, the texture can be optimized for higher resolution 
+  characters (or sprites).</font></p>
+<p>&nbsp;</p>
+<p><font face="Arial, Helvetica, sans-serif">The standard polygonal Text has been 
+  changed in the following ways: The default resolution for Text size 1.0 has 
+  been reduced. Text size 0.1 produces a coarse Font contour approximation, 10.0 
+  a higher approximation.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">The FontStyle attribute &quot;OUTLINE&quot; 
+  produces only fast lineset outline characters. This option can be <b>only</b> 
+  enabled for Contact 4.3 and might cause an Exception in Versions prior to Contact 
+  4.3.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">The FontStyle attribute &quot;EXTRUDE&quot; 
+  produces extruded 3D Text with a depth of 1.0. Please beware of the high Triangle 
+  count possibly produced. (e.g. use the size 0.1 option for a coarser outline 
+  tesselation.)</font></p>
+<p>&nbsp;</p>
+<p><a name="d3d_fullscreen"></a> </p>
+<h3><font face="Arial, Helvetica, sans-serif">Improved Direct3D fullscreen handling</font></h3>
+<p><font face="Arial, Helvetica, sans-serif">In the Direct3D version blaxxun Contact 
+  3D supports fullscreen mode rendering.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">This capability has been improved 
+  to work with low-cost 3D Stereo glasses like the<a href="http://www.3drevelator.com/" target="extern"> 
+  ELSA Revelator</a>. The fullscreen mode can be choosen in the Preferences-&gt;Settings-&gt;Direct3D 
+  dialog.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">To set up stereo viewing the graphics 
+  board and stereo driver must first configured, and the stereo width need to 
+  be adopted to the monitor size.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">After clicking in the 3D window the 
+  key F5 switches to fullscreen, ESC switches back to window mode. </font></p>
+<p><font face="Arial, Helvetica, sans-serif">Here are some nice scenes with a 
+  good stereo effect: </font></p>
+<ul>
+  <li><font face="Arial, Helvetica, sans-serif"><a href="http://www.colonycity.com/places/inrlms_col/vrml/inrlms_col.wrl" target=external>Inner 
+    Realms</a> from <a href="http://www.cybertown.com" target=external>Cybertown</a> 
+    </font> 
+</ul>
+<h3><font face="Arial, Helvetica, sans-serif"><a name="layer3d"></a> Layer3D </font></h3>
+<p><font face="Arial, Helvetica, sans-serif">Layer3D enables to render subscene 
+  in rectangular area. The background can be a solid color or transparent. </font></p>
+<p><font face="Arial, Helvetica, sans-serif">Layer3D is usefull for scene composition 
+  and VRML user interfaces. Many problems with the current HUD practice are solved 
+  with Layer3D.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">More discussion and examples are 
+  provided <a href="vrml/samples/layerdemo/index.html">here</a>.</font></p>
+<p><font face="Arial, Helvetica, sans-serif"></font></p>
+<h3><font face="Arial, Helvetica, sans-serif">Misc</font></h3>
+<p><font face="Arial, Helvetica, sans-serif">Material transparency now blended 
+  with transparent textures or transparent gif's. This is not exactly VRML compliant, 
+  but was a demand from content developers.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">The new Preferences-&gt;Performance 
+  dialog allows user fine tunining of rendering performance. User of sites like 
+  www.cybertown.com with not so good CPU/3D performance can set visibility scale 
+  to 0.5 to scale down the visibility distance and so the amount of 3D data displayed.<br>
+  The option </font><font face="Arial, Helvetica, sans-serif"> visibilty scale 
+  scales any given explicit visibilityLimit in the Navigation info and always 
+  scales LOD rangesl. For LOD without range the level is choosen using the formula 
+  exp(distance from center to viewer / visibilityLimt ) * (level.length -1), priort 
+  to 4.3 the first level was choosen.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Trimmed NURBS extension nodes : Contour, 
+  Polyline2D, NurbsCurve2D, TrimmedSurface, Conversion utility from OpenIventor 
+  NURBS format to VRML, see NURBS project page for details.</font></p>
+<p><font face="Arial, Helvetica, sans-serif"> The Browser.getCap(mode) call was 
+  extended to return memory statistic data like total &amp; free physical memory 
+  as well as free texture memory in the Direct3D Version. </font></p>
+<p><font face="Arial, Helvetica, sans-serif">The Real Video module now displays 
+  status information.</font></p>
+<p>&nbsp;</p>
+<p><FONT face="Arial, Helvetica, sans-serif"><a name="new41"> </a></font></p>
+<FONT face="Arial, Helvetica, sans-serif"><a name="new41">
+<h2>New Features (Version 4.1/4.2)</h2>
+</a> <a name="nurbs"> 
+<h3>NURBS Technology</h3>
+</a> 
+<p> As part of our development efforts for Pentium<font size="-1"><sup>®</sup></font> 
+  III support, we have implemented NURBS technology in blaxxun Contact 4.1. With 
+  NURBS, complex 3D curves can be represented with a minimum of data, allowing 
+  a new level of visual display and animation quality for Internet-delivered 3D 
+  graphics. 
+<p> To learn about blaxxun's NURBS development, including NURBS-related settings 
+  in blaxxun Contact, sample content, project results and our proposed NURBS extension 
+  for VRML97, see the <a href="nurbs/overview.html">NURBS project overview</a> 
+  and the <a href="nurbs/spec/nurbsproposal.html">VRML NURBS proposal</a>. 
+<p>&nbsp; 
+<a name="p3_support"> 
+<h3>Intel Pentium III ISSE Instruction support</h3>
+</a> 
+<h4>System Requirements</h4>
+<p> To take advantage of blaxxun Contact's Pentium III support, you'll need a 
+  Pentium III PC running Windows 95/98 and Microsoft DirectX 6 or higher. You'll 
+  also need Microsoft Internet Explorer (version 3 or higher) or Netscape Navigator 
+  (version 3 or higher). Graphics cards with Intel i740, Matrox G200 or Riva TNT 
+  are recommended; best results can be seen with the latter. 
+<h4>Settings</h4>
+The Pentium III acceleration works best with the DirectX HAL driver, but can be 
+also used with the "high-quality" RGB emulation driver. 
+<p> Edit the settings in the Preferences dialog. To get there, right-click in 
+  the 3D window of blaxxun Contact, then select Settings and Preferences. Or simply 
+  press Ctrl-F9. The settings of interest for Pentium III acceleration are described 
+  below; these settings can be made in the "Direct3D - more options" and "General" 
+  tabs. 
+<p><b>Direct3D - more options</b><br>
+  You can make the following settings:<br>
+  Software-Lighting enables the software lighting, disabling the Direct3D lighting, 
+  i.e. blaxxun Contact computes lighting using the VRML specification's formulas. 
+  In this mode the Pentium III acceleration can be activated by checking the "Use 
+  Pentium III instructions" box. Enabling the "Use Direct3D Culling" option gives 
+  a further performance boost if your graphics board supports this feature. 
+<p><b>General</b> <br>
+  You can make the following settings in the General tab:<br>
+<p> Enable the "<b>run fullspeed setting</b>" and in the <i>DirectX</i> section 
+  the <b>HAL Driver</b>. 
+<p> Enabling "dither" and "smooth textures" usually yields a better visual appearance 
+  and shouldn't cause a reduction of frame rate with today's graphics boards. 
+  Generally, we recommend a high setting, e.g. 150, for "Amount of disk space 
+  to use" (set in "Cache Settings"). 
+<p> Some advanced features can only be set directly in the registry: 
+<p>Direct3D.dxlevel - number (3 for Direct X 3, 5 for Direct X 5, 6 for Direct 
+  X 6, default 0) 
+<p>Direct3D.maxverts - maximum number of vertices passed in a block to Direct3D 
+  (default setting is 1020) 
+<h4><b>Implemented ISSE (Katmai) Support</b></h4>
+<p> Transform and Lighting as well as matrix operations are done with the ISSEi 
+  New Instruction set The VRML light model has been implemented. Supported lights 
+  are <i>DirectionalLight</i>, <i>PointLight</i> and <i>SpotLight</i>. The number 
+  of lights is limited to 64. 
+<p> The performance gain depends enormously on the VRML scene. In scenes with 
+  a low number of polygons where transform and lighting require only a marginal 
+  amount of computation time, the acceleration of these computations can't result 
+  in an appreciable boost in system performance. However, the KNI can speed up 
+  blaxxun Contact by as much as 50% if the CPU gets a heavy load. 
+<p> Have a look at our <a href="bench/bench.htm">benchmark page</a> with various 
+  complex scenes in order to see the performance boost of your PIII system. <br>
+  &nbsp; 
+<h4><b>"Ideal" VRML Content</b></h4>
+<p> Ideal content should contain larger meshes with full vertex sharing. Full 
+  vertex sharing can be achieved by setting the following fields in an <i>IndexedFaceSet</i> 
+  node:<br>
+  <br>
+<blockquote> <font face="Courier">creaseAngle 3.14</font><br>
+  <font face="Courier">coordIndex ...</font> &nbsp;&nbsp;&nbsp;as usual with coordinates 
+  referenced several times <br>
+  <font face="Courier">coord Coordinate {... } </font> </blockquote>
+<p> (optional) <br>
+<blockquote> <font face="Courier">texCoord <br>
+  normal</font> </blockquote>
+<p> (With the other fields at their defaults, ie. normalPerVertex TRUE ) 
+<p> As soon as a node contains <i>normalIndex</i> / <i>texCoordIndex</i> / <i>colorIndex</i>&nbsp; 
+  or the default <i>creaseAngle</i> 0, sharing can get lost because each separate 
+  instance of the tuple (<i>colorIndex</i>, <i>normalIndex</i>, <i>texCoordIndex</i>, 
+  <i>colorIndex</i>) forms an internal vertex. <br>
+  There is no limit on the number of vertices. 
+<p> Two-sided lighting has been implemented (solid FALSE flag in <i>IndexedFaceSet</i>). 
+  Of course this setting affects performance, because no backface culling can 
+  be applied and the vertex normals are oriented toward the viewer for correct 
+  lighting. <br>
+  &nbsp; 
+<h4>Known Limitations</h4>
+<p> The following aspects of lighting are currently not implemented : 
+<ul>
+  <li> Distance attenuation is in local coordinate space relative and not world 
+    relative </li>
+  <li> the range parameter </li>
+  <li> the <i>SpotLights</i> inner cone angle </li>
+  <li> exponential fog </li>
+  <li> Vertex color/face color with lighting is not optimized for Katmai yet (but 
+    vertex color without lighting is).</li>
+  <li>multiple plugin instances running coud cause rendering artifacts or flickering</li>
+</ul>
+<br>
+<p> With small datasets and depending on the graphics driver, frame rate will 
+  not increase over some limit like 100 FPS using the i740 because the display.drv 
+  waits for display sync. This problem doesn't occur with the Matrox G200. 
+<p> Using the Intel PIII-optimized Microsoft DirectX 6.1 release, we have seen 
+  some speed-up using the standard Direct3D transform/light code path in blaxxun 
+  Contact. </p>
+<br>
+<br>
+<a name="input"> 
+<h3>Raw Mouse & Keyboard input</h3>
+</a></font> 
+<p>
+<FONT face="Arial, Helvetica, sans-serif"> Beginning with Contact 4.1, raw mouse and keyboard input can be intercepted from javascript or an EAI eventOutObserver.</font></p>
+
+<p>
+<font face="Arial, Helvetica, sans-serif">Events are reported via an SFNode Event node.</font></p>
+
+<dl> 
+  <dl> 
+    <dd> 
+      <pre class=idl-code>   
+Event
+{
+           eventOut SFString               type
+           eventOut SFBool                 cancelBubble
+           eventOut SFBool                 returnValue
+           
+           eventOut SFVec2f                screen
+           eventOut SFVec2f 		   client
+           eventOut SFVec2f 		   position
+
+
+           eventOut SFBool		   altKey
+           eventOut SFBool                 ctrlKey
+           eventOut SFBool                 shiftKey
+           eventOut SFInt32                keyCode
+
+           eventOut SFInt32                button
+}
+
+</pre>
+    </dd>
+  </dl>
+</dl>
+<dl> 
+  <dt><font face="Arial, Helvetica, sans-serif"><b>Attributes</b> </font>
+    <dl> 
+      <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-Event-type></a><a 
+name=attribute-type>type</a></code> </font></dt>
+      <dd><font face="Arial, Helvetica, sans-serif">The <code>type</code> property 
+        represents the event name as a string property. </font></dd>
+      <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a 
+name=attribute-cancelBubble>cancelBubble</a></code> </font></dt>
+      <dd><font face="Arial, Helvetica, sans-serif">The <code>cancelBubble</code> 
+        property is used to control the bubbling phase of event flow. If the property 
+        is set to true, the event will cease bubbling at the current level. If 
+        the property is set to false, the event will bubble up to its parent. 
+        The default value of this property is determined by the event type. </font></dd>
+      <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a 
+name=attribute-returnValue>returnValue</a></code> </font></dt>
+      <dd><font face="Arial, Helvetica, sans-serif">If an event is cancellable, 
+        the <code>returnValue</code> property is checked by the DOM implementation 
+        after the event has been processed by its event handlers. If the <code>returnValue</code> 
+        is false, the DOM implementation does not execute any default actions 
+        associated with the event. </font></dd>
+    </dl>
+  <dl> 
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-UIEvent-screenX></a><a 
+name=attribute-screenX>screen</a></code> </font>
+    <dd> <font face="Arial, Helvetica, sans-serif"><code>screen.x</code> indicates 
+      the horizontal coordinate at which the event occurred relative to the 
+      origin of the screen coordinate system. <code>screen.</code><font size=2>y</font> 
+      indicates the vertical coordinate at which the event occurred relative to 
+      the origin of the screen coordinate system. </font></dd>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a 
+name=attribute-clientX>client</a></code> </font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif"><code>client.x</code> indicates 
+      the horizontal coordinate at which the event occurred relative to the DOM 
+      implementation's client area. <br>
+      <code>client.y</code> indicates the vertical coordinate at which the event 
+      occurred relative to the DOM implementation's client area. </font></dd>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a 
+name=attribute-clientX>position</a></code></font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif"><code class=attribute-name>position</code><code>.x</code> 
+      indicates the horizontal coordinate at which the event occurred relative 
+      to the DOM implementation's normalized client area. <br>
+      <code class=attribute-name>position</code><code>.y</code> indicates the 
+      vertical coordinate at which the event occurred relative to the DOM implementation's 
+      normalized client area. </font></dd>
+    <dt>&nbsp;</dt>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-UIEvent-altKey></a><a 
+name=attribute-altKey>altKey</a></code> </font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif"><code>altKey</code> indicates 
+      whether the 'Alt' key was depressed during the firing of the event. </font></dd>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-UIEvent-ctrlKey></a><a 
+name=attribute-ctrlKey>ctrlKey</a></code> </font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif"><code>ctrlKey</code> indicates 
+      whether the 'Ctrl' key was depressed during the firing of the event. </font></dd>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-UIEvent-shiftKey></a><a 
+name=attribute-shiftKey>shiftKey</a></code> </font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif"><code>shiftKey</code> indicates 
+      whether the shift key was depressed during the firing of the event. </font></dd>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-UIEvent-keyCode></a><a 
+name=attribute-keyCode>keyCode</a></code> </font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif">The value of <code>keyCode</code> 
+      holds the virtual key code value of the key which was depressed if the event 
+      is a key event. Otherwise, the value is zero. Currently the raw Win32 keycode 
+      is reported.</font></dd>
+    <dt><font face="Arial, Helvetica, sans-serif"><code class=attribute-name><a name=Level2-Events-UIEvent-button></a><a 
+name=attribute-button>button</a></code> </font></dt>
+    <dd><font face="Arial, Helvetica, sans-serif">During mouse events caused by 
+      the depression or release of a mouse button, <code>button</code> is used 
+      to indicate which mouse button changed state. This is a bitmask with the 
+      values 1 for left button, 2 for right and 4 for middle. During a buttonup event, the mask 
+      of the button causing the event is reported.</font></dd>
+  </dl>
+  <p><font face="Arial, Helvetica, sans-serif">This extension is modeled after the 
+    <a href="http://www.w3.org/TR/1999/WD-DOM-Level-2-19990304/events.html">W3C DOM Events</a>. 
+    </font></p>
+</dl>
+<dl> 
+  <dt><font face="Arial, Helvetica, sans-serif"><b>Event types</b></font>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>click</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif">The click event occurs when the 
+    pointing device button is clicked over an element. This attribute may be used 
+    with most elements. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: screen, client, 
+        position, altKey, ctrlKey, shiftKey, button </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>dblclick</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif">The dblclick event occurs when 
+    the pointing device button is double-clicked over an element. This attribute 
+    may be used with most elements. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: screen, client, 
+        position, altKey, ctrlKey, shiftKey, button </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>mousedown</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The mousedown event occurs when 
+    the pointing device button is pressed over an element. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: screen, client, 
+        position, altKey, ctrlKey, shiftKey, button </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>mouseup</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The mouseup event occurs when 
+    the pointing device button is released over an element. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: screen, client, 
+        position, altKey, ctrlKey, shiftKey, button </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>mouseover</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The mouseover event occurs when 
+    the pointing device is moved onto an element. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info:screen, client, 
+        position, altKey, ctrlKey, shiftKey</font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>mousemove</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The mousemove event occurs when 
+    the pointing device is moved while it is over an element. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: No </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info:screen, client, 
+        position, altKey, ctrlKey, shiftKey</font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>mouseout</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The mouseout event occurs when 
+    the pointing device is moved away from an element. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: screen, client, 
+        position, altKey, ctrlKey, shiftKey, button </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>keypress</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The keypress event occurs when 
+    a key is pressed and released. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: keyCode, charCode 
+        </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>keydown</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The keydown event occurs when 
+    a key is pressed down. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: keyCode, charCode 
+        </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>keyup</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif"> The keyup event occurs when a 
+    key is released. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: keyCode, charCode 
+        </font></li>
+    </ul>
+  <dt><font face="Arial, Helvetica, sans-serif"><b>resize</b> </font>
+  <dd><font face="Arial, Helvetica, sans-serif">The resize event occurs when a 
+    document is resized. </font> 
+    <ul>
+      <li><font face="Arial, Helvetica, sans-serif">Bubbles: Yes </font>
+      <li><font face="Arial, Helvetica, sans-serif">Cancellable: No </font>
+      <li><font face="Arial, Helvetica, sans-serif">Context Info: None </font></li>
+    </ul>
+  </dd>
+</dl>
+<p>&nbsp;</p>
+<p><font face="Arial, Helvetica, sans-serif">Setting an observer requires the addition of a route or an eventOutObserver to the browser's SFNode eventOut event_changed. This is a code fragment for adding the event observer:</font></p>
+
+<pre><font face="Courier New, Courier, mono">function initialize() {
+	// tell what events 
+	m=Browser.eventMask; 
+	oldMask=m;    
+	m = m | (1<<4) | 1; // mouse up & down 
+	Browser.eventMask = m;    
+	// add event observer 
+	Browser.addRoute(Browser,'event_changed',inputHandler,'onEvent');    
+}</font></pre>
+
+<p><font face="Arial, Helvetica, sans-serif">The following are the supported mask 
+  values:</font></p>
+<blockquote> 
+  <p><FONT face="Arial, Helvetica, sans-serif">mousedown = 1<br>
+    mousemove = 1<<1<br>
+    </font><FONT face="Arial, Helvetica, sans-serif">mouseout = 1<<2<br>
+    mouseover = 1<<3<br>
+    mouseup = 1<<4<br>
+    keydown = 1<<5<br>
+    keyup = 1<<6<br>
+    keypress = 1<<7<br>
+    click = 1<<8, <br>
+    dblclick = 1<<9 </font></p>
+</blockquote>
+<p><FONT face="Arial, Helvetica, sans-serif"> <br>
+  This is a code fragment for the event callback handler:</font></p>
+<pre><font face="Courier New, Courier, mono">DEF inputHandler Script { 
+eventIn SFNode onEvent 
+url "javascript: 
+function    onEvent(e,t) { 
+if (e.type == 'mousemove' && e.button == 0) {
+	 return; // to    many prints 
+} 
+
+print('Event type='+e.type+' at='+t); 
+print(' button='+e.button+'    shiftKey='+e.shiftKey+' ctrlKey='+e.ctrlKey+' altKey='+e.altKey); 
+print(' position='+e.position+'    keyCode='+e.keyCode+' ctrlKey='+e.ctrlKey+' altKey='+e.altKey); 
+
+if (e.type ==    'mouseup' && e.button == 2) { // test we want to handle rbutton menu 
+	e.returnValue    = 0; 
+} 
+} " 
+} </font></pre>
+<p><font face="Arial, Helvetica, sans-serif">All input event properties are reported using only one Event node. The default Browser eventHandling for that event can be turned off by setting the returnValue to 0. The event types keypress, click, mouseover, and mouseout are currently not supported.</font></p>
+
+<p><font face="Arial, Helvetica, sans-serif">Test Example: </font><font face="Arial, Helvetica, sans-serif"><font face="Arial, Helvetica, sans-serif"><a href="vrml/samples/mousetest.wrl" target=external>Mouse 
+  / Keyboard Input Test</a> </font></font></p>
+<p>&nbsp;</p>
+
+
+<p><font face="Arial, Helvetica, sans-serif"><a name="morph"></a></font></p>
+<FONT face="Arial, Helvetica, sans-serif"><a name="morph"> 
+<h3>Support for javascript-based vertex animation</h3>
+</a> In order to support full-body mesh animation for avatars, blaxxun Contact 
+supports an arithmetic helper function for javascript. Instead of animating a 
+nested hierarchy of transform nodes, a nested hierarchy of vertices of a Coordinate 
+node can be animated. This results in smoother, more realistic avatar motions 
+and avoids rendering artifacts at joints. The API function setByVertexTransform 
+is described in the <a href="#extensions">Extensions</a> section.<br>
+<br>
+<br>
+<hr>
+<a name="urnsupport">
+<h2>Universal Media URN Support</h2>
+</a> blaxxun Contact uses URNs (Uniform Resource Names) to reference media elements 
+such as textures, sounds and objects according to a mechanism proposed by the 
+<a href="http://www.web3d.org/WorkingGroups/media/index.html" target=external>Universal 
+Media Working Group</a>. Details of the proposal can be found <a href="http://www.web3d.org/WorkingGroups/media/proposals/urn.html">here</a>. 
+<br>
+<br>
+<hr>
+</font>
+<h2><FONT face="Arial, Helvetica, sans-serif"><a name="new40"> </a></font></h2>
+<FONT face="Arial, Helvetica, sans-serif"><a name="new40"> 
+<h2>New Features (Version 4.0)</h2>
+</a> <A NAME="caching"></A> 
+<h3>Caching</h3>
+In addition to HTML browser caching, blaxxun Contact 3D supports a mechanism to 
+cache VRML files and referenced media such as textures, sounds and movies on the 
+local hard disk. Caching is controlled by the "Caching" and "Cache Settings" tabs 
+in the Preferences dialog of blaxxun Contact (press Ctrl-F9). <BR>
+<p> With the default Setting "Verify once per session", VRML files are retrieved 
+  using the HTML browser's functions. All files retrieved by Contact 3D are written 
+  to the cache with the server timestamp. The next time the files are needed, 
+  the current VRML server file date is compared with the VRML cache file timestamp. 
+  If the dates are identical, all referenced media files are read directly from 
+  the cache without further HTTP requests. This greatly improves loading performance 
+  if the world is revisited frequently. 
+</font>
+<p><FONT face="Arial, Helvetica, sans-serif">In Contact 4.3 the URL's of Inline 
+  and EXTERNPROTO's are verified for change. Files considered corrupt like truncated 
+  WAV files, images or VRML with unexpected Syntax error (often resulting from 
+  interrupted downloads) are deleted from the cache. </font></p>
+<FONT face="Arial, Helvetica, sans-serif"> 
+<p>If an author modifies an individual texture, the referring VRML file should 
+  also be touched in order to be refreshed by Contact 3D. Media placed in locations 
+  containing "/cgi-bin" or "/no-cache" in the URL are retrieved each time. 
+<P> The lastModified Date for an URL from the HTTP server is set as the creation 
+  time for the cache file; the modified date is the timestamp of last retrieval 
+  or cache storage. Applications can install VRML content directly to the Contact 
+  3D cache with the proper timestamps, or can add a directory to the list of read-only 
+  directories. The cache is automatically cleaned from time to time. </p>
+<P>&nbsp; <BR>
+  <a name="transparency"></a> 
+<h3>Transparency handling</h3>
+<p> Transparency is supported in the following forms : <BR>
+  Direct3D software drivers: stippled alpha (simulated alpha transparency via 
+  pixel pattern), with DirectX 6 some support<BR>
+  OpenGL, Direct3D hardware: blended alpha transparency, some boards implement 
+  dithered alpha only<BR>
+  Shape nodes with a fully transparent material are not drawn. <BR>
+</p>
+<p> Transparent shapes are rendered after opaque objects, in order of the distance 
+  of their bounding boxes from the viewer. Currently a minor limitation is that 
+  transparent shapes are affected by global lights and top-level directional lights, 
+  but not by local directional lights. Shapes are sorted with respect to the distance 
+  of the bounding box to the viewer. In some configurations this results in unexpected 
+  rendering results. It is recommend to break up transparent objects in smaller 
+  parts, so that a better sort and drawing order can be achieved.</p>
+<p> A transparent color index in GIF Textures or GIF MovieTexture is fully supported 
+  in all drivers. Support for textures with an alpha channel is driver-dependent: 
+  OpenGL, most Direct3D hardware drivers and the Direct3D RGB emulation driver 
+  support alpha formats;&nbsp; the Direct3D Ramp and MMX driver do not. </p>
+<a name="lighting"></a> 
+<h3>Lighting</h3>
+<p> Lighting in version 4.0 is more compatible between OpenGL and Direct3D (RGB 
+  or hardware mode). The range parameter in light sources is ignored. OpenGL has 
+  a limit on the number of simultaneously active light sources. Ambient light 
+  in Direct3D is a global property and derived from the <i>ambientIntensity</i> 
+  of the light sources.</p>
+<A NAME="third_person"></A> 
+<h3>Third-Person Viewing Mode</h3>
+<P> In third-person viewing mode, the user's avatar is displayed at the viewing 
+  position; the "rendering camera" displays an image from a new viewing position 
+  behind the avatar. The 'A' key&nbsp; or the context menu option "View my Avatar"&nbsp; 
+  toggles third-person viewing mode. The following keys (on the main keyboard, 
+  not the numeric keypad) control movement of the camera: 
+<UL>
+  <LI>9-0: Move in a circle around the avatar.</LI>
+  <LI>1-2: Move forward or backward along the line connecting camera and avatar.</LI>
+  <LI>3-4: Move the camera down or up.</LI>
+  <LI>5-6: Turn the camera down/up.</LI>
+  <LI>7-8: Turn the camera right/left.</LI>
+</UL>
+Contact retrieves the avatar definition (e.g. VRML file, VRML URL) from one of 
+the following places: 
+<UL>
+  <LI>a VRML file called avatar.wrl placed in the Contact 3D installation directory</LI>
+  <LI>programmed from vrmlscript using <font face="Courier">Browser.set_myAvatarURL 
+    = "http:// ...."</font></LI>
+  <LI>programmed from vrmlscript using <font face="Courier">Browser.set_myAvatarNode(node)</font></LI>
+  <LI>passed internally when entering a multi-user world.</LI>
+  <LI>the blaxxun default avatar</LI>
+</UL>
+The first node of the VRML file can be an instance of a PROTO supporting some 
+or all of the blaxxun avatar interface elements. (See <A HREF="../../index.html" target="_top">blaxxun 
+World and Avatar authoring</A>.) 
+<p> VRML viewpoints, navigation, <i>ProximitySensors</i> etc. are all relative 
+  to the position of the avatar, not to the third-person mode's camera. 
+<p> The avatar VRML implementation can support certain animations on browser events 
+  like moving to a new position, begin/end of navigation action, world entering 
+  event. 
+<p> The VRML <i>ProximitySensor</i> will report positions relative to the avatar 
+  position, not relative to the rendering camera. "Misuses" of the <i>ProximitySensor</i> 
+  as a helper to implement HUD displays will currently position the HUD in front 
+  of the avatar. For this reason an extra HUD node has been implemented as helper 
+  node. 3rd person viewing mode can be controlled from vrmlscript, see the Browser 
+  object extensions for details. 
+<p> <a name="nav_panel"></a> 
+<h3>Navigation Panel</h3>
+<p> The navigation panel gives access to the walk navigation mode, viewpoint selection 
+  function and a slide function. The panel visibility can be toggled in the menu 
+  and in the Preferences dialog or via the embed / object parameter <font face="Courier">VRML-DASHBOARD=FALSE</font> 
+  in the HTML page. 
+<p> On some OpenGL display systems, display of the navigation panel reduces rendering 
+  performance. </p>
+<a name="culling"></a> 
+<h3>Culling</h3>
+<p> Geometry objects are tested for visibility against the view frustrum. If the 
+  author specifies a <font face="Courier">bboxSize&gt;=0</font> at a Group node 
+  level, a bounding box culling check is done for rendering, selection, terrain 
+  following and collision detection. Wrong bounding box values will result in 
+  wrong calculations, Contact 3D currently does not update or re-compute the bounding 
+  boxes. The <i>CullGroup</i> Group extension node automatically computes internally 
+  a bounding box for the children scene graph.</p>
+<a name="collision"></a> 
+<h3>Collision Detection and Terrain Following</h3>
+<p> New in version 4.0 is a geometric collision detection based on a box around 
+  the old and new avatar positions, and the scene graph geometry. The collision 
+  box is computed from the <i>NavigationInfo</i> collision distance, avatar height, 
+  and step-over height. In the third-person mode these values are computed from 
+  the bounding box of the avatar geometry and can also be specified in the avatar 
+  prototype interface. The collision detection algorithm is very fast, but needs 
+  some additional one-time preprocessing and memory the first time the avatar 
+  approaches the object. Ground detection is done by firing a ray towards ground. 
+  <br>
+  <br>
+  <br>
+<hr>
+<a name="tips"> 
+<h2>Tips, Known Problems and Workarounds</h2>
+</a> 
+<UL>
+  <LI>During scene loading in Internet Explorer, there is no feedback from the 
+    Internet Explorer logo animation to indicate download activity.</LI>
+  <LI>If scenes appear too dark, the headlight can be enabled in the Popup Menu.</LI>
+  <li>The <i>MovieTexture</i> supports animated GIFs (GIF 89a) and static image 
+    formats. If the Microsoft DirectMedia runtime is installed, other video formats 
+    are supported. The sound of movies cannot yet be played via a sound node; 
+    it is currently played directly using DirectSound.</li>
+  <li>There are limitations in the implementation of VRML geometry sensors.</li>
+  <li>Some rendering features can currently not be provided in the Direct3D version; 
+    see the Notes in the Direct3D section.</li>
+  <li>The Microsoft Direct3D ramp emulation computes lighting with a very simplified 
+    model. Ambient lighting and the specular color are not additive. Workarounds:</li>
+  <UL>
+    <LI>Black faces due to missing ambient lighting: add a directional light source.</LI>
+    <LI>Completely bright faces when lighted: set the <i>specularColor</i> to 
+      the default value <font face="Courier">0 0 0</font></LI>
+    <LI>Incorrect specular color: specify <i>specularColor</i> very bright, e.g. 
+      <font face="Courier">0.9 0.9 0.9</font></LI>
+    <LI>Insufficient display quality of lighted texture: use unlit textures <font face="Courier New, Courier, mono">Appearance 
+      {texture ImageTexture {..}}</font></LI>
+  </UL>
+  <LI><i>IndexedLineSets</i> and <i>PointSets</i> are currently not selectable 
+    by Anchors or geometry sensors.</LI>
+  <LI>The triangulation algorithm in the Direct3D version occasionally makes some 
+    small mistakes in rendering fonts.</LI>
+  <LI>blaxxun Contact 3D registers the Web Browser for the file extensions <font face="Courier">wrl</font>, 
+    <font face="Courier">wrz</font>, <font face="Courier">vrml</font>. It's recommended 
+    that gzipped VRML files be stored with the extension <font face="Courier">wrl</font> 
+    on a website.</LI>
+  <LI>For compatibility with existing multi-user worlds: if the VRML scene graph 
+    contains no light at the root level, Contact 3D makes all <i>DirectionalLights</i> 
+    in the initial scene graph global. Authors should ensure that avatars inserted 
+    by blaxxun Contact also get lighted.</LI>
+  <LI>In some worlds the visible depth range needs to be adapted in order to resolve 
+    z-buffer resolution problems. Depending on the scene, the workaround is to 
+    add bboxSize bboxCenter fields to some <i>Inline</i> / <i>Group</i> nodes, 
+    to specify a <i>visibilityLimit</i> in the <A HREF="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html"><i>NavigationInfo</i></A> 
+    node or, if the scene flickers, to increase the first number in the <i>avatarSize</i> 
+    field of the <i>NavigationInfo</i>.</LI>
+  <LI>A <i>Viewpoint</i> node removed from the scene graph, but still referenced 
+    by script node fields, will still appear in the Viewpoint popup menu. Workaround 
+    is to set the description to an empty string in order to make the viewpoint 
+    disappear from the menu.</LI>
+  <LI>Viewpoint binding from VRML will do a Viewpoint animation, similar to the 
+    menu function.</LI>
+  <LI>Vrmlscript/javascript limitations: 
+    <ul>
+      <li>Vrmlscript statements need to be properly terminated with a semicolon; 
+        the following statements are not valid and result in error messages:<br>
+        <font face="Courier New, Courier, mono">a=1 b=2&nbsp;&nbsp;&nbsp; if (a) 
+        { b=c }&nbsp;&nbsp;&nbsp; return 5 </font><BR>
+        These statements are fine:<br>
+        <font face="Courier New, Courier, mono">a=1; b=2;&nbsp;&nbsp;&nbsp; if 
+        (a){ b=c; }&nbsp; return 5;</font> </li>
+      <li>Vrmlmatrix is treated as single-level array with 16 elements.</li>
+      <li><font face="Courier New, Courier, mono">for(var i= 0; ..;..)</font> 
+        is not supported; workaround is <font face="Courier New, Courier, mono">var 
+        i; for( i= 0; ..;..)</font></li>
+      <li><font face="Courier New, Courier, mono">new SFColor;</font> is not supported, 
+        but can be rewritten as <font face="Courier New, Courier, mono">new SFColor();</font></li>
+      <li>The <font face="Courier New, Courier, mono">Date</font> and <font face="Courier New, Courier, mono">Array</font> 
+        objects and the <font face="Courier New, Courier, mono">with</font> statement 
+        are not supported.</li>
+      <li>All variables are local to a function; global variables are only those 
+        declared in the script interface as <i>field</i>, <i>exposedField</i> 
+        or <i>eventOut</i>.</li>
+    </ul>
+  <li>Scripts inside PROTOs need to set the directOuput TRUE flag, if nodes are 
+    modified via direct access, or browser calls like addRoute, deleteRoute, createVrmlFromUrl. 
+    All nodes of the PROTO definition that the script is going to modify need 
+    to be listed directly (i.e. not as children of a Group node) in some SFNode 
+    / MFNode field of the script. Otherwise the node may be shared between different 
+    instances of the PROTO, resulting in unexpected behavior. </li>
+  <li>Different versions of Windows 95 seem to show different scheduling and multi-tasking 
+    behavior; blaxxun Contact 3D will run better concurrently with other applications 
+    using the later Windows 95 versions. The frame rate is currently limited to 
+    a maximum of 20 updates per second in Windows 95. To grab more CPU cycles 
+    in order to run at a higher frame rate, activate the "run full speed" setting 
+    in the Settings->Preferences->General dialog (Ctrl-F9). Windows NT does not 
+    have this limitation. Pressing the F7 key displays the frame rate; the first 
+    number is the actual frame rate averaged over several frames, the second number 
+    is the time needed for the last scene redraw.</li>
+  <LI>Performance hints can be found in the <a href="vrml/index.html">VRML Tips</a> 
+    and <a href="bsp/index.html">BspTree</a> sections.</LI>
+</UL>
+&nbsp; <br>
+<br>
+<br>
+<hr>
+<A NAME="d3d"></A> 
+<h3>Direct3D Notes</h3>
+<P> blaxxun Contact 3D is optimized for the Microsoft Direct3D immediate mode 
+  rendering engine. Support includes DirectX 3, DirectX 5, DirectX 6, DirectSound, 
+  Direct3D Sound and DirectShow. Using low-cost Direct3D accelerator cards, exceptional 
+  VRML 3D speed and quality could be achieved. The DirectX interfaces are very 
+  close to the hardware, graphics boards and drivers are quickly evolving. 
+<P> Windows 98 comes with DirectX 5 pre-installed. <br>
+  Windows NT 5 Beta 2 supports DirectX 5 including hardware driver support.<br>
+  Windows NT 4 with Service Pack 3 installed supports DirectX 3 (but without hardware 
+  driver support). <br>
+  Windows NT 4 without Service Pack 3 does not support Direct3D, only OpenGL. 
+<P> In general, OpenGL software rendering runs faster on Windows NT than on Windows 
+  95/98. 
+<P> There are different Direct3D drivers available; features may vary and some 
+  drivers may not supply all rendering capabilities described in the VRML lighting 
+  model.</p>
+<p> 
+<a name="d3d_hw"> 
+<h3>Hardware</h3>
+</a> 
+<P> Direct3D hardware is installed if there is a checkmark next to the "Hardware" 
+  entry in the popup menu. blaxxun Contact 3D will also prompt for the use of 
+  a hardware device. If hardware works with your current desktop and graphics 
+  card configuration, it can be made the default setting by selecting it in the 
+  Direct3D tab of the Preferences dialog: press Ctrl-F9 or right-click in the 
+  3D window, select Settings, then Preferences and, in the Direct3D tab, select 
+  "Hardware" in the Direct3D Driver drop-down box. 
+<p> For a 16-bit desktop setting, enabling the Dither option in the Direct3D tab 
+  will usually improve display quality; for maximum speed, the "High speed" setting 
+  in the General tab needs to be enabled. 
+<p> Most accelerators today support 3D only in a 16-bit (32000 or 65000) color 
+  setting. With this setting, the Windows dialog Settings->Control Panel->Display->Settings->Color 
+  palette would display "High Color (16-Bit)." 
+<P><a name="advanced_options"></a> Mip-mapping can be activated by checking the 
+  "Mip Mapping" option in the Direct3D tab; after a resize or a reload, the hardware 
+  will automatically switch between different scaled-down versions of a texture 
+  (the mip-levels), making textures flicker less. 
+<p> Trilinear mip-mapping can be enabled by selecting the settings "Smooth Textures" 
+  and "Mip Mapping". For a given pixel, the hardware first interpolates two color 
+  values in each of the two selected mip-levels and then interpolates between 
+  the two. 
+<P> Newer graphics boards (e.g. those based on the Riva TNT chipset) support sort-independent 
+  scene antialiasing. This can increase visual quality along sharp edges of geometry 
+  and text. 
+<P> 
+<a name="d3d_sw"> 
+<h3>Software Drivers</h3>
+</a> 
+<P> The speed of software rendering depends on the size of the rendering window 
+  and the CPU speed. 
+<P> <B>Microsoft Direct3D Ramp Emulation Driver (Setting "High Speed")</B> 
+<P> This driver is optimized for speed, not for quality. Limitations: 
+<UL>
+  <LI>No color per vertex support. (Provide a fallback Material in the Appearance 
+    node)</LI>
+  <LI>Because there is no support for color per vertex, the color gradient form 
+    of the Background node is ignored.</LI>
+  <LI>No colored light sources</LI>
+  <LI>Simplified light model (Problems with <i>emissiveColor</i> and <i>specularColor</i>)</LI>
+  <LI>No ambient lighting</LI>
+  <LI>No fog support</LI>
+  <LI>Internally supports only 8-bit palette Textures, Contact 3D has to reduce 
+    all textures</LI>
+  <LI>No RGBA textures, no texture clamping; RGBA textures are dithered to a binary 
+    transparency.</LI>
+  <LI>PIII &amp; Contact Software lighting not supported </LI>
+</UL>
+<p> <b>Microsoft Direct3D RGB Emulation Driver (Setting "High Speed")</b> 
+<P> The Driver is optimized for quality not for speed; beginning with DirectX 
+  6, there are many quality improvements and code paths for different CPU types. 
+<p> <B>Microsoft Direct3D MMX-Emulation driver (Setting "MMX Speed")</B> 
+<p>Limitation: internally supports only 8-Bit palette Textures, Contact 3D needs 
+  to reduce all textures. 
+<p> Enabling the Direct3D rendering options Dither, Mip Mapping, Smooth Textures 
+  and Anti Alias will have a negative impact on rendering speed of software drivers.</p>
+<p> <B>Limitations for all other Microsoft Direct3D Drivers</B> 
+<UL>
+  <LI>Color per vertex supported, but shapes are treated as unlit.</LI>
+  <LI>Texture clamping (repeatS FALSE) supported beginning with DirectX 5</LI>
+  <LI>Only linear fog supported</LI>
+  <LI>Mixing a material transparency with a texture works in some Direct3D drivers.</LI>
+</UL>
+<p> <B>Specific Direct3D Hardware Driver Limitations</B> 
+<P> Some hardware drivers are have limitations depending on type of chip set or 
+  version of the driver. In general, color per face, geometry shapes with more 
+  then 1024 vertices are getting inefficient, especially if animated. Because 
+  in the current implementation information is cached at the geometry level, it 
+  is currently not possible to animate a given shape from an unlit to a lit state. 
+  <BR>
+  The following settings make a shape unlit: 
+<UL>
+  <LI>appearance in Shape is NULL</LI>
+  <LI>material in Appearance is NULL</LI>
+  <LI>geometry node has the colorPerVertex attribute and a Color node.</LI>
+</UL>
+&nbsp; <a name="d3d_tips"> 
+<P> 
+<h3>Tips for Using Direct3D Hardware Acceleration</h3>
+</a> 
+<P> Successful use of Direct3D hardware acceleration is directly related to the 
+  graphics card's memory, current screen mode, and size of the 3D window. Using 
+  low-resolution screen modes like 640*480*32K colors leaves more memory available 
+  for 3D buffers and textures. If Direct3D can't use the hardware because of too 
+  high memory requirements, blaxxun Contact 3D falls back to the Direct3D ramp 
+  software driver. 
+<P> (Typical Contact 3D error messages: "Create Surface for Z-Buffer failed" or 
+  "Create Surface for Window BackBuffer failed") 
+<P> Recommended display settings for hardware use (Hardware == Direct3D HAL Driver): 
+<UL>
+  <LI>Graphics board with 4 MB video memory: Set desktop to 800*600, 32,000 colors, 
+    use one 3D window only.</LI>
+  <LI>Graphics board with 8 MB or more video memory: desktop can be set to higher 
+    resolutions than 800*600 or multiple 3D windows can be opened.</LI>
+</UL>
+<P> As a rule of thumb, the required graphics board memory can be computed as 
+<P>(pixel width of desktop * pixel height of desktop * 2) <BR>
+  + <BR>
+  (pixel width of 3D window * pixel height of 3D window * 2) *2 
+<P> + size of used textures in VRML scene&nbsp; (for non AGP boards) <br>
+  <BR>
+<P>(2 Bytes per pixel for a 16 bit color setting, a window backbuffer and a z-buffer 
+  need to be allocated) 
+<P> If Direct3D hardware runs out of texture memory for storing all the textures, 
+  blaxxun Contact 3D automatically reduces texture bit formats and scales down 
+  textures, resulting in a "blockier" appearance of the images. More elegant solutions 
+  include switching to software rendering for a scene, releasing some memory on 
+  the graphics board by using a smaller window or lower desktop resolution, or 
+  upgrading to a graphics board with more memory (8 MB, 16 MB) or an AGP-based 
+  system. 
+<P> Another issue is the number of different texture pixel formats a board supports 
+  and whether it only supports square textures. For example, for a board supporting 
+  only square texture formats, Contact 3D scales up non-square textures. With 
+  a board that does not support palette 8 textures, Contact 3D needs to expand 
+  GIF textures to a RGB format. Detailed information of a board's capabilities 
+  is provided by the DXView program part of the DirectX SDK. 
+<P> On systems equipped with Intel AGP and a Direct3D AGP graphics board, much 
+  more texture memory is available. The amount of video memory is displayed in 
+  the Direct3D settings tab. This number should be much larger then the memory 
+  on the graphics board, otherwise the AGP support is not properly set up. On 
+  older Win95 systems, AGP support can be installed using the <i>usbsup</i> Windows 
+  update. 
+<P> The default Direct3D start configuration can be specified in the "Settings->Preferences" 
+  dialog. Direct3D drivers evolve quickly, so it's a good idea to check the board 
+  vendor's website for graphics driver updates. Information about the installed 
+  driver version is available in the Windows Control Panel, Icon DirectX -> DirectDraw 
+  > Installed Drivers. 
+<p> Running software modes on hardware is slow, and requires you to turn off the 
+  option "Use Video Memory" in the Direct3D settings tab of Contact 3D. Rendering 
+  is then performed in the PC's main memory. 
+<P> Preliminary support for Direct3D full-screen rendering is available. Ideally 
+  the VRML world should be displayed full-screen in the HTML browser with menu, 
+  tool and status bars disabled. Pressing F5 will toggle between full-screen and 
+  window mode. The full-screen display mode can be selected from the Direct3D 
+  Fullscreen Mode drop-down box in the Direct3D settings tab; the default is 640x480x16. 
+<P> If there are display problems, try downloading an updated DirectX driver from 
+  the graphics board vendor's website. The drivers shipped with graphics boards 
+  are often out of date. 
+<P> On systems equipped with an MMX CPU, the DirectX 3 "RGB Emulation Driver" 
+  provides MMX-specific acceleration. With DirectX 5 there is a separate "MMX 
+  speed" Direct3D driver. With DirectX 6 the "RGB Emulation Driver" automatically 
+  uses MMX specific codepaths. 
+<P> Secondary Direct3D boards (3Dfx Voodoo and Voodoo2 etc.) which can only render 
+  full-screen and not inside a window are currently not supported. 
+<P>&nbsp; 
+<a name="media"> 
+<h2>Media Issues</h2>
+</a> <a name="media_sound"> 
+<h3>Sound Support</h3>
+</a> <B>blaxxun Contact 3D</B> supports two different sound subsystems, Intel 
+RSX 3D Sound and Microsoft DirectSound. 
+<P><B>Intel RSX 3D Sound</B><BR>
+  This sound system provides high-quality spatialized sound and does not require 
+  the presence of Microsoft DirectX. WAV and MIDI file formats are supported, 
+  only one MIDI&nbsp; sound can play at a time. Support from Intel for RSX has 
+  been cancelled. 
+<P><B>Microsoft DirectSound</B><br>
+  DirectX provides basic sound support, DirectX 5 adds sound spatialization via 
+  Direct3D sound. DirectSound depends on up-to-date sound drivers for the sound 
+  card. Currently only uncompressed PCM WAV file formats are supported; sound 
+  files can be gzip compressed. 
+<P>Sound system configuration is done using the Sound tab in the Preferences dialog. 
+<a name="media_real"> 
+<h3>Real Player G2 Streaming Video & Sound</h3>
+</a> 
+<P> If <a href="http://www.real.com/products/" target=external>RealPlayer G2 / 
+  RealPlayer Plus G2</a> is installed, RealAudio and RealVideo media are supported. 
+  The URL information is passed directly to the Real G2 subsystem and is played 
+  streamed. 
+<P> The URL protocols <font face="Courier New, Courier, mono">pnm://</font> and 
+  <font face="Courier New, Courier, mono">rtsp://</font> are treated as Real Media 
+  URLs. 
+<P> If the URL starts with the URN<font face="Courier New, Courier, mono"> urn:inet:blaxxun.com:rma:</font> 
+  then the string after the URN gets passed to Real G2 as URL. This allows media 
+  types to be passed to Real G2 instead of DirectShow. 
+<P> If the URL starts with the URN <font face="Courier New, Courier, mono">urn:inet:blaxxun.com:rma_cached:</font> 
+  then the string after the URN is treated as a normal HTTP/FTP URL and the URL 
+  is downloaded first to the local hard disk and then passed to Real G2. This 
+  method is advised if media are to be played several times or looped in order 
+  to avoid looped network streaming. 
+<P> Sound is decoded and played by RealPlayer G2, so no spatialization or mixing 
+  with VRML sounds is supported. Only one Real G2 stream can play and parallel 
+  usage of Real Player is currentlly not working. No Real status message are displayed, 
+  usually the media starts playing after a while, once the the buffering phase 
+  is completed. 
+<P> In oder to synchronize animations with streamed content, MovieTexture node 
+  is extended with an eventOut SFTime mediaTime, where mediaTime reports the G2 
+  current play position time information. Monitoring this event could be used 
+  to start animations, once the content starts playing after the buffering phase. 
+<P> Test Examples: 
+<ul>
+  <li><a href="vrml/movie/real/vid_t-online_de_cube_ifigetlonely56.wrl" target=external>Music 
+    Video 1</a> streamed from <a href="http://www.netlantic.de" target=external>Netlantic</a> 
+  <li><a href="vrml/movie/real/vid_t-online_de_cube_faceit56.wrl" target=external>Music 
+    Video 2</a> streamed from <a href="http://www.netlantic.de" target=external>Netlantic</a> 
+  <li><a href="vrml/movie/real/allhits.wrl" target=external>Hits</a> streamed 
+    from <a href="http://discjockey.com/audio" target=external>discjockey.com</a> 
+  <li><a href="vrml/movie/real/radio_3wkcom.wrl" target=external>Music</a> streamed 
+    from <a href="http://www.3wk.com" target=external>Underground radio 3WK</a> 
+</ul>
+<p> <br>
+  <br>
+  <br>
+<FONT face="Arial, Helvetica, sans-serif"> 
+<hr>
+<h2><a name="files"></a>Required Files</h2>
+<P>The following files should be present in the installation directory: 
+<UL>
+  <LI>blaxxunCC3D.ocx - the blaxxun Contact 3D OCX control</LI>
+  <LI>blaxxunVRML.tlb - Type library for VRML EAI</LI>
+</UL>
+These files are optional: 
+<UL>
+  <LI>blaxxunCC3D.wrl&nbsp; - optional startup scene</LI>
+  <LI>avatar.wrl&nbsp; - default avatar for third-person view mode</LI>
+</UL>
+The following files should be present in the $(windows) directory if the Java 
+EAI for Internet Explorer is being used: 
+<UL>
+  <LI>java\classes\vrml\external\*.* - VRML 2.0 EAI classes</LI>
+  <LI>java\trustlib\blaxxunContact 3D\*.* - blaxxun Contact 3D browser interface</LI>
+  <LI>java\trustlib\blaxxunvrml\*.* - blaxxun Contact 3D VRML interface</LI>
+</UL>
+The following files should be present in the $(windows)\system or NT $(windows)\system32 
+directory: 
+<UL>
+  <LI>mfc42.dll - MFC 4.2 Runtime DLL from Microsoft Visual C 5.0</LI>
+  <LI>msvcrt.dll - Visual C runtime library from Microsoft Visual C 5.0</LI>
+  <LI>Internet Explorer DLLs like wininet.dll hlink.dll urlmon.dll url.dll</LI>
+  <LI>DirectDraw DLL (ddraw.dll) or OpenGL DLL's for the OpenGL version (opengl32.dll 
+    glu32.dll)</LI>
+</UL>
+The following files should be present in the Netscape plug-in directory (normally 
+\program files\netscape\navigator\program\plugins) if blaxxun Contact 3D is to 
+handle VRML files in Netscape: 
+<UL>
+  <LI>npbx3d.dll - blaxxun Contact 3D Netscape Plugin interface DLL for handling 
+    VRML files</LI>
+  <BR>
+  Mime types: model/vrml x-world/x-vrml application/x-blaxxunCC3D 
+  <LI>npbx3dpro.dll - blaxxun Contact 3D Netscape Plugin interface DLL for handling 
+    VRML files only in concert with blaxxun CCpro</LI>
+  <BR>
+  Mime types: application/x-CC3D application/x-blaxxunCC3Dpro 
+  <LI>\program files\netscape\navigator\program\Java\classes\vrml\external - Java 
+    EAI classes</LI>
+</UL>
+To use a different VRML plug-in in Netscape, rename npbx3d.dll to _npbx3d.dll 
+and rename the vrml directory below Java\classes or choose the custom installation 
+option. 
+<P> Even if the Netscape plug-in is being used, blaxxun Contact 3D references 
+  some DLLs which are only installed if a version of Microsoft Internet Explorer 
+  is being installed on the system. 
+<P> If the installation fails, the recommended steps are: 
+<UL>
+  <LI>Install Microsoft DirectX 3 or later Runtime (or Windows NT 4.0 - Service 
+    Pack 3)</LI>
+  <LI>Install Microsoft Internet Explorer 3.x or later</LI>
+  <LI>Reregister blaxxun Contact 3D using <font face="Courier">regsvr32 blaxxunContact 
+    3D.ocx</font></LI>
+</UL>
+blaxxun Contact 3D does not need to be installed as default VRML viewer for use 
+with blaxxun Contact multi-user worlds.<BR>
+&nbsp; <br>
+<br>
+<br>
+<hr>
+<a name="embed"> 
+<H2><B>Embedding a VRML World into a Web Page</B></H2>
+</a> 
+<P> blaxxun Contact 3D can be registered during installation as the default player 
+  for the MIME types model/vrml and x-world/x-vrml and is associated with the 
+  filename extensions .wrl, .wrz and .vrml. The registration for the .gz file 
+  extension has been removed in version 4.0. 
+<P> Internet Explorer or Netscape Navigator will open a control registered for 
+  VRML with the following EMBED tag: 
+<P><TT>&lt;EMBED SRC="test.wrl" HEIGHT=300 WIDTH=400>&lt;/EMBED></TT> 
+<P>or if the user clicks on a link to a file with the .wrl extension: 
+<P><TT>&lt;A HREF="http://www.myserver.com/test.wrl">Show VRML world&lt;/A></TT> 
+<P>In Internet Explorer the following OBJECT tag will work: 
+<P><TT>&lt;OBJECT TYPE="model/vrml" HEIGHT=300 WIDTH=400></TT> 
+<P><TT>&lt;PARAM NAME="SRC" VALUE="test.wrl"></TT> 
+<P><TT>&lt;/OBJECT></TT> 
+<P> If multiple plug-ins are available for the mime type, the blaxxun Contact 
+  3D control can be directly specified in the Internet Explorer OBJECT tag by 
+  using blaxxun Contact 3D's classid. 
+<P><TT>&lt;OBJECT CLASSID="clsid:4B6E3013-6E45-11D0-9309-0020AFE05CC8" HEIGHT=100% 
+  WIDTH=100% ID=world></TT> <BR>
+  <TT>&lt;PARAM NAME="World" VALUE="http://www.blaxxun.com/vrml/home/home2.wrl" 
+  ></TT> <BR>
+  <TT>&lt;EMBED src="http://www.blaxxun.com/vrml/home/home2.wrl" height="100%" 
+  width="100%"></TT> <BR>
+  <TT>&lt;/OBJECT></TT> 
+<P>blaxxun Contact 3D can be reregistered using the command 
+<P><font face="Courier">regsvr32 blaxxunCC3D.ocx</font> 
+<P>and unregistered using 
+<P><font face="Courier">regsvr32 /u blaxxunCC3D.ocx</font> 
+<P> Switching between the different versions of blaxxun Contact 3D or other VRML 
+  controls for IE is also possible using regsvr32, which usually resides in \windows\system. 
+<P> For the Netscape Environment in addition the blaxxun Contact 3D Netscape plug-in 
+  DLL npbx3d.dll needs to be present in the Netscape/Navigator/Program/plugins 
+  directory. If there are already other plug-ins installed that handle the MIME 
+  type model/vrml, the corresponding DLLs need to be moved to another directory. 
+  Entering about:plugins in the URL input field of Navigator will list all currently 
+  installed plug-ins. <BR>
+  &nbsp; <BR>
+  &nbsp; 
+<H2> <A NAME="vrml2_compatibility"></A><B>VRML 2.0 Compatibility</B></H2>
+<p> blaxxun Contact 3D supports&nbsp; <A HREF="http://www.vrml.org/Specifications/VRML97/" target=external>VRML 
+  97</A> and VRML 1.0 for backward compatibility. </p>
+<p> A list of known issues is in the <a href="#tips">Tips, Known Problems and 
+  Workarounds</a> section.<BR>
+</p>
+<H4>Script Node</H4>
+<p> The Script Node implements VrmlScript and a JavaScript subset as defined in 
+  <A HREF="http://www.vrml.org/Specifications/VRML97/part1/javascript.html" target=external>Annex 
+  C of the VRML97 specification</A> and in <a href="spec/vrmlscript/vrmlscript.html">Proposal 
+  for a VRML Script Node Authorin by Chris Marrin, Jim Kent</a> (Originally from 
+  <A HREF="http://cosmosoftware.com/developer/moving-worlds/spec/vrmlscript.html" target=external>Cosmo 
+  site</A>). </p>
+<p> Supported Script node URL strings are strings that begin with the VrmlScript 
+  identifier tag "vrmlscript:" or strings that begin with the JavaScript identifier 
+  tag "javascript:". The later is treated internally as "vrmlscript:". Also script 
+  can reside in files with the extension .vs or .js.</p>
+<p> Java in the Script node is currently not supported. </p>
+<P> <A NAME="eai"></A><B>VRML 2.0 EAI</B> 
+<p> blaxxun Contact 3D supports the VRML 2.0 external authoring interface proposal. 
+<P> <B>EAI for Microsoft Internet Explorer</B> 
+<P> The Java classes are installed in $(windows)\Java\classes\vrml. If there are 
+  problems compiling or running VRML EAI applets, remove any other VRML classes 
+  from the classpath. The classpath can be edited using regedit and editing the 
+  key HKEY_LOCAL_MACHINE\Software\Microsoft\Java VM\Classpath. Conflicting VRML 
+  zip-classes from other VRML browsers are removed during registration and saved 
+  to the CC3D.backup classpath. 
+<P> <B>EAI for Netscape Navigator / Communicator</B> 
+<P> The Java classes are installed in $(Netscape directory)\program\Java\classes\vrml. 
+  If there are problems compiling or running VRML EAI applets, remove any other 
+  VRML classes from the classpath. 
+<P> <B><a name="eai"></a>EAI for C++ and other COM-capable languages</B> 
+<P> The EAI can be accessed via the COM-Interfaces defined in blaxxunCC3D.ocx 
+  and blaxxunVRML.tlb. 
+<P> Some additional EAI calls like Browser.beginUpdate / endUpdate / saveWorld() 
+  are provided. Scripts running in the HTML page can directly send / retreive 
+  events to/from the scene graph, without the requirement of using an additional 
+  Java EAI applet. 
+<P> For EAI developer information and sample programs see the blaxxun Developer 
+  <A HREF="eai/index.html">EAI information</A>. <BR>
+  &nbsp; <br>
+  <br>
+  <br>
+<hr>
+<H2><A NAME="bsp"></A><B>BSP Tree (Binary Space Partitioning Tree)</B></H2>
+<B>blaxxun Contact 3D</B> supports a BspTree node for optimal rendering performance 
+of large worlds. For technical information see the blaxxun Developer <A HREF="bsp/index.html">BSP-Tree 
+information</A>. <BR>
+&nbsp; <br>
+<br>
+<br>
+<hr>
+<H2> <A NAME="extensions"></A>Extensions</H2>
+<B>blaxxun Contact 3D</B> supports several VRML extensions. 
+<P><B>vrmlscript Browser object extensions</B> 
+<P>additional member functions 
+<P> <font face="Courier">float getCurrentTime()</font> - gets the computer's current 
+  system time <BR>
+  <font face="Courier">float getTime()</font> - gets the browser's current simulation 
+  time <BR>
+  <font face="Courier">float getWorldStartTime()</font> - gets the time the world 
+  was loaded <BR>
+  &nbsp; 
+<P>void print(string);&nbsp; - print the string to the console. A typical use 
+  would be to debug scripts. 
+<P>function x(value) { Browser.print(' value is '+value); } 
+<P> In order to print timeStamps more easily, the following code fragment could 
+  be used: <BR>
+  <font face="Courier">Browser.print('Time = '+ (timeStamp - Browser.getWorldStartTime()));</font> 
+<P> For compatibility with other VRML browsers, the built-in functions print(string); 
+  and trace(string); are supported. 
+<P> <font face="Courier">void setMyAvatar(node)</font> - sets the avatar for third-person 
+  mode display 
+<P> <font face="Courier">bool showMyAvatar(flag)</font> - toggles third-person 
+  mode on/off 
+<P> <font face="Courier">void setRenderMode(string)</font> - changes rendering 
+  mode; supported values are Flat, Gouraud, Wireframe, Vertices. In addition, 
+  the OpenGL version supports Solid NonLighted BoundingBoxes. 
+<P> <font face="Courier">void setNavigationMode(string)</font> - changes navigation 
+  mode <br>
+  <font face="Courier">string getNavigationMode()</font> - gets the navigation 
+  mode (4.0) 
+<P> <font face="Courier">void setCollisionDetection(flag)</font> - changes collision 
+  detection mode <BR>
+  <font face="Courier">bool getCollisionDetection()</font> <br>
+  <font face="Courier">void setGravity(flag)</font> - changes gravity, terrain 
+  following mode <BR>
+  <font face="Courier">bool getGravity()</font> <br>
+  <font face="Courier">void setHeadlight(flag)</font> - changes headlight mode 
+  <BR>
+  <font face="Courier">bool getHeadLight()</font> - returns current state of headlight 
+  <br>
+  <font face="Courier">void setViewpointAnimation(flag)</font> - If TRUE, viewpoint 
+  changes are animated; if FALSE, viewpoint changes are immediate. <BR>
+  <font face="Courier">bool getViewpointAnimation()</font> - returns current state 
+  of viewpoint animation<br>
+  <font face="Courier">void setAvatarHeight(float value)</font> - sets the avatar 
+  height, used for computing distance of viewpoint to ground<BR>
+  <font face="Courier">void setCollisionDistance(float value)</font> - changes 
+  the collision distance <BR>
+  <font face="Courier">float getCollisionDistance()</font> <br>
+  <font face="Courier">void setVisibilityLimit(float value)</font> - changes visibility 
+  limit <BR>
+  <font face="Courier">float getVisibilityLimit()</font> <br>
+  <font face="Courier">void setWalkSpeed(float value)</font> - changes walk speed 
+<P> <font face="Courier">int getWindowSizeX()</font> - returns the horizontal 
+  size in pixels of the rendering window <BR>
+  <font face="Courier">int getWindowSizeY()</font> - returns the vertical size 
+  in pixels of the rendering window <BR>
+  <font face="Courier">float getWindowAspect()</font> - get the aspect ratio (width/height) 
+  of the rendering window, useful to adjust HUD display 
+<P> <font face="Courier">float getAvatarHeight() <BR>
+  </font> <font face="Courier">float getStepOverSize()<BR>
+  </font> <font face="Courier">float getZNear()<BR>
+  </font> <font face="Courier">float getZFar()</font> 
+<P><font face="Courier New, Courier, mono">Node&nbsp;&nbsp; computeRayHit (SFVec3f 
+  startPoint,SFVec3f endPoint, startingNode optional) </font> 
+<P>Computes an intersection of a ray with the scene graph. Result is null if no 
+  intersection found or a PseudoNode RayHitInfo with the following information 
+  stored: <BR>
+  &nbsp; <BR>
+<pre><font face="Courier">
+PROTO RayHitInfo [ <BR>
+  eventOut MFNode hitPath  // the chain of grouping nodes, to the geometry node intersected 
+  eventOut SFVec3f hitNormal // normal at point of intersection
+  eventOut SFVec3f hitPoint // point of intersection in global, world coordinates
+  eventOut SFVec2f hitTexCoord // texture coordinate at point of intersection (without any texture matrix applied) 
+  eventOut SFMatrix hitMatrix // matrix transforming shape local coordinates to world coordinates
+
+  eventOut SFVec3f hitNormalLocal
+  eventOut SFVec3f hitPointLocal // intersection point in the shape's local coordinate system
+  eventOut MFInt32 hitInfo // vertex index information
+]
+</font></pre>
+<P> Example: <a href="vrml/samples/rayhittest.wrl">rayhittest.wrl</a> Navigate 
+  so that an object is in the center of the view and click the cylinder, information 
+  on hit will be displayed in the console. 
+<p> 
+<P><font face="Courier New, Courier, mono">setUnloadMode(int minNotActiveInlines, 
+  float percentage factor to purge) </font> 
+<P>set strategy for purging inlines from memory: <BR>
+  if the number of inlines currently not rendered is greater minActiveInlines, 
+  <BR>
+  purge up to (number * percentage ) inlines from memory <BR>
+  if percentage &lt; 0 its an absolute number of inlines to purge 
+<P>example: <BR>
+  setUnloadMode(100,0.05) <BR>
+  if (more than 100 inlines are currently not rendered) <BR>
+  delete 5 % of the inlines not used for the longest time <BR>
+  &nbsp; 
+<P>setBspMode(order) - set bsp Traversal order <BR>
+  setBspLoadingMode( order) - set bsp inline Traversal order 
+<P>&nbsp;TRAVERSE_NORMAL 0 <BR>
+  &nbsp;TRAVERSE_BACK_TO_FRONT 1 <BR>
+  &nbsp;TRAVERSE_FRONT_TO_BACK 2 <BR>
+  &nbsp; <BR>
+  <b>New in Version 4.0</b> 
+<P><font face="Courier">getCap(what)</font> - return browser capability information. 
+<P> Example usage: adapt content to client platform, check if a certain feature 
+  like alpha blending is present. 
+<P> Example: <a href="vrml/samples/captest.wrl">captest.wrl</a> All available 
+  browser information is displayed in the console. 
+<P><b>New in Version 4.1</b> 
+<P> <font face="Courier">boolean isKeyPressed(int keyCode)</font> - determines 
+  if the virtual key determined by keyCode is down 
+<P> <font face="Courier">string getWorldBaseURL()</font> - returns the base URL 
+  of the toplevel world 
+<P> <font face="Courier">string getBaseURL()</font> - get the base URL for the 
+  script node 
+<P>Url's inside EXTERNPROTO instanced VRML Nodes are relative to including VRML 
+  world. getBaseURL would return the baseUrl of the VRML file containing the Script 
+  node. So this call could be resolve for common authoring problems, if URL references 
+  in the PROTO should be relative to the implementing PROTO. 
+<P> <font face="Courier">loadURLrel(MFString url,MFString parameters)</font> - 
+  same as loadURL - but URL is relative to getBaseURL() 
+<P> <font face="Courier">setViewpointByValue(SFVec3f position,SFRotation orientation, 
+  int mode)</font> - set current viewpoint position to position / orientation 
+<P> <font face="Courier">getViewpointByValue(SFVec3f position,SFRotation orientation, 
+  int mode)</font> - get current viewpoint position 
+<P> <font face="Courier">void setSoundEnabled(flag)</font> - if set to false lock 
+  the usage of the sound device for this scene<br>
+<P> <font face="Courier">flag getSoundEnabled()</font> - returns current state 
+  of sound enabled state<br>
+<p> 
+<P><font face="Arial, Helvetica, sans-serif">The Browser object itself is a VRML 
+  node with certain events and fields. By adding ROUTEs from vrmlscript or eventOut 
+  Observers from the EAI, these events can be observed. </font> 
+<P><font face="Arial, Helvetica, sans-serif"> Access from vrmlscript: Browser.xxxx 
+  <BR>
+  Access from EAI: Browser.getEventIn(xxx) Browser.getEventOut(xxx) </font> 
+<p> eventIn MFNode set_myAvatarNodes - set my avatar nodes (for createVrmlFromURL 
+  callback)<br>
+  eventIn SFString set_myAvatarURL - set my avatar URL<br>
+  eventIn SFString set_myAvatarName - set my avatar nickname<br>
+  eventIn SFBool set_showMyAvatar - toggle third-person mode<br>
+  exposedField SFString myAvatarURL - current avatar URL<br>
+  exposedField SFNode boundAvatar - the bound (displayed) avatar node (may contain 
+  wrapper around myAvatar)<br>
+  exposedField SFNode myAvatar - node currently used as myAvatar node<br>
+  exposedField SFString myAvatarName - current avatar nickname<br>
+  exposedField SFVec3f followDolly - x,y,z relative translation distance for third-person 
+  viewing mode<br>
+  exposedField SFVec3f followOrbit - x,y rotation value for third person viewing 
+  mode<br>
+  exposedField SFVec3f followPan - x,y pan rotation value for third person viewing 
+  mode<br>
+  <br>
+  <br>
+  // observable eventOuts<br>
+  eventOut SFTime time_changed - the master clock<br>
+  <br>
+  <br>
+  eventOut SFVec3f viewpointPosition - global viewer postion<br>
+  eventOut SFRotation viewpointOrientation<br>
+  eventOut SFVec2f windowSize - rendering window width height<br>
+  eventOut SFFloat windowAspect - aspect ratio of rendering window<br>
+  <br>
+  <br>
+  exposedField MFNode viewpoints<br>
+  <br>
+  <br>
+  exposedField SFNode boundViewpoint - the current bound viewpoint (top of stack)<br>
+  exposedField MFNode boundViewpointStack - the other stacked viewpoint (if any)<br>
+  exposedField SFNode boundNavigationInfo - the currently bound navigation info<br>
+  exposedField MFNode boundNavigationInfoStack<br>
+  exposedField SFNode boundFog - the currently bound fog<br>
+  exposedField MFNode boundFogStack<br>
+  exposedField SFNode boundBackground - the currently bound background node<br>
+  exposedField MFNode boundBackgroundStack<br>
+  <br>
+  <br>
+  exposedField SFString name - Browser name<br>
+  exposedField SFString version - Browser version<br>
+  exposedField SFString worldUrl - URL of the currently loaded world (set observer 
+  to get a world changed notification)<br>
+  <br>
+  <br>
+  exposedField MFNode overTouchSensors - list of TouchSensor's the mouse is over<br>
+  exposedField MFNode activeVisibilitySensors - list of VisibilitySensors and 
+  Occlusion nodes currently assumed to be visible<br>
+  <br>
+  <br>
+  exposedField MFNode protoScenes - list of scenes with prototypes (loaded via 
+  EXTERNPROTO URL ..) 
+<p><font face="Arial, Helvetica, sans-serif"><b>New in Version 4.3</b> </font> 
+</font></font> 
+<p><font face="Courier New, Courier, mono">String getInstallDirectory()</font><font face="Arial, Helvetica, sans-serif"> 
+  - returns the string of the directory blaxxun CC3D resides</font>
+<p><font face="Courier New, Courier, mono">int prefetch(mfNode argument, boolean 
+  loadInlnes=true, boolean</font> <font face="Courier New, Courier, mono"> loadTextures=true)</font>
+<p><font face="Arial, Helvetica, sans-serif">prefetch instructs the browser to 
+  load the Media resources listed in argument, parameter 1 and 2 are true by default. 
+  If argument directly references ImageTexture MovieTexture Inline Script or AudioClip 
+  nodes the return value is the number of those nodes loaded.</font>
+<p><font face="Courier New, Courier, mono">Node getScript()</font><font face="Arial, Helvetica, sans-serif"> 
+  - returns an SFNode referering the Script node of the script. Often script authors 
+  need to have a &quot;this&quot; reference in a Script. The common Method using 
+  an extra SFNode field in the Script field list is also possible but could result 
+  in Memory Leaks in Contact.</font>
+<p>&nbsp;
+<p>&nbsp; 
+<FONT face="Arial, Helvetica, sans-serif"><FONT face="Arial, Helvetica, sans-serif"> 
+<p><br>
+<P><b><font face="Arial, Helvetica, sans-serif">Extensions to vrmlscript SFNode 
+  object</font></b> 
+<P>Methods 
+<P> string getType() - get the type of the node as VRML nodeType or prototype 
+  name 
+<P>string getName() - get the node's DEF name if available 
+<P>node copy() - creates a copy off the node (no deep copy on SFNode / MFNode 
+  fields) 
+<P>fieldObject getEventIn(string eventInName) - get eventIn object of Node 
+<P>boolean hasEventIn(string eventInName) - returns true if Node has an eventIn 
+  namved eventInName 
+<P>fieldObject getEventOut(string eventOutName) - get eventOut object of Node 
+<p>boolean hasEventOut(string eventOutName) - returns true if Node has an eventOut 
+  namved eventOutName 
+<p><font face="Arial, Helvetica, sans-serif"><b>New in Version 4.3</b> </font> 
+</font></font> 
+<p><font face="Courier New, Courier, mono">VrmlMatrix getMatrix()</font><font face="Arial, Helvetica, sans-serif"> 
+  - get Matrix of Transform, MatrixTransform or last Matrix of HUD, Billboard 
+  or related VRML 1.0 nodes </font>
+<p><font face="Courier New, Courier, mono">boolean setMatrix(vrmlMatrix)</font><font face="Arial, Helvetica, sans-serif"> 
+  - set Matrix of Transform MatrixTransform nodes, false if matrix can not be 
+  set.</font>
+<p> 
+<p>&nbsp; 
+<FONT face="Arial, Helvetica, sans-serif"><FONT face="Arial, Helvetica, sans-serif">
+<p> 
+<p><b>MFTime object </b> 
+<p>supports same members and methods as MFFloat object 
+<p><b>Extensions to vrmlscript MFVec3f object</b> 
+<p>Methods: 
+<p><br>
+<p><font face="Courier New, Courier, mono">setByVertexTransform(MFVec3f srcPoints, 
+  MFInt32 srcIndex,MFVec3f translation,MFRotation rotation,MFVec3f scale, MFRotation 
+  scaleOrientation,MFVec3f center) </font>
+<p>This assignment function performs a series of transformations to coordinates 
+  in srcPoints and assigns the result to the object. The operation is comparable 
+  to a nested Transform scene graph used to animated a hierarichal model like 
+  an Avatar. 
+<p>Up to the last 5 parameters can be omitted, in order to speed up the operation. 
+  if there a n group of vertices to transform, length of srcIndex must be n*3 
+  and the length of each transformation data arraymust be at least n or 0. 
+<p>&nbsp; 
+<p>The operation expressed in pseudo code: 
+<pre>VrmlMatrix matrixStack[]; <br>var index;</pre>
+<pre>for(index=0; index&lt;srcIndex.length/3;index+=1) { // for all indices in groups by 3<br>	var level=srcIndex[index*3]; 		// get the nesting level<br>	var startIndex=srcIndex[index*3+1]; 	// start vertex index
+	var endIndex=srcIndex[index*3+2]; 	// end vertex index </pre>
+<pre>
+ 	// compute transformation, right most arguments could be omitted for speed	<br>	matrixStack[level]=m.setTransform(translation[index], rotation[index], <br>				scaleFactor[index],scaleOrientation[index], center[index]) ;  
+</pre>
+<pre>	if (level!=0) matrixStack[level].MultiplyRight( matrixStack[level-1]); // combine with parent
+ 	for(var i=startIndex;i&lt;endIndex;i++) { // transform the Vec3f subset<br>	 	this[i] = matrixStack[level] * srcPoints[i]; 
+	} </pre>
+<pre>} </pre>
+<pre><B><font face="Arial, Helvetica, sans-serif">Extensions to vrmlscript Math object</font></B> </pre>
+<P><font face="Arial, Helvetica, sans-serif"><BR>
+  </font>double atan2(double dy, double dx)&nbsp; - arc tangent -PI .. PI <BR>
+  double cosh(double x) <BR>
+  double sinh(double x) <BR>
+  double tanh(double x) <BR>
+  double randomGaussian()&nbsp; - gaussian random number&nbsp; -1 ..1 
+<P>double noise(double x) - evaluates solid noise function on x 
+<P>&nbsp; <BR>
+  <B><font face="Arial, Helvetica, sans-serif">Controlling download</font></B> 
+  <font face="Arial, Helvetica, sans-serif"><BR>
+  Contact 3D fetches URL objects and EXTERNPROTO's&nbsp; in the order encountered 
+  during scene graph traversal, in the order top to bottom of file, depth first. 
+  Currently not needed objects, because not "visible" due to a Switch, LOD or 
+  BspTree node are only retreived if they become part of the visible scene graph. 
+  </font> 
+<P><font face="Arial, Helvetica, sans-serif">Loading of Textures in the appearance 
+  node of a shape max be delayed until the shape's geometry becomes visible. </font> 
+<P><font face="Arial, Helvetica, sans-serif">In order to preload currently unneeded 
+  objects, ImageTexture / MovieTexture / AudioClip nodes can be directly specified 
+  as children of Groups. The ordering of the nodes with url controls the download 
+  sequencing of the assets. The Appearance / Sound node references the asset by 
+  USE. </font> 
+<P><font face="Arial, Helvetica, sans-serif">The BspTree or BspGroup node traverses 
+  child nodes nearer to the viewer first. This would mean Inline parts nearer 
+  to the viewer are earlier loaded then further away parts. Bsp - tree Parts outside 
+  the visibilityLimit (the viewing pyramid) are not fetched. The drawback is that 
+  once a new section of the world becomes visible there is some halting due to 
+  the decoding of image texture from harddisk to video memory. </font> 
+<P><font face="Arial, Helvetica, sans-serif">The LOD node display lower levels 
+  if the requested level is an Inline node, currently not loaded. </font> 
+<P><font face="Arial, Helvetica, sans-serif">A common request from content developers 
+  is to have more control over Resource loading notification and unloading capabilities.</font> 
+<P><font face="Arial, Helvetica, sans-serif">The inline nodes behaves as a group-node, 
+  the children field is exposed to access the nodes of the inline. By observing 
+  children_changed a notification is sent, once an Inline node is loaded and processed. 
+  <BR>
+  The additional eventOut SFBool isLoaded indicates loading success, TRUE is sent 
+  if the inline node is loaded and children are loaded, FALSE is sent if the inline 
+  node's url couldn't be retreived or there was some other problem with the data. 
+  In addition set_unload can be used to unload an Node from memory, however the 
+  application should normally use this if its shure that the node is currentlly 
+  not part of the visible node subsets (i.e. out of viewfrustrum, not in traversed 
+  scene graph etc.)</font> 
+<P><font face="Arial, Helvetica, sans-serif">This extened Inline version is described 
+  by the following prototype :</font> 
+<P><FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier New,Courier">Inline 
+  {</font> <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1</font> 
+  <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0</font> 
+  <br>
+  <font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier New,Courier">&nbsp;&nbsp; 
+  exposedField MFString url []</font> <br>
+  <font face="Courier New,Courier"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><font face="Courier New,Courier">&nbsp;&nbsp; 
+  exposedField MFNode children []</font> <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode addChildren</font> 
+  <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode removeChildren</font> 
+  <br>
+  <font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier New,Courier">&nbsp;&nbsp; 
+  eventOut SFBool isLoaded</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font> 
+  # TRUE if loaded &amp; parsed sucessfully
+</font></font> 
+<p><FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier New,Courier">&nbsp;&nbsp; 
+  eventIn SFBool set_unload</font> # new in 4.1, send TRUE to unload Inline from 
+  memory <br>
+  <font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier New,Courier"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><font face="Courier"> 
+  <font face="Courier New,Courier"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><font face="Courier New,Courier">}</font> 
+  </font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+<p><FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier New, Courier, mono">ImageTexture 
+  {</font> </font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+<p><font face="Courier">... standard fields</font></p>
+<p><font face="Courier New, Courier, mono">eventOut SFBool isLoaded # new in 4.1</font><br>
+  <font face="Courier New, Courier, mono">eventIn 
+  SFBool set_unload # new in 4.1, send TRUE to unload from memory <br>
+  } </font></p>
+<p><FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"> 
+  </font></font></font></font></font></font></font></font></font>
+<FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><P>
+<font face="Courier"><font face="Arial, Helvetica, sans-serif">This node extension is not VRML97 
+  compatbile, so it should be used with care. <br>
+  It is possible to add an proper Externproto definition or using script code 
+  checking the browser version :</font>
+</font></font></font></font></font></font></font></font></font><P><FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier">
+<font face="Courier"><font face="Courier New, Courier, mono">EXTERNPROTO InlineEx[ <br>
+  &nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1 <br>
+  &nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0 <br>
+  &nbsp;&nbsp; exposedField MFString url [] <br>
+  &nbsp;&nbsp; exposedField MFNode children [] <br>
+  &nbsp;&nbsp; eventIn MFNode addChildren <br>
+  &nbsp;&nbsp; eventIn MFNode removeChildren <br>
+  &nbsp;&nbsp; eventOut SFBool isLoaded</font> <br>
+  <font face="Courier New, Courier, mono">&nbsp;&nbsp; 
+  eventIn SFBool set_unload # new in 4.1<br>
+  </font>
+</font></font></font></font></font></font></font></font></font><FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"> 
+<P><font face="Courier New, Courier, mono">] ["urn:inet:blaxxun.com:node:Inline","nodes.wrl#InlineEx&quot;]</font> 
+</font></font></font></font></font></font></font></font></font> 
+<p>&nbsp; 
+<FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"> 
+<P><font face="Arial, Helvetica, sans-serif">For textures one method is to use 
+  a MovieTexture and observe the duration_changed eventOut. Oberving the &quot;last&quot; 
+  asset, in file order can give a hint of a world completely loaded event. A new 
+  method in Version 4.1 is the additional eventOut SFBool isLoaded forImageTexture. 
+  </font> 
+<P><font face="Arial, Helvetica, sans-serif"><B>Extension Nodes:</B> </font> 
+<P><font face="Arial, Helvetica, sans-serif"> Extensions nodes are native implemented 
+  EXTERNPROTO's. For VRML 97 conformance, a PROTO definition for the extension 
+  node can be added in the following way (using the MenuSensor node as an example): 
+  </font> 
+<P><font face="Courier New, Courier, mono">EXTERNPROTO MenuSensor[ <br>
+  exposedField SFBool enabled <br>
+  exposedField SFString title <br>
+  exposedField MFInt32 choices <br>
+  exposedField MFString descriptions <br>
+  </font><font face="Courier New,Courier">exposedField SFString position</font><font face="Courier New, Courier, mono"><br>
+  eventOut SFBool isActive <br>
+  eventOut SFInt32 choice ] ["urn:inet:blaxxun.com:node:MenuSensor","http://www.blaxxun.com/vrml/protos/nodes.wrl#MenuSensor&quot;]</font> 
+<P><font face="Arial, Helvetica, sans-serif">If possible most nodes have an usefull 
+  fallback implementation. </font> 
+<P><font face="Arial, Helvetica, sans-serif">List of Nodes: </font> 
+<P><font face="Arial, Helvetica, sans-serif">Discussed in BspTree section : </font> 
+<P><font face="Arial, Helvetica, sans-serif"><BR>
+  </font><FONT FACE="Courier New,Courier">BspTree&nbsp; {</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFRotation plane 0 0 1 0</FONT> 
+  <FONT FACE="Courier New,Courier">&nbsp;</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;field SFNode front NULL</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;field SFNode overlap NULL</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;field SFNode back NULL</FONT> <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> 
+<P><FONT FACE="Courier New,Courier">BspGroup { # new Contact 3D 3.051</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField MFNode children []</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode addChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode removeChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFNode bspTree</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> 
+<P><FONT FACE="Courier New,Courier">Occlusion {</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField SFBool enabled TRUE</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField SFNode proxy NULL</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField MFNode children []</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode addChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode removeChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFBool isActive</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFTime enterTime</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFTime exitTime</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> 
+<P><FONT FACE="Courier New,Courier">Inclusion {</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField SFBool enabled TRUE</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField SFNode proxy NULL</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField MFNode children []</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode addChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode removeChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFBool isActive</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFTime enterTime</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventOut SFTime exitTime</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> <BR>
+  &nbsp; 
+<P><font face="Arial, Helvetica, sans-serif">MenuSensor displays a VRML defined 
+  Menu in the Contact 3D right mouse button popup menu <br>
+  on activation of a menu entry, the corresponding choice value will be sent as 
+  eventOut choice<br>
+  a choices value of -1 indicated a menu separator </font> 
+<P> <FONT FACE="Courier New,Courier">MenuSensor {</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFBool enabled TRUE&nbsp;&nbsp;&nbsp; 
+  # TRUE menu enabled, FALSE disabled</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFString title ""&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 
+  title for submenu entry</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField MFInt32 choices []&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 
+  list of numbers</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField MFString descriptions []&nbsp;&nbsp;&nbsp; 
+  # description for each menu entry</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFString position ""</FONT> 
+  # &quot;TOP&quot; menu appears at the top of the Contact 3D menu<BR>
+  <FONT FACE="Courier New,Courier">&nbsp;eventOut SFBool isActive</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;eventOut SFInt32 choice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 
+  associated choices number for user selected menu entry</FONT> <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> 
+<P>Example : <a href="vrml/samples/menutest.wrl">menutest.wrl</a> 
+<P><font face="Arial, Helvetica, sans-serif">New Nodes in version 3.051 </font> 
+<P><font face="Arial, Helvetica, sans-serif">Cullgroup is a group with an automatic 
+  bounding box computation for the children scene graph. Usefull for early render 
+  culling of complex scene graphs (e.g. Avatars) </font> 
+<P> <FONT FACE="Courier New,Courier">CullGroup {</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; exposedField MFNode children []</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode addChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode removeChildren</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> 
+<P> <font face="Arial, Helvetica, sans-serif"><b>new in 3.05</b> </font>
+<P><font face="Arial, Helvetica, sans-serif">Fog2 is like fog with the additional 
+  parameter visiblityStart for linear fog </font>
+<P><FONT FACE="Courier New,Courier">Fog2 {</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFColor color 1 1 1</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFString fogType "LINEAR"</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFFloat visibilityRange 
+  0</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFFloat visibilityStart 
+  0</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;exposedField SFFloat density 1</FONT> 
+  <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;eventIn SFBool set_bind</FONT> <BR>
+  <FONT FACE="Courier New,Courier">&nbsp;eventOut SFBool isBound</FONT> <BR>
+  <FONT FACE="Courier New,Courier">}</FONT> <BR>
+  &nbsp; 
+<P> <font face="Arial, Helvetica, sans-serif"><b>new in 4.00 </b></font>
+<p><font face="Courier New,Courier">HUD {</font> <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxSize -1 -1 -1</font> 
+  <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; field SFVec3f bboxCenter 0 0 0</font> 
+  <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; exposedField MFNode children []</font> 
+  <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode addChildren</font> 
+  <br>
+  <font face="Courier New,Courier">&nbsp;&nbsp; eventIn MFNode removeChildren</font> 
+  <br>
+  <font face="Courier New,Courier">}</font> 
+<p><font face="Arial, Helvetica, sans-serif">This node equivalent to a VRML HUD 
+  construct using a Transform, ProximitySensor, and Collision { collide FALSE 
+  }.<br>
+  Children are displayed relativ to the viewer and not relative to the avatar 
+  position in 3rd person viewing mode.<br>
+  </font>
+<pre>
+
+Selection {
+   field SFVec3f bboxSize -1 -1 -1
+   field SFVec3f bboxCenter 0 0 0
+   exposedField SFBool collide TRUE # as in Collision node
+   exposedField SFBool select TRUE # if false, children are not existing for Anchor    selection
+   exposedField SFNode proxy NULL # proxy used for selection processing as well
+   exposedField MFNode children []
+   eventIn MFNode addChildren
+   eventIn MFNode removeChildren
+}
+<font face="Arial, Helvetica, sans-serif"> </font></pre>
+<p><font face="Arial, Helvetica, sans-serif">Similar to a Collision node this 
+  node allows to give a mouse selection proxy (e.g. large Rectangle for Text, 
+  bigger box for a fine detailed geometry) or to turn off selection completely 
+  (e.g. in order to pick through transparent shapes).</font>
+<p><font face="Arial, Helvetica, sans-serif">4.3</font>
+<p>&nbsp;
+<pre>
+<font face="Courier New, Courier, mono">Layer3D {
+   exposedField SFVec3f bboxSize -1 -1 -1
+   exposedField SFVec3f bboxCenter 0 0 0 
+   eventIn MFNode addChildrenLayer
+   eventIn MFNode removeChildrenLayer
+   exposedField MFNode childrenLayer []
+   exposedField SFVec2f translation 0 0
+   exposedField SFInt32 depth 0
+   exposedField SFVec2f size -1 -1
+   exposedField SFNode background NULL
+   exposedField SFNode fog NULL
+   exposedField SFNode navigationInfo NULL
+   exposedField SFNode viewpoint NULL
+   exposedField MFNode children []
+   eventIn MFNode addChildren
+   eventIn MFNode removeChildren
+}</font></pre>
+<p><font face="Arial, Helvetica, sans-serif">See Layer pages for details.</font>
+<pre><font face="Courier New, Courier, mono">CullGroup{
+   field SFVec3f bboxSize -1 -1 -1
+   field SFVec3f bboxCenter 0 0 0
+   exposedField MFNode children []
+   eventIn MFNode addChildren
+   eventIn MFNode removeChildren
+   # 4.3
+   exposedField SFBool lod FALSE 
+   exposedField MFNode level [] #unlike LOD level 0 is already the children content
+   exposedField MFFloat range [] # same length as level
+}</font></pre>
+</font><font face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Arial, Helvetica, sans-serif">Instructs 
+browser to do a cull checking operation on the scene graph, the bounding box will 
+be computed from children. Optionally lod = TRUE lod levels can be given, lod 
+geometry is scaled to the proper bounding box of children.</font></font></font></font></font></font></font></font></font></font><font face="Courier"> 
+<p>&nbsp; 
+<p><font face="Arial, Helvetica, sans-serif"><b>Acknowledgements</b></font>
+</font></font></font></font></font></font></font></font></font> 
+<p><font face="Arial, Helvetica, sans-serif">Paul S. Strauss – SGI for providing 
+  the QvLib a VRML 1.0 Parser</font><font size="2" face="Arial, Helvetica, sans-serif"></font></p>
+<p><font face="Arial, Helvetica, sans-serif">Chris Marrin &amp; Jim Kent - Silicon 
+  Graphics for providing the vrmlscript parser <br>
+  </font><font face="Arial, Helvetica, sans-serif">"Portions 
+  of this software are based in part on the VRMLScript Interpreter written by 
+  Silicon Graphics, Inc., Mountain View, California, USA."</font></p>
+<p><font face="Arial, Helvetica, sans-serif">the Independent JPEG Group's for 
+  providing libjpeg – <a href="ftp://ftp.uu.net/graphics/jpeg">ftp://ftp.uu.net/graphics/jpeg</a><br>
+  </font><font face="Arial, Helvetica, sans-serif">„this 
+  software is based in part on the work of the Independent JPEG Group".</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Jean-loup Gailly and Mark Adler for 
+  providing zlib. <a href="http://www.cdrom.com/pub/infozip/zlib/">ZLIB Homepage</a></font></p>
+<p><font face="Arial, Helvetica, sans-serif">Guy Eric Schalnat and contributors 
+  for providing libpng. <a href="http://www.cdrom.com/pub/png/">PNG Homepage</a></font></p>
+<p><font face="Arial, Helvetica, sans-serif">Michael Vollmer and Dean Macri – 
+  Intel for providing assistence for the Intel Pentium III ISSE code and NurbsSurface 
+  implementation</font></p>
+<p><font face="Arial, Helvetica, sans-serif">S. Gottschalk - The University of 
+  North Carolina for providing <a href="http://www.cs.unc.edu/~geom/collide.html">Rapid 
+  &amp; V-COLLIDE</a> (see license information in rapid.h - use for profit purposes 
+  requires a license from UNC)</font></p>
+<p><font face="Arial, Helvetica, sans-serif">&nbsp; <BR>
+  &nbsp; </font>
+<FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"> 
+<h3> <font face="Arial, Helvetica, sans-serif">Related links:</font></h3>
+<A HREF="../../index.html" target="_top"><font face="Arial, Helvetica, sans-serif">blaxxun 
+developer info</font></A> 
+<P><font face="Arial, Helvetica, sans-serif"><A HREF="../../../products/contact/3d/index.html" target="_top">Contact 
+  3D user guide</A> </font>
+<P><font face="Arial, Helvetica, sans-serif"><A HREF="http://www.web3d.org/Specifications/VRML97/" target="external">VRML 
+  97 Specification</A> </font>
+<P><font face="Arial, Helvetica, sans-serif"><A HREF="http://www.vrml.org/Specifications/" target="external">VRML 
+  1.0 + 97 Specification</A> <BR>
+  </font><!-- START FOOTER ===============================================--> 
+<P> 
+<HR>
+<CENTER>
+  <FONT SIZE=-1><A HREF="/copyright.html" target=_top>&copy; 2000 blaxxun interactive</A> 
+  - All rights reserved.</FONT> 
+</CENTER>
+<!-- END FOOTER ===============================================--> </font></font></font></font></font></font></font></font></font> 
+</BODY></HTML>

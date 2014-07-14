@@ -1,0 +1,129 @@
+#VRML V2.0 utf8
+
+
+NavigationInfo {
+	avatarSize [1.5 1.75 0.6 ]
+}
+
+DEF block Group{
+children[
+#erste Zeile
+DEF _1 Transform {
+translation 5 .5 -.55
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 1 0 0}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+Transform {
+translation 15 .5 -.55
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 0 0 1}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+
+
+#zweite Zeile
+DEF _1 Transform {
+translation 5 -.5 -.55
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 0 0 1}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+Transform {
+translation 15 -.5 -.55
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 1 0 0}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+]
+}
+
+
+Shape {
+appearance Appearance 
+{
+texture DEF FONTT ImageTexture { url "font512tr.gif" repeatS FALSE repeatT FALSE }
+
+material Material {
+diffuseColor 1 0.5 1
+}
+}
+geometry Text {
+string [ "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"]
+fontStyle FontStyle {
+family ["TEXTURE"]
+#family ["SANS"]
+#family ["TYPEWRITER"]
+
+justify "LEFT"
+}
+}
+}
+
+######################linker block
+
+
+
+Transform {
+translation -20 0 0
+children[
+USE block
+Shape {
+appearance Appearance {
+texture USE FONTT
+material Material {
+diffuseColor 1 1 1
+}
+}
+geometry Text {
+string [ "ABCDEFGHIJKLMNOPQRSTUVWX", "ABCDEFGHIJKLMNOPQRSTUVWX", "abcdefghijklmnopqrstuvwxyz"]
+
+##length [ 8 8 5 ]
+##maxExtent 12
+
+fontStyle FontStyle {
+family ["TEXTURE"]
+#family ["SERIF"]
+#family ["SANS"]
+#family ["TYPEWRITER"]
+style "ITALIC"
+spacing 2
+justify "LEFT"
+
+
+}
+}
+}
+]
+}
+
+Transform {
+translation -20 -2 0
+children[
+USE block
+]
+}
+

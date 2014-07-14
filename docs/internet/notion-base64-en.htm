@@ -1,0 +1,31 @@
+<title>base64 encoding, in short</title>
+<H2>base64 encoding, in short</H2>
+
+QP (base64-encoded) contains uppercase, lowercase, numbers, '+', '/' and '='.
+<p>
+Take the encoded stuff in groups of 4 characters and turn each character 
+into a code 0 to 63 thus:
+<ul>
+<li>
+A means of labelling the content of mail messages.
+<li>A-Z map to 0 to 25
+<li>a-z map to 26 to 51
+<li>0-9 map to 52 to 61
+<li>+ maps to 62
+<li>/ maps to 63
+</ul>
+<p>
+Express the four numbers thus found (all 0 to 63) in binary:
+<p>
+00aaaaaa 00bbbbbb 00cccccc 00dddddd
+<p>
+This then maps to _three_ real bytes formed thus:
+<p>
+aaaaaabb bbbbcccc ccdddddd
+<p>
+Equals signs (one or two) are used at the end of the encoded block to 
+indicate that the text was not an integer multiple of three bytes long.
+<p>
+<address><a href=/SIC/SL/messageries/postmaster.html>postmaster@epfl.ch</a>
+</address>
+

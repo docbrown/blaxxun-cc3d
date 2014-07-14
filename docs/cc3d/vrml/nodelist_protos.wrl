@@ -1,0 +1,298 @@
+#VRML V2.0 utf8
+#written by GLView 4.3 http://www.snafu.de/~hg
+
+# generated from nodes.wrl, EXTERNPROTO defs for copy & paste 
+
+EXTERNPROTO BspTree[
+	exposedField SFRotation plane
+	exposedField SFNode front
+	exposedField SFNode overlap
+	exposedField SFNode back
+	]
+["urn:inet:blaxxun.com:node:BspTree","http://www.blaxxun.com/vrml/protos/nodes.wrl#BspTree","nodes.wrl#BspTree"]
+BspTree {}
+EXTERNPROTO BspGroup[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	eventOut SFNode bspTree
+	]
+["urn:inet:blaxxun.com:node:BspGroup","http://www.blaxxun.com/vrml/protos/nodes.wrl#BspGroup","nodes.wrl#BspGroup"]
+BspGroup {}
+EXTERNPROTO Occlusion[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFBool enabled
+	exposedField SFNode proxy
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	eventOut SFBool isActive
+	eventOut SFTime enterTime
+	eventOut SFTime exitTime
+	]
+["urn:inet:blaxxun.com:node:Occlusion","http://www.blaxxun.com/vrml/protos/nodes.wrl#Occlusion","nodes.wrl#Occlusion"]
+DEF _Occlusion Occlusion {}
+EXTERNPROTO Inclusion[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFBool enabled
+	exposedField SFNode proxy
+	exposedField MFNode portals
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	eventOut SFBool isActive
+	eventOut SFBool isInside
+	eventOut SFTime enterTime
+	eventOut SFTime exitTime
+	]
+["urn:inet:blaxxun.com:node:Inclusion","http://www.blaxxun.com/vrml/protos/nodes.wrl#Inclusion","nodes.wrl#Inclusion"]
+DEF _Inclusion Inclusion {}
+EXTERNPROTO MenuSensor[
+	exposedField SFBool enabled
+	exposedField SFString title
+	exposedField MFInt32 choices
+	exposedField MFString descriptions
+	exposedField SFString position
+	eventOut SFBool isActive
+	eventOut SFInt32 choice
+	]
+["urn:inet:blaxxun.com:node:MenuSensor","http://www.blaxxun.com/vrml/protos/nodes.wrl#MenuSensor","nodes.wrl#MenuSensor"]
+DEF _MenuSensor MenuSensor {}
+EXTERNPROTO CullGroup[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField MFNode children
+	exposedField SFBool lod
+	exposedField MFNode level
+	exposedField MFFloat range
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:CullGroup","http://www.blaxxun.com/vrml/protos/nodes.wrl#CullGroup","nodes.wrl#CullGroup"]
+CullGroup {}
+EXTERNPROTO HUD[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField MFString align
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:HUD","http://www.blaxxun.com/vrml/protos/nodes.wrl#HUD","nodes.wrl#HUD"]
+HUD {}
+EXTERNPROTO Fog2[
+	exposedField SFColor color
+	exposedField SFString fogType
+	exposedField SFFloat visibilityRange
+	exposedField SFFloat visibilityStart
+	exposedField SFFloat density
+	eventIn SFBool set_bind
+	eventOut SFBool isBound
+	]
+["urn:inet:blaxxun.com:node:Fog2","http://www.blaxxun.com/vrml/protos/nodes.wrl#Fog2","nodes.wrl#Fog2"]
+DEF _Fog2 Fog2 {}
+EXTERNPROTO Selection[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFBool collide
+	exposedField SFBool select
+	exposedField SFNode proxy
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:Selection","http://www.blaxxun.com/vrml/protos/nodes.wrl#Selection","nodes.wrl#Selection"]
+Selection {}
+
+EXTERNPROTO NurbsSurface[
+	exposedField SFInt32 uDimension
+	exposedField SFInt32 vDimension
+	exposedField MFVec3f controlPoint
+	exposedField MFFloat weight
+	exposedField SFNode texCoord
+	exposedField SFInt32 uOrder
+	exposedField SFInt32 vOrder
+	exposedField MFFloat uKnot
+	exposedField MFFloat vKnot
+	exposedField SFInt32 uTessellation
+	exposedField SFInt32 vTessellation
+	exposedField SFBool solid
+	exposedField SFBool ccw
+	]
+["urn:inet:blaxxun.com:node:NurbsSurface","http://www.blaxxun.com/vrml/protos/nodes.wrl#NurbsSurface","nodes.wrl#NurbsSurface"]
+NurbsSurface {}
+EXTERNPROTO NurbsGroup[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFFloat tessellationScale
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:NurbsGroup","http://www.blaxxun.com/vrml/protos/nodes.wrl#NurbsGroup","nodes.wrl#NurbsGroup"]
+NurbsGroup {}
+EXTERNPROTO NurbsCurve[
+	exposedField SFInt32 dimension
+	exposedField SFInt32 tessellation
+	exposedField MFFloat knot
+	exposedField SFInt32 order
+	exposedField MFVec3f controlPoint
+	exposedField MFFloat weight
+	]
+["urn:inet:blaxxun.com:node:NurbsCurve","http://www.blaxxun.com/vrml/protos/nodes.wrl#NurbsCurve","nodes.wrl#NurbsCurve"]
+NurbsCurve {}
+EXTERNPROTO NurbsCurve2D[
+	exposedField SFInt32 tessellation
+	exposedField MFFloat knot
+	exposedField SFInt32 order
+	exposedField MFVec2f controlPoint
+	exposedField MFFloat weight
+	]
+["urn:inet:blaxxun.com:node:NurbsCurve2D","http://www.blaxxun.com/vrml/protos/nodes.wrl#NurbsCurve2D","nodes.wrl#NurbsCurve2D"]
+NurbsCurve2D {}
+EXTERNPROTO Polyline2D[
+	exposedField MFVec2f point
+	]
+["urn:inet:blaxxun.com:node:Polyline2D","http://www.blaxxun.com/vrml/protos/nodes.wrl#Polyline2D","nodes.wrl#Polyline2D"]
+Polyline2D {}
+EXTERNPROTO NurbsPositionInterpolator[
+	exposedField SFInt32 dimension
+	exposedField MFFloat knot
+	exposedField SFInt32 order
+	exposedField SFBool fractionAbsolute
+	exposedField MFFloat keyWeight
+	exposedField MFVec3f keyValue
+	eventIn SFFloat fraction
+	eventOut SFVec3f value
+	]
+["urn:inet:blaxxun.com:node:NurbsPositionInterpolator","http://www.blaxxun.com/vrml/protos/nodes.wrl#NurbsPositionInterpolator","nodes.wrl#NurbsPositionInterpolator"]
+NurbsPositionInterpolator {}
+EXTERNPROTO TrimmedSurface[
+	exposedField MFNode trimmingContour
+	exposedField SFNode surface
+	eventIn MFNode addTrimmingContour
+	eventIn MFNode removeTrimmingContour
+	]
+["urn:inet:blaxxun.com:node:TrimmedSurface","http://www.blaxxun.com/vrml/protos/nodes.wrl#TrimmedSurface","nodes.wrl#TrimmedSurface"]
+TrimmedSurface {}
+EXTERNPROTO Contour2D[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFBool fill
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:Contour2D","http://www.blaxxun.com/vrml/protos/nodes.wrl#Contour2D","nodes.wrl#Contour2D"]
+Contour2D {}
+EXTERNPROTO CoordinateDeformer[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFInt32 uDimension
+	exposedField SFInt32 vDimension
+	exposedField SFInt32 wDimension
+	exposedField MFFloat uKnot
+	exposedField MFFloat vKnot
+	exposedField MFFloat wKnot
+	exposedField SFInt32 uOrder
+	exposedField SFInt32 vOrder
+	exposedField SFInt32 wOrder
+	exposedField MFVec3f controlPoint
+	exposedField MFFloat weight
+	exposedField MFNode inputCoord
+	exposedField MFNode inputTransform
+	exposedField MFNode outputCoord
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:CoordinateDeformer","http://www.blaxxun.com/vrml/protos/nodes.wrl#CoordinateDeformer","nodes.wrl#CoordinateDeformer"]
+CoordinateDeformer {}
+EXTERNPROTO Layer3D[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	eventIn MFNode addChildrenLayer
+	eventIn MFNode removeChildrenLayer
+	exposedField MFNode childrenLayer
+	exposedField SFVec2f translation
+	exposedField SFInt32 depth
+	exposedField SFVec2f size
+	exposedField SFNode background
+	exposedField SFNode fog
+	exposedField SFNode navigationInfo
+	exposedField SFNode viewpoint
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:Layer3D","http://www.blaxxun.com/vrml/protos/nodes.wrl#Layer3D","nodes.wrl#Layer3D"]
+Layer3D {}
+EXTERNPROTO MultiTexture[
+	exposedField MFString mode
+	exposedField MFNode texture
+	exposedField MFNode textureTransform
+	exposedField MFInt32 textureOp
+	]
+["urn:inet:blaxxun.com:node:MultiTexture","http://www.blaxxun.com/vrml/protos/nodes.wrl#MultiTexture","nodes.wrl#MultiTexture"]
+MultiTexture {}
+EXTERNPROTO Polygon[
+	exposedField SFNode color
+	exposedField SFNode coord
+	exposedField SFNode normal
+	exposedField MFNode texCoord
+	exposedField SFBool ccw
+	exposedField MFInt32 coordIndex
+	exposedField SFBool solid
+	]
+["urn:inet:blaxxun.com:node:Polygon","http://www.blaxxun.com/vrml/protos/nodes.wrl#Polygon","nodes.wrl#Polygon"]
+Polygon {}
+EXTERNPROTO Layer[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	exposedField SFNode background
+	exposedField SFNode fog_
+	exposedField SFNode navigationInfo
+	exposedField SFNode viewpoint
+	exposedField SFBool viewpointStretch
+	exposedField SFBool pick
+	exposedField SFBitMask clear
+	exposedField SFBool depthWrite
+	exposedField SFEnum depthFunc
+	exposedField SFBool lighted
+	exposedField SFBool fog
+	exposedField SFEnum alphaFunc
+	exposedField SFFloat alphaRef
+	exposedField SFEnum alphaComp
+	exposedField SFBool blend
+	exposedField SFEnum blendSrcFunc
+	exposedField SFEnum blendDestFunc
+	exposedField SFEnum stencilFunc
+	exposedField SFLong stencilRef
+	exposedField SFLong stencilMask
+	exposedField SFEnum stencilFail
+	exposedField SFEnum stencilZFail
+	exposedField SFEnum stencilZPass
+	exposedField SFVec2f translation
+	exposedField SFInt32 depth
+	exposedField SFVec2f size
+	]
+["urn:inet:blaxxun.com:node:Layer","http://www.blaxxun.com/vrml/protos/nodes.wrl#Layer","nodes.wrl#Layer"]
+Layer {}
+EXTERNPROTO MatrixTransform[
+	exposedField SFVec3f bboxSize
+	exposedField SFVec3f bboxCenter
+	exposedField SFMatrix matrix
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:MatrixTransform","http://www.blaxxun.com/vrml/protos/nodes.wrl#MatrixTransform","nodes.wrl#MatrixTransform"]
+MatrixTransform {}
+DEF _AudioClip AudioClip {}

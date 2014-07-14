@@ -1,0 +1,123 @@
+GLVDoc.cpp - GLView MFC document class
+GLView.cpp - GLView MFC application class
+GLVView.cpp - GLView CMyglView MFC View Class implementation
+mainfrm.cpp - GLView MFC CMainFrame class
+DObjNew.cpp - object creation dialogs
+DObjNew
+DNewFontLogo
+GLVDoc.h - GLView MFC document class
+GLView.h - GLView MFC application
+GLViewh.h - GLView MFC View class
+CMyglView
+glvpdoc.d - Overview of GLView classes
+Utility functions + classes
+Utility template functions
+Runtime information class
+GLView graphical objects
+GLView graphical objects input/output
+GLView GLRenderState class
+GLView GClass structure
+MFC core modules
+MFC dialog modules
+CDIB::CDIB
+CDIB::~CDIB
+CDIB::Create
+CDIB::Load
+CDIB::Draw
+CDIB::GetNumClrEntries
+CDIB::MapColorsToPalette
+CDIB::GetPixelAddress
+CDIB::GetRect
+CDIB::CopyBits
+CDIB::StretchBits
+CDIB::DoubleBits
+CDIB::Save
+CDIB::SetColorTable
+CDIBPal::Create
+CDIBPal::GetNumColors
+CDIBPal::Draw
+CDIBPal::SetSysPalColors
+CDIBPal::Load
+CDIBPal::Save
+CDIBPal::CreateWash
+CDIBPal::CreateSystemColorPalette
+CDIBSurface::Create
+CDIBSurface::Draw
+CDIBSurface::BitBlt
+CDIBSurface::StretchBlt
+CDIBSurface::SetPalette
+CDIBSurface::Load
+GClass.cpp - GLView graphical object classes implementation
+GDisplayTree.cpp - GLView tree display traversal routines
+GFont.cpp - GLView TrueType font support
+ComputeGlyphOutline
+ComputeGlyphOutline
+GGeom.cpp - GLView geometry creation routines
+NewCircle
+NewSphere
+ComputeExtrudedShell
+GioTraversal.cpp - GLView ouput traversal routines
+GLUtils.cpp - GLView utility routines for images & textures
+GModel.cpp - GLView data model (document) class implementation
+GMorph.cpp - GLView polyhedron vertex morphing
+GRaySelect.cpp - GLView picking traversal routines
+GShell.cpp - GLView core graphical primitves
+GShellI.cpp - GLView GShellI graphical object
+GShellIO.cpp - GLView additional GShell IO functions implementation
+GShellOP.cpp - GLView GShell input routines
+GUtils.cpp - GLView utility routines implementation
+copylist
+PointA.cpp - Pointarray classes implementation
+QvEval.cpp - GLView qv node conversion
+tomesh.cpp - Convert independent triangles to large triangle meshes
+Array.h - Template based Array class
+AStream.h - ascii input/output stream with some parsing support
+AStream
+GFont.h - GLView TrueType font support
+ComputeGlyphOutline
+GGeom.cpp - GLView geometry creation routines
+GSphereSubdiv
+GSweep
+GRotSweep
+NewCircle
+NewSphere
+ComputeExtrudedShell
+GLUtils.h - GL utility routines
+InitImageTexture
+GModel.h - GLView data model (document) class
+GModel
+GView
+GShell.h - GLView graphical objects
+GFaceList
+GEdgeList
+root object of graphical output objects
+GVertex
+GVertexI
+GShell
+GMesh
+GPolygon
+GPolyline
+GShellI.h - GLView GShellI object
+GFaceGroup
+GShellI
+GShellIO.h - GLView additional GShell IO functions
+WriteShellHmf
+WriteShellGeo
+WriteShellStl
+WriteShellPov
+WriteShellRaw
+WriteShellVrml
+GShellOP.h - GLView shell operations
+GUtils.h - GLView utility routines
+Matrix.h - 4*4 Matrix class
+Matrix
+MatrixAndInverse
+DecomposedMatrix
+point.h - Generic Point + Vector (= Normal) class
+Vector
+Plane
+BBox
+Ray
+RayRange
+WWW.h - GLView WWW access + file/extension handling
+GFileFormats

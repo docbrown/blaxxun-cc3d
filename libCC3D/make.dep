@@ -1,0 +1,671 @@
+array.o: ..\src\core\array.cpp stdafx.h gconfig.h ..\src\core\gutils.h \
+ ..\src\core\rt.h ..\src\core\rtabst.h ..\src\core\astream.h \
+ ..\src\core\array.h ..\src\core\stack.h ..\src\core\point.h \
+ ..\src\core\pointa.h ..\src\core\matrix.h
+astream.o: ..\src\core\astream.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h
+build.o: ..\src\core\collision\rapid\build.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\collision\rapid\RAPID_version.H \
+ ..\src\core\collision\rapid\RAPID.H \
+ ..\src\core\collision\rapid\matvec.H \
+ ..\src\core\collision\rapid\moments.H \
+ ..\src\core\collision\rapid\obb.H
+collide.o: ..\src\core\collision\rapid\collide.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\collision\rapid\RAPID_version.H \
+ ..\src\core\collision\rapid\RAPID.H \
+ ..\src\core\collision\rapid\matvec.H \
+ ..\src\core\collision\rapid\overlap.H \
+ ..\src\core\collision\rapid\obb.H
+gclass.o: ..\src\core\gclass.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GClass.h ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h
+gifread.o: ..\src\core\gifread.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\jpeghgnt\image.h ..\src\core\GifRead.h ..\src\core\Array.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\core\grenderbase.h ..\src\core\GLUtils.h
+glrender.o: ..\src\core\gl\glrender.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\gl\glrender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GLUtils.h ..\src\core\GCamera.h
+glutils.o: ..\src\core\glutils.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ GConfig.h ..\src\core\GVersion.h ..\src\core\WWW.h \
+ ..\src\jpeghgnt\image.h ..\src\core\IDither.h ..\src\core\GLUtils.h \
+ ..\src\jpeghgnt\jpegread.h ..\src\jpeghgnt\png_read.h \
+ ..\src\jpeghgnt\targaio.h ..\src\core\GifRead.h ..\src\core\Array.h \
+ ..\src\jpeghgnt\dibio.h ..\src\jpeghgnt\dibio.pro
+gperlinnoise.o: ..\src\core\gperlinnoise.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GPerlinNoise.h ..\src\core\gnoisetable.i
+greadgv.o: ..\src\vrml\src\greadgv.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GShell.h ..\src\core\GShellI.h ..\src\core\GShellOp.h \
+ ..\src\core\GShellIO.h ..\src\core\GModel.h \
+ ..\src\core\Quaternation.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ ..\src\core\GReporter.h ..\src\core\GLUtils.h ..\src\core\GVersion.h \
+ ..\src\core\GZReadStream.h
+greporter.o: ..\src\core\greporter.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h
+gshell.o: ..\src\core\gshell.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GVersion.h ..\src\core\GKatmai.h \
+ ..\src\core\collision/rapid/rapid.h ..\src\core\GReporter.h \
+ ..\src\core\GClass.h ..\src\core\GShell.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GShellI.h \
+ ..\src\core\gshelltriang.h ..\src\core\tomesh.h
+gshelli.o: ..\src\core\gshelli.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GClass.h ..\src\core\GShell.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GShellop.h \
+ ..\src\core\GShellI.h ..\src\core\gl\glrender.h ..\src\core\tomesh.h \
+ ..\src\core\GKatmai.h ..\src\core\colors.inc \
+ ..\src\core\collision/rapid/rapid.h
+gshellio.o: ..\src\core\gshellio.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GVersion.h ..\src\core\GClass.h ..\src\core\GShell.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GShellop.h ..\src\core\GShellI.h ..\src\core\GShellIO.h \
+ ..\src\core\GioTraversal.h
+gshellop.o: ..\src\core\gshellop.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GClass.h ..\src\core\GShell.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GShellI.h \
+ ..\src\core\GShellOp.h ..\src\core\WWW.h
+gutils.o: ..\src\core\gutils.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gv2geometry.o: ..\src\vrml\src\gv2geometry.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h ..\src\core\GShellI.h ..\src\core\GGeom.h \
+ ..\src\core\GModel.h ..\src\core\Quaternation.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ ..\src\core\GOptimizeTraversal.h
+gv2group.o: ..\src\vrml\src\gv2group.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GCamera.h ..\src\core\GVisibility.h \
+ \client\cc3d\src\vrml\include\GvDirectionalLight.h \
+ \client\cc3d\src\vrml\include\GvBsp.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GModel.h ..\src\core\WWW.h \
+ ..\src\core\Quaternation.h ..\src\core\GCameraUtil.h \
+ ..\src\core\gfuzzy.h
+gvbasecolor.o: ..\src\vrml\src\gvbasecolor.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvblinker.o: ..\src\vrml\src\gvblinker.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvbsp.o: ..\src\vrml\src\gvbsp.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ \client\cc3d\src\vrml\include\GvBsp.h \
+ \client\cc3d\src\vrml\include\Gv2Geometry.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h \client\cc3d\src\vrml\include\GvWWWAnchor.h \
+ \client\cc3d\src\vrml\include\GvTraverse.h ..\src\core\ArrayNew.h \
+ ..\src\core\GShell.h ..\src\core\GVisibility.h ..\src\core\GCamera.h \
+ ..\src\core\GRaySelect.h \client\cc3d\src\vrml\include\GvSensors.h \
+ \client\cc3d\src\vrml\include\GvWWWInline.h ..\src\core\www.h \
+ ..\src\core\gvisibility.h ..\src\core\ghull.h ..\src\core\GVersion.h \
+ ..\src\core\GReporter.h ..\src\core\GModel.h ..\src\core\WWW.h \
+ ..\src\core\Quaternation.h ..\src\core\GCameraUtil.h \
+ ..\src\core\gfuzzy.h
+gvcallback.o: ..\src\vrml\src\gvcallback.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvchildlist.o: ..\src\vrml\src\gvchildlist.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvcomplexity.o: ..\src\vrml\src\gvcomplexity.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvcoordinate3.o: ..\src\vrml\src\gvcoordinate3.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvdb.o: ..\src\vrml\src\gvdb.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GClass.h
+gvdebugerror.o: ..\src\vrml\src\gvdebugerror.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h
+gvdict.o: ..\src\vrml\src\gvdict.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvdirectionallight.o: ..\src\vrml\src\gvdirectionallight.cpp stdafx.h \
+ gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvedit.o: ..\src\vrml\src\gvedit.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvelement.o: ..\src\vrml\src\gvelement.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvfield.o: ..\src\vrml\src\gvfield.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvfielddata.o: ..\src\vrml\src\gvfielddata.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvfontstyle.o: ..\src\vrml\src\gvfontstyle.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvgeometry.o: ..\src\vrml\src\gvgeometry.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRaySelect.h
+gvgroup.o: ..\src\vrml\src\gvgroup.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvhandle.o: ..\src\vrml\src\gvhandle.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GCamera.h ..\src\core\grender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\glutils.h ..\src\core\gshell.h ..\src\core\GRender.h \
+ ..\src\core\GOptimizeTraversal.h
+gvinfo.o: ..\src\vrml\src\gvinfo.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GModel.h ..\src\core\WWW.h ..\src\core\Quaternation.h \
+ ..\src\core\GCamera.h ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h
+gvinput.o: ..\src\vrml\src\gvinput.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GZReadStream.h
+gvinterpolators.o: ..\src\vrml\src\gvinterpolators.cpp stdafx.h \
+ gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvisibility.o: ..\src\core\gvisibility.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\gvisibility.h
+gvkeyword.o: ..\src\vrml\src\gvkeyword.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvktx.o: ..\src\vrml\src\gvktx.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GShell.h ..\src\core\GCamera.h
+gvlabel.o: ..\src\vrml\src\gvlabel.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvlayer.o: ..\src\vrml\src\gvlayer.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GCamera.h ..\src\core\GVisibility.h \
+ \client\cc3d\src\vrml\include\GvDirectionalLight.h \
+ \client\cc3d\src\vrml\include\GvBsp.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GModel.h ..\src\core\WWW.h \
+ ..\src\core\Quaternation.h ..\src\core\GCameraUtil.h \
+ ..\src\core\gfuzzy.h
+gvlevelofdetail.o: ..\src\vrml\src\gvlevelofdetail.cpp stdafx.h \
+ gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvlists.o: ..\src\vrml\src\gvlists.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvlod.o: ..\src\vrml\src\gvlod.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GCamera.h ..\src\core\GRaySelect.h
+gvmaterial.o: ..\src\vrml\src\gvmaterial.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h
+gvmaterialbinding.o: ..\src\vrml\src\gvmaterialbinding.cpp stdafx.h \
+ gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvmediathread.o: ..\src\vrml\src\gvmediathread.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GUtils.h ..\src\core\GLUtils.h \
+ \client\cc3d\src\vrml\include\GvScene.h \
+ \client\cc3d\src\vrml\include\GReadGv.h
+gvmfields.o: ..\src\vrml\src\gvmfields.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\Quaternation.h
+gvmodifier.o: ..\src\vrml\src\gvmodifier.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvmorph.o: ..\src\vrml\src\gvmorph.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvname.o: ..\src\vrml\src\gvname.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvnamespace.o: ..\src\vrml\src\gvnamespace.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvnode.o: ..\src\vrml\src\gvnode.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h ..\src\core\GSurface.h ..\src\core\GVersion.h
+gvnodeshell.o: ..\src\vrml\src\gvnodeshell.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GShell.h
+gvnormal.o: ..\src\vrml\src\gvnormal.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvnormalbinding.o: ..\src\vrml\src\gvnormalbinding.cpp stdafx.h \
+ gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvnurbs.o: ..\src\vrml\src\gvnurbs.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h ..\src\core\GShellI.h ..\src\core\GGeom.h \
+ ..\src\core\GModel.h ..\src\core\Quaternation.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ \client\cc3d\src\vrml\include\gvnurbs.h ..\src\core\gnurbs.h \
+ ..\src\core\gshell.h \client\cc3d\src\vrml\include\gv2group.h \
+ \client\cc3d\src\vrml\include\GvInterpolators.h \
+ \client\cc3d\src\vrml\include\gv2geometry.h ..\src\core\gvisibility.h
+gvorthographiccamera.o: ..\src\vrml\src\gvorthographiccamera.cpp \
+ stdafx.h gconfig.h ..\src\core\gutils.h ..\src\core\rt.h \
+ ..\src\core\rtabst.h ..\src\core\astream.h ..\src\core\array.h \
+ ..\src\core\stack.h ..\src\core\point.h ..\src\core\pointa.h \
+ ..\src\core\matrix.h
+gvpath.o: ..\src\vrml\src\gvpath.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvperspectivecamera.o: ..\src\vrml\src\gvperspectivecamera.cpp \
+ stdafx.h gconfig.h ..\src\core\gutils.h ..\src\core\rt.h \
+ ..\src\core\rtabst.h ..\src\core\astream.h ..\src\core\array.h \
+ ..\src\core\stack.h ..\src\core\point.h ..\src\core\pointa.h \
+ ..\src\core\matrix.h ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GModel.h ..\src\core\WWW.h ..\src\core\Quaternation.h \
+ ..\src\core\GCamera.h ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h
+gvplist.o: ..\src\vrml\src\gvplist.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvpointlight.o: ..\src\vrml\src\gvpointlight.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvproto.o: ..\src\vrml\src\gvproto.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GVersion.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GModel.h ..\src\core\WWW.h \
+ ..\src\core\Quaternation.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ \client\cc3d\src\vrml\include\GReadGv.h
+gvreaderror.o: ..\src\vrml\src\gvreaderror.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GReporter.h
+gvscene.o: ..\src\vrml\src\gvscene.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRaySelect.h
+gvscript.o: ..\src\vrml\src\gvscript.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GModel.h ..\src\core\WWW.h ..\src\core\Quaternation.h \
+ ..\src\core\GCamera.h ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ ..\src\vrmlscript\vsparse.h ..\src\vrmlscript\vbplist.h \
+ ..\src\vrmlscript\VbBasic.h ..\src\vrmlscript\system.h \
+ ..\src\vrmlscript\vsfields.h ..\src\vrmlscript\vsexpr.h \
+ ..\src\vrmlscript\vsstatement.h ..\src\vrmlscript\vsfunction.h
+gvsensors.o: ..\src\vrml\src\gvsensors.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\Quaternation.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GModel.h ..\src\core\WWW.h \
+ ..\src\core\gfuzzy.h ..\src\core\GRaySelect.h
+gvseparator.o: ..\src\vrml\src\gvseparator.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvsfields.o: ..\src\vrml\src\gvsfields.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvshapehints.o: ..\src\vrml\src\gvshapehints.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvsound.o: ..\src\vrml\src\gvsound.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GVersion.h ..\src\core\GSound.h ..\src\core\GRender.h \
+ ..\src\core\gl\GLRender.h ..\src\jpeghgnt\image.h \
+ ..\src\core\grenderbase.h ..\src\core\GModel.h \
+ ..\src\core\Quaternation.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ \client\cc3d\src\vrml\include\GvTraverse.h ..\src\core\GShell.h \
+ ..\src\core\GVisibility.h ..\src\core\GReporter.h
+gvspotlight.o: ..\src\vrml\src\gvspotlight.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvstring.o: ..\src\vrml\src\gvstring.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvsweep.o: ..\src\vrml\src\gvsweep.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvswitch.o: ..\src\vrml\src\gvswitch.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvtexture2.o: ..\src\vrml\src\gvtexture2.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\glutils.h ..\src\core\gversion.h ..\src\core\WWW.h \
+ ..\src\core\GifRead.h ..\src\core\Array.h \
+ \client\cc3d\src\vrml\include\GReadGv.h ..\src\core\GModel.h \
+ ..\src\core\Quaternation.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ ..\src\core\GReporter.h \client\cc3d\src\vrml\include\GvTraverse.h \
+ ..\src\core\GShell.h ..\src\core\GVisibility.h
+gvtexturecoordinate2.o: ..\src\vrml\src\gvtexturecoordinate2.cpp \
+ stdafx.h gconfig.h ..\src\core\gutils.h ..\src\core\rt.h \
+ ..\src\core\rtabst.h ..\src\core\astream.h ..\src\core\array.h \
+ ..\src\core\stack.h ..\src\core\point.h ..\src\core\pointa.h \
+ ..\src\core\matrix.h
+gvtexturecoordinatebinding.o: \
+ ..\src\vrml\src\gvtexturecoordinatebinding.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvtimetransform.o: ..\src\vrml\src\gvtimetransform.cpp stdafx.h \
+ gconfig.h ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvtransforms.o: ..\src\vrml\src\gvtransforms.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\Quaternation.h
+gvtransformseparator.o: ..\src\vrml\src\gvtransformseparator.cpp \
+ stdafx.h gconfig.h ..\src\core\gutils.h ..\src\core\rt.h \
+ ..\src\core\rtabst.h ..\src\core\astream.h ..\src\core\array.h \
+ ..\src\core\stack.h ..\src\core\point.h ..\src\core\pointa.h \
+ ..\src\core\matrix.h
+gvtraverse.o: ..\src\vrml\src\gvtraverse.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GShell.h ..\src\core\GShellI.h ..\src\core\GFont.h \
+ ..\src\core\GGeom.h ..\src\core\GLUtils.h ..\src\core\GBuildShell.h \
+ \client\cc3d\src\vrml\include\GReadGv.h ..\src\core\GModel.h \
+ ..\src\core\Quaternation.h ..\src\core\GCameraUtil.h \
+ ..\src\core\gfuzzy.h ..\src\core\GReporter.h \
+ ..\src\core\GTransparency.h ..\src\core\GOptimizeTraversal.h
+gvunknownnode.o: ..\src\vrml\src\gvunknownnode.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+gvwebfx.o: ..\src\vrml\src\gvwebfx.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GShell.h
+gvwwwanchor.o: ..\src\vrml\src\gvwwwanchor.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ \client\cc3d\src\vrml\include\GvTraverse.h ..\src\core\ArrayNew.h \
+ ..\src\core\GShell.h ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GVisibility.h ..\src\core\GCamera.h
+gvwwwinline.o: ..\src\vrml\src\gvwwwinline.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\WWW.h ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GModel.h ..\src\core\Quaternation.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ \client\cc3d\src\vrml\include\GReadGv.h \
+ \client\cc3d\src\vrml\include\GvElement.h ..\src\core\RT.h \
+ ..\src\core\Array.h ..\src\core\Stack.h ..\src\core\Point.h \
+ ..\src\core\Matrix.h GConfig.h \
+ \client\cc3d\src\vrml\include\GvTraverse.h ..\src\core\GShell.h \
+ ..\src\core\GVisibility.h \
+ \client\cc3d\src\vrml\include\GvMediaThread.h
+matrix.o: ..\src\core\matrix.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+overlap.o: ..\src\core\collision\rapid\overlap.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\collision\rapid\RAPID_version.H \
+ ..\src\core\collision\rapid\rapid.h \
+ ..\src\core\collision\rapid\matvec.H
+parse.o: ..\src\vrmlscript\parse.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vsexpr.h ..\src\vrmlscript\vsstatement.h \
+ ..\src\vrmlscript\vbplist.h ..\src\vrmlscript\VbBasic.h \
+ ..\src\vrmlscript\system.h ..\src\vrmlscript\vsfunction.h \
+ ..\src\vrmlscript\vsparse.h ..\src\vrmlscript\y_tab.h \
+ ..\src\core\GReporter.h
+point.o: ..\src\core\point.cpp stdafx.h gconfig.h ..\src\core\gutils.h \
+ ..\src\core\rt.h ..\src\core\rtabst.h ..\src\core\astream.h \
+ ..\src\core\array.h ..\src\core\stack.h ..\src\core\point.h \
+ ..\src\core\pointa.h ..\src\core\matrix.h
+pointa.o: ..\src\core\pointa.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h
+quaternation.o: ..\src\core\quaternation.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\Point.h ..\src\core\Matrix.h ..\src\core\Quaternation.h
+rapid.o: ..\src\core\collision\rapid\rapid.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\collision\rapid\RAPID_version.H \
+ ..\src\core\collision\rapid\RAPID.H \
+ ..\src\core\collision\rapid\matvec.H \
+ ..\src\core\collision\rapid\overlap.H \
+ ..\src\core\collision\rapid\obb.H
+rt.o: ..\src\core\rt.cpp stdafx.h gconfig.h ..\src\core\gutils.h \
+ ..\src\core\rt.h ..\src\core\rtabst.h ..\src\core\astream.h \
+ ..\src\core\array.h ..\src\core\stack.h ..\src\core\point.h \
+ ..\src\core\pointa.h ..\src\core\matrix.h
+scan.o: ..\src\vrmlscript\scan.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vsexpr.h ..\src\vrmlscript\vsstatement.h \
+ ..\src\vrmlscript\vbplist.h ..\src\vrmlscript\VbBasic.h \
+ ..\src\vrmlscript\system.h ..\src\vrmlscript\vsfunction.h \
+ ..\src\vrmlscript\vsparse.h ..\src\vrmlscript\y_tab.h \
+ ..\src\core\GReporter.h
+triangulate.o: ..\src\core\triangulate.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GShell.h
+vbplist.o: ..\src\vrmlscript\vbplist.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vbplist.h ..\src\vrmlscript\VbBasic.h \
+ ..\src\vrmlscript\system.h
+vsexpr.o: ..\src\vrmlscript\vsexpr.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vsexpr.h ..\src\vrmlscript\vsstatement.h \
+ ..\src\vrmlscript\vbplist.h ..\src\vrmlscript\VbBasic.h \
+ ..\src\vrmlscript\system.h ..\src\vrmlscript\vsfields.h \
+ ..\src\core\GReporter.h ..\src\vrmlscript\vsfunction.h \
+ ..\src\vrmlscript\y_tab.h
+vsfields.o: ..\src\vrmlscript\vsfields.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\core\Point.h ..\src\core\Quaternation.h \
+ \client\cc3d\src\vrml\include\GvNode.h ..\src\core\RT.h \
+ ..\src\core\Array.h ..\src\core\Stack.h ..\src\core\Matrix.h \
+ ..\src\core\GClass.h \client\cc3d\src\vrml\include\GvFieldData.h \
+ ..\src\vrmlscript\vsfields.h ..\src\vrmlscript\vsexpr.h \
+ ..\src\vrmlscript\vsstatement.h ..\src\vrmlscript\vbplist.h \
+ ..\src\vrmlscript\VbBasic.h ..\src\vrmlscript\system.h \
+ \client\cc3d\src\vrml\include\GvSensors.h \
+ \client\cc3d\src\vrml\include\GvBsp.h \
+ \client\cc3d\src\vrml\include\GvScript.h ..\src\core\www.h \
+ ..\src\vrmlscript\vsfunction.h ..\src\core\GPerlinNoise.h \
+ ..\src\core\GReporter.h ..\src\vrmlscript\y_tab.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GModel.h ..\src\core\WWW.h ..\src\core\GCamera.h \
+ ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h
+vsfunction.o: ..\src\vrmlscript\vsfunction.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vsfunction.h ..\src\vrmlscript\vsexpr.h \
+ ..\src\vrmlscript\vsstatement.h ..\src\vrmlscript\vbplist.h \
+ ..\src\vrmlscript\VbBasic.h ..\src\vrmlscript\system.h \
+ ..\src\vrmlscript\vsparse.h ..\src\vrmlscript\vsfields.h \
+ ..\src\vrmlscript\jsmath.h ..\src\core\GReporter.h \
+ ..\src\core\GRender.h ..\src\core\gl\GLRender.h \
+ ..\src\jpeghgnt\image.h ..\src\core\grenderbase.h \
+ ..\src\core\GModel.h ..\src\core\WWW.h ..\src\core\Quaternation.h \
+ ..\src\core\GCamera.h ..\src\core\GCameraUtil.h ..\src\core\gfuzzy.h \
+ ..\src\core\gperlinnoise.h
+vsparse.o: ..\src\vrmlscript\vsparse.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vsparse.h ..\src\vrmlscript\vbplist.h \
+ ..\src\vrmlscript\VbBasic.h ..\src\vrmlscript\system.h \
+ ..\src\vrmlscript\vsfunction.h ..\src\vrmlscript\vsexpr.h \
+ ..\src\vrmlscript\vsstatement.h ..\src\core\GReporter.h
+vsstatement.o: ..\src\vrmlscript\vsstatement.cpp stdafx.h gconfig.h \
+ ..\src\core\gutils.h ..\src\core\rt.h ..\src\core\rtabst.h \
+ ..\src\core\astream.h ..\src\core\array.h ..\src\core\stack.h \
+ ..\src\core\point.h ..\src\core\pointa.h ..\src\core\matrix.h \
+ ..\src\vrmlscript\vsstatement.h ..\src\vrmlscript\vbplist.h \
+ ..\src\vrmlscript\VbBasic.h ..\src\vrmlscript\system.h \
+ ..\src\vrmlscript\vsexpr.h ..\src\vrmlscript\vsfunction.h \
+ ..\src\vrmlscript\vsfields.h

@@ -1,0 +1,381 @@
+
+Billboard, correct transformation ?
+
+Auto Lod optimization
+Lod multiple instances ?
+
+GFile loade sharing
+texture sharing
+
+GZIPPED files without gz
+
+interaction mode 
+
+TouchSensor, if not first
+
+color &&  normal interpolator
+
+
+
+
+Could not load
+error noc acceptable types, may be accept type missing 
+
+http://www.microsoft.com/Softimage/library/vrml/siggraph96booth/netscapeFinal.wrl
+http://www.microsoft.com/Softimage/library/vrml/siggraph96booth/ntnames_2.wrl
+http://www.microsoft.com/Softimage/library/vrml/siggraph96booth/withTextures_2.wrl
+Features:
+- POV Input
+- More pov output
+- Render to avi
+- save to ini status of tool bars
+- initial viewer mode
+- pictures to dark ?
+
+- pick ColorTunnel dosn´t work with def. camera
+- dragging same file twice dosn´t reload ==> MFC
+- reload URL without delete
+- field edit + escape : don´t refresh node
+- dblclick on MFNode : can´t edit this field
+- drag onto MF/SF Field 
+
+- transparency
+- check sphere display with optimization in VC 4.2
+- check any speed impromvents to small heap manager
+- memory clean up
+- e.g. QvName, QvDict ......
+
+VRML2.0
+Change of Transform fields in field editor dosn´t change transform ??
+Parsing error : unknown field
+    try to skip field if [ skip until ]
+	skip values until new token
+	(skip all field until })
+
+Qv2Geometry.cpp
+   IndexLine + PointSet
+   Text
+   Text 3D
+   Extrusion
+   Heightfield
+
+
+texture table in renderstate ?
+  ==> Direct X
+  ==> better memory usage ?
+  ==> same image used several times
+
+VerifyNode
+VRML2convert
+VRML 2 save flag 
+
+
+
+
+
+
+
+
+todo.txt
+========
+
+Read of KTX files
+
+
+http://www.ncl.ac.uk/~ngtg/hepburn/hepburn5.wrl
+Tesselation : interpolate vertex attributes + check GShellI 
+
+
+abort if too many message in internet error reporting
+(Abort switch in dialog)
+stop connect
+
+
+
+
+crease angle
+
+right picking
+
+Indexed line set
+
+Shell coordinate by ref
+
+dxf ==> vrml
+
+abort on connect
+
+load duplicate textures only once
+umlaute + 3d font + window 95
+
+Netscape plugin 
+
+
+
+texture coordinates Mitra Texture1.wrl / Cindy
+sphere culling now ok
+check all set functions for setDefault Fals
+some Set(string) functions not implemented SFBitmask,, image ...
+tree edit loop detection a-->b-->a
+world up move, check up vector after pan, orbit ?
+
+
+
+
+triangulation now creates new vertices, to do: interpolate color, parameter
+
+store SFEnum / Bitmask values for unknown nodes
+ISA
+
+Walk plane / orbit center
+
+
+
+vfw32.lib winmm.lib removed
+msacm32.lib  from debug
+
+Image loading problems, tsview\--\Rick.tga
+Slow ??
+
+cameras with no names dosn´t appear in dialog
+
+normal computation GShellI match on VertexI+NormalI
+crease angle ?
+
+
+complexity for cylinder / cone / sphere
+tristrips + face color
+
+morph
+box wraps !!!!!
+cylinder r to small ???
+changing r, cannot get back original state e.g. for sphere
+
+Time dialog time dt slider
+
+
+Assertion failed Afxwin.inl 92
+sockcore line 505
+indexedlineset / Poinset + Colors ???  Gallery.wrl
+
+check
+snail0
+url house check non convex triangles
+gasbldg
+rikk.wrl texture2
+stars ==>pointSet
+KittyHawk indexedtrainglestripset 
+Clay4 shapeKit, appearance kit
+NewYork.wrl ==> shared Coordinate3, small IndexedFaceSet !!! reduce memory
+GShellShared
+
+stonehenge colorinterpolation
+
+
+
+TimeTransform
+translate
+scale,
+wrap,
+clamp
+
+mapping function
+
+InterlockedIncrement
+CommandlineToArgv(....)
+glAddSwapHintRect
+
+RunCnt,
+installation data
+version
+sn check
+
+nesting of inlines + relative + absolute 
+
+
+ivtovrml -o filename -f expand  -t
+
+Roomlinks
+
+modelcache + vrml ?????
+
+cubeman.wrl nothing
+fileargument
+
+GShellI beginvertex lookup
+
+
+VRML memory leak ??? QvDict ? string, many short items
+
+
+
+read geo with # comments
+
+tristrips working ???????????????
+
+walk horizontal movement reverse ?, vertical to big ?
+
+array expansion in Triangulate command, on croco.3dv  it fails with heap error !
+
+tristrips, break strips on new face color and include setc command !
+output strips sorted by face colors !
+
+triangulator fails on 3 5 and most Corel Fonts
+
+
+
+test vrml out, problem normals normals_per_vertex_indexed very bright in WebSpace
+
+Win NT 3.51 Shell FileOpen dosn´t work
+crash full size ?
+
+commandline argument
+command line font ? (how to init logfont)
+font parameter bottom ?
+sometime faces missing 3 o ???????
+
+picking
+
+triangulation 
+	call automatic if holes present
+	for primlist !
+
+
+sweep
+3d font support
+ptsize of vertices
+
+
+custom view transform
+
+Gfont.cpp GetGlyphOutline ..remove static arrays, implement spline
+
+
+
+
+Bugs cylinder surface
+
+torus surface
+mesh vertex normals ? firstrow + 1 of second row (plane surface)
+
+auto expansion for array  / template class
+
+
+VRML check, vrml in
+GCLASS VRML nodes
+
+DXF missing : sweeped polygon contour .... eks append
+		circle ,arc
+
+Ideas for GLView
+
+
+RAW-OUT	ok
+
+POV-INC out	ok / colors ? groups ? camera ?
+
+
+STL-IN
+STL-out
+
+Gloria
+======
+Ronny FS 0.5
+Beethoven FS 0.86 1/4 0.52
+Cow FS 0.57
+================
+2/3 win 10.95
+RonnyHi.3dv 0.53 - 0.64 on spin
+Tristrip 0.47 .. 0.51
+textured 1.32
+
+16 bit z-buf no difference
+
+support for abuf
+
+
+
+
+
+HMF-OUT
+
+DXF-IN
+
+Mesh + ShellI >> Shell
+
+Lightsource editing
+
+AVI texture maps
+
+
+
+GCameraPath
+	LookAt P
+	       P & N
+Texture
+
+
+
+Font Logo animation
+
+Wackel transform on each character
+single rotation 
+
+Follow path transform on each character
+path circle ellipse lisajous, tangential to curve
+
+evalCurve Point / Tanget / Reference Frame (x/y/z) vector
+
+spring on each character 
+bounce 
+
+
+map string to surface :
+each point is mapped to surface e.g. cylinder / sphere
+sweep direction is the normal at each surface point 
+
+subidvision / fractalization of profile curve
+
+triangulation + bumping  = fractal mountain characters
+
+
+Multiuser
+========
+listen at port
+
+connect to ip / port
+
+send camera matrix position, orientatin
+
+commands
+	get scene name
+	get scene url
+
+	jump url
+	set camera
+	get camera
+
+	set nodeName "vrml string"
+	set nodeName.field "value string"
+	get nodeName.field
+
+	send object message arguments
+		send "ball" "push" "1.0 0.0 0.0"
+
+	announce user
+	message "text" from "x"
+
+	login user ip port alias "alias"
+	logout user ip port
+	get avatar name
+	get avatar url
+	
+	take user object
+	leave user object
+
+
+	
+
+
+
+

@@ -1,0 +1,4 @@
+info.txt
+netscape - Netscape Plugin SDK - www.netscape.com
+rma - Real Player G2 SDK Header files  - www.real.com
+

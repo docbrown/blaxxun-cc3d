@@ -1,0 +1,23 @@
+
+
+GLView 3.02 using OpenGL 1.1 TextureObjects
+
+In this release all VRML Scene Tree texture handling
+is done using OpenGL 1.1 TextureObjects.
+This program will only run on Windows NT 4.0 with OpenGL 1.1,
+
+The program will not run on Windows NT 3.51 because of the missing texture
+object calls in the OpenGL 1.0 DLL. This support can be added later.
+
+Please let us know how the improvement is.
+
+Currently if texture options like filtering and mip-map settings are changed 
+in the GLView Dialog "Material->Texture Options" the effect will be visible
+the next time a new scene is loaded.
+Textures loaded by "Material->Load Texture" are still using the old displaylist
+approach.
+
+
+
+
+

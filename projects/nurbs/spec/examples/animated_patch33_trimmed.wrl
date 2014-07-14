@@ -1,0 +1,120 @@
+#VRML V2.0 utf8  
+
+WorldInfo 
+{
+	title "Nurbs 3*3 animated & trimmed"
+	info ""
+}
+
+NavigationInfo {
+	type ["EXAMINE","ANY"]
+
+}
+
+EXTERNPROTO NurbsSurface [
+field        SFInt32  uDimension 
+field        SFInt32  vDimension 
+field        MFFloat  uKnot  
+field        MFFloat  vKnot 
+field        SFInt32  uOrder 
+field        SFInt32  vOrder 
+exposedField MFVec3f  controlPoint
+exposedField MFFloat  weight
+exposedField SFInt32  uTessellation
+exposedField SFInt32  vTessellation
+exposedField SFNode   texCoord
+field        SFBool   ccw
+field        SFBool   solid
+]
+[
+	"urn:inet:blaxxun.com:node:NurbsSurface",
+	"nurbs.wrl#NurbsSurface"  # for local testing
+	"http://www.blaxxun.com/vrml/protos/nurbs.wrl#NurbsSurface"
+]
+
+EXTERNPROTO TrimmedSurface[
+	exposedField MFNode trimmingContour
+	exposedField SFNode surface
+]
+["urn:inet:blaxxun.com:node:TrimmedSurface","http://www.blaxxun.com/vrml/protos/nodes.wrl#TrimmedSurface","nodes.wrl#TrimmedSurface"]
+
+EXTERNPROTO Polyline2D[
+	exposedField MFVec2f point
+]
+["urn:inet:blaxxun.com:node:Polyline2D","http://www.blaxxun.com/vrml/protos/nodes.wrl#Polyline2D","nodes.wrl#Polyline2D"]
+
+
+
+
+
+
+Group {
+children [
+	Shape { 
+		geometry 
+
+
+		TrimmedSurface {
+		trimmingContours 
+			Contour2D {	children [
+				Polyline2D {
+					point [ 0.1 0, 1 0.5 , 0 1, , 0.1 0, ]
+				}
+			]
+		}
+
+		surface DEF nurb NurbsSurface {
+			ccw FALSE
+			solid FALSE
+			uOrder 3 
+			vOrder 3 
+			uDimension 3 
+			vDimension 3 
+			uTessellation 16
+			vTessellation 16
+			
+			uKnot [ 0, 0, 0,  1, 1, 1 ]
+			vKnot [ 0, 0, 0,  1, 1, 1 ]
+			
+			controlPoint[ -1 -1 0, 0,-1,0,  1 -1 0,
+						  -1 0 0,  0,0,0,  1 0 0,
+						  -1 1 0,  0 1 0, 1 1 0,
+						]
+ 			}
+			}
+
+			appearance Appearance {
+            		material Material { 
+						diffuseColor 0 0 1 
+						specularColor 1 1 1
+						emissiveColor 1 0 0
+					} 
+					texture ImageTexture {url "texture.jpg"}
+     				}
+	}	
+]
+}
+
+
+DEF animate Script { 
+    eventIn SFFloat setTime
+	field SFNode nurb USE nurb 
+	directOutput TRUE
+    url "javascript:
+        function setTime(value) {
+			var z= - 5*Math.sin(value*2*Math.PI);
+			nurb.controlPoint[4].z = 10*Math.sin(value*2*Math.PI);	
+			nurb.controlPoint[0].z = z;
+			nurb.controlPoint[2].z = z;
+			nurb.controlPoint[6].z = z;
+			nurb.controlPoint[8].z = z;
+			
+	}
+    "	
+}
+
+DEF TimeSource TimeSensor { cycleInterval 2.0 loop TRUE} 
+
+ROUTE TimeSource.fraction_changed TO animate.setTime
+
+

@@ -1,0 +1,216 @@
+/*=============================================================================
+
+This code is licensed under the Web3D-blaxxun Community Source License,
+provided in distribution file LICENSE.TXT and available online at
+http://www.web3D.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceAgreement.html
+and may only be used for non-commercial use as specified in that license.
+
+THE WEB3D CONSORTIUM AND BLAXXUN DO NOT MAKE AND HEREBY DISCLAIM ANY EXPRESS
+OR IMPLIED WARRANTIES RELATING TO THIS CODE, INCLUDING BUT NOT LIMITED TO,
+WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE, OR ANY WARRANTIES THAT MIGHT ARISE FROM A COURSE OF DEALING, USAGE
+OR TRADE PRACTICE.  THE COMMUNITY SOURCE CODE IS PROVIDED UNDER THIS
+AGREEMENT "AS IS," WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE COMMUNITY SOURCE CODE ARE
+FREE OF DEFECTS, MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR
+NON-INFRINGING OR IN ANY WAY CONSTITUTE THE COMPLETE PRODUCT MARKETED UNDER
+THE NAMES GIVEN SAID CODE.
+
+==============================================================================*/
+
+// blaxxunCC3D.odl : type library source for OLE Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (blaxxunCC3D.tlb) that will become a resource in
+// blaxxunCC3D.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+#include "dispids.h"
+
+
+[ uuid(4B6E3010-6E45-11D0-9309-0020AFE05CC8), version(1.0),
+  helpstring("blaxxunCC3D Control module") , control ]
+
+library blaxxunCC3DLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	importlib("blaxxunVRML.tlb");
+
+	typedef enum BrowserObserverFlags {
+		OBSERVE_MESSAGE		= 0x01,
+		OBSERVE_ANCHOR		= 0x02,
+		OBSERVE_VIEWPOINT	= 0x04,
+		OBSERVE_URLLOADING	= 0x08,
+		OBSERVE_URLERRORS	= 0x10
+
+	} BrowserObserverFlags;
+
+	typedef enum BrowserUiMode {
+		BROWSER_UI_NONE,
+		BROWSER_UI_SIMPLE,
+		BROWSER_UI_STANDARD,
+		BROWSER_UI_EXPERT
+	} BrowserUiMode;	
+
+	typedef enum BrowserObjects {
+		BROWSER_OBJECT_DIRECTDRAW, 
+
+		BROWSER_OBJECT_DIRECT3D,
+		BROWSER_OBJECT_DIRECT3DDEVICE,
+		BROWSER_OBJECT_DIRECT3DVIEWPORT,
+
+		BROWSER_OBJECT_DD_FRONTBUFFER,
+		BROWSER_OBJECT_DD_BACKBUFFER,
+		BROWSER_OBJECT_DD_ZBUFFER,
+
+		BROWSER_OBJECT_DIRECTSOUND,
+		BROWSER_OBJECT_DIRECTSOUND3DLISTENER,
+
+		BROWSER_OBJECT_RSX,
+		BROWSER_OBJECT_RSX_LISTENER,
+
+	} BrowserObjects;
+
+
+	typedef enum blaxxunCC3DInterfaceVersion {
+		CURRENT_VERSION = 0x0104,
+	} blaxxunCC3DInterfaceVersion;
+
+
+	//  Primary dispatch interface for CblaxxunCC3DCtrl
+
+	[ uuid(4B6E3011-6E45-11D0-9309-0020AFE05CC8),
+	  helpstring("Dispatch interface for blaxxunCC3D Control"), hidden ]
+	dispinterface IblaxxunCC3D
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CGLViewCtrlCtrl)
+			[id(DISPID_READYSTATE), readonly] long ReadyState;
+			[id(1)] BSTR url;
+			[id(2)] BSTR renderMode;
+			[id(3)] BSTR navigationMode;
+			[id(4)] short headlight;
+			[id(5)] float walkSpeed;
+			[id(6)] boolean animateAllViewpoints;
+			[id(7)] BSTR viewpoint;
+			[id(8)] BSTR description;
+			[id(9)] BSTR world;
+			[id(10)] boolean collisionDetection;
+			[id(11)] float avatarHeight;
+			[id(12)] float collisionDistance;
+			[id(13)] float visibilityLimit;
+			[id(14)] boolean gravity;
+			//}}AFX_ODL_PROP
+
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CGLViewCtrlCtrl)
+			[id(15)] void OnNextViewpoint();
+			[id(16)] void OnPrevViewpoint();
+			[id(17)] BSTR getName();
+			[id(18)] BSTR getVersion();
+			[id(19)] float getCurrentSpeed();
+			[id(20)] float getCurrentFrameRate();
+			[id(21)] BSTR getWorldURL();
+			[id(22)] void replaceWorld(IUnknown* nodes);
+			[id(23)] void loadURL(BSTR url, BSTR parameter);
+			[id(24)] void setDescription(BSTR description);
+			[id(25)] IUnknown* createVrmlFromString(BSTR vrmlSyntax);
+			[id(26)] void createVrmlFromURL(BSTR url, IDispatch* node, BSTR event);
+			[id(27)] IUnknown* getNode(BSTR name);
+			[id(28)] void addRoute(IUnknown* fromNode, BSTR fromEventOut, IUnknown* toNode, BSTR toEventIn);
+			[id(29)] void deleteRoute(IUnknown* fromNode, BSTR fromEventOut, IUnknown* toNode, BSTR toEventIn);
+			[id(30)] IUnknown* createNode(BSTR nodeclass);
+			[id(31)] void addNode(IUnknown* node);
+			[id(32)] IDispatch* getWorld();
+			[id(33)] void beginUpdate();
+			[id(34)] void endUpdate();
+			[id(35)] long setTimerInterval(long interval);
+			[id(36)] boolean isSceneLoaded();
+			[id(37)] void setNodeName(IUnknown* node, BSTR name);
+			[id(38)] BSTR getNodeName(IUnknown* node);
+			[id(39)] IUnknown* getEventOut(BSTR eventOutName);
+			[id(40)] IUnknown* getEventIn(BSTR eventInName);
+			[id(41)] BSTR getControlPathname();
+			[id(42)] boolean saveWorld(BSTR fileName);
+			[id(43)] void saveViewpoint(BSTR viewpointName);
+			[id(44)] boolean setFullscreen(boolean mode);
+			[id(45)] boolean removeNode(IUnknown* node);
+			[id(46)] boolean setObserver(IUnknown* observer, long flags);
+			[id(47)] boolean loadURLfromFile(BSTR url, BSTR mimeType, BSTR fileName);
+			[id(48)] void onUrlNotify(BSTR url, BSTR mimeType, BSTR fileName, long reason);
+			[id(49)] boolean setObserverWnd(long hwndHandle);
+			[id(50)] long getUiMode();
+			[id(51)] void setUiMode(long newMode);
+			[id(52)] void openPreferences(long flags);
+			[id(53)] void playSound(BSTR soundFilename);
+			[id(54)] boolean loadURLfromFile2(BSTR url, BSTR mimeType, long lastModified, long size, BSTR fileName);
+			[id(55)] void onUrlNotify2(BSTR url, BSTR mimeType, long lastModified, long size, BSTR fileName, long reason);
+			[id(56)] void print(BSTR message);
+			[id(57)] void setViewpointByValue(float positionX, float positionY, float positionZ, float orientationX, float orientationY, float orientationZ, float orientationAngle, long mode);
+			[id(58)] void getViewpointByValue(float* positionX, float* positionY, float* positionZ, float* orientationX, float* orientationY, float* orientationZ, float* orientationAngle, long mode);
+			[id(59)] boolean getNodeBoundingBox(IUnknown* node, long mode, float* xmin, float* ymin, float* zmin, float* xmax, float* ymax, float* zmax);
+			[id(60)] void setUrl2(BSTR url, long lastModified, long mode);
+			[id(61)] long getInterfaceVersion();
+			[id(62)] void setThirdPersonView(boolean mode);
+			[id(63)] boolean getThirdPersonView();
+			[id(64)] IUnknown* computeRayHit(IUnknown* startNode, float startx, float starty, float startz, float endx, float endy, float endz, long mode);
+			[id(65)] void setMyAvatarNode(IUnknown* node);
+			[id(66)] IUnknown* getMyAvatarNode();
+			[id(67)] void setMyAvatarURL(BSTR url);
+			[id(68)] BSTR getMyAvatarURL();
+			[id(69)] boolean setViewpointFollow(IUnknown* node, float refX, float refY, float refZ, long mode);
+			[id(70)] boolean setNodeEventIn(BSTR nodeName, BSTR eventInName, BSTR value);
+			[id(71)] BSTR getNodeEventOut(BSTR nodeName, BSTR eventOutName);
+			[id(72)] IUnknown* getObject(long objectId);
+			[id(73)] void setNavigationPanel(boolean mode);
+			[id(74)] boolean getNavigationPanel();
+			//}}AFX_ODL_METHOD
+
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CblaxxunCC3DCtrl
+
+	[ uuid(4B6E3012-6E45-11D0-9309-0020AFE05CC8),
+	  helpstring("Event interface for blaxxunCC3DControl") ]
+	dispinterface IblaxxunCC3DEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CGLViewCtrlCtrl)
+			[id(DISPID_READYSTATECHANGE)] void ReadyStateChange();
+			[id(1)] void OnSceneChanged(BSTR url);
+			[id(2)] void OnEvent(BSTR name, BSTR value, double timeStamp);
+			//}}AFX_ODL_EVENT
+			[id(DISPID_PROGRESS)] void OnProgress(long amount);
+	};
+
+	//  Class information for blaxxunCC3D
+
+	[ uuid(4B6E3013-6E45-11D0-9309-0020AFE05CC8),
+	  helpstring("blaxxunCC3DControl"), control ]
+	coclass blaxxunCC3D
+	{
+		[default] dispinterface IblaxxunCC3D;
+		[default, source] dispinterface IblaxxunCC3DEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+
+
+};

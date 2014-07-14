@@ -1,0 +1,1953 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0069)http://cosmosoftware.com/developer/moving-worlds/spec/vrmlscript.html -->
+<HTML><HEAD><TITLE>Moving Worlds VRML 2.0 Specification: VRMLScript Reference</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type><!-- SGI_COMMENT COSMOCREATE --><!-- SGI_COMMENT VERSION NUMBER="1.0.1" -->
+<META content="MSHTML 5.00.2014.210" name=GENERATOR></HEAD>
+<BODY aLink=#ff0160 link=#210dff vLink=#681587>
+<P> </P>
+<CENTER>
+<P align=center><IMG align=top height=84 
+src="pix/vrmllogo2.0.gif" 
+width=470 SGI_HEIGHT_UNFIXED SGI_WIDTH_UNFIXED 
+SGI_SRC="./../pix/vrmllogo2.0.gif"> </P></CENTER>
+<CENTER>
+<H1 align=center>Proposal for a VRML Script Node Authoring 
+Interface</H1></CENTER>
+<CENTER>
+<H2 align=center>VRMLScript Reference</H2></CENTER>
+<CENTER>
+<H3 align=center>Chris Marrin, Jim Kent</H3></CENTER>
+<CENTER>
+<H3 align=center>Silicon Graphics, Inc.</H3></CENTER>
+<CENTER>
+<H4 align=center>October 6, 1996</H4></CENTER>
+<P>This is a proposal for VRMLScript, a scripting language for VRML 2.0 Script 
+nodes. VRMLScript grew out of the need for a lightweight script language in 
+VRML. It is a subset of the JavaScript language, with VRML data types supported 
+as JavaScript built-in objects. Because of this it has many advantages over 
+other script languages (such as Java):</P>
+<UL>
+  <LI>Scripts can be included in source form, inline rather than in a separate 
+  URL. 
+  <LI>All VRML 2.0 data types are supported directly. Some, like the vector 
+  types have built in methods (such as cross product and normalize) to simplify 
+  working with them. 
+  <LI>Receiving eventIns is handled with separate functions to ease development 
+  and to speed processing. 
+  <LI>Sending eventOuts is done with simple assignment. 
+  <LI>Scalar data (SFTime, SFInt32, SFFloat, SFBool) can be used directly in 
+  expressions. The JavaScript number object converts directly to any of the four 
+  scalar data types. For instance, you can add 3 seconds to an SFTime value with 
+  <B>a = time + 3;</B> 
+  <LI>Constructors are available for most data types to ease creation and 
+  conversion of data. 
+  <LI>A full set of JavaScript compatible math, date and string objects is 
+  available. 
+  <LI>The full set of JavaScript string methods and properties are available. 
+  Scalar values automatically convert to strings when concatenated. This makes 
+  construction of URLs and VRML strings (for use in createVRMLFromString) easy. 
+  </LI></UL>
+<P><B><I><FONT size=4>Please see the <A 
+href="#Examples">examples</A> 
+section to find out about the freely available source reference implementation 
+of VRMLScript.</FONT></I></B></P>
+<H3><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_HEIGHT_UNFIXED SGI_WIDTH_UNFIXED 
+SGI_SRC="./../pix/vrmlbar.gif"></H3>
+<H3><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"><A 
+href="#Language">1 
+Language</A> </H3>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#BNF">1.1 
+BNF Grammar</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Objects&amp;Variables"><B>1.2 
+Objects and Variables</B></A></H4>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#ValuesNamesLiterals">1.2.1 
+Values, Names and Literals</A></H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Objects&amp;Fields">1.2.2 
+Objects and Fields</A></H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#ObjectConstruction">1.2.3 
+Object Construction</A></H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#DataConversion">1.2.4 
+Data Conversion</A></H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFObjects">1.2.5 
+MF Objects</A></H5>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Statements">1.3 
+Statements</A></H4>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.3.1 
+Conditional Statements</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.3.2 
+</A><A 
+href="#Looping">Looping 
+Statements</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#ExpressionStatements">1.3.3 
+</A><A 
+href="#Expression">Expression 
+Statements</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Return">1.3.4 
+Return Statement</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Break">1.3.5 
+Break </A><A 
+href="#Return">Statement</A> 
+</H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.3.6</A><A 
+href="#Continue"> 
+Continue Statement</A> </H5>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Expressions"><B>1.4 
+Expressions</B></A></H4>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.4.1 
+</A><A 
+href="#Assignment">Assignment 
+Operators</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.4.2 
+</A><A 
+href="#Arithmetic">Arithmetic 
+Operators</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.4.3 
+</A><A 
+href="#Bitwise">Bitwise 
+Operators</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Logical">1.4.4 
+Logical and Comparison Operators</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Conditional">1.4.5 
+</A><A 
+href="#StringOperator">String 
+Operators</A> </H5>
+<H5><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#OperatorPrecedence">1.4.6 
+Operator Precedence</A></H5>
+<H3><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> <A 
+href="#Protocol">2 
+Supported Protocol in the Script node's <I>url</I> field</A> </H3>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#FileExtension">2.1 
+File Extension</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MIMEtype">2.2 
+MIME Type</A> </H4>
+<H3><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> <A 
+href="#EventIn">3 
+EventIn Handling</A> </H3>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#ParameterPassing">3.1 
+Parameter passing and the EventIn Function</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#EventsProcessed">3.2 
+eventsProcessed() Method</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Initialize">3.3 
+initialize() Method</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Shutdown">3.3 
+shutdown() Method</A> </H4>
+<H3><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> <A 
+href="#AccessingFields">4 
+Accessing Fields and Events</A> </H3>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#AccessingScript">4.1 
+Accessing Fields and EventOuts of the Script</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#AccessingOtherNodes">4.2 
+Accessing Fields and EventOuts of Other Nodes</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SendingEventOuts">4.3 
+Sending EventOuts</A> </H4>
+<H3><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> <A 
+href="#ExposedClasses">5 
+</A><A 
+href="#Object&amp;Function"><B><FONT 
+size=4>Object and Function Definitions</FONT></B></A></H3>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#parseInt&amp;parseFloat">5.1 
+parseInt and parseFloat Functions</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SendingEventOuts">5.2 
+</A><A 
+href="#Browser">Browser 
+Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#Math">5.3 
+Math</A><A 
+href="#Browser"> 
+Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SFColor">5.4 
+SFColor Object</A> </H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SFImage">5.5 
+SFImage Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SFNode">5.6 
+SFNode Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SFRotation">5.7 
+SFRotation Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#String">5.8 
+String Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SFVec2f">5.9 
+SFVec2f Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#SFVec3f">5.10 
+SFVec3f Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFColor">5.11 
+MFColor Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFFloat">5.12 
+MFFloat Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFInt32">5.13 
+MFInt32 Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFNode">5.14 
+MFNode Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFRotation">5.15 
+MFRotation Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFString">5.16 
+MFString Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFVec2f">5.17 
+MFVec2f Object</A></H4>
+<H4><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#MFVec3f">5.18 
+MFVec3f Object</A></H4>
+<P><IMG height=1 
+src="pix/whitespace.gif" 
+width=56 SGI_SRC="./../pix/whitespace.gif"><A 
+href="#VrmlMatrix"><B>5.19 
+VrmlMatrix Object</B></A></P>
+<H3><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> <A 
+href="#Examples">6 
+Examples</A></H3>
+<P><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></P>
+<H2><A name=Language>1 Language</A></H2>
+<P>The script syntax has similarities to JavaScript as well as several other 
+scripting languages. VRMLScript was designed to be parsed by YACC and is 
+therefore an LALR(1) grammar.</P>
+<H3><A name=BNF>1.1 BNF of script syntax</A></H3>
+<DL>
+  <DT><I>script :</I> 
+  <DD><I>functions</I> 
+  <DD><B>NULL</B> <BR><BR>
+  <DT><I>functions: </I>
+  <DD><I>functions function</I> 
+  <DD><I>function</I> <BR><BR>
+  <DT><I>function:</I> 
+  <DD><B>function</B><I> beginFunction </I><B>(</B><I> args </I><B>)</B><I> 
+  statementBlock</I> <BR><BR>
+  <DT><I>beginFunction:</I> 
+  <DD><I>identifier </I><BR><BR>
+  <DT><I>args: </I>
+  <DD><I>args </I><B>,<I> </I></B><I>identifier</I> 
+  <DD><I>identifier</I> 
+  <DD><B>NULL</B> <BR><BR>
+  <DT><I>stmntblk: </I>
+  <DD><B>{</B><I> statements </I><B>}</B> 
+  <DD><B>{ }</B> 
+  <DD><I>statement</I> <BR><BR>
+  <DT><I>statements :</I> 
+  <DD><I>statements statement</I> 
+  <DD><I>statement</I> <BR><BR>
+  <DT><I>statement :</I> 
+  <DD><I>ifStatement</I> 
+  <DD><I>forStatement</I> 
+  <DD><I>whileStatement</I> 
+  <DD><I>returnStatement </I><B>;</B> 
+  <DD><I>breakStatement</I> <B>;</B> 
+  <DD><I>continueStatement </I><B>;</B> 
+  <DD><I>compoundExpression </I><B>;</B> <BR><BR>
+  <DT><I>ifStatement :</I> 
+  <DD><B>if</B><I> </I><B>(</B><I> compoundExpression </I><B>)</B><I> 
+  statementBlock</I> 
+  <DD><B>if</B><I> </I><B>(</B><I> compoundExpression </I><B>)</B><I> 
+  statementBlock </I><B>else</B><I> statementBlock</I> <BR><BR>
+  <DT><I>forStatement : </I>
+  <DD><B>for</B><I> </I><B>( </B><I>optionalExpression </I><B>;</B><I> 
+  optionalExpression </I><B>;</B><I> optionalExpression </I><B>)</B><I> 
+  statementBlock</I> 
+  <DD><BR>
+  <DT><I>whileStatement : </I>
+  <DD><B>while</B> <B>( </B><I>compoundExpression </I><B>) 
+  </B><I>statementBlock</I><BR><BR>
+  <DT><I>returnStatement :</I> 
+  <DD><B>return</B><I> compoundExpression</I> 
+  <DD><B>return</B> <BR><BR>
+  <DT><I>breakStatement : </I>
+  <DD><B>break</B> <BR><BR>
+  <DT><I>continueStatement : </I>
+  <DD><B>continue</B> <BR><BR>
+  <DT><I>compoundExpression :</I> 
+  <DD><I>expression</I> <B>, </B><I>compoundExpression</I> 
+  <DD><I>expression </I><BR><BR>
+  <DT><I>optionalExpression: </I>
+  <DD><I>compoundExpression</I> 
+  <DD><B>NULL</B> <BR><BR>
+  <DT><I>expression : </I><B>( </B><I>compoundExpression </I><B>)</B> 
+  <DD><B>-</B><I> expression </I>
+  <DD><B>!</B><I> expression</I> 
+  <DD><B>~</B> <I>expression</I> 
+  <DD><I>leftVariable </I><B>=</B><I> expression </I>
+  <DD><I>leftVariable <B>+=</B> expression </I>
+  <DD><I>leftVariable </I><B>-=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>*=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>/=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>%=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>&amp;=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>|=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>^=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>&lt;&lt;=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>&gt;&gt;=</B><I> expression </I>
+  <DD><I>leftVariable </I><B>&gt;&gt;&gt;=</B><I> expression </I>
+  <DD><B>++ </B><I>expression</I> 
+  <DD><B>-- </B><I>expression</I> 
+  <DD><I>expression <B>++</B></I> 
+  <DD><I>expression <B>--</B></I> 
+  <DD><I>expression </I><B>? </B><I>expression </I><B>:</B><I> expression</I> 
+  <DD><I>expression </I><B>==</B><I> expression</I> 
+  <DD><I>expression </I><B>!=</B><I> expression </I>
+  <DD><I>expression </I><B>&lt;</B><I> expression </I>
+  <DD><I>expression </I><B>&lt;=</B><I> expression</I> 
+  <DD><I>expression </I><B>&gt;=</B><I> expression </I>
+  <DD><I>expression </I><B>&gt;</B><I> expression </I>
+  <DD><I>expression </I><B>+</B><I> expression </I>
+  <DD><I>expression </I><B>-</B><I> expression </I>
+  <DD><I>expression </I><B>* </B><I>expression </I>
+  <DD><I>expression</I><B> /</B><I> expression </I>
+  <DD><I>expression </I><B>%</B><I> expression</I> 
+  <DD><I>expression </I><B>&amp;&amp; </B><I>expression</I> 
+  <DD><I>expression </I><B>||</B><I> expression</I> 
+  <DD><I>expression </I><B>&amp; </B><I>expression</I> 
+  <DD><I>expression </I><B>|</B><I> expression</I> 
+  <DD><I>expression </I><B>^</B><I> expression</I> 
+  <DD><I>expression </I><B>&lt;&lt; </B><I>expression</I> 
+  <DD><I>expression </I><B>&gt;&gt; </B><I>expression</I> 
+  <DD><I>expression </I><B>&gt;&gt;&gt; </B><I>expression</I> 
+  <DD><I>string</I> 
+  <DD><I>number </I>
+  <DD><I>objectMethodCall</I> 
+  <DD><I>objectMemberAccess</I> 
+  <DD><I>functionCall</I> 
+  <DD><B>new</B><I> constructor</I> 
+  <DD><I>arrayDereference</I> 
+  <DD><I>variable </I><BR><BR>
+  <DT><I>functionCall : </I>
+  <DD><I>identifier</I> <B>( </B><I>params </I><B>)</B><BR><BR>
+  <DT><I>constructor : </I>
+  <DD><I>identifier</I> <B>( </B><I>params </I><B>)</B><BR><BR>
+  <DT><I>objectMethodCall : </I>
+  <DD><I>expression </I><B>.</B><I> identifier</I> <B>( </B><I>params 
+  </I><B>)</B> <BR><BR>
+  <DT><I>objectMethodAccess : </I>
+  <DD><I>expression </I><B>.</B><I> identifier</I> <BR><BR>
+  <DT><I>params : </I>
+  <DD><I>params </I><B>, </B><I>expression</I> 
+  <DD><I>expression</I> 
+  <DD><B>NULL</B><BR><BR>
+  <DT><I>arrayDereference : </I>
+  <DD><I>expression </I><B>[ </B><I>compoundExpression </I><B>]</B><BR><BR>
+  <DT><I>leftVariable : </I>
+  <DD><I>objectMethodAccess</I> 
+  <DD><I>arrayDereference</I> 
+  <DD><I>variable</I><BR><BR>
+  <DT><I>variable : </I>
+  <DD><I>identifier</I> <BR><BR>
+  <DT><I>string:</I> 
+  <DD><B>' </B><I>utf8 <B>'</B></I> <BR><BR>
+  <DT><I>number:</I> 
+  <DD><B>0</B><I>{</I><B>0-7</B><I>}+</I> 
+  <DD>... ANSI C floating point number ... 
+  <DD><B>0X</B><I>{ </I><B>0-9 </B><I>}+</I> 
+  <DD><B>0x</B><I>{ </I><B>0-9 </B><I>}+</I> 
+  <DD><B>TRUE</B> 
+  <DD><B>true</B> 
+  <DD><B>FALSE</B> 
+  <DD><B>false</B><BR><BR>
+  <DT><I>identifier:</I> 
+  <DD><I>utf8Character { utf8 }*</I> <BR><BR>
+  <DT><I>utf8Character:</I> 
+  <DD>... any legal UTF8 character except 0-9 ... <BR><BR>
+  <DT><I>utf8:</I> 
+  <DD><I>utf8Character</I> 
+  <DD><B>0-9</B> <BR><BR></DD></DL>
+<H2><A name=Objects&amp;Variables><B>1.2 Objects and Variables</B></A></H2>
+<P>Data in VRMLScript is represented as <I>objects</I>. The object types 
+correspond to the <A 
+href="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/fieldsRef.html">VRML 
+field types</A>. A <I>variable</I> contains an instance of an object, and can be 
+predefined (appearing in the <B>Script</B> node) or defined locally.</P>
+<H3><A name=ValuesNamesLiterals>1.2.1 Values, Names and Literals</A></H3>
+<P>A VRMLScript variable holds an instance of an object. If a name is defined as 
+a field or eventOut of the Script node containing the script then there is a 
+variable with that same name available globally to the script. The type of this 
+variable is always the type of the field or eventOut. Assignment to this 
+variable converts the expression to its type or generates a run-time error if a 
+conversion is not possible (see <A 
+href="#DataConversion">Data 
+Conversion</A>). </P>
+<P>The names specified in the declaration of a <I>function</I> (the data value 
+and the timestamp) are local to the function in which they are declared. It is a 
+run-time error to assign to these variables.</P>
+<P>Local variables can be created simply by assigning to a name that does not 
+yet exist. Assigning to such a variable causes it take the type of the 
+expression, so these local variables always have the type of the last 
+assignment. Local variables are scoped by the block in which they were first 
+introduced. Once that block is exited, the variable ceases to exist. Variables 
+corresponding to eventOuts or fields of the Script node are global in scope. 
+</P>
+<P>Variable names must start with the a lowercase character ('a' through 'z'), 
+an uppercase character ('A' through 'Z'), or an underscore ('_'). Subsequent 
+characters can be any of these or a digit ('0' through '9'). Variable names are 
+case sensitive.</P>
+<P>Numeric, boolean, and string literals are allowed. Numeric literals can be 
+integers in decimal (417), hex (0x5C), or octal (0177) notation. They can also 
+be floating point numbers in fixed (1.76) or exponential (2.7e-12) notation. All 
+numeric literals are of the <B>number</B> type. Boolean literals can be 'true' 
+or 'false' and have the <B>boolean</B> type. String literals can be any sequence 
+of UTF8 characters enclosed in single quotes ('), and have the type 
+<B>String</B>. Special (non-printable) characters can be included in a string 
+using the following escape sequences:</P>
+<TABLE border=1>
+  <TBODY>
+  <TR>
+    <TD><B>Sequence</B></TD>
+    <TD><B>Meaning</B></TD></TR>
+  <TR>
+    <TD>\b</TD>
+    <TD>backspace</TD></TR>
+  <TR>
+    <TD>\f</TD>
+    <TD>form feed</TD></TR>
+  <TR>
+    <TD>\n</TD>
+    <TD>new line</TD></TR>
+  <TR>
+    <TD>\r</TD>
+    <TD>carriage return</TD></TR>
+  <TR>
+    <TD>\t</TD>
+    <TD>tab</TD></TR>
+  <TR>
+    <TD>\'</TD>
+    <TD>single quote (apostrophe)</TD></TR>
+  <TR>
+    <TD>\"</TD>
+    <TD>double quote</TD></TR>
+  <TR>
+    <TD>\\</TD>
+    <TD>backslash</TD></TR></TBODY></TABLE>
+<P>Here are some examples:</P><PRE>Script {
+    field    SFFloat aField  0
+    field    SFVec3f aVector 0 0 0
+    eventOut SFInt32 anEventOut
+    eventIn  SFBool  event
+
+    url "vrmlscript:
+        function event(value, timestamp) {
+            if (aField == 1.5) {
+                a = true;      // 'a' contains a boolean
+            }
+
+            if (a) {             // this is NOT the same 'a' as above!
+                value = 5;       // ERROR,
+                                 //   can't assign to function parameter!
+            }
+
+            aField = anEventOut; // SFInt32 converted to SFFloat
+            b = aField;          // 'b' contains a number
+            b = anEventOut;      // 'b' now contains a different number
+            aField = aVector;    // ERROR,
+                                 //   can't assign SFVec3f to SFFloat!
+            s = 'Two\nLines';    // 's' contains a String
+     
+    }"
+}
+</PRE>
+<H3><A name=Objects&amp;Fields>1.2.2 Objects and Fields</A></H3>
+<P>For each field and eventOut in the Script node containing the script there is 
+a corresponding global variable with the same name. Field variables are 
+persistant; they keep their last stored value across function calls. Local 
+variables, on the other hand, are destroyed on exit from the block in which they 
+were defined. Local variables defined in the outermost block of a function are 
+destroyed when the function exits so they do not persist across function calls. 
+</P>
+<P>EventOut variables are very similar to field variables in that their values 
+persist across function calls. But when an assignment is made to an eventOut 
+variable an event is generated.</P>
+<P>Every object has a set of <I>properties</I> and <I>methods</I> (<A 
+href="#Object&amp;Function">see 
+Object and Function Definitions</A>). Properties are names on the object that 
+can be selected (using the '.' operator) then used in an expression or as the 
+target of an expression. Methods are names on the object that can be called 
+(using the function call operator) to perform some operation on the object. For 
+example:</P><PRE>function someFunction() {
+    a = new SFColor(0.5, 0.5, 0.5);
+    b = a.r;                      // 'b' contains 0.5
+    a.setHSV(0.1, 0.1, 0.1);      // 'a' now contains new properties
+}
+</PRE>
+<P>The value <I>a.r</I> selects the property which corresponds to the red 
+component of the color. The value <I>a.setHSV()</I> selects the method which 
+sets the color in HSV space.</P>
+<H3><A name=ObjectConstruction>1.2.3 Object Construction</A></H3>
+<P>For each object type there is a corresponding constructor (<A 
+href="#Object&amp;Function">see 
+Object and Function Definitions</A>). Constructors typically take a flexible set 
+of parameters to allow construction of objects with any initial value. MF 
+objects are essentially arrays so they always take 0 or more parameters of the 
+corresponding SF object type. A value of a given data type is created using the 
+<I>new</I> keyword with the data type name. For instance:</P><PRE>a = new SFVec3f(0, 1, 0);   // 'a' has a SFVec3f containing 0, 1, 0
+b = new MFFloat(1, 2, 3, 4) // 'b' has a MFFloat containing 4 floats
+</PRE>
+<H3><A name=DataConversion>1.2.4 Data Conversion</A></H3>
+<P>Combining objects of different types in a single expression or assignment 
+statement will often perform implicit type conversion. Rules for this conversion 
+are described in the following table:</P>
+<TABLE border=1 width=400>
+  <TBODY>
+  <TR>
+    <TD><B>Type</B></TD>
+    <TD align=middle width=400>
+      <CENTER>
+      <P align=center><B>Rules</B></P></CENTER></TD></TR>
+  <TR>
+    <TD>String</TD>
+    <TD width=400>
+      <UL>
+        <LI>Combining a String with any number or boolean type produces a String 
+
+        <LI>Use parseInt() or parseFloat to convert a String to a number 
+    </LI></UL></TD></TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>Number and boolean types </DT></DL></TD>
+    <TD>
+      <DD>
+      <UL>
+        <LI>Assigning a number or boolean expression to a fixed variable (field 
+        or eventOut) of scalar type (SFBool, SFInt32, SFFloat, SFTime) converts 
+        to the type of the fixed variable </LI></UL></DD></TD></TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>Vector types 
+        <DD>SFVec2f 
+        <DD>SFVec3f 
+        <DD>SFRotation 
+        <DD>SFColor </DD></DL></TD>
+    <TD>
+      <UL>
+        <LI>Only combine with like types 
+        <LI>Dereference (foo[1]) produces a value of number type </LI></UL></TD></TR>
+  <TR>
+    <TD>SFImage</TD>
+    <TD>
+      <UL>
+        <LI>Assignment ('=') and selection ('.') are the only allowed operations 
+
+        <LI>Can only assign SFImage type </LI></UL></TD></TR>
+  <TR>
+    <TD>SFNode</TD>
+    <TD>
+      <UL>
+        <LI>Assignment ('=') and selection ('.') are the only allowed operations 
+
+        <LI>Can only assign SFNode type </LI></UL></TD></TR>
+  <TR>
+    <TD>
+      <DL>
+        <DT>MF types 
+        <DD>MFString 
+        <DD>MFInt32 
+        <DD>MFFloat 
+        <DD>MFVec2f 
+        <DD>MFVec3f 
+        <DD>MFRotation 
+        <DD>MFColor 
+        <DD>MFNode </DD></DL></TD>
+    <TD>
+      <UL>
+        <LI>Only combine with like types 
+        <LI>Dereference (myArray[3]) produces the corresponding SF type. 
+        <LI>Dereferenced SF types follow same rules as normal SF types. 
+    </LI></UL></TD></TR></TBODY></TABLE>
+<H3><A name=MFObjects>1.2.5 MF Objects</A></H3>
+<P>Most SF objects in VRMLScript have a corresponding MF object. An MFObject is 
+essentially an array of objects, with each element of the array having the type 
+of the corresponding SF object. All MF objects have a <I>length</I> property 
+which returns or sets the number of elements in the MF object. Array indexes 
+start at 0. If <I>vecArray</I> is an MFVec3f object then <I>vecArray[0]</I> is 
+the first SFVec3f object in the array. </P>
+<P>Dereferencing an MF object creates a new object of the corresponding SF 
+object type with the contents of the dereferenced element. Assigning an SF 
+object to a dereferenced MF object (which must be of the corresponding type) 
+copies the contents of the SF object into the dereferenced element.</P>
+<H2><A name=Statements><B>1.3 Statements</B></A></H2>
+<P>VRMLScript statements are block scoped the same as other C-like languages. A 
+statement can appear alone in the body of an <B><I>if</I></B> or 
+<B><I>for</I></B> statement. A body with multiple simple statements, or 
+<I>compound statement</I>, must be placed between '{' and '}' characters. This 
+constitutes a new block and all variables defined in this block go out of scope 
+at the end of the block. All simple statements must end with the ';' character. 
+</P>
+<P>Example: </P><PRE>if (a &lt; b)
+    c = d;      // simple statement, c is local to the if statement
+
+else {          // compound statement, c is no longer defined here
+    e = f;      // e is local to the else block
+    c = h + 1;
+}               // e is no longer defined here
+</PRE>
+<H3><A name=Conditional>1.3.1 Conditional Statements</A></H3>
+<P>The <B><I>if</I></B> statement evaluates an expression, and selects one of 
+two statements for execution. A simple <B><I>if</I></B> statement executes the 
+statement following the condition if the result of the expression evaluation is 
+not 0. The <B><I>if...else</I></B> statement additionally executes the statement 
+following the else clause if the result of the expression evaluation is 0. For 
+nested <B><I>if...else</I></B> statements, the else clause matches the nearest 
+if statement. Braces can be used to override this.</P>
+<P>Example </P><PRE>if (a &lt; 0)  // simple if statement
+    &lt;statement&gt;
+
+if (a == 0)
+    if (b &gt; 5)  // if...else statement
+        &lt;statement&gt;
+    else        // this else clause matches the 'if (b &gt; 5)' statement
+        &lt;statement&gt;
+
+if (a == 0) {
+    if (b &gt; 5)
+        &lt;statement&gt;
+}
+else            // this else clause matches the 'if (a == 0)' statement
+    &lt;statement&gt;
+</PRE>
+<H3><A name=Looping>1.3.2 Looping Statements</A></H3>
+<P>The <B><I>for</I></B> statement contains 3 expressions which control the 
+looping behavior, followed by a statement to which the loop is applied. It 
+executes its first expression once before loop execution. It then evaluates its 
+second expression before each loop and, if the expression evaluates to 0, exits 
+the loop. It then executes the statement, followed by evaluation of the third 
+expression. The loop then repeats, until looping is terminated, either by the 
+second expression evaluating to 0 or until a <B><I>break</I></B> statement is 
+encountered. In typical use, the first expression initializes a loop counter, 
+the second evaluates it, and the third increments it. </P>
+<P>Example: </P><PRE>for (i = 0; i &lt; 10; ++i)
+    &lt;statement&gt;
+</PRE>
+<P>The <B><I>while</I></B> statement contains a single expression which controls 
+the looping behavior, followed by a statement to which the loop is applied. 
+Before each loop it evaluates the expression and, if the expression evaluates to 
+0, exits the loop. Otherwise it executes the statement and tests the expression 
+again. The loop continues until terminated by the expression evaluating to 0 or 
+until a <B><I>break</I></B> statement is encountered.</P>
+<P>Example: </P><PRE>while (i &lt; 10)
+    &lt;statement&gt;
+</PRE>
+<H3><A name=ExpressionStatements>1.3.3 Expression Statements</A></H3>
+<P>Any valid expression in VRMLScript can be a statement. The 2 most common 
+expressions are the function call and the assignment expression (see below). 
+</P>
+<H3><A name=Return>1.3.4 Return Statement</A></H3>
+<P>The <B><I>return</I></B> statement does an immediate return from the function 
+regardless of its nesting level in the block structure. If specified, its 
+expression is evaluated and the result is returned to the calling function. </P>
+<P>Example: </P><PRE>if (a == 0) {
+    d = 1;
+    return 5 + d;
+}
+</PRE>
+<H3><A name=Break>1.3.5 Break Statement</A></H3>
+<P>The <B><I>break</I></B> statement exits the deepest enclosing looping 
+statement. Execution continues at the statement following the looping 
+statement.</P>
+<P>Example: </P><PRE>while (i &lt; 0) {
+    if (q == 5) 
+        break;
+    &lt;other statements&gt;
+}
+
+// execution commences here upon break.
+</PRE>
+<H3><A name=Continue>1.3.6 Continue Statement</A></H3>
+<P>The <B><I>continue</I></B> statement jumps to the end of the deepest 
+enclosing looping statement. Execution continues at the end of the loop. In the 
+case of the <B><I>for</I></B> statement, the third expression is evaluated and 
+then the second expression is tested to see if the loop should be continued. In 
+the case of the <B><I>for...in</I></B> statement the next element is assigned to 
+the variable and the loop is continued. In the case of the <B><I>while</I></B> 
+statement the expression is tested to see if the loop should be continued.</P>
+<P>Example: </P><PRE>for a in colorArray {
+    if (a[0] &gt; 0.5)
+        continue;
+    &lt;other statements&gt;
+
+    // loop commences here upon continue.
+}
+</PRE>
+<H2><A name=Expressions><B>1.4 Expressions</B></A></H2>
+<P>Expressions combine variables, objects, constants and the results of other 
+expressions with operators. The result of an expression evaluation is always 
+another expression. In this way compound expressions can be built out of simpler 
+ones. Operators combine one (unary), two (binary) or three (tertiary) values. 
+Unary operators are placed before (prefix) or after (postfix) the value to be 
+opertated on. Binary operators are placed between the values to be operated on. 
+Tertiary operators always consist of 2 symbols, with one symbol place between 
+each pair of values to be operated on.</P>
+<P>Example: </P><PRE>a = -b;          // unary prefix operator
+a = b++;         // unary postfix operator
+a = b + c;       // binary operator
+a = b ? c : d;   // tertiary operator
+a = b * c + d;   // compound expression
+                 // the product of b * c produces a value which
+                 // is added to d
+</PRE>
+<H3><A name=Assignment>1.4.1 Assignment </A><A name=Logical>Operators</A></H3>
+<P>An expression of the form <I>expression = expression </I>assigns the result 
+of the right-hand expression to the expression on the left-hand side. The 
+left-hand expression must result in a variable into which a value may be stored. 
+This includes simple identifiers, subscripting operators, members of objects, 
+and the return value of a function call. </P>
+<P>Examples: </P><PRE>a = 5;          // simple assignment
+a[3] = 4;       // subscripted assignment
+foo()[2] = 3;   // function returning an MFField
+</PRE>
+<P>In addition, a set of shorthand operators exist for doing an binary operation 
+using the left-hand expression and the right-hand expression, then assigning the 
+result to the left-hand expression. These operators are plus-equal 
+('<B>+=</B>'), minus-equal ('<B>-='</B>), times-equal ('<B>*=</B>') divide-equal 
+('<B>/=</B>'), mod-equal ('<B>%=</B>'), and-equal ('<B>&amp;=</B>'), or-equal 
+('<B>|=</B>'), xor-equal ('<B>^=</B>'), shift-left-equal ('<B>&lt;&lt;=</B>'), 
+shift-right-equal ('<B>&gt;&gt;=</B>'), shift-right-fill-zero-equal 
+('<B>&gt;&gt;&gt;=</B>').</P>
+<P>Examples: </P><PRE>a += 5;              // adds 5 to the value of a and assigns it to a
+a[3] &amp;= 0x0000FFFF;  // performs bitwise-and of a[3] and 0x0000FFFF
+                     // assigning result to a[3]
+</PRE>
+<H3><A name=Arithmetic>1.4.2 Arithmetic </A><A name=Logical>Operators</A></H3>
+<P>Arithmetic operators include <I>negation</I> ('<B>-</B>'), <I>ones-complement 
+</I>('<B>~</B>'), increment ('<B>++</B>'), decrement ('<B>--</B>') and the 
+operators ('<B><I>+</I></B>', '<B><I>-</I></B>', '<B><I>*</I></B>', 
+'<B><I>/</I></B>', '<B><I>%</I></B>'). Negation and ones-complement are prefix 
+unary. Increment and decrement are prefix or postfix unary. The rest are binary. 
+</P>
+<P>Examples: </P><PRE>5 + b
+(c + 5) * 7
+(-b / 4) % 6
+(c &amp; 0xFF) | 256
+</PRE>
+<P>The increment an decrement operators behave differently depending on whether 
+they are used as prefix or postfix operators. In either case, if the expression 
+to which the operator is applied is a variable, the value of that variable is 
+incremented or decremented. A value is also returned from the expression. When 
+used as a prefix operator the value returned is that of the expression after the 
+increment or decrement. When used as a postfix operator the value returned is 
+that of the expression before the increment or decrement.</P>
+<P>Examples</P><PRE>a = 5;         // Value of 'a' is 5
+b = a++;       // Value of 'b' is 5, value of 'a' is 6
+c = ++b;       // Value of 'c' is 6, value of 'b' is 6
+</PRE>
+<H3><A name=Bitwise>1.4.3 Bitwise Operators</A></H3>
+<P>Bitwise operators include <I>and</I> ('<B>&amp;</B>'), <I>or</I> 
+('<B>|</B>'), <I>exclusive or</I> ('<B>^</B>'), <I>left shift</I> 
+('<B>&lt;&lt;</B>'), <I>right shift</I> ('<B>&gt;&gt;</B>'), and <I>right shift, 
+zero fill</I> ('<B>&gt;&gt;&gt;</B>'). These are all binary operators and are 
+valid on any scalar type. When they are applied the scalar value is converted to 
+an SFInt32 before the operation, and back to the original expression type after. 
+Therefore roundoff error can occur when applying them to SFFloat or SFTime 
+values. The shift operators shift the operand on the left side the number of 
+bits specified by the operator on the right side. The difference between 
+<I>right shift</I> and <I>right shift, zero fill</I> is that the former 
+preserves the sign of the left operator and the latter always puts a zero in the 
+most significant bits.</P>
+<P>Examples:</P><PRE>a &amp; 0x0FF       // clears upper 24 bits of 'a'
+a &gt;&gt; 5          // shift 'a' 5 bits to the right, sign extend
+</PRE>
+<H3><A name=Logical>1.4.4 Logical and Comparison Operators</A></H3>
+<P>Logical expressions include <I>logical and</I> ('<B><I>&amp;&amp;</I></B>'), 
+<I>logical or</I> ('<B><I>||</I></B>'), <I>logical not</I> ('<B><I>!</I></B>'), 
+and the comparison operators ('<B><I>&lt;</I></B>', '<B><I>&lt;=</I></B>', 
+'<B><I>==</I></B>', '<B><I>!=</I></B>', '<B><I>&gt;=</I></B>', 
+'<B><I>&gt;</I></B>'). Logical not is prefix unary, the rest are binary. Each 
+evaluates to either 0 (<B><I>false</I></B>) or 1 (<B><I>true</I></B>). The 
+constants <B><I>true</I></B>, <B><I>false</I></B><I>,</I> <B><I>TRUE</I></B>, 
+and <B><I>FALSE</I></B> can also be used. </P>
+<P>Examples: </P><PRE>a &lt; 5
+b &gt; 0 &amp;&amp; c &gt; 1
+!((a &gt; 4) || (b &lt; 6))
+</PRE>
+<H3><A name=StringOperator>1.4.5 String Operators</A></H3>
+<P>All the comparison operators can be used to compare Strings for lexicographic 
+order. Additionally the operators '+' and '+=' can be used to concatenate 2 
+strings. Any expression involving a String and any scalar type will first 
+convert the scalar to a string and then perform the concatentation. Conversion 
+of a String to a scalar type can be done with the functions <B>parseInt()</B> 
+and <B>parseFloat()</B>.</P>
+<P>Examples:</P><PRE>'A one and ' + 'a two'         // result is "A one and a two"
+'The magic number is ' + 7     // result is 'The magic number is 7'
+a = 5;                         // 'a' contains an SFTime
+a += 'is correct';             // 'a' is now the String '5 is correct'
+</PRE>
+<H3><A name=OperatorPrecedence>1.4.6 Operator Precedence</A></H3>
+<P>Precedence rules are used to order evaluation. In the above compound 
+expression example multiplication ('*') is evaluated before addition ('+'). For 
+operations of equal precedence evaluation order is shown in the table below. The 
+default rules can be overridden with the use of the '(' and ')' characters to 
+bracket operations to be performed first. </P>
+<P>Example: </P><PRE>a = b + c * d;    // c * d is evaluated first
+a = (b + c) * d;  // b + c is evaluated first
+a = b * c / d;    // b * c is evaluated first 
+                  // ('*' and '/' have equal precedence, evaluation
+                  // order is left-to-right)
+</PRE>
+<P>Order of precedence is (unless otherwise stated evaluation order is 
+left-to-right): </P>
+<P></P>
+<TABLE border=1>
+  <TBODY>
+  <TR>
+    <TD><B>Operator Type</B></TD>
+    <TD><B>Operator</B></TD>
+    <TD><B>Comments</B></TD></TR>
+  <TR>
+    <TD>comma </TD>
+    <TD>,</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>assignment</TD>
+    <TD>= += -= *= /= %= <BR>&lt;&lt;= &gt;&gt;= &gt;&gt;&gt;= &amp;= ^= |=</TD>
+    <TD>right-to-left</TD></TR>
+  <TR>
+    <TD>conditional</TD>
+    <TD>?:</TD>
+    <TD>tertiary operator</TD></TR>
+  <TR>
+    <TD>logical-or</TD>
+    <TD>||</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>logical-and</TD>
+    <TD>&amp;&amp;</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>bitwise-or</TD>
+    <TD>|</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>bitwise-xor</TD>
+    <TD>^</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>bitwise-and</TD>
+    <TD>&amp;</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>equality</TD>
+    <TD>== !=</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>relational</TD>
+    <TD>&lt; &lt;= &gt; &gt;=</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>bitwise shift</TD>
+    <TD>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>add/subtract</TD>
+    <TD>+ -</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>multiply/divide</TD>
+    <TD>* / %</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>negate/increment</TD>
+    <TD>! ~ - ++ --</TD>
+    <TD>unary operators</TD></TR>
+  <TR>
+    <TD>call, member</TD>
+    <TD>() [] .</TD>
+    <TD></TD></TR></TBODY></TABLE>
+<P><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></P>
+<H2><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> 2 <A name=Protocol>Supported Protocol in 
+the Script Node's </A><I>url</I> Field </H2>
+<P>The url field of the Script node may contain a URL that references VRMLScript 
+code:</P><PRE><B> Script {  url "http://foo.com/myScript.vs"  }</B>
+</PRE>
+<P>The <A 
+href="http://cosmosoftware.com/developer/moving-worlds/spec/concepts.html#CustomProtocol">vrmlscript: 
+protocol</A> allows the script to be placed inline as follows: </P><PRE><B>    Script {  url "vrmlscript: function foo() { ... }"   }</B>
+</PRE>
+<P>The <I>url</I> field may contain multiple URLs and thus reference a remote 
+file or in-line code:</P><PRE> <B>   Script { </B>
+<B>        url [ "http://foo.com/myScript.vs",</B>
+<B>              "vrmlscript: function foo() { ... }" ]</B>
+<B>    }</B>
+</PRE>
+<H3>2.1 <A name=FileExtension>File Extension</A> </H3>
+<P>The file extension for VRMLScript source code is <B>.vs</B>. </P>
+<H3>2.2 <A name=MIMEtype>MIME Type</A> </H3>
+<P>The MIME type for VRMLScript source code is defined as follows: </P><PRE>        <B>application/x-vrmlscript</B>
+</PRE>
+<P><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></P>
+<H2><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> 3 <A name=Eventin>EventIn Handling</A> 
+</H2>
+<P>Events sent to the Script node are passed to the corresponding VRMLScript 
+function in the script. It is necessary to specify the script in the <I>url</I> 
+field of the Script node. The function's name is the same as the eventIn and is 
+passed two arguments, the event value and its timestamp (See "<A 
+href="#ParameterPassing"><I>Parameter 
+passing and the EventIn function</I></A>"). If there isn't a corresponding 
+VRMLScript function in the script, the browser's behavior is undefined. </P>
+<P>For example, the following Script node has one eventIn field whose name is 
+<I>start</I>:</P><PRE>    <B>Script { </B>
+<B>        eventIn SFBool start</B>
+<B>        url "vrmlscript: function start(value, timestamp) { ... }"</B>
+<B>    }</B>
+</PRE>
+<P>In the above example, when the <I>start</I> eventIn is sent the start() 
+function is executed. </P>
+<H3>3.1 <A name=ParameterPassing>Parameter Passing and the EventIn 
+Function</A></H3>
+<P>When a Script node receives an eventIn, a corresponding method in the file 
+specified in the <I>url</I> field of the Script node is called, which has two 
+arguments. The value of the eventIn is passed as the first argument and 
+timestamp of the eventIn is passed as the second argument. The type of the value 
+is the same as the type of the EventIn and the type of the timestamp is 
+<B>SFTime</B>.</P>
+<H3>3.2 <A name=EventsProcessed>eventsProcessed() Method</A> </H3>
+<P>Authors may define a function named <I>eventsProcessed</I> which will be 
+called after some set of events has been received. Some implementations will 
+call this function after the return from each EventIn function, while others 
+will call it only after processing a number of EventIn functions. In the latter 
+case an author can improve performance by placing lengthy processing algorithms 
+which do not need to be executed for every event received into the 
+<I>eventsProcessed</I> function. </P>
+<DL>
+  <DT><B>Example:</B> 
+  <DD>The author needs to compute a complex inverse kinematics operation at each 
+  time step of an animation sequence. The sequence is single-stepped using a 
+  TouchSensor and button geometry. Normally the author would have an EventIn 
+  function execute whenever the button is pressed. This function would increment 
+  the time step then run the inverse kinematics algorithm. But this would 
+  execute the complex algorithm at every button press and the user could easily 
+  get ahead of the algorithm by clicking on the button rapidly. To solve this 
+  the EventIn function can be changed to simply increment the time step and the 
+  IK algorithm can be moved to an eventsProcessed function. In an efficient 
+  implementation the clicks would be queued. When the user clicks quickly the 
+  time step would be incremented once for each button click but the complex 
+  algorithm will be executed only once. This way the animation sequence will 
+  keep up with the user. </DD></DL>
+<P>The <I>eventsProcessed</I> function takes no parameters. Events generated 
+from it are given the timestamp of the last event processed.</P>
+<H3>3.3 <A name=Initialize>initialize() Method</A></H3>
+<P>Authors may define a function named <I>initialize</I> which is called when 
+the corresponding Script node has been loaded and before any events are 
+processed. This can be used to prepare for processing before events are 
+received, such as constructing geometry or initializing external mechanisms.</P>
+<P>The <I>initialize</I> function takes no parameters. Events generated from it 
+are given the timestamp of when the Script node was loaded.</P>
+<H3>3.3 <A name=Shutdown>shutdown() Method</A></H3>
+<P>Authors may define a function named <I>shutdown</I> which is called when the 
+corresponding Script node is deleted or the world containing the Script node is 
+unloaded or replaced by another world. This can be used to send events informing 
+external mechanisms that the Script node is being deleted so they can clean up 
+files, etc.</P>
+<P>The <I>shutdown</I> function takes no parameters. Events generated from it 
+are given the timestamp of when the Script node was deleted.</P>
+<P><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></P>
+<H2><IMG height=19 
+src="pix/cube.gif" 
+width=20 SGI_SRC="./../pix/cube.gif"> 4 <A name=AccessingFields>Accessing 
+Fields</A> </H2>
+<P>The fields, eventIns and eventOuts of a Script node are accessible from its 
+VRMLScript functions. As in all other nodes the fields are accessible only 
+within the Script. The Script's eventIns can be routed to and its eventOuts can 
+be routed from. Another Script node with a pointer to this node can access its 
+eventIns and eventOuts just like any other node.</P>
+<H3>4.1 <A name=AccessingScript>Accessing Fields and EventOuts of the Script</A> 
+</H3>
+<P>Fields defined in the Script node are available to the script by using its 
+name. It's value can be read or written. This value is persistent across 
+function calls. EventOuts defined in the script node can also be read. The value 
+is the last value sent. </P>
+<H3>4.2 <A name=AccessingOtherNodes>Accessing Fields and EventOuts of Other 
+Nodes</A> </H3>
+<P>The script can access any exposedField, eventIn or eventOut of any node to 
+which it has a pointer: </P><PRE>  <B>  DEF SomeNode Transform { }</B>
+<B>    Script {</B>
+<B>        field SFNode node USE SomeNode</B>
+<B>        eventIn SFVec3f pos</B>
+    <B>    directOutput TRUE</B>
+<B>        url "... </B>
+<B>            function pos(value) { </B>
+<B>                node.set_translation = value; </B>
+<B>            }"</B>
+<B>    }</B>
+</PRE>
+<P>This sends a set_translation eventIn to the Transform node. An eventIn on a 
+passed node can appear only on the left side of the assignment. An eventOut in 
+the passed node can appear only on the right side, which reads the last value 
+sent out. Fields in the passed node cannot be accessed, but exposedFields can 
+either send an event to the "set_..." eventIn, or read the current value of the 
+"..._changed" eventOut. This follows the routing model of the rest of VRML. </P>
+<H3>4.3 <A name=SendingEventOuts>Sending EventOuts</A> </H3>
+<P>Assigning to an eventOut sends that event at the completion of the currently 
+executing function. This implies that assigning to the eventOut multiple times 
+during one execution of the function still only sends one event and that event 
+is the last value assigned. </P>
+<H2><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></H2>
+<H2><A name=Object&amp;Function><B>5 Object and Function 
+Definitions</B></A></H2>
+<P>There are a fixed set of objects in VRMLScript, each of which have a fixed 
+set of properties (i.e. values) and methods (i.e. functions). For all object 
+types except Math, there are functions to create an instance of the object. The 
+supported set of objects are:</P>
+<H3>5.1 <A name=parseInt&amp;parseFloat>parseInt and parseFloat 
+Functions</A></H3>
+<P>These 2 functions are provided to convert a String value to an SFInt32 or 
+SFFloat value.</P>
+<UL>
+  <LI><B>parseInt(s, [radix])</B> 
+  <UL>
+    <LI>Converts the passed String, 's', to an integer valued number, using the 
+    optional passed numeric 'radix' as the base. If the radix is omitted base 10 
+    is assumed. Numbers can be in decimal (123), hexadecimal (0x5C) or octal 
+    (0177) notation and may be preceeded by a minus sign ('-'). Conversion stops 
+    at the first unrecognized character. If the string begins with an 
+    unrecognized character, 0 is returned. </LI></UL>
+  <LI><B>parseFloat(s)</B> 
+  <UL>
+    <LI>Converts the passed String, 's', to a floating point valued number. 
+    Numbers can be in fixed (1.23) or exponential (12E3) notation and both the 
+    mantissa and exponent may be preceeded by a minus sign ('-'). Conversion 
+    stops at the first unrecognized character. If the string begins with an 
+    unrecognized character, 0 is returned. </LI></UL></LI></UL>
+<H3>5.2 <A name=Browser>Browser Object</A></H3>
+<P>This section lists the methods available in the <I>browser</I> object, which 
+allows scripts to get and set browser information. For descriptions of the 
+methods, see the <A 
+href="http://vrml.sgi.com/moving-worlds/spec/part1/concepts.html#BrowserInterface">Browser 
+Interface</A> topic of the <A 
+href="http://vrml.sgi.com/moving-worlds/spec/part1/concepts.html#Scripting">Scripting</A> 
+section of the VRML 2.0 spec.</P>
+<H3>Instance Creation Method(s)</H3>
+<P>None. One global instance of the object is available. The name of the 
+instance is Browser.</P>
+<H3>Properties</H3>
+<P>None</P>
+<H3>Methods</H3>
+<UL>
+  <LI>String <B>getName</B>() 
+  <UL>
+    <LI>Get a string with the name of the VRML browser. </LI></UL>
+  <LI>String <B>getVersion</B>() 
+  <UL>
+    <LI>Get a string containing the version of the VRML browser </LI></UL>
+  <LI>SFFloat <B>getCurrentSpeed()</B> 
+  <UL>
+    <LI>Get the floating point current rate at which the user is traveling in 
+    the scene. </LI></UL>
+  <LI>SFFloat <B>getCurrentFrameRate</B>() 
+  <UL>
+    <LI>Get the floating point current instantaneous frame rate of the scene 
+    rendering, in frames per second. </LI></UL>
+  <LI>String <B>getWorldURL</B>() 
+  <UL>
+    <LI>Get a string containing the URL of the currently loaded world. </LI></UL>
+  <LI>void <B>replaceWorld</B>(MFNode nodes) 
+  <UL>
+    <LI>Replace the current world with the passed list of nodes. </LI></UL>
+  <LI>MFNode <B>createVrmlFromString</B>(String vrmlSyntax) 
+  <UL>
+    <LI>Parse the passed string into a VRML scene and return a the list of root 
+    nodes from the resulting scene. </LI></UL>
+  <LI>void <B>createVrmlFromURL</B>(MFString url, Node node, String event) 
+  <UL>
+    <LI>Parse the passed URL into a VRML scene. When complete send the passed 
+    event to the passed node. The event is a string with the name of an MFNode 
+    eventIn in the passed node. </LI></UL>
+  <LI>void <B>addRoute</B>(SFNode fromNode, String fromEventOut, SFNode toNode, 
+  String toEventIn) 
+  <UL>
+    <LI>Add a route from the passed eventOut to the passed eventIn. </LI></UL>
+  <LI>void <B>deleteRoute</B>(SFNode fromNode, String fromEventOut, SFNode 
+  toNode, String toEventIn) 
+  <UL>
+    <LI>Remove the route between the passed eventOut and passed eventIn, if one 
+    exists. </LI></UL>
+  <LI>void <B>loadURL</B>(MFString url, MFString parameter) 
+  <UL>
+    <LI>Load the passed URL, using the passed parameter string to possibly 
+    redirect it to another frame. If the destination is the frame containing the 
+    current scene, this method may never return. </LI></UL>
+  <LI>void <B>setDescription</B>(String description) 
+  <UL>
+    <LI>Set the browser dependent description. This is the same function as that 
+    performed when the <I>description</I> field of the <B>Anchor</B> node is 
+    displayed. </LI></UL></LI></UL>
+<H3>5.3 <A name=Math>Math Object</A></H3>
+<P>The Math object is unique in VRMLScript in that there is exactly one globally 
+available instance of the object, named Math. Properties can be accessed using 
+the syntax <I>Math.&lt;property-name&gt;</I>. Methods can be invoked using the 
+syntax <I>Math.&lt;function-name&gt; ( &lt;argument-list&gt; )</I>.</P>
+<H3>Instance Creation Method(s)</H3>
+<P>None. One global instance of the object is available. The name of the 
+instance is Math.</P>
+<H3>Properties</H3>
+<UL>
+  <LI>E 
+  <UL>
+    <LI>Euler's constant, <I>e</I>, approximately 2.718 </LI></UL>
+  <LI>LN10 
+  <UL>
+    <LI>Natural logarithm of 10, approximately 2.302 </LI></UL>
+  <LI>LN2 
+  <UL>
+    <LI>Natural logarithm of 2, approximately 0.693 </LI></UL>
+  <LI>PI 
+  <UL>
+    <LI>Ratio of the circumference of a circle to its diameter, approximately 
+    3.1415 </LI></UL>
+  <LI>SQRT1_2 
+  <UL>
+    <LI>square root of ½, approximately 0.707 </LI></UL>
+  <LI>SQRT2 
+  <UL>
+    <LI>square root of 2, approximately 1.414 </LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>Note <I>number</I>, <I>number1</I>, <I>number2</I>, <I>base</I>, and 
+<I>exponent</I> indicate any expression with a scalar value.</P>
+<UL>
+  <LI>abs(<I>number</I>) 
+  <UL>
+    <LI>Returns the absolute value of <I>number</I> </LI></UL>
+  <LI>acos(<I>number</I>) 
+  <UL>
+    <LI>Returns the arc cosine (in radians) of <I>number</I> </LI></UL>
+  <LI>asin(<I>number</I>) 
+  <UL>
+    <LI>Returns the arc sine (in radians) of <I>number</I> </LI></UL>
+  <LI>atan(<I>number</I>) 
+  <UL>
+    <LI>Returns the arc tangent (in radians) of <I>number</I> </LI></UL>
+  <LI>ceil(<I>number</I>) 
+  <UL>
+    <LI>Returns the least integer greater than or equal to <I>number</I> 
+</LI></UL>
+  <LI>cos(<I>number</I>) 
+  <UL>
+    <LI>Returns the cosine of <I>number</I> where <I>number</I> is expressed in 
+    radians </LI></UL>
+  <LI>exp(<I>number</I>) 
+  <UL>
+    <LI>Returns <I>e, </I>to the power of <I>number</I> (i.e. 
+    <I>e</I><SUP><I>number</I></SUP>) </LI></UL>
+  <LI>floor(<I>number</I>) 
+  <UL>
+    <LI>Returns the greatest integer less than or equal to its argument </LI></UL>
+  <LI>log(<I>number)</I> 
+  <UL>
+    <LI>Returns the natural logarithm (base <I>e</I>) of <I>number</I> </LI></UL>
+  <LI>max(<I>number1</I>, <I>number2</I>) 
+  <UL>
+    <LI>Returns the greater of <I>number1</I> and <I>number2</I> </LI></UL>
+  <LI>min(<I>number1</I>, <I>number2</I>) 
+  <UL>
+    <LI>Returns the lesser of <I>number1</I> and <I>number2</I> </LI></UL>
+  <LI>pow(<I>base</I>, <I>exponent</I>) 
+  <UL>
+    <LI>Returns <I>base</I> to the <I>exponent</I> power (i.e. <I>base</I><SUP> 
+    <I>exponent</I></SUP>) </LI></UL>
+  <LI>random() 
+  <UL>
+    <LI>Returns a pseudo-random number between zero and one. </LI></UL>
+  <LI>round(<I>number</I>) 
+  <UL>
+    <LI>Returns the value of <I>number</I> rounded to the nearest integer 
+  </LI></UL>
+  <LI>sin(<I>number</I>) 
+  <UL>
+    <LI>Returns the sine of <I>number</I> where <I>number</I> is expressed in 
+    radians </LI></UL>
+  <LI>sqrt(<I>number</I>) 
+  <UL>
+    <LI>Returns the square root of its argument </LI></UL>
+  <LI>tan(<I>number</I>) 
+  <UL>
+    <LI>Returns the tangent of <I>number</I>, where <I>number</I> is expressed 
+    in radians </LI></UL></LI></UL>
+<H3>5.4 <A name=SFColor>SFColor Object</A></H3>
+<P>The SFColor object corresponds to a VRML 2.0 SFColor field. All properties 
+are accessed using the syntax <I>sfColorObjectName.&lt;property&gt;</I>, where 
+<I>sfColorObjectName</I> is an instance of a SFColor object. All methods are 
+invoked using the syntax <I>sfColorObjectName.method(&lt;argument-list&gt;)</I>, 
+where <I>sfColorObjectName</I> is an instance of a SFColor object. </P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>sfColorObjectName =</I><B> </B>new SFColor(<I>r, g, b)</I> 
+  <UL>
+    <LI><I>r, g, </I>and <I>b</I> are scalar values with the red, green, and 
+    blue values of the color </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>r 
+  <UL>
+    <LI>red component of the color </LI></UL>
+  <LI>g 
+  <UL>
+    <LI>green component of the color </LI></UL>
+  <LI>b 
+  <UL>
+    <LI>blue component of the color </LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.5 <A name=SFImage>SFImage Object</A></H3>
+<P>The SFImage object corresponds to a VRML 2.0 SFImage field.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>sfImageObjectName = </I>new SFImage(<I>x, y, comp, array)</I> 
+  <UL>
+    <LI><I>x</I> is the x-dimension of the image. <I>y</I> is the y-dimension of 
+    the image. <I>comp</I> is the number of components of the image, 1 for 
+    greyscale, 2 for greyscale+alpha, 3 for rgb, 4 for rgb+alpha). All these 
+    values are scalar.<I> Array</I> is an MFInt32 field containing the 
+    <I>x</I>*<I>y</I> values for the pixels of the image. Format of each pixel 
+    is the same as the <A 
+    href="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/nodesRef.html#PixelTexture"><B>PixelTexture</B></A> 
+    file format. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>x 
+  <UL>
+    <LI>the x dimension of the image </LI></UL>
+  <LI>y 
+  <UL>
+    <LI>the y dimension of the image </LI></UL>
+  <LI>comp 
+  <UL>
+    <LI>the number of components of the image (1 for greyscale, 2 for 
+    greyscale+alpha, 3 for rgb, 4 for rgb+alpha) </LI></UL>
+  <LI>array 
+  <UL>
+    <LI>the image data </LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.6 <A name=SFNode>SFNode Object</A></H3>
+<P>The SFNode object corresponds to a VRML 2.0 SFNode field.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>sfNodeObjectName = </I>new SFNode(<I>vrmlstring)</I> 
+  <UL>
+    <LI><I>vrmlstring</I> is a ASCII string containing the definition of a VRML 
+    2.0 node </LI></UL></LI></UL>
+<H3>Properties</H3>
+<P>Each node may assign values to its eventIns and obtain the last output values 
+of its eventOuts using the <I>sfNodeObjectName.eventName</I> syntax. </P>
+<H3>Methods</H3>
+<UL>
+  <LI>None </LI></UL>
+<H3>5.7 <A name=SFRotation>SFRotation Object</A></H3>
+<P>The SFRotation object corresponds to a VRML 2.0 SFRotation field.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>sfRotationObjectName = </I>new SFRotation(<I>x, y, z, angle)</I> 
+  <UL>
+    <LI><I>x</I>, <I>y</I>, and <I>z</I> are the axis of the rotation. 
+    <I>angle</I> is the angle of the rotation (in radians). All values are 
+    scalar. </LI></UL>
+  <LI><I>sfRotationObjectName</I> = new SFRotation(<I>axis, angle</I>) 
+  <UL>
+    <LI><I>axis</I> is a SFVec3f object whose value is the axis of rotation. 
+    <I>angle</I> is the scalar angle of the rotation (in radians) </LI></UL>
+  <LI><I>sfRotationObjectName</I> = new SFRotation(<I>fromVector, toVector</I>) 
+  <UL>
+    <LI><I>fromVector</I> and <I>toVector</I> are SFVec3f valued objects. These 
+    vectors are normalized and the rotation value that would rotate from the 
+    <I>fromVector</I> to the <I>toVector</I> is stored in the object. 
+  </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>x 
+  <UL>
+    <LI>Returns the first value of the axis vector </LI></UL>
+  <LI>y 
+  <UL>
+    <LI>Returns the second value of the axis vector </LI></UL>
+  <LI>z 
+  <UL>
+    <LI>Returns the third value of the axis vector </LI></UL>
+  <LI>angle 
+  <UL>
+    <LI>a SFFloat corresponding to the angle of the rotation (in radians) 
+  </LI></UL></LI></UL>
+<H3>Methods</H3>
+<UL>
+  <LI>getAxis() 
+  <UL>
+    <LI>Returns the axis of rotation as an SFVec3f object. </LI></UL>
+  <LI>inverse() 
+  <UL>
+    <LI>Returns a SFRotation object whose value is the inverse of this object's 
+    rotation </LI></UL>
+  <LI>multiply(rotation) 
+  <UL>
+    <LI>Returns an SFRotation whose value is the object multiplied by the passed 
+    SFRotation. </LI></UL>
+  <LI>multVec(<I>vec</I>) 
+  <UL>
+    <LI>Returns a SFVec3f whose value is the SFVec3f <I>vec</I> multiplied by 
+    the matrix corresponding to this object's rotation. </LI></UL>
+  <LI>setAxis(<I>vec</I>) 
+  <UL>
+    <LI>Set the axis of rotation to the vector passed in <I>vec</I>. </LI></UL>
+  <LI>slerp(<I>destRotation, t</I>) 
+  <UL>
+    <LI>Returns a SFRotation whose value is the spherical linear interpolation 
+    between this object's rotation and <I>destRotation</I> at value 0 &lt;= 
+    <I>t</I> &lt;= 1. For <I>t</I> = 0, the value is this object's rotation. For 
+    <I>t</I> = 1, the value is <I>destRotation</I>. </LI></UL></LI></UL>
+<H3>5.8<A name=String> String Object</A></H3>
+<P>The String object corresponds to a VRML 2.0 SFString field.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>stringObjectName = </I>new String(<I>number)</I> 
+  <UL>
+    <LI><I>number</I> is any scalar expression </LI></UL>
+  <LI><I>stringObjectName = </I>new String(<I>string)</I> 
+  <UL>
+    <LI><I>string </I>is any UTF-8 string expression </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of characters in the string 
+  </LI></UL></LI></UL>
+<H3>Methods</H3>
+<UL>
+  <LI>charAt(<I>index)</I> 
+  <UL>
+    <LI>Returns a String containing the character of the string at position 
+    <I>index</I> in the string. <I>index</I> is an integer-valued expressio 
+    between 0 and length-1, where length is the number of characters in the 
+    string </LI></UL>
+  <LI>indexOf(<I>string</I>, <I>[fromIndex]</I>) 
+  <UL>
+    <LI>Returns the index of the first occurrence of <I>string</I> in the 
+    object, starting the search from <I>fromIndex</I>. <I>fromIndex</I> must be 
+    between 0 and length -1, where length is the number of characters in the 
+    string. If <I>fromIndex</I> is not specified, the search will start with 
+    character 0. </LI></UL>
+  <LI>lastIndexOf(<I>string, [fromIndex]</I>) 
+  <UL>
+    <LI>Returns the index of the first occurrence of <I>string</I> in the 
+    object, starting the search backwards from <I>fromIndex</I>. 
+    <I>fromIndex</I> must be between 0 and length -1, where length is the number 
+    of characters in the string. If <I>fromIndex</I> is not specified, the 
+    search will start with character length - 1. </LI></UL>
+  <LI>substring(<I>index1, index2</I>) 
+  <UL>
+    <LI>Returns a String containing the desired substring. If <I>index1</I> is 
+    less than <I>index2</I>, the substring returned starts with the character at 
+    <I>index1</I> and ends with the character before <I>index2</I>. If 
+    <I>index1</I> is greater than <I>index2</I>, the substring returned starts 
+    with the character at <I>index2</I> and ends with the character before 
+    <I>index1</I>. If <I>index1</I> equals <I>index2</I>, the empty string is 
+    returned. <I>index1</I> and <I>index2</I> are any integer-valued expressions 
+    where 0&lt;=<I>index1, index2</I>&lt;length, where length is the number of 
+    characters in the string </LI></UL>
+  <LI>toLowerCase() 
+  <UL>
+    <LI>Returns a String with all alphabetic characters of the string converted 
+    to lower case. </LI></UL>
+  <LI>toUpperCase() 
+  <UL>
+    <LI>Returns a String with all alphabetic characters of the string converted 
+    to upper case. </LI></UL></LI></UL>
+<H3>Special Operators</H3>
+<UL>
+  <LI>+ (addition) 
+  <UL>
+    <LI>Creates a new string that represents the concatenation of two strings 
+    and/or scalar values </LI></UL></LI></UL>
+<H3>5.9 <A name=SFVec2f>SFVec2f Object</A></H3>
+<P>The SFVec2f object corresponds to a VRML 2.0 SFVec2f field. Each component of 
+the vector can be accessed using the x and y properties or using C-style array 
+dereferencing (i.e. <I>sfVec2fObjectName[0] </I>or 
+<I>sfVec2fObjectName[1]).</I></P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>sfVec2fObjectName = </I>new SFVec2f(<I>number1, number2)</I> 
+  <UL>
+    <LI>where <I>number1</I> and <I>number2</I> are scalar expressions 
+  </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>x 
+  <UL>
+    <LI>Returns the first value of the vector </LI></UL>
+  <LI>y 
+  <UL>
+    <LI>Returns the second value of the vector </LI></UL></LI></UL>
+<H3>Methods</H3>
+<UL>
+  <LI>add(<I>vec</I>) 
+  <UL>
+    <LI>Returns an SFVec2f whose value is the passed SFVec2f added, 
+    componentwise, to the object. </LI></UL>
+  <LI>divide(<I>number</I>) 
+  <UL>
+    <LI>Returns an SFVec2f whose value is the object divided by the passed 
+    numeric value. </LI></UL>
+  <LI>dot(<I>vec</I>) 
+  <UL>
+    <LI>Returns the dot product of this vector and SFVec2f <I>vec</I> </LI></UL>
+  <LI>length() 
+  <UL>
+    <LI>Returns the geometric length of this vector </LI></UL>
+  <LI>multiply(<I>number</I>) 
+  <UL>
+    <LI>Returns an SFVec2f whose value is the object multiplied by the passed 
+    numeric value. </LI></UL>
+  <LI>negate() 
+  <UL>
+    <LI>Returns an SFVec2f whose value is the componentwise negation of the 
+    object. </LI></UL>
+  <LI>normalize() 
+  <UL>
+    <LI>Returns an SFVec2f of object converted to unit length </LI></UL>
+  <LI>subtract(<I>vec</I>) 
+  <UL>
+    <LI>Returns an SFVec2f whose value is the passed SFVec2f subtracted, 
+    componentwise, from the object. </LI></UL></LI></UL>
+<H3>5.10 <A name=SFVec3f>SFVec3f Object</A></H3>
+<P>The SFVec3f object corresponds to a VRML 2.0 SFVec3f field. Each component of 
+the vector can be accessed using the x, y, and z properties or using C-style 
+array dereferencing (i.e. <I>sfVec3fObjectName[0], sfVec3fObjectName[1] </I>or 
+<I>sfVec3fObjectName[2]).</I></P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>sfVec3fObjectName = </I>new SFVec3f(<I>number1, number2, number3)</I> 
+  <UL>
+    <LI>where <I>number1,</I> <I>number2, </I>and <I>number3</I> are scalar 
+    expressions </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>x 
+  <UL>
+    <LI>Returns the first value of the vector </LI></UL>
+  <LI>y 
+  <UL>
+    <LI>Returns the second value of the vector </LI></UL>
+  <LI>z 
+  <UL>
+    <LI>Returns the third value of the vector </LI></UL></LI></UL>
+<H3>Methods</H3>
+<UL>
+  <LI>add(<I>vec</I>) 
+  <UL>
+    <LI>Returns an SFVec3f whose value is the passed SFVec3f added, 
+    componentwise, to the object. </LI></UL>
+  <LI>cross(<I>vec</I>) 
+  <UL>
+    <LI>Returns the cross product of the object and the passed SFVec3f. </LI></UL>
+  <LI>divide(<I>number</I>) 
+  <UL>
+    <LI>Returns an SFVec3f whose value is the object divided by the passed 
+    numeric value. </LI></UL>
+  <LI>dot(<I>vec</I>) 
+  <UL>
+    <LI>Returns the dot product of this vector and SFVec3f <I>vec</I> </LI></UL>
+  <LI>length() 
+  <UL>
+    <LI>Returns the geometric length of this vector </LI></UL>
+  <LI>multiply(<I>number</I>) 
+  <UL>
+    <LI>Returns an SFVec3f whose value is the object multiplied by the passed 
+    numeric value. </LI></UL>
+  <LI>negate() 
+  <UL>
+    <LI>Returns an SFVec3f whose value is the componentwise negation of the 
+    object. </LI></UL>
+  <LI>normalize() 
+  <UL>
+    <LI>Returns an SFVec3f of object converted to unit length </LI></UL>
+  <LI>subtract(<I>vec</I>) 
+  <UL>
+    <LI>Returns an SFVec3f whose value is the passed SFVec3f subtracted, 
+    componentwise, from the object. </LI></UL></LI></UL>
+<H3>5.11 <A name=MFColor>MFColor Object</A></H3>
+<P>The MFColor object corresponds to a VRML 2.0 MFColor field. It is used to 
+store a one-dimensional array of SFColor objects. Individual elements of the 
+array can be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfColorObjectName</I>[<I>index</I>], where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to SFColor(0, 0, 0).</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfColorObjectName = </I>new MFColor(<I>[SFColor, SFColor, ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more SFColor-valued expressions 
+    to initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.12 <A name=MFFloat>MFFloat Object</A></H3>
+<P>The MFFloat object corresponds to a VRML 2.0 MFFloat field. It is used to 
+store a one-dimensional array of SFFloat objects. Individual elements of the 
+array can be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfFloatObjectName</I>[<I>index</I>], where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to 0.0.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfFloatObjectName = </I>new MFFloat(<I>[number, number...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more numeric-valued expressions 
+    to initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.13 <A name=MFInt32>MFInt32 Object</A></H3>
+<P>The MFInt32 object corresponds to a VRML 2.0 MFInt32 field. It is used to 
+store a one-dimensional array of SFInt32 objects. Individual elements of the 
+array can be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfInt32ObjectName</I>[<I>index]</I>, where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to 0.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfInt32ObjectName = </I>new MFInt32(<I>[number, number, ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more integer-valued expressions 
+    to initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.14 <A name=MFNode>MFNode Object</A></H3>
+<P>The MFNode object corresponds to a VRML 2.0 MFNode field. It is used to store 
+a one-dimensional array of SFNode objects. Individual elements of the array can 
+be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfNodeObjectName</I>[<I>index</I>], where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to NULL.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfNodeObjectName = </I>new MFNode(<I>[SFNode, SFNode, ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more SFNode-valued expressions to 
+    initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.15 <A name=MFRotation>MFRotation Object</A></H3>
+<P>The MFRotation object corresponds to a VRML 2.0 MFRotation field. It is used 
+to store a one-dimensional array of SFRotation objects. Individual elements of 
+the array can be referenced using the standard C-style dereferencing operator 
+(e.g. <I>mfRotationObjectName</I>[<I>index</I>], where <I>index</I> is an 
+integer-valued expression with 0&lt;=<I>index</I>&lt;length and length is the 
+number of elements in the array). Assigning to an element with <I>index</I> &gt; 
+length results in the array being dynamically expanded to contain length 
+elements. All elements not explicitly initialized are set to SFRotation(0, 0, 1, 
+0).</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfRotationObjectName = </I>new MFRotation(<I>[SFRotation, SFRotation, 
+  ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more SFRotation-valued 
+    expressions to initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.16 <A name=MFString>MFString Object</A></H3>
+<P>The MFString object corresponds to a VRML 2.0 MFString field. It is used to 
+store a one-dimensional array of String objects. Individual elements of the 
+array can be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfStringObjectName</I>[<I>index</I>], where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to the empty string.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfStringObjectName = </I>new MFString<I>[string, string, ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more string-valued expressions to 
+    initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.17 <A name=MFVec2f>MFVec2f Object</A></H3>
+<P>The MFVec2f object corresponds to a VRML 2.0 MFVec2f field. It is used to 
+store a one-dimensional array of SFVec2f objects. Individual elements of the 
+array can be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfVec2fObjectName</I>[<I>index</I>], where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to SFVec2f(0, 0).</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfVec2fObjectName = </I>new MFVec2f(<I>[SFVec2f, SFVec2f, ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more SFVec2f-valued expressions 
+    to initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.18 <A name=MFVec3f>MFVec3f Object</A></H3>
+<P>The MFVec3f object corresponds to a VRML 2.0 MFVec3f field. It is used to 
+store a one-dimensional array of SFVec3f objects. Individual elements of the 
+array can be referenced using the standard C-style dereferencing operator (e.g. 
+<I>mfVec3fObjectName</I>[<I>index</I>], where <I>index</I> is an integer-valued 
+expression with 0&lt;=<I>index</I>&lt;length and length is the number of 
+elements in the array). Assigning to an element with <I>index</I> &gt; length 
+results in the array being dynamically expanded to contain length elements. All 
+elements not explicitly initialized are set to SFVec3f(0, 0, 0).</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>mfVec3fObjectName = </I>new MFVec3f(<I>[SFVec3f, SFVec3f, ...])</I> 
+  <UL>
+    <LI>The creation method can be passed 0 or more SFVec3f-valued expressions 
+    to initialize the elements of the array. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>length 
+  <UL>
+    <LI>An integer containing the number of elements in the array. Assigning an 
+    integer to length changes the number of elements in the array. 
+</LI></UL></LI></UL>
+<H3>Methods</H3>
+<P>None</P>
+<H3>5.19 <A name=VrmlMatrix>VrmlMatrix Object</A></H3>
+<P>The VrmlMatrix object provides many useful methods for performing 
+manipulations on 4x4 matrices. Each of element of the matrix can be accessed 
+using C-style array dereferencing (i.e., <I>vrmlMatrixObjectName[0][1] </I>is 
+the element in row 0, column 1). The results of dereferencing a VrmlMatrix 
+object using a single index (i.e. <I>vrmlMatrixObjectName[0]</I>) are 
+undefined.</P>
+<H3>Instance Creation Method(s)</H3>
+<UL>
+  <LI><I>vrmlMatrixObjectName = </I>new VrmlMatrix(<I>f11, f12, f13, f14, f21, 
+  f22, f23, f24, f31, f32, f33, f34, f41, f42, f43, f44)</I> 
+  <UL>
+    <LI>A new matrix initialized with the values in <I>f11</I> through 
+    <I>f44</I> is created and returned. </LI></UL>
+  <LI><I>vrmlMatrixObjectName = </I>new VrmlMatrix(<I>)</I> 
+  <UL>
+    <LI>A new matrix initialized with the identity matrix is created and 
+    returned. </LI></UL></LI></UL>
+<H3>Properties</H3>
+<UL>
+  <LI>None </LI></UL>
+<H3>Methods</H3>
+<UL>
+  <LI>setTransform(<I>translation</I>, <I>rotation</I>, <I>scaleFactor</I>, 
+  <I>scaleOrientation</I>, <I>center</I>) 
+  <UL>
+    <LI>Sets the VrmlMatrix to the passed values. <I>translation</I> is an 
+    SFVec3f object, <I>rotation</I> is a SFRotation object, <I>scaleFactor</I> 
+    is a SFVec3f object, <I>scaleOrientation</I> is a SFRotation object and 
+    <I>center</I> is a SFVec3f object. Any of the rightmost parameters can be 
+    omitted. In other words, the method can take from 0 to 5 parameters. For 
+    example, you can specify 0 parameters (resulting in a identity matrix), 1 
+    parameter (a translation), 2 parameters (a translation and a rotation), 3 
+    parameters (a translation, rotation and a scaleFactor), etc. Any unspecified 
+    parameter is set to its default as specified in the <A 
+    href="http://www.web3d.org/technicalinfo/specifications/vrml97/part1/nodesRef.html#Transform"><B>Transform</B></A> 
+    node section of the VRML 2.0 specification. </LI></UL>
+  <LI>getTransform(<I>translation</I>, <I>rotation</I>, <I>scaleFactor</I>) 
+  <UL>
+    <LI>Decomposes the VrmlMatrix and returns the components in the passed 
+    <I>translation</I>, <I>rotation</I>, and <I>scaleFactor </I>objects<I>. 
+    </I>The types of the parameters are the same as in <B>setTransform</B>. Any 
+    projection or shear information in the matrix is ignored. </LI></UL>
+  <LI>inverse() 
+  <UL>
+    <LI>Returns a VrmlMatrix whose value is the inverse of this object. </LI></UL>
+  <LI>transpose() 
+  <UL>
+    <LI>Returns a VrmlMatrix whose value is the transpose of this object. 
+  </LI></UL>
+  <LI>multLeft() 
+  <UL>
+    <LI>Returns a VrmlMatrix whose value is the object multiplied by the passed 
+    matrix on the left. </LI></UL>
+  <LI>multRight(<I>matrix</I>) 
+  <UL>
+    <LI>Returns a VrmlMatrix whose value is the object multiplied by the passed 
+    <I>matrix</I> on the right. </LI></UL>
+  <LI>multVecMatrix(<I>vec</I>) 
+  <UL>
+    <LI>Returns a SFVec3f whose value is the object multiplied by the passed row 
+    vector. </LI></UL>
+  <LI>multMatrixVec(<I>vec</I>) 
+  <UL>
+    <LI>Returns a SFVec3f whose value is the object multiplied by the passed 
+    column vector. </LI></UL></LI></UL>
+<P></P>
+<P><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></P>
+<H2><A name=Examples>6 Examples</A></H2>
+<P>Source code for a reference implementation of VRMLScript is available in the 
+archive <A 
+href="vrmlscript.zip">vrmlscript.zip</A>. 
+This source is freely available for use in adding VRMLScript to your browser. 
+Please read the readme.txt file contained in that package. It lists the 
+restrictions for use, which are:</P>
+<UL>
+  <LI>you must credit Silicon Graphics for the code 
+  <LI>you cannot sell the source 
+  <LI>if you redistribute this package, you must do so intact, including the 
+  readme.txt file 
+  <LI>you may not use the code for purposes other than implementing a VRMLScript 
+  compiler and interpreter. </LI></UL>
+<P>The package contains everything you need to parse and interpret VRMLScript. 
+Also included are classes to implement the data types, including vector and 
+quaternion math, a general MF array class, string functions and time functions. 
+Currently it is packaged for use on a PC with Windows 95 and Microsoft Developer 
+Studio. If you port the code to other environments, please let us know and we 
+will add links to your site.</P>
+<P><IMG height=25 
+src="pix/vrmlbar.gif" 
+width=470 SGI_SRC="./../pix/vrmlbar.gif"></P>
+<H5><IMG align=middle alt=" " height=54 
+src="pix/bullet.gif" 
+width=46 SGI_SRC="./../pix/bullet.gif"> Contact <A 
+href="mailto:cmarrin@sgi.com">cmarrin@sgi.com</A>, or<A 
+href="mailto:jkent@sgi.com">mailto:jkent@sgi.com</A> with questions or comments. 
+</H5>
+<P></P></BODY></HTML>

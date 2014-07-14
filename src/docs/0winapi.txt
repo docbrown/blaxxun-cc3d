@@ -1,0 +1,157 @@
+src\afxmem.cpp
+
+
+#ifndef _AFX_NO_DEBUG_CRT
+
+void* AFX_CDECL operator new(size_t nSize, LPCSTR lpszFileName, int nLine)
+{
+	return ::operator new(nSize, _NORMAL_BLOCK, lpszFileName, nLine);
+}
+
+void* PASCAL
+CObject::operator new(size_t nSize, LPCSTR lpszFileName, int nLine)
+{
+	return ::operator new(nSize, _CLIENT_BLOCK, lpszFileName, nLine);
+}
+
+void* AFXAPI AfxAllocMemoryDebug(size_t nSize, BOOL bIsObject,  LPCSTR lpszFileName, int nLine)
+{
+	return _malloc_dbg(nSize, bIsObject ? _CLIENT_BLOCK : _NORMAL_BLOCK,
+		lpszFileName, nLine);
+}
+
+void AFXAPI AfxFreeMemoryDebug(void* pbData, BOOL bIsObject)
+{
+	_free_dbg(pbData, bIsObject ? _CLIENT_BLOCK : _NORMAL_BLOCK);
+}
+
+BOOL CWinThread::OnIdle(LONG lCount)
+{
+	ASSERT_VALID(this);
+
+#if defined(_DEBUG) && !defined(_AFX_NO_DEBUG_CRT)
+	// check MFC's allocator (before idle)
+	if (_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) & _CRTDBG_CHECK_ALWAYS_DF)
+		ASSERT(AfxCheckMemory());
+#endif
+
+	if (lCount <= 0)
+	{
+		// send WM_IDLEUPDATECMDUI to the main window
+		CWnd* pMainWnd = m_pMainWnd;
+		if (pMainWnd != NULL && pMainWnd->m_hWnd != NULL &&
+			pMainWnd->IsWindowVisible())
+		{
+			AfxCallWndProc(pMainWnd, pMainWnd->m_hWnd,
+				WM_IDLEUPDATECMDUI, (WPARAM)TRUE, 0);
+			pMainWnd->SendMessageToDescendants(WM_IDLEUPDATECMDUI,
+				(WPARAM)TRUE, 0, TRUE, TRUE);
+		}
+		// send WM_IDLEUPDATECMDUI to all frame windows
+		AFX_MODULE_THREAD_STATE* pState = AfxGetModuleThreadState();
+		CFrameWnd* pFrameWnd = pState->m_frameList;
+
+
+
+
+
+
+LONG RegQueryValueEx(
+
+    HKEY  hKey,	// handle of key to query 
+    LPTSTR  lpszValueName,	// address of name of value to query 
+    LPDWORD  lpdwReserved,	// reserved 
+    LPDWORD  lpdwType,	// address of buffer for value type 
+    LPBYTE  lpbData,	// address of data buffer 
+    LPDWORD  lpcbData 	// address of data buffer size 
+   );	
+	if (::RegSetValue(HKEY_CLASSES_ROOT, lpszKey, REG_SZ,
+		  lpszValue, lstrlen(lpszValue)) != ERROR_SUCCESS)
+	{
+		TRACE1("Warning: registration database update failed for key '%s'.\n",
+			lpszKey);
+		return FALSE;
+	}
+
+QueryForNetscape()
+
+DWORD  dwReserved = 0;
+DWORD  dwType = 0;
+
+BYTE   bData[_MAX_PATH+3];
+
+DWORD cBData = _MAX_PATH+3;
+
+LONG RegQueryValue(
+
+    HKEY  hKey,	// handle of key to query 
+    LPCTSTR  lpszSubKey,	// address of name of subkey to query 
+    LPTSTR  lpszValue,	// address of buffer for returned string 
+    PLONG  pcbValue 	// address of buffer for size of returned string 
+   );	
+
+
+ if (ERROR_SUCCESS == RegQueryValueEx(
+    HKEY_CLASSES_ROOT,	// handle of key to query 
+    _T("/NetscapeMarkup/shell/open/command"),	// address of name of value to query 
+    &dwReserved,	// reserved 
+    &dwType,	// address of buffer for value type 
+    bData,	// address of data buffer 
+    &cbData 	// address of data buffer size 
+ ) {
+
+	if (dwType == REG_SZ) {
+		
+	
+	}	
+}
+
+CreateEvent
+SendEvent
+
+EnterCriticalSection
+LeaveCriticalSection
+
+InitializeCriticalSection
+
+
+InterlockedDecrement
+
+	InterlockedDecrement(&afxAssertReallyBusy);
+	InterlockedIncrement(&afxAssertReallyBusy);
+
+AfxGetThreadState();
+
+
+
+Multithreaded Server
+
+under Pipes
+
+
+
+CWinThread
+
+
+
+// this critical section object is used to protect against concurrent
+//  access to the debug memory data structures from multiple threads
+static CRITICAL_SECTION memoryLock;
+static BOOL bMemoryLockInit;
+
+static void LockDebugMemory()
+{
+	if (!bMemoryLockInit)
+	{
+		InitializeCriticalSection(&memoryLock);
+		bMemoryLockInit = TRUE;
+	}
+	EnterCriticalSection(&memoryLock);
+}
+
+static void UnlockDebugMemory()
+{
+	ASSERT(bMemoryLockInit);
+
+	LeaveCriticalSection(&memoryLock);
+}

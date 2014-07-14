@@ -1,0 +1,90 @@
+TRIMMED NURBS SURFACES
+
+TRIM CONTOURS
+
+  A trim contour encloses an area in the domain of the
+nurbs surface. A contour is formed by one or more trim
+elements, which can be 2-dimensional polylines or nurbs
+ curves. Either the inside of a contour is visible and the
+outside invisible, or vice versa. This is determined by the
+orientation of the elements.
+
+FORMING A GRAPH (PLSG)
+
+The non-linear elements of the trim contours are linearized. 
+Afterwards a planar straight line graph (PLSG) is formed from
+all contours (which are now closed polylines).
+This graph is stored as a winged edge list (see [PREP])
+
+SPLITTING THE GRAPH
+
+We have functions to calculate the intersections of the graph
+with horizontal and vertical cutting lines. 
+New vertices are created at the intersection of an existing edge
+with a cutting line, and the intersected edges are splitted into
+two halves. The intersection points on the cutting lines are 
+connected by new edges. 
+Afterwards its possible to split the graph at the cutting lines
+into two independant sub-graphs, which lie on opposite sides
+of the cutting line.
+
+TESSELATING NURBS SURFACE & GRAPH SIMULTANEOUSLY
+ 
+When tesselating a nurbs surface (either uniform or adaptive)
+the above graph split functions are used to get the part of the
+graph for each tesselation cell.
+If a tesselation cell is wholy visible (or invisible) its sub-graph
+consists of exactly 4 vertices and edges !
+
+TRIANGULATING TESSELATION CELLS
+
+If a tesselation cell is not wholy visible, its graph is triangulated.
+This is done by classical Computational Geometry methods
+(see [PREP]):
+
+  1.) regularizing a graph
+  2.) weight balancing combined with extraction of monotone 
+      polygons
+  3.) triangulating monotone polygons
+
+At the vertices of the calculated domain triangles function values
+and normals are calculated with triangular interpolation (Barycentric
+coordinates).
+
+IMPLEMENTATION NOTES
+
+The calculation of intersection points is done by exact arithmetic
+(see [KNU]) to avoid inconsistencies caused by rounding errors.
+
+Predicates, like determining whether a point lies to the left, on or
+to the right of a given line, are first calculated with interval arithmetic
+(see [KNU]) using normal floating point arithmetics. If the lower and
+upper bound of the calculated interval doesn't allow an decision, the
+result is also calculated with exact arithmetics.
+
+REFERENCES
+
+[PREP]
+  Franco P. Preparata, Michael Ian Shamos, 
+  "Computational Geometry - An Introduction",
+  Springer
+
+[KNU]
+  Donald E. Knuth,
+  "Seminumerical Algorithms",
+  "The Art of Computer Programming"-series, VOL. 2
+  Addison Wesley
+
+
+
+
+
+
+
+
+
+
+
+
+
+

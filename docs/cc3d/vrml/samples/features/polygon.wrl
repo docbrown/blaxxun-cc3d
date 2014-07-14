@@ -1,0 +1,31 @@
+#VRML V2.0 utf8
+EXTERNPROTO Polygon[
+				exposedField SFNode color
+				exposedField SFNode coord
+				exposedField SFNode normal
+				exposedField MFNode texCoord
+				exposedField SFBool ccw
+				exposedField MFInt32 coordIndex
+				exposedField SFBool solid
+				]
+			["urn:inet:blaxxun.com:node:Polygon","http://www.blaxxun.com/vrml/protos/nodes.wrl#Polygon","nodes.wrl#Polygon"]
+
+		Shape {
+			appearance DEF _Appearance 
+			Appearance {
+				material Material {} 
+				texture DEF _ImageTexture 
+					ImageTexture {url "texture.jpg"}
+			}
+			geometry Polygon {
+				solid FALSE
+				coord Coordinate {
+				point [	-1 -1 0,
+						1 -1 0,
+						1 1 0,
+						-1 1 0
+						]}
+				texCoord  DEF _TextureCoordinate TextureCoordinate {point [0 0,0 1,1 1,1 0] }
+				coordIndex [0,1,2,3,-1]
+			}
+		},

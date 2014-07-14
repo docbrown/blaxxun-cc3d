@@ -1,0 +1,1019 @@
+// blaxxunVRML.idl : IDL source for blaxxunCC3D VRML external API 
+//
+// (c) 1997 blaxxun interactive
+//
+//
+// This file will be processed by the MIDL tool to
+// produce the type library (blaxxunVRML.tlb) and marshalling code.
+// the type library will be registerd during Registration of blaxxunCC3D
+//
+// Special type mappings for Java-COM
+//
+//		unsigned small int  ==> Java Byte 
+//		VARIANT_BOOL		==> Java Boolean
+//		IDispatch			==> Java Object
+//
+// all arrays are preceeded with flat cnt parameter 
+// all return arrays are passed as in/out parameters 
+// arrays to objects are not supported in JAVA-COM
+//
+//
+// Changes :
+//		04/28/97 adapted SFImage && toString 
+//		07/03/97 added Script interface
+//		09/10/97 extended BrowserObserver
+
+[
+	uuid(BAC50391-75D9-11D0-9315-0020AFE05CC8),
+	version(1.0),
+	helpstring("blaxxunVRML 1.0 Type Library, 3.1")
+]
+library blaxxunVRMLLib
+{
+	importlib("stdole32.tlb");
+
+
+	// forward declarations
+	interface Node;
+	interface Browser;
+	interface Field;
+	interface EventIn;
+	interface EventOut;
+	interface EventInSFFloat;
+	interface EventInSFBool;
+	interface EventOutMField;
+
+	// enumeration for quering Node/Proto Interfaces 
+	typedef enum InterfaceElementTypes {
+        type_unknown = 0,
+        type_field,
+		type_exposedField,
+		type_eventIn,
+		type_eventOut,
+	} InterfaceElementTypes;
+
+
+	// Interface to a VRML node 
+	[
+		object,
+		uuid(BAC50393-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("Node Interface"),
+		pointer_default(unique)
+	]
+	interface Node : IDispatch
+	{
+		import "oaidl.idl";
+
+		// get the type of node/Proto as string
+		HRESULT getType([out,retval] BSTR* type);
+
+		// get handle to EventIn
+		HRESULT getEventIn([in] BSTR name, [out,retval] EventIn **result);
+
+		// get handle to EventOut
+		HRESULT getEventOut([in] BSTR name, [out,retval] EventOut **result);
+
+		// Extensions : 
+		// get handle to field 
+		HRESULT getField([in] BSTR name, [out,retval] Field **result);
+
+		// get handle to exposed field 
+		HRESULT getExposedField([in] BSTR name, [out,retval] Field **result);
+
+		// needed for Java SI
+		HRESULT getBrowser([out,retval] Browser **result);
+
+
+		// Node Naming extension
+		// get the name of node
+		HRESULT getName([out,retval] BSTR* name);
+
+		// set the name of node
+		HRESULT setName([in] BSTR name);
+
+		// Node Interface Query extension
+
+		// query the number of interface elements of this node 
+		HRESULT getNumInterfaceElements([out,retval] int *result);
+
+		// query the  specified interface elements of this node / Proto
+		HRESULT getInterfaceElement([in] int index, [out] int* elementType,[out] int* fieldType, [out] BSTR *name);
+
+
+		// query the node this node evaluates to, would returned top-level
+		// proto node for a PROTO-Instance
+		HRESULT getValueNode([out,retval] Node* *result);
+
+
+		// internal
+
+		// get the pointer to the native browser Node (internal)
+		HRESULT getNative([out,retval] long *result);
+
+		// get the reference counter (internal, for debugging only)
+		HRESULT getRefCnt([out,retval] long *result);
+
+
+	};
+
+	// Field Types 
+	typedef enum FieldTypes {
+        UnknownType = 0,
+		// VRML 2.0 field types, order matches Java EAI
+        SFBOOL,     SFIMAGE,     SFTIME,
+        SFCOLOR,    MFCOLOR,     SFFLOAT,     MFFLOAT,
+        SFINT32,    MFINT32,     SFNODE,      MFNODE,
+        SFROTATION, MFROTATION,  SFSTRING,    MFSTRING,
+        SFVEC2F,    MFVEC2F,     SFVEC3F,     MFVEC3F,
+		// VRML 1.0 types for backward compatibility
+		SFENUM, SFBITMASK, SFMATRIX, SFLONG, MFLONG
+	} FieldType;
+
+
+	// Interface to a VRML field 
+	[
+		object,
+		uuid(BAC50398-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("Field Interface"),
+		pointer_default(unique)
+	]
+	interface Field : IDispatch
+	{
+		import "oaidl.idl";
+
+		// get the type of the field, value is in range FieldTypes
+		HRESULT getType([out,retval] int* type);
+	};
+
+
+	// base Interface for a VRML EventIn
+	[
+		object,
+		uuid(BAC5039D-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventIn Interface"),
+		pointer_default(unique)
+	]
+	interface EventIn : IDispatch
+	{
+		import "oaidl.idl";
+
+		// get the type of the EventIn, value is in range FieldTypes
+		HRESULT getType([out,retval] int* type);
+
+		// set the value from string
+		HRESULT setValueFromString([in] BSTR value);
+	};
+
+
+	// ********** EventInMF*
+
+	[
+		object,
+		uuid(BAC503A2-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFColor Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFColor : EventIn
+	{
+		import "oaidl.idl";
+
+		// set all values by flat array
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] float *value);
+
+		// set 1 value
+		HRESULT set1Value([in] int index, [in,size_is(3)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503A7-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFFloat Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFFloat : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] float *value);
+		HRESULT set1Value([in] int index, [in] float value);
+
+	};
+
+
+	[
+		object,
+		uuid(BAC503AC-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFInt32 Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFInt32 : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] int *value);
+		HRESULT set1Value([in] int index, [in] int value);
+	};
+
+
+	[
+		object,
+		uuid(BAC503B1-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFNode Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFNode : EventIn
+	{
+		import "oaidl.idl";
+
+		// Node array doesn´t work from Microsoft COM - Java interface 
+		// need to always call set1Value 
+
+//		HRESULT setValue([in] int cnt, [in,out,size_is(cnt)] Node** value);
+		HRESULT setValue([in] int cnt, [in,out,size_is(cnt)] IDispatch** value);
+		HRESULT set1Value([in] int index,[in] Node* value);
+	
+	};
+
+
+
+
+
+
+	[
+		object,
+		uuid(BAC503B6-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFRotation Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFRotation : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] float *value);
+		HRESULT set1Value([in] int index, [in,size_is(4)] float* value);
+	};
+
+
+	[
+		object,
+		uuid(BAC503BB-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFString Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFString : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] BSTR *value);
+		HRESULT set1Value([in] int index,[in] BSTR value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503C0-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFVec2f Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFVec2f : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] float *value);
+		HRESULT set1Value([in] int index, [in,size_is(2)] float* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503C5-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInMFVec3f Interface"),
+		pointer_default(unique)
+	]
+	interface EventInMFVec3f : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] int cnt, [in,size_is(cnt)] float *value);
+		HRESULT set1Value([in] int index, [in,size_is(3)] float* value);
+	};
+
+	
+	// ********** EventInSF* 
+
+	[
+		object,
+		uuid(BAC503CA-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFBool Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFBool : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in] VARIANT_BOOL value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503CF-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFColor Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFColor : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in,size_is(3)] float* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503D9-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFFloat Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFFloat : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in] float value);
+	};
+
+
+	[
+		object,
+		uuid(BAC503DE-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFImage Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFImage : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in] int width,[in] int height,[in] int numComponents,
+						 [in] int cnt,[in,size_is(cnt)] unsigned small int * pixels);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503E3-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFInt32 Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFInt32 : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in] int value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503E8-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFNode Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFNode : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in] Node* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503ED-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFRotation Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFRotation : EventIn
+	{
+		import "oaidl.idl";
+
+		HRESULT setValue([in,size_is(4)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC503F2-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFString Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFString : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] BSTR value);
+	};
+
+
+	[
+		object,
+		uuid(BAC503D4-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFTime Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFTime : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in] double value);
+	};
+
+
+	[
+		object,
+		uuid(BAC503FC-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFVec2f Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFVec2f : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in,size_is(2)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50401-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventInSFVec3f Interface"),
+		pointer_default(unique)
+	]
+	interface EventInSFVec3f : EventIn
+	{
+		import "oaidl.idl";
+		HRESULT setValue([in,size_is(3)] float* value);
+	};
+
+	
+	// forward
+
+	interface EventOutObserver;
+
+	// base Interface for a VRML EventOut
+
+	[
+		object,
+		uuid(BAC503F7-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOut Interface"),
+		pointer_default(unique)
+	]
+	interface EventOut : IDispatch
+	{
+		import "oaidl.idl";
+		
+		// get the type 
+		HRESULT getType([out,retval] int* type);
+		
+		// establish eventOutObserver pseudo ROUTE
+		HRESULT advise([in] EventOutObserver* observer, [in] IDispatch * userData);
+
+		// unconnect eventOutObserver pseudo ROUTE
+		HRESULT unAdvise([in] EventOutObserver* observer);
+
+		// get value by string
+		HRESULT toString([out,retval] BSTR* value);
+
+	};
+
+
+	// Interface for the EventOutObserver
+	// usually implemented by a client object
+
+
+	[
+		object,
+		uuid(BAC50406-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutObserver Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutObserver : IDispatch
+	{
+		import "oaidl.idl";
+
+		// callback function activated from browser if Event occurs
+		
+		HRESULT callback([in] EventOut *value, [in]  double timeStamp, [in] IDispatch *userData);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5040B-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMField Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMField : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getSize([out,retval] int* cnt);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50410-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFColor Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFColor : EventOutMField
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] float *value);
+		HRESULT get1Value([in] int index, [in,out,size_is(3)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50415-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFFloat Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFFloat : EventOutMField
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] float *value);
+		HRESULT get1Value([in] int index, [out,retval] float* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5041A-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFInt32 Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFInt32 : EventOutMField
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] int *value);
+		HRESULT get1Value([in] int index, [out,retval] int* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5041F-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFNode Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFNode : EventOutMField
+	{
+		import "oaidl.idl";
+		// node array doesn´t work in COM-JAVA 
+//		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] Node* *value);
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] IDispatch* *value);
+
+		HRESULT get1Value([in] int index, [out,retval] Node** value);
+	};
+
+
+	[
+		object,
+		uuid(BAC50424-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFRotation Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFRotation : EventOutMField
+	{
+		import "oaidl.idl";
+
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] float *value);
+		HRESULT get1Value([in] int index, [in,out,size_is(4)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50429-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFString Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFString : EventOutMField
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] BSTR *value);
+		HRESULT get1Value([in] int index, [out,retval] BSTR* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5042E-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFVec2f Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFVec2f : EventOutMField
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] float *value);
+		HRESULT get1Value([in] int index, [in,out,size_is(2)] float* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50433-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutMFVec3f Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutMFVec3f : EventOutMField
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in] int cnt, [in,out,size_is(cnt)] float *value);
+		HRESULT get1Value([in] int index, [in,out,size_is(3)] float* value);
+	};
+
+	// ********** EventOutSF*
+
+	[
+		object,
+		uuid(BAC50438-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFBool Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFBool : EventOut
+	{
+		import "oaidl.idl";
+		
+		HRESULT getValue([out,retval] VARIANT_BOOL *value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5043D-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFColor Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFColor : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in,out,size_is(3)] float* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50442-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFFloat Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFFloat : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([out,retval] float *value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50447-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFImage Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFImage : EventOut
+	{
+		import "oaidl.idl";
+
+		HRESULT getWidth([out,retval] int *value);
+		HRESULT getHeight([out,retval] int *value);
+		HRESULT getNumComponents([out,retval] int *value);
+		HRESULT getPixels([in] int cnt, [in,out,size_is(cnt)] unsigned small int *value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5044C-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFInt32 Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFInt32 : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([out,retval] int *value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50451-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFNode Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFNode : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([out,retval] Node* *value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50456-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFRotation Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFRotation : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in,out,size_is(4)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5045B-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFString Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFString : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([out,retval] BSTR* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50460-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFTime Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFTime : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([out,retval] double* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50465-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFVec2f Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFVec2f : EventOut
+	{
+		import "oaidl.idl";
+
+		HRESULT getValue([in,out,size_is(2)] float* value);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5046A-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("EventOutSFVec3f Interface"),
+		pointer_default(unique)
+	]
+	interface EventOutSFVec3f : EventOut
+	{
+		import "oaidl.idl";
+		HRESULT getValue([in,out,size_is(3)] float* value);
+	};
+
+
+
+	[
+		object,
+		uuid(BAC5046F-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("Browser Interface"),
+		pointer_default(unique)
+	]
+	interface Browser : IDispatch
+	{
+		import "oaidl.idl";
+
+			HRESULT  getName([out,retval] BSTR* value);
+			HRESULT  getVersion([out,retval] BSTR* value);
+			HRESULT  getCurrentSpeed([out,retval] float* value);
+			HRESULT  getCurrentFrameRate([out,retval] float* value);
+			HRESULT  getWorldURL([out,retval] BSTR* value);
+
+			HRESULT  replaceWorld(Node* value);
+
+			HRESULT  loadURL([in] int cntUrl, [in,size_is(cntUrl)] BSTR *url,[in] int cntParameter, [in,size_is(cntParameter)] BSTR * parameter);
+
+			HRESULT  setDescription([in]BSTR description);
+
+			HRESULT  createVrmlFromString([in] BSTR vrmlSyntax, [out,retval] Node* *value);
+
+			HRESULT  createVrmlFromURL([in] BSTR url, [in] Node* node, [in] BSTR event);
+
+			HRESULT  getNode([in] BSTR name,[out,retval] Node* *value);
+			
+			HRESULT  addRoute([in] Node*  fromNode, [in] BSTR fromEventOut, [in] Node* toNode, [in] BSTR toEventIn);
+
+			HRESULT  deleteRoute([in] Node* fromNode, [in] BSTR fromEventOut, [in] Node* toNode, [in] BSTR toEventIn);
+
+			// HRESULT  getBrowser([out,retval] Browser ** browser);
+
+			// Extensions 
+			HRESULT  createNode([in] BSTR nodeclass,[out,retval] Node* *value);
+			HRESULT  getWorld([out,retval] Node* *value);
+
+			HRESULT  beginUpdate();
+			HRESULT  endUpdate();
+
+			HRESULT  addNode([in] Node*  node);
+
+			HRESULT  removeNode([in] Node* node,[out,retval] VARIANT_BOOL *value);
+			
+			HRESULT  setNodeName([in] Node* node,[in] BSTR name);
+			HRESULT  getNodeName([in] Node* node,[out,retval] BSTR* name);
+			
+			HRESULT  getEventOut(BSTR eventOutName, [out,retval] EventOut **value);
+			HRESULT  getEventIn(BSTR eventInName,[out,retval] EventIn **value);
+
+			HRESULT  getControlPathname([out,retval] BSTR* directoryName);
+
+			HRESULT	 saveWorld([in] BSTR fileName,[out,retval] VARIANT_BOOL *value);
+			
+			HRESULT  saveViewpoint([in] BSTR viewpointName);
+			
+			HRESULT  setObserver([in] IUnknown* observer,[in] int flags, [out,retval] VARIANT_BOOL *value);
+			
+			HRESULT  setViewpointByValue([in,size_is(3)] float* position, [in,size_is(4)] float* orientation, [in]float fov, [in] VARIANT_BOOL animate);
+
+			HRESULT  setFullscreen([in] VARIANT_BOOL mode,[out,retval] VARIANT_BOOL *value);
+			HRESULT  setCollisionDetection([in] VARIANT_BOOL mode);
+			
+			HRESULT	 setRenderMode([in] BSTR mode);
+			HRESULT	 setNavigationMode([in] BSTR mode);
+			HRESULT	 setViewpoint([in] BSTR viewpointName);
+
+			HRESULT  setHeadlight([in] VARIANT_BOOL mode);
+			HRESULT  setAvatarHeight([in] float value);
+			HRESULT  setCollisionDistance([in] float value);
+			HRESULT  setVisibilityLimit([in] float value);
+			HRESULT  setWalkSpeed([in] float value);
+
+	};
+
+
+	[
+		object,
+		uuid(BAC50474-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("ScriptContainer Interface"),
+		pointer_default(unique)
+	]
+	interface ScriptContainer : IDispatch // supports also Node interface 
+	{
+		import "oaidl.idl";
+		//HRESULT getBrowser([out,retval] Browser **result);
+
+	};
+
+
+
+	[
+		object,
+		uuid(BAC50479-75D9-11D0-9315-0020AFE05CC8),
+		dual,
+		helpstring("Script Interface"),
+		pointer_default(unique)
+	]
+	interface Script : IDispatch
+	{
+		import "oaidl.idl";
+
+		HRESULT setContainer([in] Node* container);
+
+		HRESULT loadScriptObject([in] BSTR urlData);
+
+		HRESULT initialize();
+		HRESULT shutdown();
+		
+		HRESULT processEvent([in] BSTR name, [in] int eventId, [in] EventOut *value,[in] double timeStamp);
+		HRESULT eventsProcessed();
+
+	};
+
+	// interface implemented on client object, to observer certain browser actions
+	// currently set via blaxxunCC3d.setObserver(observer,flags)
+
+	[
+		object,
+		uuid(B8B46AC1-185B-11D1-9447-0020AFE05CC8),
+		dual,
+		helpstring("BrowserObserver Interface"),
+		pointer_default(unique)
+	]
+	interface BrowserObserver : IDispatch
+	{
+		import "oaidl.idl";
+
+		// Implementer : display the message in the status bar 
+		HRESULT OnStatusMessage([in] BSTR message, [in] int messageType);
+
+		// Implementer : called if problems with an url 
+		HRESULT OnUrlError([in] BSTR url, [in] BSTR message, [in] int errorCode);
+
+		// Implementer : pass URL to Web-Browser
+		HRESULT OnLoadUrl([in] BSTR url, [in] BSTR targetFrame);
+		
+		// Implementer : can return NOT_IMPL, this entry  get's whole VRML 2.0 Anchor information
+		HRESULT OnLoadAnchor([in] BSTR description,[in] int numUrl, [in,size_is(numUrl)] BSTR *url,[in] int numParameter , [in,size_is(numParameter)] BSTR *parameter);
+
+		// Implementer : notifies of a change in viewpoint 
+		HRESULT OnViewpointChanged([in,size_is(3)] float *position,[in,size_is(4)] float *orientation);
+
+		// Implementer : notifies of a change in scene, url is empty for browser.replaceWorld calls
+		HRESULT OnSceneChanged([in] BSTR url);
+
+		// Implementer : for Netscape Environment, download url to a file and callback onUrlNotify(url
+		HRESULT LoadUrlToFile([in] BSTR url);
+
+	};
+
+
+};

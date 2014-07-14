@@ -1,0 +1,75 @@
+#VRML V2.0 utf8  
+
+WorldInfo 
+{
+	title "Simple NurbsSurface"
+	info "NurbsSurface with a Texture and a TextureTransform"
+}
+
+NavigationInfo {
+	type ["EXAMINE","ANY"]
+
+}
+
+DEF Viewpoint1 Viewpoint {
+fieldOfView 0.844104
+orientation 0 0 1 0
+position 0 0 4.00859
+description "Viewpoint1"
+}
+
+EXTERNPROTO NurbsSurface [
+field        SFInt32  uDimension 
+field        SFInt32  vDimension 
+field        MFFloat  uKnot  
+field        MFFloat  vKnot 
+field        SFInt32  uOrder 
+field        SFInt32  vOrder 
+exposedField MFVec3f  controlPoint
+exposedField MFFloat  weight
+exposedField SFInt32  uTessellation
+exposedField SFInt32  vTessellation
+exposedField SFNode   texCoord
+field        SFBool   ccw
+field        SFBool   solid
+]
+[
+	"urn:inet:blaxxun.com:node:NurbsSurface",
+	"nurbs.wrl#NurbsSurface"  # for local testing
+	"http://www.blaxxun.com/vrml/protos/nurbs.wrl#NurbsSurface"
+]
+
+
+Transform {
+translation -1.5 -1.5 0
+children [
+	Shape { 
+		geometry DEF nurb NurbsSurface {
+			uOrder 4 
+			vOrder 4 
+			uDimension 4 
+			vDimension 4 
+			uKnot [ 0, 0, 0, 0, 3, 3, 3, 3]
+			vKnot [ 0, 0, 0, 0, 3, 3, 3, 3]
+			controlPoint[ 0 0 0, 1 0 0, 2 0 0, 3 0 0,
+					 0 1 0, 1 1 0, 2 1 0, 3 1 0, 
+					0 2 0, 1 2 0, 2 2 0, 3 2 0, 
+					0 3 0, 1 3 0, 2 3 0, 3 3 0]
+			weight [ 1.000000, 1.000000, 1.000000,
+				1.000000, 1.000000, 1.000000,
+				1.000000, 1.000000, 1.000000,
+				2.000000, 1.000000, 1.000000,
+				1.000000, 1.000000, 1.000000, 1.000000,]
+ 			}
+			appearance Appearance {
+            		material Material { diffuseColor 0 0 1 emissiveColor 1 0 0}  # Blue 
+					texture ImageTexture {url "textureMap.gif"}
+					textureTransform TextureTransform {
+							center 0.6 0
+							translation .5 .5
+							scale 1 1
+						}
+     				}
+	}	
+]
+}

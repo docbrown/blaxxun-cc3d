@@ -1,0 +1,50 @@
+TREE=/opt
+ZLIBTREE=$(TREE)/zlib-1.0.4
+ZLIBINCDIR =$(ZLIBTREE)/include
+ZLIBDIR =$(ZLIBTREE)/lib
+PTOP=$(TREE)/libpng-0.89c
+
+CFLAGS= -O -Ae +z -I. -I$(ZLIBINCDIR)
+LDFLAGS=-L$(PLIBDIR) -lpng -L$(ZLIBDIR) -lz -lm
+
+OBJS = png.o pngrcb.o pngrutil.o pngtrans.o pngwutil.o \
+	pngread.o pngrio.o pngwio.o pngwrite.o pngrtran.o \
+	pngwtran.o pngmem.o pngerror.o pngpread.o
+
+
+ARLIB = libpng.a
+SHLIB = libpng.sl
+AllTarget($(ARLIB))
+AllTarget($(SHLIB))
+
+
+$(ARLIB): $(OBJS)
+	@echo Building ARCHIVED LIB
+        ar r $@ $(OBJS)
+
+$(SHLIB): $(OBJS)
+	@echo Building SHARED LIB
+        -ld -b -s -o $@ $(OBJS)
+
+# Install the libs
+PLIBDIR=$(PTOP)/lib
+InstallSharedLibrary(png,,$(PLIBDIR))
+InstallLibrary(png,$(PLIBDIR))
+# Install the headers
+PINCDIR=$(PTOP)/include
+InstallNonExecFile(png.h,$(PINCDIR))
+InstallNonExecFile(pngconf.h,$(PINCDIR))
+
+
+#install::
+#	chmod a+r $(PTOP) $(PLIBDIR) $(PINCDIR)
+
+test: install pngtest
+	-./pngtest
+
+# Create the test proggy to test $(ARLIB) or $(SHLIB)
+pngtest: pngtest.o 
+        cc -o pngtest $(CFLAGS) pngtest.o $(LDFLAGS)
+
+clean::
+	rm -f libpng.sl

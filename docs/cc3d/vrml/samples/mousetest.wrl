@@ -1,0 +1,218 @@
+#VRML V2.0 utf8
+
+
+
+WorldInfo { title "blaxxunCC3D 4.1 mouse & keyboard demo " }
+
+DEF TS TouchSensor {}
+
+Transform {
+  children	[
+    Transform {
+      children	Shape {
+	appearance	Appearance {
+	  material	Material {
+	    ambientIntensity	0.246377
+	    diffuseColor	0.69 0.13 0.33
+	    specularColor	0.12 0.05 0.05
+	    emissiveColor	0 0 0
+	    shininess	0.07
+	    transparency	0
+	  }
+
+	}
+
+	geometry	Box {
+	}
+
+      }
+
+      translation	-0.0495471 -0.227079 0.0813418
+      rotation	-1 0 0  1.5708
+      scale	0.25 0.25 0.25
+    }
+
+
+    Transform {
+      children	Shape {
+	appearance	Appearance {
+	  material	Material {
+	  }
+
+
+	}
+
+	geometry	DEF IFS1 IndexedFaceSet {
+	  coord	Coordinate {
+	    point	[ 0 1 0,
+		      0 -1 -1,
+		      -0.382683 -1 -0.92388,
+		      -0.707107 -1 -0.707107,
+		      -0.92388 -1 -0.382683,
+		      -1 -1 -6.12303e-017,
+		      -0.92388 -1 0.382683,
+		      -0.707107 -1 0.707107,
+		      -0.382683 -1 0.92388,
+		      -1.22461e-016 -1 1,
+		      0.382683 -1 0.92388,
+		      0.707107 -1 0.707107,
+		      0.92388 -1 0.382683,
+		      1 -1 1.83691e-016,
+		      0.92388 -1 -0.382683,
+		      0.707107 -1 -0.707107,
+		      0.382683 -1 -0.92388,
+		      0 -1 0 ]
+	  }
+
+	  coordIndex	[ 0, 1, 2, -1, 0, 2, 3, -1,
+		    0, 3, 4, -1, 0, 4, 5, -1,
+		    0, 5, 6, -1, 0, 6, 7, -1,
+		    0, 7, 8, -1, 0, 8, 9, -1,
+		    0, 9, 10, -1, 0, 10, 11, -1,
+		    0, 11, 12, -1, 0, 12, 13, -1,
+		    0, 13, 14, -1, 0, 14, 15, -1,
+		    0, 15, 16, -1, 0, 16, 1, -1,
+		    17, 1, 16, -1, 17, 16, 15, -1,
+		    17, 15, 14, -1, 17, 14, 13, -1,
+		    17, 13, 12, -1, 17, 12, 11, -1,
+		    17, 11, 10, -1, 17, 10, 9, -1,
+		    17, 9, 8, -1, 17, 8, 7, -1,
+		    17, 7, 6, -1, 17, 6, 5, -1,
+		    17, 5, 4, -1, 17, 4, 3, -1,
+		    17, 3, 2, -1, 17, 2, 1, -1 ]
+	  texCoord	TextureCoordinate {
+	    point	[ 0.5 1,
+		      0 0,
+		      0.0625 0,
+		      0.125 0,
+		      0.1875 0,
+		      0.25 0,
+		      0.3125 0,
+		      0.375 0,
+		      0.4375 0,
+		      0.5 0,
+		      0.5625 0,
+		      0.625 0,
+		      0.6875 0,
+		      0.75 0,
+		      0.8125 0,
+		      0.875 0,
+		      0.9375 0,
+		      0.5 0 ]
+	  }
+
+	  solid	FALSE
+	  creaseAngle	0.5
+	  normalIndex	[  ]
+	  texCoordIndex	[ 0, 1, 2, -1, 0, 2, 3, -1,
+		    0, 3, 4, -1, 0, 4, 5, -1,
+		    0, 5, 6, -1, 0, 6, 7, -1,
+		    0, 7, 8, -1, 0, 8, 9, -1,
+		    0, 9, 10, -1, 0, 10, 11, -1,
+		    0, 11, 12, -1, 0, 12, 13, -1,
+		    0, 13, 14, -1, 0, 14, 15, -1,
+		    0, 15, 16, -1, 0, 16, 1, -1,
+		    17, 1, 16, -1, 17, 16, 15, -1,
+		    17, 15, 14, -1, 17, 14, 13, -1,
+		    17, 13, 12, -1, 17, 12, 11, -1,
+		    17, 11, 10, -1, 17, 10, 9, -1,
+		    17, 9, 8, -1, 17, 8, 7, -1,
+		    17, 7, 6, -1, 17, 6, 5, -1,
+		    17, 5, 4, -1, 17, 4, 3, -1,
+		    17, 3, 2, -1, 17, 2, 1, -1 ]
+	}
+
+      }
+
+      translation	2 0.276517 0.0813415
+      scale	1.24127 1.24127 1.24127
+    }
+  ]
+}
+
+
+DEF s1 Script {
+eventIn SFTime trigger
+eventOut SFNode out
+url "javascript:
+function trigger(v,t){
+		// setup a ray
+        here = Browser.viewpointPosition;
+        there = new SFVec3f(here.x,here.y,here.z-1000);
+
+		// compute hit 
+        thisNode = Browser.computeRayHit(here,there);
+
+        if (thisNode) { //SFNode with RayHitInfo special node
+				Browser.print('Hit '+ thisNode.hitPoint);
+				Browser.print(' Point local '+ thisNode.hitPointLocal);
+				Browser.print(' TexCoord local '+ thisNode.hitTexCoord);
+				path = thisNode.hitPath; // MFNode
+				l = thisNode.hitPath.length;
+				Browser.print(' path length '+ l);
+				for (i=0; i <l; i++) {
+					Browser.print(' '+ path[i].getName() + ' '+path[i].getType());
+				}
+				out = path[l-1]; // IFS / Sphere etc 
+                //out = thisNode;
+        }
+        else {
+			Browser.print(' No Hit ');
+			return;
+		}
+}
+"}
+
+
+DEF inputHandler Script 
+{
+eventIn SFNode onEvent
+url "javascript:
+function onEvent(e,t)
+{
+	if (e.type == 'mousemove' && e.button == 0) {  
+	//	return; // to many prints
+	}
+
+	print('Event type='+e.type+' at='+t);
+	print(' button='+e.button+' shiftKey='+e.shiftKey+' ctrlKey='+e.ctrlKey+' altKey='+e.altKey);
+	print(' position='+e.position+' keyCode='+e.keyCode+' ctrlKey='+e.ctrlKey+' altKey='+e.altKey);
+	if (e.type == 'mouseup' && e.button == 2) {  // test we want to handle rbutton  menu
+		e.returnValue = 0;
+	}
+}
+"
+}
+
+
+DEF start Script {
+field SFNode inputHandler USE inputHandler
+field SFInt32 oldMask 0
+url "javascript:
+
+function initialize()
+{
+	// tell what events
+	m=Browser.eventMask;
+	oldMask=m;
+	m = m |	(1<<4) | 1; // mouse up & down
+
+	 m|= -1; // all
+	Browser.eventMask = m;
+	// add event observer
+	Browser.addRoute(Browser,'event_changed',inputHandler,'onEvent');
+}
+function shutdown()
+{
+	// remove event observer
+	Browser.eventMask = oldMask;
+	Browser.deleteRoute(Browser,'event_changed',inputHandler,'onEvent');
+}
+
+"}
+
+
+
+ROUTE TS.touchTime TO s1.trigger
+
+

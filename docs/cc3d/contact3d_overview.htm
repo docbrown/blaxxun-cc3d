@@ -1,0 +1,300 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>blaxxun Contact 3D Community Source - Overview</TITLE>
+<META NAME="keywords" CONTENT="VRML BROWSER SOURCE CONTACT 3D">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<P ALIGN="CENTER"><CENTER><TABLE CELLSPACING=0 BORDER=0 WIDTH=640>
+<TR><TD VALIGN="MIDDLE">
+<FONT SIZE=2><P></FONT><A HREF="http://www.blaxxun.com/"><IMG SRC="images/logo.gif" BORDER=0 WIDTH=130 HEIGHT=47 ALT="blaxxun home page"></A></TD>
+<TD VALIGN="MIDDLE">
+<FONT SIZE=2><P ALIGN="RIGHT"><IMG SRC="images/header_cube.gif" WIDTH=179 HEIGHT=60 ALT=" "></FONT></TD>
+</TR>
+<TR><TD VALIGN="MIDDLE">
+<FONT FACE="Arial" SIZE=2><P><BR>
+</FONT></TD>
+<TD VALIGN="MIDDLE">
+<B><FONT FACE="Arial"><P></B></FONT><A HREF="http://www.web3d.org/"><IMG SRC="images/header_logo.gif" BORDER=0 WIDTH=179 HEIGHT=58></A></TD>
+</TR>
+<TR><TD VALIGN="MIDDLE">
+<FONT FACE="Arial" SIZE=2><P>&nbsp;</FONT></TD>
+<TD VALIGN="MIDDLE">
+<FONT FACE="Arial" SIZE=2><P>&nbsp;</FONT></TD>
+</TR>
+<TR><TD VALIGN="MIDDLE">
+<FONT FACE="Arial" SIZE=2><P>&nbsp;</FONT></TD>
+<TD VALIGN="MIDDLE">
+<FONT FACE="Arial" SIZE=2><P>&nbsp;</FONT></TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<B><FONT FACE="Arial" SIZE=6>
+<P>Web3D blaxxun Contact 3D Community Source</P>
+</B></FONT><FONT SIZE=2><P>Holger Grahn - 1/31/2000</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>News</P>
+
+<UL>
+</B></FONT><FONT SIZE=2><LI>1/31/2000 -  code release based on blaxxun Contact 3D 4.3</LI>
+<LI>9/9/1999 - initial code release based on blaxxun Contact 3D 4.201</LI>
+<LI>8/11/1999  Press Releases - Web3D Consortium and blaxxun interactive License VRML Browser Source Code </FONT><A HREF="http://www.web3D.org/news/pressreleases/pr990810a.htm"><B><FONT SIZE=2>http://www.web3D.org/news/pressreleases/pr990810a.htm</B></FONT></A><FONT SIZE=2> </FONT><A HREF="http://www.blaxxun.com/company/press/releases/x3d_0899content.html"><FONT SIZE=2>http://www.blaxxun.com/company/press/releases/x3d_0899content.html</FONT></A><FONT SIZE=2><BR>
+<BR>
+</LI></UL>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>What‘s up with this ?</P>
+</B></FONT><FONT SIZE=2><P>blaxxun Contact 3D (blaxxunCC3D or CC3D in short) is an effort to implement the VRML 97 Standard (ISO/IEC 14772-1:1997). The specification can be found at </FONT><A HREF="http://www.web3d.org/technicalinfo/specifications/vrml97/index.htm"><FONT SIZE=2>http://www.web3d.org/technicalinfo/specifications/vrml97/index.htm</FONT></A></P>
+<FONT SIZE=2><P>Beside VRML 97, VRML 1.0 and some Open Inventor nodes are supported.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>Overview</P>
+</B></FONT><FONT SIZE=2><P>blaxxun Contact 3D currently is only available for the WIN32 platform using either OpenGL or Direct 3D as low level rendering API. There is a core library providing rendering, utility, media support and VRML scene graph services. On this core the sources for two different front-end’s are provided:</P>
+<B><P>blaxxuncc3d.ocx</B> An MFC Based Active X Control as a plugin for Active X Applications (e.g. Microsoft Internet Explorer)</P>
+<B><P>GLView.exe</B> A standalone MFC Based application including some editing capabilities and a SceneGraph Tree Viewer.</P>
+<P>A Netscape Navigator plugin is provided which is realized as a small wrapper for blaxxuncc3d.ocx.</P>
+<P>The EAI is internally realized using COM (blaxxunVRML.idl)</P>
+<B><P>cc3dglut</B> A standalone simplistic hello world application for Linux using the Mesa 3.1 &amp; GLUT libary.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>License</P>
+</B></FONT><FONT SIZE=2><P>The source is subject to the Web3D-blaxxun Community Source Agreement : </FONT><A HREF="http://www.web3d.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceAgreement.html"><FONT SIZE=2>http://www.web3d.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceAgreement.html</FONT></A></P>
+<B><FONT FACE="Arial" SIZE=4><P>License FAQ</P>
+</B></FONT><FONT SIZE=2><P></FONT><A HREF="http://www.web3d.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceFAQ.html"><U><FONT SIZE=2 COLOR="#0000ff">http://www.web3d.org/TaskGroups/x3d/blaxxun/Web3D-blaxxunCommunitySourceFAQ.html</U></FONT></A></P>
+<B><FONT FACE="Arial" SIZE=4><P>Download the source</P>
+</B></FONT><FONT SIZE=2><P>The build tree is subdivided into 3 branches packaged in the following parts:</P>
+<OL>
+
+<LI></FONT><A HREF="cc3d_src.zip"><FONT SIZE=2>cc3d_src.zip</FONT></A><FONT SIZE=2> source code branches</LI>
+<LI></FONT><A HREF="cc3d_lib.zip"><FONT SIZE=2>cc3d_lib.zip</FONT></A><FONT SIZE=2>  externals headers / libraries / tools for building CC3D</LI>
+<LI></FONT><A HREF="cc3d_doc.zip"><FONT SIZE=2>cc3d_doc.zip</FONT></A><FONT SIZE=2> documentation, generated documentation etc.</LI></OL>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>Contributions</P>
+</B></FONT><FONT SIZE=2><P>The Web3D Source Task Group is responsible for management.</P>
+<P>For more information and  Mailing list subscription please visit </FONT><A HREF="http://www.web3d.org/source"><FONT SIZE=2>http://www.web3d.org/source</FONT></A><FONT SIZE=2>.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>History</P>
+</B></FONT><FONT SIZE=2><P>blaxxunCC3D originally started as the GLView project, a 3D OpenGL Viewer for Windows NT. Over time support for VRML 1.0 and VRML 2.0 support was added. The original front end is a standalone application with some editing capabilities, other front ends are an MFC-Based Active X control.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>How to build it</P>
+</FONT><FONT FACE="Arial"><P>Requirements</P>
+</B></FONT><FONT SIZE=2><P></FONT><A HREF="http://msdn.microsoft.com/visualc/default.asp"><FONT SIZE=2>Microsoft Visual C</FONT></A><FONT SIZE=2> / Developer Studio Version 5.0 or 6.0 (with Service Packs recommended)</P>
+<P></FONT><A HREF="http://www.microsoft.com/directx/developer/downloads/default.asp"><FONT SIZE=2>Microsoft Direct X 7.0 SDK</FONT></A><FONT SIZE=2> (header &amp; lib files are provided for a safer build environment in /client/cc3d/dxsdk5)</P>
+<P>Microsoft Direct X Media SDK  (header &amp; lib files are provided for a safer build environment in /client/cc3d/dxsdk5/dxmedia)</P>
+<P>For building the „Katmai&quot; Build version with Intel Pentium III support in gkatmai.cpp </FONT><A HREF="http://developer.intel.com/vtune/"><FONT SIZE=2>Intel 1.0 SDK</FONT></A><FONT SIZE=2> including the Intel C/C++ compiler. (headers  &amp; libs can be copied to /client/cc3d/intel)</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Installation of source</P>
+</B></FONT><FONT SIZE=2><P>The zip files are containing absolute paths and need to be copied to a common directory, the CC3D branch starts then in /client/cc3d.</P>
+
+</FONT><B><FONT FACE="Arial"><P>Compilation</P>
+</B></FONT><FONT SIZE=2><P>Currently there are only build versions for Windows 95/98/NT, all output files will be generated in the hardcoded C:\cc3d branch.</P>
+</FONT><B><FONT FACE="Arial"><P>Building the blaxxunCC3D OCX Control</P>
+</B></FONT><FONT SIZE=2><P>For Microsoft Visual C 5.0</P>
+<P>Open the project workspace /client/cc3d/blaxxuncc3d/blaxxuncc3d.dsw</P>
+
+<P>For Microsoft Visual C 6.0</P>
+<P>The VC 5.0 workspace will be automatically converted.</P>
+<P> </P>
+<P>There are build variants for OpenGL/ Direct X, debug / release , with/without Katmai (PIII)</P>
+<P>After choosing the build configuration blaxxunCC3D.ocx is build and automatically registered. Opening a wrl file in Microsoft Internet Explorer will automatically launch the built OCX control. Debugging is possible by using "Default Web Browser" in "Executable for debug session" in the MSVC Project - Debug settings.</P>
+
+</FONT><B><FONT FACE="Arial"><P>Building the GLView standalone application</P>
+</B></FONT><FONT SIZE=2><P>For Visual C 5.0</P>
+<P>Open the project workspace /client/cc3d/src/glview.dsw In addition the jpeg and zlib static Build variants need to be build manually.</P>
+<P>The executable GLView.exe or GLViewd3d.exe will be built.</P>
+</FONT><B><FONT FACE="Arial">
+<P>Building the Linux cc3d VRML library</P>
+</B></FONT><FONT SIZE=2><P>Please follow the latest instructions in the toplevel README files. GNU Maketools, GNU compiler, Mesa, Glut are required.</P>
+
+</FONT><B><FONT FACE="Arial"><P>Dependencies</P>
+</B></FONT><FONT SIZE=2><P>There are subprojects for building the supporting jpeg and zlib libraries.</P>
+
+<P>The jpeg support library (/client/cc3d/src/jpeghgnt/jpeg.dsp) contains in addition to the libjpeg source (Independent JPEG Group's software Version 6a  7-Feb-96) some image processing functions and the libpng (libpng 1.0 beta 3) files.</P>
+
+<P>zlib is located in (/client/cc3d/src/core/zlib and of version 1.0.4, Jul 24th, 1996).</P>
+
+<P>The source &amp; support lib for the Real Player G2 interface is not included at this time because of license restrictions of the Real G2 SDK.</P>
+<P>Opening the subprojects with Visual C 6.0 will convert the provided VC 5.0 DSP files to VC 6.0 the first time.</P>
+
+<P>Extraction on Linux</P>
+<P>On Linux the source can be extracted using <BR>
+</FONT><FONT FACE="Courier New" SIZE=1>unzip -aa cc3d_src.zip</P>
+</FONT><FONT SIZE=2><P>in order to convert any CR-LF terminated files to Unix LF convention.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>Internal Documentation</P>
+</B></FONT><FONT SIZE=2><P></FONT><A HREF="html/index.html"><FONT SIZE=2>Browse the class hierarchy
+<P></P></FONT></A><A HREF="contact3d_class_overview.htm">
+<FONT SIZE=2><P>Contact 4.2 class overview and Anatomy</P></FONT></A></P>
+<B><FONT FACE="Arial" SIZE=4><P>Directory overview</P>
+</B></FONT><FONT SIZE=2><P>/client/cc3d&#9;- ROOT</P>
+<P>src&#9;&#9;- ROOT of core Liberia, also src for GLView standalone viewer</P><DIR>
+<DIR>
+
+<P>core&#9;&#9;- basic core modules (VRML independent)</P><DIR>
+<DIR>
+
+<P>collision&#9;- collision detection helpers based on UNC Rapid</P>
+<P>d3d&#9;&#9;- Direct 3D driver</P>
+<P>gl&#9;&#9;- OpenGL driver</P>
+<P> zlib&#9;- zlib compression library</P></DIR>
+</DIR>
+
+<P>jpeghgnt&#9;- jpeg,png and image support library</P>
+<P>res&#9;&#9;- resource for GLView.exe</P>
+<P>vrml&#9;-Root for VRML scene graph nodes</P>
+<P>vrmlscript&#9;-vrmlscript Interpreter</P></DIR>
+</DIR>
+
+<P>blaxxuncc3d&#9;- MFC Based Active X Control (blaxxuncc3d.ocx)</P>
+<P>java&#9;&#9;- EAI for Microsoft Java VM (using COM interfacing)</P>
+<P>plugin&#9;&#9;- Netscape wrapper plugin</P>
+<P>nsjava&#9;&#9;- Netscape plugin EAI implementation (using COM interfacing to CC3D)</P>
+<P>samples&#9;&#9;- Sample MFC application embedding the OCX control (Visual C 5.0 only)</P>
+<P>tools&#9;&#9;- some tools like flex/ bison for creating the vrmlscript parser</P>
+<P>import&#9;&#9;- root for import stuff (h/lib etc) for external libraries</P>
+<P>export&#9;&#9;- TLB / header files for COM interfacing to the CC3D OCX</P>
+<P>dxsdk5&#9;&#9;- headers &amp; libs Direct X (DX 7) &amp; DxMedia</P>
+<P>docs&#9;&#9;- documentation and specifications</P>
+<P>libCC3D &#9;– test project compiling using cygwin egcs and Mesa</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>Possible things to do</P>
+</B></FONT><FONT SIZE=2><P>Here are some ideas to extend features or fix flaws in CC3D</P>
+</FONT><B><FONT FACE="Arial"><P>Porting to other Platforms.</P>
+</B></FONT><FONT SIZE=2>
+<P>The core library (sub directories of src) need to be ported.</P>
+<P>A new front end need to be written (standalone program, Netscape plugin) using the UI and the UI-3D Window connection provided by that platform.</P>
+
+<P>Starting using the OpenGL Version is recommended.</P>
+
+<P>Some major platform dependencies :</P>
+<P>&#9;www.cpp&#9;- HTTP downloading (may use Netscape Plugin stream_as_file  mechanism)</P>
+<P>&#9;Media support &#9;- Media support can be incrementally added turn off options in gconfig.h first</P>
+<P>&#9;Sound&#9;&#9;- A new sound device driver need to be written (derive from GSoundDevice, GSoundEmitter)</P>
+<P>&#9;gl/copengl.cpp&#9;- connecting an OpenGL context to a window is platform specific</P>
+
+<P>&#9;gmodel.cpp&#9;- probably this module is now to complex and has some WIN32 / dependencies</P>
+<P>&#9;&#9;&#9;Its is planned to modularize gmodel.cpp and the Navigation module.</P>
+<P>&#9;gurlcache.cpp&#9;some WIN32 file function - need to be ported</P>
+<P>&#9;gpanel.cpp&#9;retrieving the resource bitmap from a resource's need to be ported</P>
+
+<P>See the libCC3D/stdafx.h for emulation of WIN32/MFC (CriticalSection, CString, CTime) etc dependencies</P>
+<P>mak.bat &amp; libCC3D.mak are adapted to compile the core using cygwin tools.</P>
+
+</FONT><B><FONT FACE="Arial"><P>Adding a new node</P>
+</B></FONT><FONT SIZE=2><P>Look at the Contact 4.2 class overview document.</P>
+<P>Look for a suitable node pattern, write the module for the node and add the node to the node table in GvNode.cpp</P>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Adding stereo rendering</P>
+</B></FONT><FONT SIZE=2><P>RenderState – add state functions for enabling/disabling stereo , in GView::DrawScene – draw the scene twice for the left-right eye views</P>
+
+</FONT><B><FONT FACE="Arial"><P>Adding Java in the script node support</P>
+</B></FONT><FONT SIZE=2><P>Find functions how to interface to the Java VM : possible options are Kaffee, using MS-Java, Netscape liveconnect.</P>
+<P>Write a classloader for an URL, write a custom GvConnection derived class (e.g. GvScriptFunctionConnection for vrmlscript) propagating evenIn’s to the Java Script.</P>
+<P>There is some COM support for Script, this was intended for implementing Java in the Script Node for Microsoft Java. All related code is in GvScript.cpp.</P>
+
+</FONT><B><FONT FACE="Arial"><P>Extending the JavaScript interpreter</P>
+</B></FONT><FONT SIZE=2><P>The embedded interpreter is based on the SGI vrmlscript interpreter. A new object model and some JavaScript features and  bugfixes had been added.</P>
+<P>To make the interpreter more JavaScript / ecmascript compatible  one can implement additional language features like the Data class, check the implementation of the Array Class. The switch, for (var i= and other statements are missing. Another problem is that in some other implementations of JavaScript Authors can be lazy about putting ;  statement terminators in the code.</P>
+
+</FONT><B><FONT FACE="Arial"><P>Adding Componentization</P>
+</B></FONT><FONT SIZE=2><P>One idea is to allow native extension modules implementing new nodes. The way could be, to create a new variant of GvExternProto allowing loading of dynamic libraries. The library exports a node factory. </P>
+<P>In order to allow the native module to do useful stuff, the native module need to access the Scene Graph or Browser internal datastructures (Rendering context, traversal context etc.)</P>
+<P>One idea is simply making CC3D core available as dynamic linked library, the component can directly access the scenegraph using the existing scene graph API.</P>
+<P>A second idea is to define a set of abstract interfaces for Browser, Node, Field TraversalContext etc and that the native extension is only allowed to use this services.</P>
+<P>In addition GvScript has some initial code for allowing COM based objects as Scripts. Here the required interfacing is minimal (uses the existing COM-EAI). This would allow "Computation Engines" as native plugins, if the script node is wrapped in a PROTO this is also an option of having custom node components.</P>
+
+<P>Further componentization would break down the browser in more blocks like different image / video processing modules, pluggable renderes.</P>
+<P>This has not done yet for the following reasons:</P>
+
+<UL>
+<LI>Linking everything into one binary reduces the overall size, smart linkers eliminate unneeded functions.</LI>
+<LI>It has less distribution hassles and has fewer dependencies on version of installed DLL's etc.</LI>
+<LI>Compilers can optimize the code better, inlining, less virtual function call overhead, global optimizations.</LI>
+<LI>Support for Direct X 3 - Execute buffers is difficult to abstract in a generic rendering driver interface.</LI></UL>
+
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Possible things to fix</P>
+
+<UL>
+</B></FONT><FONT SIZE=2><LI>ProximitySensor and VisibilitySensor are triggered during rendering – better they should be triggered before rendering. This has not been implemented because of speed concerns.</LI>
+<LI>Group nodes are not automatically computing bounding boxes and are only doing rendering culling if the author provided explicit bboxSize values. Implementing this needs a propagation of scene graph changes in order to force re-update of internal bounding boxes.</LI>
+<LI>the Direct Media support is limited (no streaming, no spatialized sound) see GvTexture.cpp</LI></UL>
+
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>Questions</P>
+</B></FONT><FONT SIZE=2>
+<P>Christopher K. St. John" </FONT><A HREF="mailto:cstjohn@quik.com"><FONT SIZE=2>cstjohn@quik.com</FONT></A><FONT SIZE=2> asked :</P>
+
+<P>&gt; Note that I completely understand that Blaxxun is under no obligation<BR>
+&gt;to release its source code under any sort of open license. But the Web3D<BR>
+&gt;consortium must understand that any non-Open Source license is unlikely<BR>
+&gt;to interest the Open Source community.<BR>
+</P>
+<P>Linda Hahner answered :</P>
+<P>This is absolutely accurate. The Open Source community is only interested in<BR>
+Open Source technology. The Web3D Consortium is interested in advancing<BR>
+VRML97 our ISO Standard. blaxxun's willingness to place their source code<BR>
+into Community Source enables the Consortium to move ahead with our schedule<BR>
+and goals and to keep our X3D development on track. Just as you may not be<BR>
+interested in working for free, I do not think that we can ask companies to<BR>
+simply give away technology they have heavily invested in or have spent a<BR>
+lot of money to buy. The blaxxun Community Source agreement...allows<BR>
+developers like me to use this browser, alter it, etc and to deliver it to<BR>
+my clients for free. (If I charge I need to have a different licensing<BR>
+arrangement with blaxxun.) For those of us who have felt at the mercy of<BR>
+browser companies for so long...this is a very welcome development. For<BR>
+those who are working with Open Source technology and have strong feelings<BR>
+about this...it may fall short of your expectations. I hope that we can<BR>
+agree to disagree. The Consortium has a responsibility to the Internet<BR>
+community to not drop the ball on our development efforts. Even though I<BR>
+personally would lke to provide the community with Open Source<BR>
+technology...I don't happen to own any;-)<BR>
+<BR>
+When our member companies come forward and offer very generously to share<BR>
+their technology, we need to make certain that the spirit with which this<BR>
+agreement was entered into is fully understood. Right now the Consortium has<BR>
+both Open and Community Source agreements with the following companies--Sun<BR>
+Microsystems, NVIDIA, and blaxxun. All of these agreements are enabling us<BR>
+to move toward our goal of creating a ubiqutious Web3D standard.<BR>
+<BR>
+</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>Acknowledgements</P>
+</B></FONT><FONT SIZE=2><P>Paul S. Strauss – SGI for providing the QvLib a VRML 1.0 Parser</P>
+
+<P>Chris Marrin &amp; Jim Kent - Silicon Graphics for providing the vrmlscript parser -</P>
+<P> "Portions of this software are based in part on the VRMLScript Interpreter  written by Silicon Graphics, Inc., Mountain View, California, USA."</P>
+
+<P>the Independent JPEG Group's for providing libjpeg – </FONT><A HREF="ftp://ftp.uu.net/graphics/jpeg"><FONT SIZE=2>ftp://ftp.uu.net/graphics/jpeg</FONT></A></P>
+<FONT SIZE=2><P>„this software is based in part on the work of the Independent JPEG Group".</P>
+
+<P>Jean-loup Gailly and Mark Adler for providing zlib. </FONT><A HREF="http://www.cdrom.com/pub/infozip/zlib/"><FONT SIZE=2>ZLIB Homepage</FONT></A></P>
+<FONT SIZE=2><P>Guy Eric Schalnat and contributors for providing libpng. </FONT><A HREF="http://www.cdrom.com/pub/png/"><FONT SIZE=2>PNG Homepage</FONT></A></P>
+<FONT SIZE=2>
+<P>Michael Vollmer and Dean Macri – Intel for providing assistence for the Intel Pentium III ISSE code and NurbsSurface implementation</P>
+
+<P>S. Gottschalk -  The University of North Carolina for providing </FONT><A HREF="http://www.cs.unc.edu/~geom/collide.html"><FONT SIZE=2>Rapid &amp; V-COLLIDE</FONT></A><FONT SIZE=2>  (see license information in rapid.h - use for profit purposes requires a license from UNC)</P>
+
+<P>The Mesa 3D Group - </FONT><A HREF="http://www.mesa3d.org/"><FONT SIZE=2>http://www.mesa3d.org</FONT></A></P>
+<FONT SIZE=2><P>Utah-GLX: A hardware accelerated implementation of the GLX protocol - </FONT><A HREF="http://utah-glx.sourceforge.net/"><FONT SIZE=2>http://utah-glx.sourceforge.net/</FONT></A></P>
+<FONT SIZE=2><P>The GLUT Group - </FONT><A HREF="http://reality.sgi.com/mjk_asd/glut3/glut3.html"><FONT SIZE=2>http://reality.sgi.com/mjk_asd/glut3/glut3.html</FONT></A></P>
+<FONT SIZE=2>
+<P>Dimitri van Heesch for developing the DOXYGEN - </FONT><A HREF="http://www.stack.nl/~dimitri/doxygen/"><FONT SIZE=2>http://www.stack.nl/~dimitri/doxygen/</FONT></A></P>
+<B><FONT FACE="Arial" SIZE=4><P>Links</P>
+</B></FONT><FONT SIZE=2><P>Contact  3D</P>
+<P></FONT><A HREF="http://www.blaxxun.com/developer"><FONT SIZE=2>http://www.blaxxun.com/developer</FONT></A><FONT SIZE=2>&#9;blaxxun Contact 3D Developer information, release notes, samples, Information about extension nodes</P>
+<P></FONT><A HREF="http://www.blaxxun.com/products/sdk/client/doc/index.html"><FONT SIZE=2>http://www.blaxxun.com/products/sdk/client/doc/index.html</FONT></A><FONT SIZE=2> blaxxun Contact 3D Client SDK information</P>
+
+<P>GLView</P>
+<P></FONT><A HREF="http://www.blaxxun.com/developer"><FONT SIZE=2>http://www.snafu.de/~hg</FONT></A><FONT SIZE=2>&#9;GLView homepage</P>
+
+<P>CVS</P>
+<P></FONT><A HREF="http://www.wincvs.org/"><FONT SIZE=2>http://www.wincvs.org/</FONT></A><FONT SIZE=2>  CVS for Windows&amp; Mac&#9;</P>
+
+<P>Compilers &amp; Tools</P>
+<P></FONT><A HREF="http://sourceware.cygnus.com/cygwin/"><FONT SIZE=2>http://sourceware.cygnus.com/cygwin/</FONT></A><FONT SIZE=2> Cygwin port of the  GNU  Tools</P>
+</FONT></BODY>
+</HTML>

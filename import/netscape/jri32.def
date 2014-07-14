@@ -1,0 +1,45 @@
+LIBRARY jrt3221.dll
+
+EXPORTS
+        ; JRI Native Methods Interface
+        JRI_GetCurrentEnv
+
+	JRI_GetFieldByName
+	JRI_GetFieldByName_boolean
+	JRI_GetFieldByName_byte
+	JRI_GetFieldByName_char
+	JRI_GetFieldByName_short
+	JRI_GetFieldByName_int
+	JRI_GetFieldByName_long
+	JRI_GetFieldByName_float
+	JRI_GetFieldByName_double
+	JRI_SetFieldByName
+	JRI_SetFieldByName_boolean
+	JRI_SetFieldByName_byte
+	JRI_SetFieldByName_char
+	JRI_SetFieldByName_short
+	JRI_SetFieldByName_int
+	JRI_SetFieldByName_long
+	JRI_SetFieldByName_float
+	JRI_SetFieldByName_double
+	JRI_GetStaticFieldByName
+	JRI_GetStaticFieldByName_boolean
+	JRI_GetStaticFieldByName_byte
+	JRI_GetStaticFieldByName_char
+	JRI_GetStaticFieldByName_short
+	JRI_GetStaticFieldByName_int
+	JRI_GetStaticFieldByName_long
+	JRI_GetStaticFieldByName_float
+	JRI_GetStaticFieldByName_double
+	JRI_SetStaticFieldByName
+	JRI_SetStaticFieldByName_boolean
+	JRI_SetStaticFieldByName_byte
+	JRI_SetStaticFieldByName_char
+	JRI_SetStaticFieldByName_short
+	JRI_SetStaticFieldByName_int
+	JRI_SetStaticFieldByName_long
+	JRI_SetStaticFieldByName_float
+	JRI_SetStaticFieldByName_double
+
+	JRI_CallMethodByName
+	JRI_CallStaticMethodByName

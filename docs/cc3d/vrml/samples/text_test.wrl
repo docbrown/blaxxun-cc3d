@@ -1,0 +1,113 @@
+#VRML V2.0 utf8
+
+DEF block Group{
+children[
+#erste Zeile
+DEF _1 Transform {
+translation 5 .5 -.51
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 1 0 0}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+Transform {
+translation 15 .5 -.51
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 0 0 1}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+
+
+#zweite Zeile
+DEF _1 Transform {
+translation 5 -.5 -.51
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 0 0 1}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+Transform {
+translation 15 -.5 -.51
+rotation 0 0 0 0
+scale 5 .5 .5
+children [
+DEF _1_1 Shape {
+	appearance Appearance {material Material {diffuseColor 1 0 0}}
+	geometry DEF _1_2 Box {}
+}
+]
+}
+
+]
+}
+
+
+Shape {
+appearance Appearance {
+material Material {
+diffuseColor 1 1 1
+}
+}
+geometry Text {
+string [ "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"]
+fontStyle FontStyle {
+family ["SERIF"]
+#family ["SANS"]
+#family ["TYPEWRITER"]
+justify "LEFT"
+}
+}
+}
+
+######################linker block
+
+
+
+Transform {
+translation -20 0 0
+children[
+USE block
+Shape {
+appearance Appearance {
+material Material {
+diffuseColor 1 1 1
+}
+}
+geometry Text {
+string [ "ABCDEFGHIJKLMNOPQRSTUVWX", "ABCDEFGHIJKLMNOPQRSTUVWX", "abcdefghijklmnopqrstuvwxyz"]
+fontStyle FontStyle {
+#family ["SERIF"]
+#family ["SANS"]
+spacing 2
+family ["TYPEWRITER"]
+justify "LEFT"
+}
+}
+}
+
+]
+}
+
+Transform {
+translation -20 -2 0
+children[
+USE block
+]
+}
+

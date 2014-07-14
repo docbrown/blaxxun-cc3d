@@ -1,0 +1,150 @@
+
+3DV-Fileformat
+==============
+3DV is a GLView object format, for compact flexible definition of a single 3D Polyhedron.
+
+
+3dv files are containing one object
+The 3 object types are 
+
+	- Shell 	a polyhedral object
+	- ShellIndexed a polyhedral object with more level of indirection and group 	 information
+	- Mesh		a quadrilateral Grid surface
+
+All lists and objects are enclosed with { and }.
+
+The basic information in each object is the vertex field,
+simply a list of 3d points.
+Optional fields with similar structure are
+	vertex_parameters : u,v,w  texture coordinates (parameters)
+	vertex_normals	:  a normal for each vertex, used for smooth shading
+	vertex_colors	: a r,g,b color value for each vertex
+		
+for the Shell and ShellIndexed primitives the faces field describes the
+list of faces (or the individual polygons).
+the format for a face is
+
+0:	vertexcnt of face
+1..n:	vertex number, (starting with 0)
+
+All faces are now concatenated together.
+E.g a tringle face using vertex 0,1,2 would be stored as
+		3 0 1 2
+.
+(The corresponding Inventor definition would be 0, 1, 2, -1 )
+
+A face with vertex cnt of 2 describes a single edge,
+A face with vertex cnt 0 or 1 is ignored during rendering,
+but all vertices can be made visible by using the "Vertices" Renderstyle.
+A face can have following faces with a negative vertexcnt, this indicates a hole face.
+If such a file is imported you need to call "Tools->Triangulate" to display the object
+properly.
+
+For faces the optional fields
+	face_normal	: a normal for each face, used for flat shading
+	face_color	: a r,g,b color value for each face 
+			(vertex colors have precedence if enabled)
+
+The minimal information required is the 
+vertex and faces field.
+
+vertex_colors, vertex_normals, vertex_parameters  are optional.
+If provided the length of the data should be same or larger, than the length of the vertex field.
+if no vertex_normals are provided, GLView automatically calculates a smooth vertex normals, by averaging 
+the normals of all faces, sharing this vertex. In order to have hard edges, you need to duplicate the vertex coordinate in the vertex list, or see the ShellIndexed	object.
+
+vertex_parameters are optional and are used for texture mapping. using the coordinates (0 0 0) (0 1 0) (1 1 0) (1 0 0) 
+for a rectangle, will map the texture image exactly one time on the rectangle. The z coordinate can have an effect,
+if a arbitray 3D texture coordinate transform is used, or if GLView starts support 3D solid textures.
+
+Instead of texture mapping, vertex_colors can be used to product interesting color interpolation effects on surfaces.
+
+
+Example of cube, with a color assigned to each face
+; 3DV Version 1.0 Object
+ shell {
+    vertex {( -0.5 -0.5 -0.5)( 0.5 -0.5 -0.5) ( -0.5 0.5 -0.5) ( 0.5 0.5 -0.5) 
+   ( -0.5 -0.5 0.5) ( 0.5 -0.5 0.5) ( -0.5 0.5 0.5) ( 0.5 0.5 0.5)}
+    faces {
+    4 0 2 3 1	; first face
+    4 1 3 7 5	; second face ...
+    4 5 7 6 4
+    4 6 2 0 4
+    4 2 6 7 3
+    4 0 1 5 4}
+    face_colors {( 1 1 0)( 0.5 1 0.4) ( 0 1 1) ( 1 0.647059 0) 
+   ( 0 0 0) ( 0 0 1)}}
+
+
+The vertex indices in the facelist of a Shell are indexing directly into
+the vertex* arrays.
+
+ShellIndexed
+============
+
+For the ShellIndexd object the facelist indices are refering into the
+verts field, instead of directly into the vertex* fields.
+
+The verts is an array of logical vertices.
+The structure of a vert is
+	index into vertex coordinate table (v)
+	index into vertex normal table (n)
+	index into vertex color table (c)
+	index into vertex parameter table (p)
+
+This level of indirection allows to have at a common xyz location verts with
+different normal/parameter values indices. Coordinate information is still shared.
+
+I.e. for a vertex index  i in the face list, the corresponding table entry are :
+	vertex coordinate = vertex[verts[i].v]
+	vertex normal = vertex_normals[verts[i].n]
+	vertex color = vertex_colors[verts[i].c]
+	vertex parameter = vertex_parameters[verts[i].p]
+
+The length of the vertex, vertex_normal, vertex_color, vertex_parameter lists must be at least the size of the maximum corresponding index in the verts list.
+
+The optional face_group is a table for face grouping information,
+each element consists out of the following elements
+	name for group (string)
+	group id (int)
+	color name (string, X11 color name is supported)
+
+face_to_group provides a mapping from the face number index (0..number of faces -1) defined through the facelist to the corresponding face_group index (0..number of face groups -1)
+
+If face_group and face_to_group are provided at read time the face_colors are 
+computed by taking the color from the group the face belongs to:
+i.e. face_color[i] = face_group[face_to_group[i]].color
+
+	
+
+Mesh
+====
+
+A Mesh needs no explicit face infomation, because all faces are forming a grid.
+
+Example :
+
+; 3DV Version 1.0 Object
+
+ mesh {
+    rows  10
+    cols  20
+   vertex { (x y z) ... 10*20 times }
+}   
+
+The corresponding C like declaration would be
+struct Point {
+	float x,y,z;
+}
+int rows=10;
+iint cols=20;
+Point mesh[rows*cols];
+
+The other fields are similar to the shell object (vertex_normals / vertex_colors / vertex_parameters, face_colors, face_normals )
+
+
+In GLView all objects of all types, even full VRML scene trees can be combined to a single object
+of type GShell and saved to 3DV by using the TOOLS->combine command.
+
+
+

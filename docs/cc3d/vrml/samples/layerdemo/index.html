@@ -1,0 +1,157 @@
+<html>
+<HEAD>
+<TITLE>blaxxun Contact 3D Layer3D Demo</TITLE> 
+
+</HEAD>
+
+<BODY bgcolor="#fffeee"
+      text="Black"
+      link="#4a9e6d"
+      vlink="#588C80"
+      alink="#68BC90">
+<FONT face="Arial, Helvetica, sans-serif"> 
+<CENTER>
+  <p>&nbsp;</p>
+  <H2>Layer3D</H2>
+  <H2><font size="-1">Updated 15 Jan 2000</font></H2>
+  <p><font size="-1">holger@blaxxun.com</font></p>
+</CENTER>
+<hr>
+<br>
+<br>
+<h2>Introduction</h2>
+<p> Layer3D in blaxxun Contact 4.3 is an partial implementation of the MPEG-4 
+  Layer3D node. 
+<p>The Layer3D node is a transparent rendering rectangle region on the screen 
+  where a 3D scene is shown. The Layer3D is part of the layers hierarchy, and 
+  can be composed in a 2D environment with depth. Layer3D nodes enable the composition 
+  in a 2D space with depth of multiple scenes. This allows users, for instance 
+  to view a 3D scene from different view points in the same scene or view different 
+  3D scenes in the same scene.
+<p><b>Example 1: <a href="layer_test.wrl" target="wrold">layer_test.wrl</a></b> 
+<p>bottom left : a layer showing an inline 
+<p>bottom right : same scene is shown with USE but from different viewpoint 
+<p>top left : another scene in a layer 
+<p><font face="Arial, Helvetica, sans-serif">top left : right a layer referring 
+  (USE) the 3 layers from before </font> 
+<p>&nbsp; 
+<p>Actions: click on rose wall of castle to let a layer move. 
+<p>&nbsp; 
+<p><font face="Arial, Helvetica, sans-serif"><b>Example 2: <a href="bar2_43_layer3d.wrl" target="wrold">bar</a> 
+  </b></font> 
+</font> 
+<p><font face="Arial, Helvetica, sans-serif">main : scene with navigation</font>
+<p><font face="Arial, Helvetica, sans-serif">left : layer overlay with background 
+  transparent (no HUD, can be seen if moving near the bar)</font>
+<p><font face="Arial, Helvetica, sans-serif">top : another view of the same scene 
+  (via USE)</font>
+<p> <FONT face="Arial, Helvetica, sans-serif"></font> 
+<p><FONT face="Arial, Helvetica, sans-serif">Actions: click on Avatar, navigate 
+  main scene</font></p>
+<p> <br>
+  <font face="Arial, Helvetica, sans-serif"><b>PROTO definition : </b></font> 
+</p>
+<p>&nbsp;
+<pre>
+EXTERNPROTO Layer3D[
+	exposedField SFVec3f bboxSize 	
+	exposedField SFVec3f bboxCenter
+	eventIn MFNode addChildrenLayer
+	eventIn MFNode removeChildrenLayer
+	exposedField MFNode childrenLayer
+	exposedField SFVec2f translation
+	exposedField SFInt32 depth
+	exposedField SFVec2f size
+	exposedField SFNode background
+	exposedField SFNode fog
+	exposedField SFNode navigationInfo
+	exposedField SFNode viewpoint
+	exposedField MFNode children
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+["urn:inet:blaxxun.com:node:Layer3D","http://www.blaxxun.com/vrml/protos/nodes.wrl#Layer3D","nodes.wrl#Layer3D"]
+</pre>
+<pre>PROTO Layer3D[
+	exposedField SFVec3f bboxSize	-1 -1 -1 	
+	exposedField SFVec3f bboxCenter 0 0 0
+   	eventIn MFNode addChildrenLayer
+	eventIn MFNode removeChildrenLayer
+	exposedField MFNode childrenLayer []
+	exposedField SFVec2f translation 0 0
+ 	exposedField SFInt32 depth 0
+ 	exposedField SFVec2f size -1 -1
+ 	exposedField SFNode background NULL
+	exposedField SFNode fog NULL
+	exposedField SFNode navigationInfo NULL
+	exposedField SFNode viewpoint NULL
+	exposedField MFNode children []
+	eventIn MFNode addChildren
+	eventIn MFNode removeChildren
+	]
+</pre>
+<p><font face="Arial, Helvetica, sans-serif">The 2D layer rectangle of the 3D 
+  layers is specified by the translation and depth fields. The units of 2D scenes 
+  are used for the translation parameter. The size parameter is given as a floating 
+  point number which expresses a fraction of the width and height of the parent 
+  layer. In case of a layer at the root of the hierarchy, the fraction is a fraction 
+  of the screen rendering area. A size of -1 in one direction, means that the 
+  Layer2D node is not specified in size in that direction, and that the size is 
+  adjusted to the size of the parent layer, or the global rendering area dimension 
+  if the layer is on the top of the hierarchy. </font>
+<p><font face="Arial, Helvetica, sans-serif">The addChildren eventIn specifies 
+  a list of 3D nodes that must be added to the Layer3D's children field. </font></p>
+<p><font face="Arial, Helvetica, sans-serif">The removeChildren eventIn specifies 
+  a list of 3D nodes that must be removed from the Layer3D's children field. </font></p>
+<p><font face="Arial, Helvetica, sans-serif">The addChildrenLayer eventIn specifies 
+  a list of 3D nodes that must be added to the Layer3D's childrenLayer field. 
+  </font></p>
+<p><font face="Arial, Helvetica, sans-serif">The removeChildrenLayer eventIn specifies 
+  a list of 3D nodes that must be removed from the Layer3D's childrenLayer field. 
+  </font></p>
+<p><font face="Arial, Helvetica, sans-serif">The children field may specify any 
+  3D children nodes that define a 3D scene. The childrenLayer field may specify 
+  3D layer. The layering of the 3D layers is specified by the translation and 
+  depth fields. </font></p>
+<p><font face="Arial, Helvetica, sans-serif">The bboxCenter field specifies the 
+  center of the bounding box and the bboxSize field specifies the width and the 
+  height of the bounding box. It is possible to omit the bboxCenter and bboxSize 
+  fields, but if present, the corresponding box must contain all the children.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">The background, fog, navigationInfo 
+  and viewpoint fields define the corresponding bindable nodes in effect for the 
+  children of Layer3D. Currently viewpoint is fully supported.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">If background is NULL the background 
+  is transparent and the content from the parent shines through.</font></p>
+<p><font face="Arial, Helvetica, sans-serif"><b>Implementation notes:</b> </font></p>
+<p><font face="Arial, Helvetica, sans-serif">If a Background nodes is given in 
+  the background field a given skyColor is used as the solid background fill color 
+  for the Layer, other forms of Background rendering are not supported.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Fog is disabled, fog and navigationInfo 
+  fields are not supported. There is no means for switching the active layer in 
+  order to connect the built-in browser navigation to a certain layer.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">If navigation is wished it can be 
+  done by the application switching the viewpoint node in Layer3D or changing 
+  fields in the current referenced viewpoint of Layer3D.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Anchor, TouchSensor activation is 
+  supported, and follows the layers hierarchy. Drag Sensors are not properly supported 
+  in Layer3D.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">Layers currently must be ordered 
+  manually in the scene graph for correct drawing order. <br>
+  Automatic sorting by depth for childrenLayer Layer3D nodes is not supported. 
+  <br>
+  </font><font face="Arial, Helvetica, sans-serif">Place top level layers at the 
+  end of the top level scene graph nodes. Overlapping Layers in front of other 
+  Layers must be listed after the Layer in the back, either on the top-level scene 
+  graph or in the childrenLayer field of the parent layer.</font></p>
+<p><font face="Arial, Helvetica, sans-serif">There is currently no means to disable 
+  a top level headlight in children layers.</font></p>
+<p>&nbsp; </p>
+<FONT face="Arial, Helvetica, sans-serif"></font> <FONT face="Arial, Helvetica, sans-serif"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"><font face="Courier"> 
+<P> 
+<HR>
+<CENTER>
+  <FONT SIZE=-1><A HREF="/copyright.html" target=_top>&copy;2000 blaxxun interactive</A> 
+  - All rights reserved.</FONT> 
+</CENTER>
+<!-- END FOOTER ===============================================--> </font></font></font></font></font></font></font></font></font> 
+</BODY></HTML>

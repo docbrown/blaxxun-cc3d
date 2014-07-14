@@ -1,0 +1,16 @@
+Package name:     zlib
+Version number:   1.0.4
+Original author:  Jean-loup Gailly and Mark Adler <gzip@prep.ai.mit.edu and madler@cco.caltech.edu>
+Original URL:     http://quest.jpl.nasa.gov/zlib/
+Install tree:     /opt/zlib-1.0.4
+Report bugs to:   hpux@csc.liv.ac.uk
+Tested on:        HP 9000/777/C110 running HP-UX 10.10
+C compiler used:  Version A.10.32.08
+Purpose:
+A general purpose compression library based on gzip. This provides function
+calls which allow an application to compress or decompress data stored in a
+format similar to that used by the gzip utility. Its current main application
+is by the PNG (Portable Network Graphics) library, which in turn is used by the
+latest ImageMagick and mosaic releases.
+Date archived:    Fri 10 Jan 1997
+Special notes:    Read HPUX.Install for further info.

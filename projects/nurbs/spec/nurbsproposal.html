@@ -1,0 +1,229 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Holger Grahn, Thomas Volk">
+   <meta name="KeyWords" content="NURBS, VRML, VRML97">
+   <title>NURBS Extension for VRML97</title>
+</head>
+<body>
+
+<center><IMG align=top src="./vrml97.gif"></center>
+<CENTER><H1 ALIGN="center">NURBS Extension for VRML97</H1></CENTER>
+
+<center>
+  <h2>Discussion &amp; Node proposal<br>
+    12 March 1999</h2>
+  <h2><font size="+1">updated 15 Nov 1999</font></h2>
+</center>
+
+<TABLE BORDER="0">
+    <TR>
+        <TD WIDTH="30"></TD>
+        <TD>
+            <CENTER>
+            <TABLE BORDER="2" CELLPADDING="4">
+                <TR ALIGN="middle">
+                    <TH><B>Background</B></TH>
+                    <TH><B>Clauses</B></TH>
+                    <TH><B>Annexes</B></TH>
+                </TR>
+                <TR>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+                          <A href="#Introduction">Introduction</A></TD>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+
+						 1 <A href="./concepts.htm">Concepts</a>
+							
+						 </TD>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+                         <A href="#References">References</a></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+
+                         2 <A href="nodes.htm">Proposed Nodes</a> 
+						</TD>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+                         <A href="#api">API's and Libraries</a></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+                         3 <A href="conclusion.htm">Conclusion</a></TD>
+                    <TD><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20>
+                         <A href="#tools">Tools</a></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD></TD>
+   
+                    <TD><A></A><IMG align=textTop height=19
+                         src="../pix/cube.gif" width=20 >
+                         <A href="./examples/examples.htm">Examples</a></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+                <TR>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                </TR>
+            </TABLE>
+            </CENTER>
+        </TD>
+    </TR>
+</TABLE>
+
+
+<h2><a NAME="Introduction"></a>Introduction</h2>
+This paper describes new nodes proposed for VRML97, based on Non Uniform
+Rational B-Splines (NURBS). In general, use of NURBS in VRML would have
+the following immediate benefits:
+<ul>
+<li>
+reduced download size of VRML files because of the 
+    compact NURBS description 
+    
+
+<li>
+smoother, richer shapes 
+    
+
+<li>
+easier authoring, because most 3D modeling programs 
+    are already NURBS-based 
+    
+
+<li>
+better animation, since changing a few parameters 
+    has a great impact on shapes and animations 
+    
+
+<li>
+automatic scalability of the display (LOD) depending on CPU and graphics
+card performance and world complexity.</li>
+</ul>
+NURBS curves and surfaces have been used in industrial design of car bodies,
+ship hulls and airplanes for a long time since their mathematical qualities
+are especially suited for modeling fluid shapes. Designing with NURBS is
+intuitive and easy to understand. Hence, numerous tools beyond CAD/CAM
+offer NURBS support. The success of NURBS throughout CAD/CAM/CAE and CGI
+in general is due to the following:
+<ul>
+<li>
+Any desired shape can be described using NURBS 
+    without loss of mathematical exactness. While shapes like cylinders or 
+    conics can only be approximated by polygons, NURBS give an exact 
+    mathematical description. 
+    
+
+<li>
+Intuitive methods to design and manipulate any 
+    desired shape are provided by various tools. 
+    
+
+<li>
+NURBS algorithms are fast and stable.</li>
+</ul>
+Therefore adopting NURBS support&nbsp; in a VRML environment seems to be
+a self-evident step that would yield a number of benefits:
+<ul>
+<li>
+Creating virtual worlds in VRML is always a trade-off between quality (number
+of defined polygons) and bandwidth (download size of a world). Smooth surfaces
+are created by exporting huge VRML <i>IndexedFaceSets</i> from modeling programs. 
+    Objects defined in the NURBS format overcome these limitations because 
+    smoothness is obtained with very little data without loss of quality. 
+    
+
+<li>
+The VRML authoring process is accelerated since 
+    NURBS offer intuitive methods for designing objects, especially natural 
+    shapes like human bodies. 
+    
+
+<li>
+The smoothness and curvature can be easily 
+    controlled and manipulated. 
+    
+
+<li>
+Scalability of the rendering system can be realized 
+    through dynamic tessellation. Depending on client CPU and 3D graphics system 
+    performance, the level of detail (LOD) of the rendered NURBS model can be 
+    adapted so that reasonable frame rates can be achieved on any system. 
+    
+
+<li>
+Morphing, i.e. animation of single points of a 
+    surface, is realized with minimal effort by an easy-to-understand method. 
+    Animating single control points and altering weight values results in 
+    naturally flowing movements. 
+    
+
+<li>
+Using NURBS based splines for interpolation of positions along a curve
+could reduce VRML file size for many types of animation.</li>
+</ul>
+The mathematical background required to work with NURBS is not very complex.
+There are many <A href="#tools">tools</a>that can assist in the creation
+and editing of NURBS surfaces. A good introduction to NURBS is given in
+<A href="#References">[1]</a>. 
+A thorough mathematical study on NURBS can be found in <A href="#References">[2]</a>.
+<br>&nbsp;
+<br>&nbsp;
+
+<h2>
+<a NAME="References"></a>References</h2>
+[1]&nbsp; <a href="http://devworld.apple.com/dev/techsupport/develop/issue25/schneider.html">http://devworld.apple.com/dev/techsupport/develop/issue25/schneider.html</a>
+<br>[2] The NURBS Book, Les Piegl and Wayne Tiller, Springer 1997
+<br>[3] Open Inventor C++ Reference Manual: The Official Reference Document
+for Open Inventor, Release 2, Open Inventor Architecture Group, Addison-Wesley,
+1994.
+<h2>
+<a NAME="Tools"></a>Some Tools supporting NURBS</h2>
+[1] <a href="http://www.ktx.com">Kinetix</a> 3D Studio Max
+<br>[2] <a href="http://www.rhino3d.com/">Rhino3D</a>
+<br>[3] <a href="http://www.tgs.com/Amapi/">TGS Amapi</a>
+<br>[4] <a href="http://www.aw.sgi.com/pages/home/index.html">Alias|Wavefront Maya</a>
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+<a NAME="api"></a>API's or libraries supporting NURBS</h2>
+<b>VRML Java Nurbs</b> package from Timothy F. Rohaly <a href="http://www.ocnus.com/NURBS/">http://www.ocnus.com/NURBS/</a>.
+<br>This package contains a general set of classes written in Java to represent
+and manipulate NURBS.
+<br>In addition to a NurbsSurface PROTO a NurbsCurve and&nbsp; NurbsRevolve
+PROTO is implemented.
+<p><b><a href="http://www.opengl.org">OpenGL</a></b> contains in the glu
+extensions package NURBS <a href="http://www.digital.com/pub/doc/opengl/gluNurbsCurve.html">Curve</a>
+&amp; <a href="http://www.digital.com/pub/doc/opengl/gluNurbsSurface.html">Surface</a>
+Primitives.
+<br>A surface can optionally be trimmed by a NURBS Curve or a <a href="http://www.digital.com/pub/doc/opengl/gluPwlCurve.html">piece
+wise linear curve</a>.
+<p><b><a href="http://www.sgi.com/Technology/Inventor/">Open Inventor</a></b> 
+  has the SoNurbsSurface node. </p>
+<p><b><a href="gnurbsutil.cpp">Example C Source code</a></b> for evaluating Points 
+  on a NurbsCurve or NurbsSurface based on the NURBS Book.<br>
+  &nbsp; <br>
+  &nbsp;</p>
+</body>
+</html>

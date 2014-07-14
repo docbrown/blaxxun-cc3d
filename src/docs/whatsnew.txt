@@ -1,0 +1,331 @@
+===========================================================================
+GLView version 4.30  10.01.2000
+3D OpenGL/Direct 3D Viewer for Windows NT 4.0/4.0/95/98/2000
+Copyright (C) 1994-1999 Holger Grahn
+All Rights Reserved
+===========================================================================
+
+See the file README.TXT for installation instructions and last minute notes.
+
+4.3 Changes (10.01.2000)
+maintainance release, not fully checked
+VRML library matches blaxxun Contact 4.3
+
+Support for Inventor Nurbs nodes
+drawing of Nurbs using OpenGL glu functions
+
+New VRML 2 convert command in the tools menu
+Fixes for treeditor displaying VRML1/Inventor scenes
+
+support for NurbsCurve2D Contour2D Polyline2D nodes
+this nodes are drawn in the OpenGL version if not part of a trimmed surface
+
+mimimize file size in general options dialog now recognized
+
+
+4.0 Changes (02.06.99)
+maintainance release, not fully checked
+
+VRML library matches blaxxun Contact 4.1
+NURBS Support
+
+Tree-Editor special commands for checking NURBS
+In TreeEditor Select Node  click Right Mouse-> Node->Operations->Check Node Properties
+
+Supported Checks:
+NurbsSurface -> Knot vectors recomputed if wrong length
+NurbsCurve -> Knot vectors recomputed if wrong length
+NurbsCurve2D -> Knot vectors recomputed if wrong length
+NurbsPositionInterpolator -> Knot vectors recomputed if wrong length
+
+Interpolators -> if keys are missing, default keys are computed
+
+PositionInterpolator Popup Question: convert interpolator to NurbsCurve or NurbsPositionInterpolator
+
+The following changes were made in the GLView 3.03 (28.03.97) version
+* collision detection during walk navigation in the camera menu
+* cursor switching 
+* follow object command: camera follows an animated object 
+* jump/follow navigation mode 
+* additions to tree editor
+* improved proto & script writing 
+* global ambient light can be changed in the WWW->Options dialog
+* OpenGL texture object extension support for Windows NT 3.51
+* Tools->Optimize + Tree Editor->Node-Operation VRML 2.0 scene tree optimizer/expander
+* PNG Format textures, Interleaved JPEG format
+* RSX 3D Sound support 
+* bug fixes and improvements
+
+The following changes were made in the GLView 3.02 (10.01.97) version
+* new VRML 2.0 features: 
+	Geometry Sensors support
+	Sensors are directly activated with a single click/drag (enable "WWW->Options->use scene lights")
+	Animated Transform Nodes above the bound viewport
+	unlit Appearance nodes 
+	improved Extrusion node handling
+	VRML light sources in D3D Version (enable "WWW->Options->use scene lights")
+	improved Light source handling
+
+* D3D improvements, transparent GIF´s
+* changed navigation handling
+* Tools->Transform Dialog for positioning, rotating, scaling objects
+* changed default navigation mode for VRML files to WALK
+* new Extrusion along Font Outline feature  in "New Font Logo" if outline & extruded enabled
+
+The following changes were made in the GLView 3.01 (10.12.96) version
+* new VRML 2.0 features: 
+	support for Background Node (both color gradient + wall textures)
+	improved PROTO instancing handling
+  	Scripts inside PROTOS, PROTOS inside PROTOS and EXTERNPROTO now supported	
+	IndexedLineSet support
+	Material transparency implemented via Alpha Blending
+
+* D3D Version improved navigation speed, rendering quality, anchor clicking
+  VRML 2.0 texture mapping fixes 
+  D3D Driver selection from Options->Direct3D dialog saved to ini file
+  color per vertex support for D3D RGB-Emulation mode
+
+* transparent GIF´s in OpenGL Version
+
+* seek to object navigation mode in right mouse button menu
+
+* improved picking and other enhancements
+
+
+
+The following changes were made in the GLView 3.0  version
+* VRML 2.0 support	 (for more information see VRML 2.0 notes in README.TXT)
+* VRML Script integration ( "" )
+* right mouse button menu in viewer window
+* support for interlaced gifs and PPM image format
+
+* actual camera position now saved on creating of VRML file for simple scenes
+
+* Additions to viewpoint menu
+	Save New will save the current viewpoint as new camera node
+	if "animate" is checked, selection of a viewpoint will animate to viewpoint
+	"next" "prev" buttons are selecting a different viewpoint
+	"animate all does" a camera animation through all viewpoints
+	
+
+* Additions to VRML 1.0 file syntax 
+    DEF AnimateViewpoints Info {string "true" }
+		At load of the scene an animation through all Viewpoints will be done
+    DEF RenderMode Info {string "mode" }
+	   changes the initial rendering mode 
+	   where mode = wireframe|flat|gouraud|nonlighted|solid|boundingboxes|vertices
+
+* Additions to Tree Editor
+	* SFNode + MFNode edit support
+	* MF Field elements can be changed
+
+* better output fileformating for VRML write 
+
+* smoother True-Type font tesselation
+
+* misc improvements and bug fixes
+
+The following changes were made in the GLView 2.09a (29.06.96) version
+* several bug fixes due to compiler optimizations in rel. version
+
+
+The following changes were made in the GLView 2.09 (15.06.96) version
+* rendering of VRML to a BMP file in arbitrary resolution (File->RenderToFile)
+  great for web-page image generation, creation of textures, printing ....
+* support for Layer Node to compose displays with underlay and overlay nodes.
+  a layer can contain (blended / transparent) images or even full 3d VRML scenes
+  (See LayerTest.wrl)
+* Image and ScaledImage node to display 2D images including alpha support
+   (See ImageTest.wrl)
+* BackgroundImage support (implemented using Layer + ScaledImage nodes)
+* ImageElevationGrid creates a heightfield or 3D surface simply from an
+  standard pixel image.
+  2d-paint programs could be used to create 3D landscapes.
+  (See ElevatedMandril.wrl)
+
+* Save to wrl for single object scenes preservers Material, Background Color/Image, Texture settings
+   (but with absolut pathnames to textures, filenames need to be changed to relative
+    one manually for web-page publishing)
+* bug fixes
+* automatic adaption of default znear plane to z-buffer depth (means better 16 Bit z-buffer support)
+* dummy declaration of Kinetix 3D Studio Max exporter nodes
+* rotation field for morph node
+* demo version expires after a month
+* in Options->Register Filetypes GLView can be (re)registered automatically as 
+    Netscape viewer 	for mimetypes x-world/x-vrml and x-world/x-glview
+* additions to tree editor:
+	New Nodes can be created via "Node->New" entering a node type or choosing from a listbox
+	On double-click on a field in the tree view an field editor pops up
+	SFColor + MFColor length 1 fields can be editited using the color editor
+	Paste In allow the paste of nodes into Group nodes or SFNode fields
+* save of VRML to raw/pov/stl/geo dosn´t destroy internal tree structure
+* raw input supports mixed in ascii lines
+
+
+The following changes were made in the GLView 2.08 (24.04.96) version
+* fixed the "IntenetOpen Error 2" bug occured on some Windows 95 installation
+* user interface improvements
+* URL status bar + animation during internet operations
+* additions to Morph node, eg. time range control (e.g. MorphedVenus.wrl)
+* new color gradient animation node (See Colored*.wrl)
+* first version of VRML 2.0 extrusion + heightfield node (ExtrusionTest.wrl +  Landscape.java)
+* 16 Bit Z-Buffer switch + OpenGL info box
+* save window size on exit option
+* support for Transformed Cameras (Fountain)
+* HTTP + FTP protocol Internet access now through Microsoft Internet SDK
+
+
+The following changes were made in the GLView 2.07 (08.03.96) version
+* HTTP + FTP protocol Internet access now through Microsoft Sweeper SDK
+* url loading using multiple parallel background threads
+* first version of VRML tree inspector / editor (Tools->Tree Editor)
+  (Not all editing commands are available in the Demo Version)
+* full write for VRML scenes
+* support for filenames with spaces (C;\Program File\mywrl.wrl)
+* changed extensions of GLView url Internet Shortcut to vrl, because
+  Microsoft Internet Explorer uses same extension
+* file type associations now editable (Options->register file types)
+* configurable limitation of texture size in Material->texture options
+* camera relative switch, enabled: movement is relative to view direction (like a airplane)
+  disabled: movement is relative to the world "up" direction (like walking on a plane
+* changed Cylinder, Cube, Cone, Sphere texture coordinates from XYZ frame to VRML xzy frame
+* faster texture loading for pover of 2 sized textures
+* fixed a bug during Font tesselation
+* other bugfixes 
+
+
+The following changes were made in the GLView 2.05 (15.12.95) version
+* user interface additions, more toolbar buttons, better defaults for VRML browsing
+* new VRML nodes TimeTransform, TextureShuttle
+* support for nested relative WWWInlines
+* registry file type association on demand only,
+* dragging files from the filemanager to a running GLView
+* url files now contain the source url caused the loading
+* textures can now be loaded automatically at first load of the url (WWW->Options->Texture)
+* global light scale factor to, scale down to bright VRML scenes 
+   (Some files contain too many unnecessary lights)
+* bug fixes and small enhancements
+
+
+The following changes were made in the GLView 2.03 (28.11.95) version
+* some defaults changed
+
+The following changes were made in the GLView 2.02 (21.11.95) version
+* Netscape DDE Support
+* VRML Spheres can be now textured
+* VRML files from cache are verified for correct URL
+* better support for Home Space Builder VRML files (e.g. Render Mode non-lighted)
+
+The following changes were made in the GLView 2.01 (13.11.95) version
+
+* support for WWWAnchor display during mouse move + 
+* left mouse button double click jumps to anchor
+
+* optional view degration during moving (enable via Options->Config->degrade)
+
+* VRML bug fixes
+
+* Texture/image loading bug fixes: bug on non 4 byte aligned images, bug during gif,jpeg,tga loading
+
+* new morph type cone, transformations and box now working, see Morphed*.wrl files
+
+
+The following changes were made in the GLView 2.0 (26.10.95) version
+
+* compiled with MSVC 2.2, Windows NT 3.51
+* support for VRML nodes in GLView scene database
+* automatic triangulation of indexedFaceSets if ShapeHints.faceType == UNKNOWN_FACE_TYPE
+
+* Vrml loading from file / World wide web
+
+* WWW menu
+
+* VRML Extensions Nodes
+  BaseColor, Shuttle, Rotor, TextureRotor, Morph, Blinker
+  AsciiText 3D Extruded text
+
+* Texture Options: perspective correction
+
+* Additional support for GIF, JPEG, TARGA texture/image files
+
+* minor modificiations for Windows 95
+
+
+The following changes were made in the GLView 1.2 version
+
+* unzipping of files with .gz suffix
+
+* new Morph class
+
+* changes on camera interaction
+
+* Commandline file/url argument
+
+* Automatic association for known extensions with GLView in the system Registry
+  (HKEY_CLASSES_ROOT)
+
+
+The following changes were made in the GLView 1.11 version
+* color map now correct on first run & window change (256 color drivers)
+
+* new File-> New Logo command  to create 3D flyling logos using Windows True Type fonts
+
+* new Tools->Triangulate command to triangulate faces of current object using the GLU-Triangulator
+ 
+* new Tools->Info command to display some info and statistics on current object
+
+* new options->config "draw front", 
+  if checked rendering goes directly to screen, so rendering
+  is visible (usefull to compare speed, for drawing complex objects or wireframe rendering)
+* new options->config "zoom by 2", 
+  if checked rendering is done half the window size, and pixels are copied
+  to screen zoomed by 2, unfortunately the OpenGL zoom copypixel function
+  is very slow !?
+* new options->update colors
+  if checked (default): in the case focus is changed to another window with a
+  custom palette, all pixels in the GLView window are replaced to the
+  nearest matching new palette entry, also animation is disabled.
+
+* vrml out, stl out, geo out
+
+The following changes were made in the GLView 1.1 version
+* compiled with MSVC 2.0, Windows NT 3.5
+* File new allows creation of different object types
+* fixed a bug in mesh face normal computation
+* raw + pov triangle output
+* DXF File (ACAD R 11)  import + Tree database + Combine command
+* limited save as functionality in evaluation version
+
+The following changes were made in the GLView 1.0a version
+
+* flipping of object normals (Rendering->Options->Flip object normals)
+  for "dark" objects.
+
+* group support for Wavefront obj files
+
+* group support for some primitives
+
+* group color setting by names (X11 color names)
+
+
+The following changes were made in the GLView 1.0 version
+
+* support for RAW input format
+  (RAW contains simply one  triangle per line)
+
+* optional building of triangle strips for better OpenGL drawing speed
+  (can be enabled via the options dialog,
+  must be enabled before reading a file)
+
+* detailed rendering style control for vertices, edges, faces, normals
+
+* more toolbar buttons
+
+GLView 0.9 initial version
+
+===========================================================================
+Holger Grahn                Email :   hg@berlin.snafu.de
+Motzstr. 65                 WWW:      http://www.snafu.de/~hg
+D 10777 Berlin
+Germany
+===========================================================================

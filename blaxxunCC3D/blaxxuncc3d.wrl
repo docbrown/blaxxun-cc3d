@@ -1,0 +1,95 @@
+#VRML V2.0 utf8
+
+# blaxxunCC3d startup scene 
+
+## non standard 
+DEF AnimateViewpoints Info {string "true" }
+## end non standard 
+
+Viewpoint {
+    position	0.5 -1.83948 1.09085
+    orientation	1 0 0  1.13098
+    fieldOfView	0.962505
+}
+DEF Viewpoint6 Viewpoint {
+    position	0.5 -1.4012 0.884613
+    orientation	1 0 0  1.13097
+    fieldOfView	0.962507
+    description	"Viewpoint6"
+}
+DEF Viewpoint5 Viewpoint {
+    position	0.5 -1.06267 0.725314
+    orientation	1 0 0  1.13097
+    fieldOfView	0.962507
+    description	"Viewpoint5"
+}
+DEF Viewpoint4 Viewpoint {
+    position	0.5 -0.709031 0.568925
+    orientation	1 0 0  1.13097
+    fieldOfView	0.962507
+    description	"Viewpoint4"
+}
+DEF Viewpoint3 Viewpoint {
+    position	0.5 -0.502299 0.883644
+    orientation	1 0 0  0.84823
+    fieldOfView	0.962507
+    description	"Viewpoint3"
+}
+DEF Viewpoint2 Viewpoint {
+    position	0.5 -0.215972 1.12819
+    orientation	1 0 0  0.565487
+    fieldOfView	0.962507
+    description	"Viewpoint2"
+}
+Viewpoint {
+    position	0.5 0.5 1.3362
+    orientation	0 0 0  0
+    fieldOfView	0.962507
+    description	"Viewpoint1"
+}
+Background {
+    skyColor	0.0 0.0 0.0
+}
+NavigationInfo {
+  type             "EXAMINE"
+  visibilityLimit  3.0   
+}
+
+	Group {
+	    children [
+		Group {
+		    children [
+			Shape {
+			    appearance
+				Appearance {
+				    texture
+					ImageTexture {
+					    url	[ "blaxxunCC3d.gif" ]
+					}
+				}
+			    geometry
+				IndexedFaceSet {
+					solid FALSE
+					normalPerVertex FALSE
+				    coord
+					Coordinate {
+					    point	[ 0 0 0,
+							      0 1 0,
+							      1 1 0,
+							      1 0 0 ]
+					}
+				    texCoord
+					TextureCoordinate {
+					    point	[ 0 0,
+							      0 1,
+							      1 1,
+							      1 0 ]
+					}
+				    coordIndex	[ 0, 3, 2, 1, -1 ]
+				}
+			}
+		    ]
+		}
+	    ]
+	}
+

@@ -1,0 +1,1113 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SPHERE_OVER_1       BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo1.bmp"
+IDB_BITMAP2             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo2.bmp"
+IDB_BITMAP3             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo3.bmp"
+IDB_BITMAP4             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo4.bmp"
+IDB_BITMAP5             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo5.bmp"
+IDB_BITMAP6             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo6.bmp"
+IDB_BITMAP7             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo7.bmp"
+IDB_BITMAP8             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\pfo8.bmp"
+IDB_SPHERE_DOWN_1       BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd1.bmp"
+IDB_BITMAP10            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd2.bmp"
+IDB_BITMAP11            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd3.bmp"
+IDB_BITMAP12            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd4.bmp"
+IDB_BITMAP13            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd5.bmp"
+IDB_BITMAP14            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd6.bmp"
+IDB_BITMAP15            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd7.bmp"
+IDB_BITMAP16            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\pfd8.bmp"
+IDB_BITMAP17            BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\pfg.bmp"
+IDB_VI1_U               BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\vig1.bmp"
+IDB_VI1_D               BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\vid1.bmp"
+IDB_VI2_U               BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\vig2.bmp"
+IDB_VI2_D               BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\vid2.bmp"
+IDB_VI3_U               BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\vig3.bmp"
+IDB_VI3_D               BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\vid3.bmp"
+IDB_HELP_U              BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\heg.bmp"
+IDB_HELP_D              BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\hed.bmp"
+IDB_SLIDE2_U            BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\slg2.bmp"
+IDB_SLIDE2_F            BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\slo2.bmp"
+IDB_SLIDE2_D            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\sld2.bmp"
+IDB_SLIDE1_U            BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\slg1.bmp"
+IDB_SLIDE1_F            BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\slo1.bmp"
+IDB_SLIDE1_D            BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\sld1.bmp"
+IDB_BITMAP32            BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\allg.bmp"
+IDB_CLOSE_U             BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\clg.bmp"
+IDB_CLOSE_F             BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\clo.bmp"
+IDB_CLOSE_D             BITMAP  DISCARDABLE     "navpanel\\pixs\\down\\cld.bmp"
+IDB_HELP_F              BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\heo.bmp"
+IDB_VI1_F               BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\vio1.bmp"
+IDB_VI2_F               BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\vio2.bmp"
+IDB_VI3_F               BITMAP  DISCARDABLE     "navpanel\\pixs\\over\\vio3.bmp"
+IDB_ROTATE              BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\rotate.bmp"
+IDB_EXAMINE             BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\examine.bmp"
+IDB_FLY                 BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly.bmp"
+IDB_SLIDE               BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\slide.bmp"
+IDB_FLY0                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly0.BMP"
+IDB_FLY1                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly1.BMP"
+IDB_FLY2                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly2.BMP"
+IDB_FLY3                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly3.BMP"
+IDB_FLY4                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly4.BMP"
+IDB_FLY5                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly5.BMP"
+IDB_FLY6                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly6.BMP"
+IDB_FLY7                BITMAP  DISCARDABLE     "navpanel\\pixs\\grau\\fly7.BMP"
+IDB_GLVIEWCTRL          BITMAP  DISCARDABLE     "blaxxunCC3dCtl.bmp"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "1 TYPELIB ""blaxxunCC3d.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 4,3,0,0
+ PRODUCTVERSION 4,3,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "blaxxun interactive\0"
+            VALUE "FileDescription", "blaxxun CC3D Active X Control\0"
+            VALUE "FileVersion", "4, 3, 0, 0\0"
+            VALUE "InternalName", "blaxxunCC3D\0"
+            VALUE "LegalCopyright", "Copyright © 1997-2000 blaxxun interactive\0"
+            VALUE "OriginalFilename", "blaxxunCC3D.ocx\0"
+            VALUE "ProductName", "blaxxun CC3D\0"
+            VALUE "ProductVersion", "4, 3, 0, 0\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ABOUTDLL            ICON    DISCARDABLE     "blaxxunCC3d.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX_GLVIEWCTRL DIALOG DISCARDABLE  34, 22, 260, 95
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "About blaxxun Contact 3D"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_ABOUTDLL,IDC_STATIC,10,10,20,20
+    LTEXT           "blaxxun Contact 3D",IDC_STATIC,40,5,170,8
+    LTEXT           "Copyright © 1997-2000 blaxxun interactive",IDC_STATIC,
+                    40,20,145,8
+    DEFPUSHBUTTON   "OK",IDOK,221,7,32,14,WS_GROUP
+    LTEXT           "version 4.0",IDC_VERSION,40,35,197,10
+    LTEXT           "3D Sound Software by Intel",IDC_3DSOUND,40,80,115,8
+    LTEXT           "",IDC_VERSION2,40,50,210,10
+    EDITTEXT        IDC_VERSION3,40,60,205,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_BORDER
+END
+
+IDD_PROPPAGE_GLVIEWCTRL DIALOG DISCARDABLE  0, 0, 250, 62
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Choose general Preferences via Popup-menue in the 3D Control",
+                    IDC_STATIC,13,47,223,11
+    EDITTEXT        IDC_SRC,54,10,171,14,ES_AUTOHSCROLL
+    CONTROL         "Panel",IDC_PANEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    54,30,49,10
+    LTEXT           "URL",IDC_STATIC,16,15,23,8
+END
+
+IDD_WORLD_INFO DIALOG DISCARDABLE  0, 0, 244, 125
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "World info"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,190,5,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,190,25,50,14
+    LTEXT           "URL",IDC_STATIC,5,10,15,8
+    EDITTEXT        IDC_URL,25,5,155,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Title",IDC_STATIC,5,30,14,8
+    EDITTEXT        IDC_TITLE,25,25,155,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Info",IDC_STATIC,5,50,12,8
+    EDITTEXT        IDC_INFO,25,45,155,70,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    CONTROL         "VRML 2.0",IDC_VRML2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,190,100,45,10
+END
+
+IDD_PROPPAGE_RENDERING DIALOG DISCARDABLE  0, 0, 250, 92
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMBO_DRIVER,15,20,85,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Dither",IDC_DITHER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,40,34,10
+    CONTROL         "Filter Textures",IDC_TFILTER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,55,58,10
+    LTEXT           "Driver",IDC_STATIC,15,5,50,8
+END
+
+IDD_PROPPAGE_NAVIGATION DIALOG DISCARDABLE  0, 0, 250, 92
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Collision detection",IDC_COLLISION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,20,45,70,10
+    CONTROL         "Stay on Ground",IDC_GROUND,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,105,45,58,10
+    LTEXT           "Height",IDC_STATIC,20,25,25,8
+    EDITTEXT        IDC_AVATAR_HEIGHT,45,20,40,14,ES_AUTOHSCROLL
+    GROUPBOX        "Avatar",IDC_STATIC,15,10,160,30
+    LTEXT           "Radius",IDC_STATIC,95,25,25,8
+    EDITTEXT        IDC_AVATAR_RADIUS,125,20,40,14,ES_AUTOHSCROLL
+    LTEXT           "Speed",IDC_STATIC,20,70,25,8
+    EDITTEXT        IDC_SPEED,50,65,40,14,ES_AUTOHSCROLL
+    LTEXT           "Visibility Limit",IDC_STATIC,100,70,45,8
+    EDITTEXT        IDC_VISIBLILITY,150,65,40,14,ES_AUTOHSCROLL
+END
+
+IDD_PROP_D3D DIALOG DISCARDABLE  0, 0, 216, 140
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Direct 3D"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMBO_DXLEVEL,131,98,78,49,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO_DRIVER,14,16,178,45,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "Dither",IDC_DITHER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,36,53,10
+    CONTROL         "Smooth Textures",IDC_TFILTER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,81,36,81,10
+    LTEXT           "Direct 3D Driver",IDC_TEXT_D3D,15,5,81,8
+    COMBOBOX        IDC_COMBO_MODE,14,98,87,70,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Fullscreen Mode",IDC_TEXT_FULLSCREEN,15,86,64,8
+    EDITTEXT        IDC_INFO,14,119,195,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Use Video Memory (disable for MMX)",IDC_VIDEO_MEM,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,72,155,10
+    CONTROL         "Mip Mapping",IDC_TMIPMAP,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,52,57,10
+    CONTROL         "Anti Aliasing",IDC_ANTI_ALIAS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,81,52,57,10
+    LTEXT           "Direct X Level",IDC_TEXT_DXLEVEL,132,87,64,8
+END
+
+IDD_PROP_GENERAL DIALOG DISCARDABLE  0, 0, 215, 122
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "General"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Register as VRML Control for IE",IDC_REGISTER_VRML,15,
+                    99,125,14
+    COMBOBOX        IDC_MENUE_MODE,15,20,65,40,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "User Interface Level",IDT_USER_INTERFACE,15,5,89,8
+    CONTROL         "run full speed",IDC_FULL_SPEED,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,49,137,10
+    CONTROL         "verbose VRML warnings",IDC_VERBOSE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,16,76,146,10
+    CONTROL         "Navigation-Panel on Start-up",IDC_NAV_PANEL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,16,36,192,10
+    CONTROL         "exact collision detection",IDC_EXACT_COLLISION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,16,62,137,10
+END
+
+IDD_ASKHARDWARE DIALOG DISCARDABLE  34, 22, 212, 101
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "blaxxun Contact Hardware Check"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_ABOUTDLL,IDC_STATIC,10,10,21,20
+    LTEXT           "Do you want to use it ?",IDC_ASK2,55,25,95,10
+    DEFPUSHBUTTON   "Yes",IDOK,30,75,50,14,WS_GROUP
+    PUSHBUTTON      "No",IDNO,135,75,45,14,WS_GROUP
+    LTEXT           "blaxxun Contact found Direct 3D Hardware",IDC_ASK1,40,
+                    10,140,10
+    CONTROL         "Don't ask me again",IDC_ASK3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,55,40,132,10
+    EDITTEXT        IDC_INFO,15,55,185,14,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
+END
+
+IDD_CONSOLE DIALOGEX 200, 10, 190, 121
+STYLE DS_LOCALEDIT | DS_NOIDLEMSG | WS_POPUP | WS_CAPTION | WS_SYSMENU | 
+    WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_CLIENTEDGE
+CAPTION "blaxxun Contact 3D Console"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,150,105,35,14
+    EDITTEXT        IDC_TEXT,0,0,185,100,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    PUSHBUTTON      "Clear",IDC_CLEAR,30,105,20,14
+    PUSHBUTTON      "Copy",IDC_COPY,5,105,20,14
+    PUSHBUTTON      "Hide",IDHIDE,110,105,35,14,NOT WS_VISIBLE
+END
+
+IDD_PROP_SOUND DIALOG DISCARDABLE  0, 0, 177, 119
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Sound"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_COMBO_QUALITY,14,76,150,70,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "3D Quality (lower = faster processing)",
+                    IDC_TEXT_SOUNDQUAL,15,62,146,8
+    EDITTEXT        IDC_INFO,14,98,150,14,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
+    CONTROL         "Use Intel RSX 3D Sound if installed",IDC_USE_RSX,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,40,140,10
+    EDITTEXT        IDC_NUM_SOUNDS,105,10,40,14,ES_AUTOHSCROLL
+    LTEXT           "Number of active Sounds",IDC_TEXT_SOUNDS,15,15,80,8
+END
+
+IDD_PROP_OPENGL DIALOG DISCARDABLE  0, 0, 177, 119
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "OpenGL"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Dither",IDC_DITHER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,35,34,10
+    CONTROL         "Smooth Textures",IDC_TFILTER,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,75,35,67,10
+    EDITTEXT        IDC_INFO,13,67,150,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_INFO1,13,84,150,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Mip Mapping",IDC_TMIPMAP,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,75,51,57,10
+    CONTROL         "Software rendering only",IDC_RSOFTWARE,"Button",
+                    BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,15,16,113,
+                    10
+END
+
+IDD_PROP_CACHE DIALOG DISCARDABLE  0, 0, 217, 168
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Caching"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Cache Internet VRML Worlds to the harddisk",IDC_CACHE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,7,195,10
+    EDITTEXT        IDC_DIRECTORY,15,34,150,14,ES_AUTOHSCROLL
+    LTEXT           "Cache Harddisk Directory",IDC_TEXT_CACHE1,15,22,179,8
+    EDITTEXT        IDC_RO_DIRECTORY,15,143,195,14,ES_AUTOHSCROLL
+    LTEXT           "Additional Read Only Cache Directories",IDC_TEXT_CACHE2,
+                    15,122,176,8
+    LTEXT           "eg. CDROM:\\cache;D:\\cache",IDC_TEXT_CACHE3,15,131,175,
+                    8
+    CONTROL         "Incremental installation of Universal Media",
+                    IDC_MEDIA_CACHE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,
+                    55,165,10
+    EDITTEXT        IDC_MEDIA_DIRECTORY,15,94,152,15,ES_AUTOHSCROLL
+    LTEXT           "Local Universal Media directory:",IDC_TEXT_MEDIA,15,70,
+                    97,8
+    LTEXT           "Default  c:\\windows\\media\\UniversalMedia",
+                    IDC_TEXT_MEDIA2,15,82,140,8
+END
+
+IDD_PROP_AVATAR_VIEW DIALOG DISCARDABLE  0, 0, 102, 81
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "My Avatar Display"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Reset",IDC_RESET,5,60,25,14
+    LISTBOX         IDC_MODE_LIST,5,10,85,40,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_PROP_VIEWPOINTS DIALOG DISCARDABLE  0, 0, 107, 86
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Viewpoints"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_LIST,5,5,95,45,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    CONTROL         "Spin1",IDC_SPIN,"msctls_updown32",UDS_ARROWKEYS | 
+                    UDS_HORZ | UDS_NOTHOUSANDS,5,59,30,14
+    PUSHBUTTON      "Tour",IDC_TOUR,45,60,20,14
+END
+
+IDD_PROP_CACHE_SETTINGS DIALOG DISCARDABLE  0, 0, 217, 126
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Cache Settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Empty Cache now ...",IDC_DELETE,115,25,90,14
+    EDITTEXT        IDC_VERIFY_DAYS,50,50,20,14,ES_AUTOHSCROLL
+    LTEXT           "days",IDC_CACHEOPT2,75,50,29,8
+    LTEXT           "Check for newer versions",IDC_CACHEOPT1,10,5,124,8
+    CONTROL         "Every Visit",IDC_CACHEOPT_ALWAYS,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,20,20,91,10
+    CONTROL         "Once per session",IDC_CACHEOPT_ONCE,"Button",
+                    BS_AUTORADIOBUTTON,20,35,89,10
+    CONTROL         "After",IDC_CACHEOPT_DAYS,"Button",BS_AUTORADIOBUTTON,20,
+                    50,30,10
+    LTEXT           "Amount of Diskspace to use",IDC_CACHEOPT3,20,80,113,8
+    EDITTEXT        IDC_MAX_SPACE,135,75,40,14,ES_AUTOHSCROLL
+    LTEXT           "Amount of Diskspace to keep free",IDC_CACHEOPT4,20,95,
+                    113,8
+    EDITTEXT        IDC_MIN_SPACE_FREE,135,90,40,14,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_MAX_SPACE_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS,175,75,11,14
+    CONTROL         "Spin2",IDC_MIN_SPACE_FREE_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS,175,90,11,14
+    LTEXT           "MB",IDC_STATIC,193,77,12,8
+    LTEXT           "MB",IDC_STATIC,194,92,12,8
+END
+
+IDD_PROP_NAVIGATION_MODE DIALOG DISCARDABLE  0, 0, 107, 86
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Navigation"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_LIST,5,5,95,45,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+END
+
+IDD_PROP_PERFORMANCE DIALOG DISCARDABLE  0, 0, 177, 140
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Performance options"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Use Movies",IDC_USE_MOVIES,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,5,142,10
+    EDITTEXT        IDC_INFO,15,115,150,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Use Sounds",IDC_USE_SOUNDS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,18,142,10
+    CONTROL         "Use Textures",IDC_USE_TEXTURES,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,31,142,10
+    GROUPBOX        "Details",IDC_T_DETAILS,7,47,163,86
+    COMBOBOX        IDC_TEXTURE_SIZE,88,88,81,70,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Max. Texture Size",IDC_TEXT_MAX_TEXTURE_SIZE,14,90,66,8
+    LTEXT           "Visibility Factor",IDC_T_VISIBILITY,13,66,89,8
+    EDITTEXT        IDC_VISIBILITY_FACTOR,113,61,40,14,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_VISIBILITY_FACTOR_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS,153,61,16,14
+END
+
+IDD_DIALOG_MENU_THREAD DIALOG DISCARDABLE  0, 0, 13, 11
+STYLE DS_SYSMODAL | DS_SETFOREGROUND | WS_POPUP | WS_VISIBLE | WS_BORDER
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+IDD_ASK_HW_PROBLEM DIALOG DISCARDABLE  34, 22, 182, 90
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "blaxxun Contact Hardware Problem"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_ABOUTDLL,IDC_STATIC,10,9,20,20
+    PUSHBUTTON      "Safe Mode (slow)",ID_SAFE_MODE,40,38,101,14,WS_GROUP
+    LTEXT           "blaxxun Contact shut down abnormally.\nDo you want to restart in ",
+                    IDC_TEXT_ASK_HW_PROB,40,10,130,18
+    DEFPUSHBUTTON   "Normal Mode",ID_NORMAL_MODE,40,58,101,14,WS_GROUP
+END
+
+IDD_PROP_D3D_2 DIALOG DISCARDABLE  0, 0, 177, 140
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Render options"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Use Intel Pentium III ISSE instructions",IDC_PIII,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,5,142,10
+    EDITTEXT        IDC_INFO,13,119,150,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "3D Transform/Lighting in software",
+                    IDC_SOFTWARE_LIGHTING,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,18,142,10
+    CONTROL         "Use Direct 3D culling",IDC_USE_D3D_CULLING,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,13,31,142,10
+    GROUPBOX        "NURBS Settings",IDC_T_NURBS_SETTINGS,7,47,163,86
+    COMBOBOX        IDC_NURBS_MODE,14,98,150,70,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "NURBS Tessellation Mode",IDC_T_NURBS_MODE,14,87,147,8
+    LTEXT           "Target Frame Rate FPS",IDC_T_TARGET_FPS,15,58,89,8
+    EDITTEXT        IDC_TARGET_FPS,114,52,40,14,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_TARGET_FPS_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS,154,52,16,14
+    LTEXT           "Tessellation Factor",IDC_T_TESS_FACTOR,16,73,94,8
+    EDITTEXT        IDC_TESS_FACTOR,114,70,40,14,ES_AUTOHSCROLL
+    CONTROL         "Spin1",IDC_TESS_FACTOR_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS,154,70,16,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX_GLVIEWCTRL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 253
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_PROPPAGE_GLVIEWCTRL, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 243
+        TOPMARGIN, 4
+    END
+
+    IDD_WORLD_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 118
+    END
+
+    IDD_PROPPAGE_RENDERING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 85
+    END
+
+    IDD_PROPPAGE_NAVIGATION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 85
+    END
+
+    IDD_PROP_D3D, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 209
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 133
+    END
+
+    IDD_PROP_GENERAL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 208
+        VERTGUIDE, 16
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 113
+    END
+
+    IDD_ASKHARDWARE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 205
+        VERTGUIDE, 68
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 94
+    END
+
+    IDD_CONSOLE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 183
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
+
+    IDD_PROP_SOUND, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 112
+    END
+
+    IDD_PROP_OPENGL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 106
+    END
+
+    IDD_PROP_CACHE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 210
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 161
+    END
+
+    IDD_PROP_AVATAR_VIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 95
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 74
+    END
+
+    IDD_PROP_VIEWPOINTS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 100
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 79
+    END
+
+    IDD_PROP_CACHE_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 210
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 119
+    END
+
+    IDD_PROP_NAVIGATION_MODE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 100
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 79
+    END
+
+    IDD_PROP_PERFORMANCE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 133
+    END
+
+    IDD_DIALOG_MENU_THREAD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 6
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 4
+    END
+
+    IDD_ASK_HW_PROBLEM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 175
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+
+    IDD_PROP_D3D_2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 133
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME_POPUP MENU DISCARDABLE 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        POPUP "&Viewpoints"
+        BEGIN
+            MENUITEM "&Prev Viewpoint\tPageUp",     ID_CAMERA_VIEWPOINT_PREV
+            MENUITEM "&Next Viewpoint\tPageDown",   ID_CAMERA_VIEWPOINT_NEXT
+            MENUITEM SEPARATOR
+            MENUITEM "&Viewpoint Tour",             ID_CAMERA_ANIMATE_VIEWPOINTS
+
+            MENUITEM SEPARATOR
+            MENUITEM "&Reset\tEsc",                 ID_CAMERA_RESET
+            MENUITEM SEPARATOR
+            MENUITEM "Dummy 1",                     ID_POPUP_VIEWPOINTS_DUMMY1
+
+        END
+        POPUP "&Graphics"
+        BEGIN
+            MENUITEM "&Headlight",                  ID_POPUP_HEADLIGHTON
+            MENUITEM SEPARATOR
+            MENUITEM "&Wireframe",                  ID_RENDER_WIREFRAME
+            , HELP
+            MENUITEM "&Vertices",                   ID_RENDER_VERTICES, HELP
+            MENUITEM "&Flat",                       ID_RENDER_FLAT, HELP
+            MENUITEM "&Smooth",                     ID_RENDER_GOURAUD, HELP
+            MENUITEM SEPARATOR
+            MENUITEM "Te&xtured",                   ID_RENDER_TEXTURED, HELP
+            MENUITEM "Sm&ooth Textures",            ID_RENDER_TEXTURE_SMOOTH
+            MENUITEM "&Dither",                     ID_RENDER_DITHER
+        END
+        POPUP "&Movement"
+        BEGIN
+            MENUITEM "&Walk\tCtrl+Shift+W",         ID_CAMERA_WALK
+            MENUITEM "&Slide\tCtrl+Shift+S",        ID_CAMERA_DOLLY_XY
+            MENUITEM "&Rotate\tCtrl+Shift+R",       ID_CAMERA_ROTATE
+            MENUITEM "&Examine\tCtrl+Shift+E",      ID_CAMERA_ORBIT, HELP
+            MENUITEM "&Fly\tCtrl+Shift+F",          ID_CAMERA_FLY
+            MENUITEM "&Pan\tCtrl+Shift+P",          ID_CAMERA_PAN
+            MENUITEM "&Jump\tJ",                    ID_CAMERA_JUMP
+            MENUITEM SEPARATOR
+            MENUITEM "Straighten &Up\tCtrl+Shift+U", ID_CAMERA_STRAIGHTEN_UP
+            MENUITEM "Re&store\tEsc",               ID_CAMERA_RESET
+            MENUITEM "&Zoom Out",                   ID_CAMERA_ZOOMOUT
+            MENUITEM SEPARATOR
+            MENUITEM "&Collision\tCtrl+Shift+C",    ID_CAMERA_COLLISION
+            MENUITEM "&Gravity\tCtrl+Shift+G",      ID_CAMERA_GRAVITY
+        END
+        POPUP "&Speed"
+        BEGIN
+            MENUITEM "&Very Slow",                  ID_POPUP_SPEED_VERYSLOW
+            MENUITEM "&Slow",                       ID_POPUP_SPEED_SLOW
+            MENUITEM "&Medium",                     ID_POPUP_SPEED_MEDIUM
+            MENUITEM "&Fast",                       ID_POPUP_SPEED_FAST
+            MENUITEM "V&ery Fast",                  ID_POPUP_SPEED_VERYFAST
+        END
+        MENUITEM "View my &Avatar",             ID_POPUP_3RPERSON
+        MENUITEM SEPARATOR
+        POPUP "Se&ttings"
+        BEGIN
+            MENUITEM "&Preferences...\tCtrl F9",    ID_SETTINGS_PREFERENCES
+            MENUITEM "&Sound",                      ID_SETTINGS_SOUND
+            MENUITEM "&Console",                    ID_SETTINGS_CONSOLE
+        END
+        POPUP "&Help"
+        BEGIN
+            MENUITEM "Online &Manual",              ID_POPUP_HELP_MANUAL
+            MENUITEM "&Check for Update",           ID_POPUP_HELP_CHECKVERSION
+
+            MENUITEM "&Visit blaxxun",              ID_POPUP_HELP_VISIT
+            MENUITEM "&World Info",                 ID_POPUP_HELP_WORLDINFO
+            MENUITEM "&About",                      ID_POPUP_HELP_ABOUT
+        END
+        MENUITEM "&Panel",                      ID_POPUP_PANEL
+    END
+    POPUP "Popup"
+    BEGIN
+        POPUP "&Viewpoints"
+        BEGIN
+            MENUITEM "&Prev Viewpoint\tPageUp",     ID_CAMERA_VIEWPOINT_PREV
+            MENUITEM "&Next Viewpoint\tPageDown",   ID_CAMERA_VIEWPOINT_NEXT
+            MENUITEM SEPARATOR
+            MENUITEM "&Viewpoint Tour",             ID_CAMERA_ANIMATE_VIEWPOINTS
+
+            MENUITEM SEPARATOR
+            MENUITEM "&Reset\tEsc",                 ID_CAMERA_RESET
+            MENUITEM SEPARATOR
+            MENUITEM "Dummy 1",                     ID_POPUP_VIEWPOINTS_DUMMY1
+
+        END
+        POPUP "&Movement"
+        BEGIN
+            MENUITEM "&Walk\tCtrl+Shift+W",         ID_CAMERA_WALK
+            MENUITEM "&Slide\tCtrl+Shift+S",        ID_CAMERA_DOLLY_XY
+            MENUITEM "&Rotate\tCtrl+Shift+R",       ID_CAMERA_ROTATE
+            MENUITEM "&Examine\tCtrl+Shift+E",      ID_CAMERA_ORBIT, HELP
+            MENUITEM "&Fly\tCtrl+Shift+F",          ID_CAMERA_FLY
+            MENUITEM "&Pan\tCtrl+Shift+P",          ID_CAMERA_PAN
+            MENUITEM "&Jump\tJ",                    ID_CAMERA_JUMP
+            MENUITEM SEPARATOR
+            MENUITEM "Straighten &Up\tCtrl+Shift+U", ID_CAMERA_STRAIGHTEN_UP
+            MENUITEM "&Re&store\tEsc",              ID_CAMERA_RESET
+            MENUITEM "&Zoom Out",                   ID_CAMERA_ZOOMOUT
+            MENUITEM SEPARATOR
+            MENUITEM "&Collision\tCtrl+Shift+C",    ID_CAMERA_COLLISION
+            MENUITEM "&Gravity\tCtrl+Shift+G",      ID_CAMERA_GRAVITY
+        END
+        POPUP "&Speed"
+        BEGIN
+            MENUITEM "&Very Slow",                  ID_POPUP_SPEED_VERYSLOW
+            MENUITEM "&Slow",                       ID_POPUP_SPEED_SLOW
+            MENUITEM "&Medium",                     ID_POPUP_SPEED_MEDIUM
+            MENUITEM "&Fast",                       ID_POPUP_SPEED_FAST
+            MENUITEM "V&ery Fast",                  ID_POPUP_SPEED_VERYFAST
+        END
+        MENUITEM "View my &Avatar",             ID_POPUP_3RPERSON
+        POPUP "Se&ttings"
+        BEGIN
+            MENUITEM "&Preferences..",              ID_SETTINGS_PREFERENCES
+            MENUITEM "&Sound",                      ID_SETTINGS_SOUND
+            MENUITEM "&Console",                    ID_SETTINGS_CONSOLE
+        END
+        POPUP "&Help"
+        BEGIN
+            MENUITEM "Online &Manual",              ID_POPUP_HELP_MANUAL
+            MENUITEM "&Check for Update",           ID_POPUP_HELP_CHECKVERSION
+
+            MENUITEM "&Visit blaxxun",              ID_POPUP_HELP_VISIT
+            MENUITEM "&World Info",                 ID_POPUP_HELP_WORLDINFO
+            MENUITEM "&About",                      ID_POPUP_HELP_ABOUT
+        END
+        MENUITEM "&Panel",                      ID_POPUP_PANEL
+    END
+    POPUP "Popup"
+    BEGIN
+        POPUP "&Viewpoints"
+        BEGIN
+            MENUITEM "&Prev Viewpoint\tPageUp",     ID_CAMERA_VIEWPOINT_PREV
+            MENUITEM "&Next Viewpoint\tPageDown",   ID_CAMERA_VIEWPOINT_NEXT
+            MENUITEM SEPARATOR
+            MENUITEM "&Viewpoint Tour",             ID_CAMERA_ANIMATE_VIEWPOINTS
+
+            MENUITEM SEPARATOR
+            MENUITEM "&Reset\tEsc",                 ID_CAMERA_RESET
+            MENUITEM SEPARATOR
+            MENUITEM "Dummy 1",                     ID_POPUP_VIEWPOINTS_DUMMY1
+
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Panel",                      ID_POPUP_PANEL
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR ACCELERATORS DISCARDABLE 
+BEGIN
+    VK_DOWN,        ID_KEY_DOWN,            VIRTKEY, NOINVERT
+    VK_LEFT,        ID_KEY_LEFT,            VIRTKEY, NOINVERT
+    VK_NEXT,        ID_KEY_PGDOWN,          VIRTKEY, NOINVERT
+    VK_PRIOR,       ID_KEY_PGUP,            VIRTKEY, NOINVERT
+    VK_RIGHT,       ID_KEY_RIGHT,           VIRTKEY, NOINVERT
+    VK_UP,          ID_KEY_UP,              VIRTKEY, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PROPPAGE_RENDERING DLGINIT
+BEGIN
+    IDC_COMBO_DRIVER, 0x403, 15, 0
+0x6152, 0x706d, 0x4520, 0x756d, 0x616c, 0x6974, 0x6e6f, "\000" 
+    IDC_COMBO_DRIVER, 0x403, 14, 0
+0x4752, 0x2042, 0x6d45, 0x6c75, 0x7461, 0x6f69, 0x006e, 
+    0
+END
+
+IDD_PROP_GENERAL DLGINIT
+BEGIN
+    IDC_MENUE_MODE, 0x403, 5, 0
+0x6f4e, 0x656e, "\000" 
+    IDC_MENUE_MODE, 0x403, 11, 0
+0x7254, 0x6461, 0x2065, 0x6853, 0x776f, "\000" 
+    IDC_MENUE_MODE, 0x403, 7, 0
+0x7845, 0x6570, 0x7472, "\000" 
+    0
+END
+
+IDD_PROP_SOUND DLGINIT
+BEGIN
+    IDC_COMBO_QUALITY, 0x403, 6, 0
+0x6f4e, 0x3320, 0x0044, 
+    IDC_COMBO_QUALITY, 0x403, 12, 0
+0x694d, 0x206e, 0x7571, 0x6c61, 0x7469, 0x0079, 
+    IDC_COMBO_QUALITY, 0x403, 15, 0
+0x654d, 0x6964, 0x6d75, 0x7120, 0x6175, 0x696c, 0x7974, "\000" 
+    IDC_COMBO_QUALITY, 0x403, 12, 0
+0x614d, 0x2078, 0x7571, 0x6c61, 0x7469, 0x0079, 
+    0
+END
+
+IDD_PROP_PERFORMANCE DLGINIT
+BEGIN
+    IDC_TEXTURE_SIZE, 0x403, 7, 0
+0x413c, 0x7475, 0x3e6f, "\000" 
+    IDC_TEXTURE_SIZE, 0x403, 2, 0
+0x0031, 
+    IDC_TEXTURE_SIZE, 0x403, 2, 0
+0x0032, 
+    IDC_TEXTURE_SIZE, 0x403, 2, 0
+0x0034, 
+    IDC_TEXTURE_SIZE, 0x403, 2, 0
+0x0038, 
+    IDC_TEXTURE_SIZE, 0x403, 3, 0
+0x3631, "\000" 
+    IDC_TEXTURE_SIZE, 0x403, 3, 0
+0x3233, "\000" 
+    IDC_TEXTURE_SIZE, 0x403, 3, 0
+0x3436, "\000" 
+    IDC_TEXTURE_SIZE, 0x403, 4, 0
+0x3231, 0x0038, 
+    IDC_TEXTURE_SIZE, 0x403, 4, 0
+0x3532, 0x0036, 
+    IDC_TEXTURE_SIZE, 0x403, 4, 0
+0x3135, 0x0032, 
+    IDC_TEXTURE_SIZE, 0x403, 5, 0
+0x3031, 0x3432, "\000" 
+    0
+END
+
+IDD_PROP_D3D DLGINIT
+BEGIN
+    IDC_COMBO_DXLEVEL, 0x403, 5, 0
+0x7541, 0x6f74, "\000" 
+    IDC_COMBO_DXLEVEL, 0x403, 4, 0
+0x5844, 0x0033, 
+    IDC_COMBO_DXLEVEL, 0x403, 4, 0
+0x5844, 0x0035, 
+    IDC_COMBO_DXLEVEL, 0x403, 4, 0
+0x5844, 0x0036, 
+    0
+END
+
+IDD_PROP_D3D_2 DLGINIT
+BEGIN
+    IDC_NURBS_MODE, 0x403, 7, 0
+0x7453, 0x7461, 0x6369, "\000" 
+    IDC_NURBS_MODE, 0x403, 10, 0
+0x7944, 0x616e, 0x696d, 0x2063, 0x0020, 
+    IDC_NURBS_MODE, 0x403, 10, 0
+0x7246, 0x6d61, 0x7265, 0x7461, 0x0065, 
+    IDC_NURBS_MODE, 0x403, 20, 0
+0x7944, 0x616e, 0x696d, 0x2063, 0x2026, 0x7246, 0x6d61, 0x7265, 0x7461, 
+0x0065, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR  DISCARDABLE     "cursor1.cur"
+IDC_CURSOR2             CURSOR  DISCARDABLE     "ccpan.cur"
+IDC_CURSOR3             CURSOR  DISCARDABLE     "ccrot.cur"
+IDC_CURSOR4             CURSOR  DISCARDABLE     "ccexa.cur"
+IDC_CURSOR5             CURSOR  DISCARDABLE     "ccfly.cur"
+IDC_CURSOR6             CURSOR  DISCARDABLE     "ccwalks.cur"
+IDC_CURSOR7             CURSOR  DISCARDABLE     "ccpans.cur"
+IDC_CURSOR8             CURSOR  DISCARDABLE     "ccrots.cur"
+IDC_CURSOR9             CURSOR  DISCARDABLE     "ccexas.cur"
+IDC_CURSOR10            CURSOR  DISCARDABLE     "ccflys.cur"
+IDC_CURSOR11            CURSOR  DISCARDABLE     "cursor11.cur"
+IDC_CURSOR12            CURSOR  DISCARDABLE     "cursor12.cur"
+IDC_CURSOR13            CURSOR  DISCARDABLE     "cursor13.cur"
+IDC_CURSOR14            CURSOR  DISCARDABLE     "cursor14.cur"
+IDC_CURSOR15            CURSOR  DISCARDABLE     "cursor15.cur"
+IDC_CURSOR16            CURSOR  DISCARDABLE     "cursor16.cur"
+IDC_CURSOR17            CURSOR  DISCARDABLE     "cursor17.cur"
+IDC_CURSOR18            CURSOR  DISCARDABLE     "cursor18.cur"
+IDC_CURSOR19            CURSOR  DISCARDABLE     "cursor19.cur"
+IDC_CURSOR20            CURSOR  DISCARDABLE     "cursor20.cur"
+IDC_CURSOR21            CURSOR  DISCARDABLE     "cursor21.cur"
+IDC_CURSOR22            CURSOR  DISCARDABLE     "cursor22.cur"
+IDC_CURSOR23            CURSOR  DISCARDABLE     "cursor23.cur"
+IDC_CURSOR24            CURSOR  DISCARDABLE     "cursor24.cur"
+IDC_CURSOR25            CURSOR  DISCARDABLE     "cursor25.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_GLVIEWCTRL          "blaxxun CC3D"
+    IDS_GLVIEWCTRL_PPG      "blaxxun CC3D Property Page"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_GLVIEWCTRL_PPG_CAPTION "General Properties"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CAMERA_SEEKTO        "Jump to the object under cursor\nJump To"
+    ID_CAMERA_NONE          "Mouse Drags activates Sensors and Anchors only\nNone"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDD_CAMERA_RELATIVE     "Walk moves relative to view direction or relative to world´s ground plane\nRelative Move"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CAMERA_ANIMATE_VIEWPOINTS 
+                            "Animate through all Viewpoints (Stop with <Escape>)\nAnimate Viewpoints"
+    ID_CAMERA_VIEWPOINT_NEXT "Goto next Viewpoint in scene\nNext Viewpoint"
+    ID_CAMERA_VIEWPOINT_PREV 
+                            "Goto previous viewpoint in scene\nPrev Viewpoint"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_POPUP_HEADLIGHTON    "Toggle the camera´s global head light\nHead Light"
+    ID_CAMERA_COLLISION     "Prevent collision with objects \nCollision"
+    ID_CAMERA_FOLLOW_OBJECT "Follow the Object under the Mouse\nFollow Object"
+    ID_CAMERA_RESET         "Goto entry viewpoint\nReset"
+    ID_CAMERA_ZOOM          "Zoom Mode: zoom in and out around current center\nZoom"
+    ID_CAMERA_DOLLY_XY      "Slide Mode: Move up and down, left and right\nSlide"
+    ID_CAMERA_ORBIT         "Examine Mode:  Rotate around the object\nExamine"
+    ID_CAMERA_PAN           "Pan Mode: view up/down left/rigth\nPan"
+    ID_CAMERA_WALK          "Walk Mode: move forward and back, turn left and right\nWalk"
+    ID_RENDER_WIREFRAME     "Render in Wirefame Mode\nWireframe"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_RENDER_FLAT          "Render in Flat Shaded Mode\nFlat"
+    ID_RENDER_GOURAUD       "Render in Smooth Shaded Mode\nSmooth"
+    ID_CAMERA_ROLL          "Roll mode: rolls the up direction\nRoll"
+    ID_RENDER_VERTICES      "Render in Vertices Mode\nVertices"
+    ID_RENDER_TEXTURED      "Render using Textures\nTextures"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CAMERA_FLY           "Fly Mode: Down and up, left and right with automatic speed\nFly"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_POPUP_HELP_MANUAL    "View the Online Manual\nManual"
+    ID_POPUP_HELP_VISITBLACKSUN "Visit blaxxun\nblaxxun"
+    ID_POPUP_HELP_VISIT     "Visit blaxxun Online\nblaxxun"
+    ID_POPUP_SETTINGS       "Change Settings\nSettings"
+    ID_POPUP_HELP_ABOUT     "Display About Box\nAbout"
+    ID_CAMERA_JUMP          "Click on objects to jump, Shift-Click follows\nJump"
+    ID_SETTINGS_STOP_LOADING "Stop loading of Internet Data\nStop loading"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_SETTINGS_RELOAD      "Reload currentworld\nReload"
+    ID_SETTINGS_SOUND       "Enable/Disable Sound\nSound"
+    ID_POPUP_HELP_WORLDINFO "Information about the world\nWorld info"
+    ID_POPUP_SETTINGS_STAYONGROUND 
+                            "Stay on Ground during walking\nStay on Ground"
+    ID_RENDER_DITHER        "Dither colors to screen\nDither"
+    ID_RENDER_TEXTURE_SMOOTH 
+                            "Toggle smooth texture filtering\nsmooth textures"
+    ID_POPUP_SETTINGS_SETTINGS "Change general Preferences\nPreferences"
+    ID_SETTINGS_PREFERENCES "Edit global Preferences\nPreferences"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_POPUP_HELP_CHECKVERSION 
+                            "Check Online for Updated version\nCheck for Update"
+    ID_CAMERA_ROTATE        "Rotate Mode: Rotate around a fixed point and change distance\nRotate"
+    ID_POPUP_SPEED_VERYSLOW "Change to very slow Navigation speed\nVery Slow"
+    ID_POPUP_SPEED_SLOW     "Change to slow Navigation speed\nSlow"
+    ID_POPUP_SPEED_MEDIUM   "Change to medium Navigation speed\nMedium"
+    ID_POPUP_SPEED_FAST     "Change to fast Navigation speed\nFast"
+    ID_POPUP_SPEED_VERYFAST "Change to very fast Navigation speed\nVery Fast"
+    ID_CAMERA_ZOOMOUT       "Get a view of the whole world\nZoom out"
+    ID_CAMERA_STRAIGHTEN_UP "Standing up straight\nStraighten up"
+    ID_MENUITEM38013        "Go back to previous world\nGo Back"
+    ID_GO_BACK              "Go Back to previous World\nGo Back"
+    ID_CAMERA_GRAVITY       "Gravity\nGravity"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_SETTINGS_CONSOLE     "Show the VRML console\nConsole"
+    ID_POPUP_3RPERSON       "Toggles 3rd person mode Avatar Display\nView my Avatar"
+    ID_POPUP_PAD            "Show/Hide the control pad\nControl Pad"
+    ID_POPUP_PANEL          "Turns the navigation-panel on/off\nNavigation Panel"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "blaxxunCC3d.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

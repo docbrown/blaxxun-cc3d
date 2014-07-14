@@ -1,0 +1,74 @@
+#VRML V2.0 utf8
+
+PROTO NurbsSurface [
+  field        SFInt32  uDimension        0     
+  field        SFInt32  vDimension        0    
+  field        MFFloat  uKnot             []    
+  field        MFFloat  vKnot             []    
+  field        SFInt32  uOrder            3     
+  field        SFInt32  vOrder            3     
+  
+  exposedField MFVec3f  controlPoint      []    
+  exposedField MFFloat  weight            []    
+  exposedField SFInt32  uTessellation     0    
+  exposedField SFInt32  vTessellation     0    
+
+  exposedField SFNode   texCoord          NULL
+
+  field        SFBool   ccw               TRUE
+  field        SFBool   solid             TRUE
+]
+{
+	DEF ils IndexedLineSet
+	{ coord Coordinate { point IS controlPoint}
+	  coordIndex [1, 2, 3, -1, 5, 6, 7, -1]
+	}
+
+
+DEF s Script { 
+	directOutput TRUE
+
+    # Declarations of what's in this Script node:
+	field        SFInt32  uDimension        IS  uDimension    
+	field        SFInt32  vDimension        IS   vDimension     
+	field SFNode ils USE ils	# the ILS for visualization 
+
+    url "javascript:
+        function initialize() {
+			var u,v, counter, number;
+			counter = 0;
+			number = 0;
+			var ind = new MFInt32();
+			ind.length = 2*vDimension * uDimension + uDimension + vDimension;
+
+			for(v=0; v<vDimension;v++)
+			{
+				for(u=0; u<uDimension;u++)
+				{
+					ind[counter] = number;
+					counter++;
+					number++;
+				}
+				ind[counter] = -1; counter++;
+			}
+		
+			for(u=0; u<uDimension;u++)
+			{
+				for(v=0; v<vDimension;v++)
+				{
+					ind[counter] = v*uDimension + u;
+					counter++;
+					number++;
+				}
+				ind[counter] = -1; counter++;
+			}
+			
+			ils.set_coordIndex = ind;
+
+		}
+      
+    "
+}
+
+}
+

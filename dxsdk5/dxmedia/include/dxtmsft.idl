@@ -1,0 +1,1049 @@
+/*****************************************************************************
+* dxtmsft.idl *
+*-------------*
+*
+*   Description:
+*       This is the IDL file for DirectX installable transform coclass,
+*   interface, and type definitions.
+*
+*-----------------------------------------------------------------------------
+*   Date: 07/07/97
+*   Copyright Microsoft Corporation 1997
+*   All rights reserved.
+*
+*****************************************************************************/
+
+//--- Import base idl
+import "oaidl.idl";
+import "ocidl.idl";
+import "dxtrans.idl";
+
+//--- Additional includes
+
+//--- Export
+
+//=== Forward References ====================================================
+interface IDXTResampler;
+interface IDXTComposite;
+interface IDXMapper;
+interface IDXLUTBuilder;
+interface IDXDLUTBuilder;
+interface IDXTConvolution;
+
+//--- Chrome Wrapper interfaces
+interface ICrBlur;
+
+//=== Constants =============================================================
+
+//=== Struct & Enum definitions =============================================
+
+//=== Interface definitions =================================================
+
+//--- IDXLUTBuilder -----------------------------------
+typedef enum OPIDDXLUTBUILDER
+{
+    OPID_DXLUTBUILDER_Gamma,
+    OPID_DXLUTBUILDER_Opacity,
+    OPID_DXLUTBUILDER_Brightness,
+    OPID_DXLUTBUILDER_Contrast,
+    OPID_DXLUTBUILDER_ColorBalance,
+    OPID_DXLUTBUILDER_Posterize,
+    OPID_DXLUTBUILDER_Invert,
+    OPID_DXLUTBUILDER_Threshold,
+    OPID_DXLUTBUILDER_NUM_OPS
+} OPIDDXLUTBUILDER;
+
+typedef enum DXLUTCOLOR
+{
+    DXLUTCOLOR_RED,
+    DXLUTCOLOR_GREEN,
+    DXLUTCOLOR_BLUE
+} DXLUTCOLOR;
+
+[
+    uuid(F4370FC1-CADB-11D0-B52C-00A0C9054373),
+    helpstring("IDXLUTBuilder Interface"),
+    pointer_default(unique)
+]
+interface IDXLUTBuilder : IUnknown
+{
+    HRESULT GetNumBuildSteps([out]ULONG *pulNumSteps );
+    HRESULT GetBuildOrder([out, size_is(ulSize)]OPIDDXLUTBUILDER OpOrder[],
+                          [in]ULONG ulSize );
+    HRESULT SetBuildOrder( [in, size_is(ulNumSteps)] const OPIDDXLUTBUILDER OpOrder[],
+                           [in]ULONG ulNumSteps );
+    HRESULT SetGamma([in] float newVal);
+    HRESULT GetGamma([out] float *pVal);
+    HRESULT GetOpacity([out] float *pVal);
+    HRESULT SetOpacity([in] float newVal);
+    HRESULT GetBrightness([in, out]ULONG *pulCount, [out, size_is(*pulCount)]float Weights[]);
+    HRESULT SetBrightness([in]ULONG ulCount, [in, size_is(ulCount)]const float Weights[]);
+    HRESULT GetContrast([in, out]ULONG *pulCount, [out, size_is(*pulCount)]float Weights[]);
+    HRESULT SetContrast([in]ULONG ulCount, [in, size_is(ulCount)]const float Weights[]);
+    HRESULT GetColorBalance( [in]DXLUTCOLOR Color, [in, out]ULONG *pulCount, [out, size_is(*pulCount)]float Weights[] );
+    HRESULT SetColorBalance( [in]DXLUTCOLOR Color, [in]ULONG ulCount, [in, size_is(ulCount)]const float Weights[] );
+    HRESULT GetLevelsPerChannel([out] ULONG *pVal);
+    HRESULT SetLevelsPerChannel([in] ULONG newVal);
+    HRESULT GetInvert([out]float *pThreshold);
+    HRESULT SetInvert([in]float Threshold);
+    HRESULT GetThreshold([out] float *pVal);
+    HRESULT SetThreshold([in] float newVal);
+};
+
+[
+    object,
+    uuid(73068231-35EE-11d1-81A1-0000F87557DB),
+    dual,
+    helpstring("IDXDLUTBuilder Interface"),
+    pointer_default(unique)
+]
+interface IDXDLUTBuilder : IDispatch
+{
+    [propget, id(1)]
+        HRESULT NumBuildSteps( [out, retval]long *pNumSteps );
+    [propget, id(2)]
+        HRESULT BuildOrder( [out, retval]VARIANT *pOpOrder );
+    [propput, id(2)]
+        HRESULT BuildOrder( [in]VARIANT *pOpOrder );
+    [propget, id(3)]
+        HRESULT Gamma([out, retval] float *pVal);
+    [propput, id(3)]
+        HRESULT Gamma([in] float newVal);
+    [propget, id(4)]
+        HRESULT Opacity([out, retval] float *pVal);
+    [propput, id(4)]
+        HRESULT Opacity([in] float newVal);
+    [propget, id(5)]
+        HRESULT Brightness( [out, retval]VARIANT *pWeights );
+    [propput, id(5)]
+        HRESULT Brightness([in]VARIANT *pWeights );
+    [propget, id(6)]
+        HRESULT Contrast( [out, retval]VARIANT *pWeights);
+    [propput, id(6)]
+        HRESULT Contrast( [in]VARIANT *pWeights);
+    [propget, id(7)]
+        HRESULT ColorBalance( [in]DXLUTCOLOR Color, [out, retval]VARIANT *pWeights );
+    [propput, id(7)]
+        HRESULT ColorBalance( [in]DXLUTCOLOR Color, [in]VARIANT *pWeights );
+    [propget, id(8)]
+        HRESULT LevelsPerChannel([out, retval]long *pVal);
+    [propput, id(8)]
+        HRESULT LevelsPerChannel([in]long newVal);
+    [propget, id(9)]
+        HRESULT Invert( [out, retval]float *pThreshold );
+    [propput, id(9)]
+        HRESULT Invert( [in]float Threshold );
+    [propget, id(10)]
+        HRESULT Threshold([out, retval]float *pVal);
+    [propput, id(10)]
+        HRESULT Threshold([in]float newVal);
+};
+
+
+//--- IDXTResampler --------------------------------------------------------
+typedef enum DXFILTERTYPE
+{
+    DXFILTER_NEAREST,
+    DXFILTER_BILINEAR,
+    DXFILTER_CUBIC,
+    DXFILTER_BSPLINE,
+    DXFILTER_NUM_FILTERS
+} DXFILTERTYPE;
+
+//--- Do not change these values. The bit position corresponds to the dimension index.
+typedef enum DXRESAMPFLAGS
+{
+    DXRESAMP_X        = ( 1L << 0 ),
+    DXRESAMP_Y        = ( 1L << 1 ),
+    DXRESAMP_Z        = ( 1L << 2 ),
+    DXRESAMP_T        = ( 1L << 3 ),
+    DXRESAMP_ABSOLUTE = ( 1L << 4 ),
+    DXRESAMP_ALL      = ( DXRESAMP_X | DXRESAMP_Y | DXRESAMP_Z | DXRESAMP_T )
+} DXRESAMPFLAGS;
+
+[
+    uuid(015E2938-C341-11d1-81D1-0000F87557DB),
+    helpstring("IDXTResampler Interface"),
+    pointer_default(unique)
+]
+interface IDXTResampler : IUnknown
+{
+    HRESULT SetFilterType( [in]DXFILTERTYPE eType );
+    HRESULT GetFilterType( [out]DXFILTERTYPE* peType );
+    HRESULT SetMapping( [in]const DX2DXFORM* pXForm );
+    HRESULT GetMapping( [out]DX2DXFORM* pXForm );
+    HRESULT SetMappingObject( [in]IUnknown *pMapper );
+    HRESULT GetMappingObject( [out]IUnknown **ppMapper );
+    HRESULT Rotate( [in]float Rotation, [in]DWORD dwFlags );
+    HRESULT Scale( [in]float Scales[2], [in]DWORD dwFlags );
+    HRESULT ScaleFitToSize( [in]DXBNDS* pClipBounds,
+                            [in]SIZE FitToSize, [in]BOOL bMaintainAspect );
+};
+
+//--- IDXTResamplerD --------------------------------------------------------
+// This is the dispatch control interface for the resampler transform
+//
+typedef enum DXRESAMPDISPID
+{
+    DISPID_MappingMatrix = 1,
+    DISPID_MappingObject,
+    DISPID_FilterType,
+    DISPID_Rotation,
+    DISPID_ScaleX,
+    DISPID_ScaleY,
+    DISPID_ScaleFitToSize
+} DXRESAMPDISPID;
+
+[
+    object,
+    uuid(015E2937-C341-11d1-81D1-0000F87557DB),
+    dual,
+    helpstring("IDXTResamplerD Interface"),
+    pointer_default(unique)
+]
+interface IDXTResamplerD : IDispatch
+{
+    [propput, id(DISPID_MappingMatrix)]
+        HRESULT MappingMatrix( [in]SAFEARRAY(float) *pFilter );
+    [propget, id(DISPID_MappingMatrix)]
+        HRESULT MappingMatrix( [out, retval]SAFEARRAY(float) *pFilter );
+    [propput, id(DISPID_MappingObject)]
+        HRESULT MappingObject( [in]IUnknown *pMapper );
+    [propget, id(DISPID_MappingObject)]
+        HRESULT MappingObject( [out, retval]IUnknown **ppMapper );
+    [propput, id(DISPID_FilterType)]
+        HRESULT FilterType( [in]DXFILTERTYPE eType );
+    [propget, id(DISPID_FilterType)]
+        HRESULT FilterType( [out, retval]DXFILTERTYPE* peType );
+    [propput, id(DISPID_Rotation)]
+        HRESULT Rotation( [in]float Rotation );
+    [propget, id(DISPID_Rotation)]
+        HRESULT Rotation( [out, retval]float* Rotation );
+    [propput, id(DISPID_ScaleX)]
+        HRESULT ScaleX( [in]float X );
+    [propget, id(DISPID_ScaleX)]
+        HRESULT ScaleX( [out, retval]float* pX );
+    [propput, id(DISPID_ScaleY)]
+        HRESULT ScaleY( [in]float Y );
+    [propget, id(DISPID_ScaleY)]
+        HRESULT ScaleY( [out, retval]float* pY );
+    [id(DISPID_ScaleFitToSize)]
+        HRESULT ScaleFitToSize( [in]long FitWid, [in]long FitHgt, [in]BOOL bMaintainAspect );
+};
+
+//--- IDXTGradientD --------------------------------------------------------
+// This is the dispatch control interface for the gradient transform
+//
+typedef enum DXGRADIENTTYPE
+{
+    DXGRADIENT_VERTICAL,
+    DXGRADIENT_HORIZONTAL,
+    DXGRADIENT_NUM_GRADIENTS
+} DXGRADIENTTYPE;
+
+typedef enum DXGRADDISPID
+{
+    DISPID_GradientType = 1,
+    DISPID_StartColor,
+    DISPID_EndColor,
+    DISPID_GradientWidth,
+    DISPID_GradientHeight,
+    DISPID_GradientAspect,
+    DISPID_StartColorStr,
+    DISPID_EndColorStr,
+} DXGRADDISPID;
+
+[
+    object,
+    uuid(623E2881-FC0E-11d1-9A77-0000F8756A10),
+    dual,
+    helpstring("IDXTGradientD Interface"),
+    pointer_default(unique)
+]
+interface IDXTGradientD : IDispatch
+{
+    [propput, id(DISPID_GradientType)]
+        HRESULT GradientType( [in]DXGRADIENTTYPE eType );
+    [propget, id(DISPID_GradientType)]
+        HRESULT GradientType( [out, retval]DXGRADIENTTYPE* peType );
+    [propput, id(DISPID_StartColor), helpstring("property StartColor")]
+        HRESULT StartColor([in] OLE_COLOR newVal);
+    [propget, id(DISPID_StartColor), helpstring("property StartColor")]
+        HRESULT StartColor([out, retval] OLE_COLOR *pVal);
+    [propput, id(DISPID_EndColor), helpstring("property EndColor")] 
+        HRESULT EndColor([in] OLE_COLOR newVal);
+    [propget, id(DISPID_EndColor), helpstring("property EndColor")]
+        HRESULT EndColor([out, retval] OLE_COLOR *pVal);
+    [propput, id(DISPID_GradientWidth), helpstring("property GradientWidth")] 
+        HRESULT GradientWidth([in] long newVal);
+    [propget, id(DISPID_GradientWidth), helpstring("property GradientWidth")]
+        HRESULT GradientWidth([out, retval] long *pVal);
+    [propput, id(DISPID_GradientHeight), helpstring("property GradientHeight")] 
+        HRESULT GradientHeight([in] long newVal);
+    [propget, id(DISPID_GradientHeight), helpstring("property GradientHeight")]
+        HRESULT GradientHeight([out, retval] long *pVal);
+    [propput, id(DISPID_GradientAspect), helpstring("property KeepAspectRatio")] 
+        HRESULT KeepAspectRatio([in] VARIANT_BOOL newVal);
+    [propget, id(DISPID_GradientAspect), helpstring("property KeepAspectRatio")]
+        HRESULT KeepAspectRatio([out, retval] VARIANT_BOOL *pVal);
+    [propput, id(DISPID_StartColorStr), helpstring("property StartColorStr")]
+        HRESULT StartColorStr([in] BSTR newVal);
+    [propput, id(DISPID_EndColorStr), helpstring("property EndColorStr")] 
+        HRESULT EndColorStr([in] BSTR newVal);
+};
+
+//--- IDXTConvolution --------------------------------------------------------
+typedef enum DXCONVFILTERTYPE
+{
+    DXCFILTER_SRCCOPY,      // No filtering
+    DXCFILTER_BOX7X7,
+    DXCFILTER_BLUR3X3,      
+    DXCFILTER_SHARPEN,
+    DXCFILTER_EMBOSS,
+    DXCFILTER_ENGRAVE,
+    DXCFILTER_NUM_FILTERS,  // This must be the at the end of the predefine filter list
+    DXCFILTER_CUSTOM      
+} DXCONVFILTERTYPE;
+
+[
+    uuid(7BA7F8AF-E5EA-11d1-81DD-0000F87557DB),
+    helpstring("IDXTConvolution Interface"),
+    pointer_default(unique)
+]
+interface IDXTConvolution : IUnknown
+{
+    HRESULT SetFilterType( [in]DXCONVFILTERTYPE eType );
+    HRESULT GetFilterType( [out]DXCONVFILTERTYPE* peType );
+    HRESULT SetCustomFilter( [in]float *pFilter, [in]SIZE Size );
+    HRESULT SetConvertToGray( [in]BOOL bConvertToGray );
+    HRESULT GetConvertToGray( [out]BOOL* pbConvertToGray );
+    HRESULT SetBias( [in]float Bias );
+    HRESULT GetBias( [out]float* pBias );
+    HRESULT SetExcludeAlpha( [in]BOOL bExcludeAlpha );
+    HRESULT GetExcludeAlpha( [out]BOOL* pbExcludeAlpha );
+};
+
+//--- IDXMapper -------------------------------------------------
+// This is the coordinate mapping interface for a mapper object
+//
+[
+    uuid(555278E5-05DB-11D1-883A-3C8B00C10000),
+    helpstring("IDXMapper Interface"),
+    pointer_default(unique)
+]
+interface IDXMapper : IUnknown
+{
+    HRESULT MapIn2Out( [in]DXVEC* pInPt, [out]DXVEC* pOutPt );
+    HRESULT MapOut2In( [in]DXVEC* pOutPt, [out]DXVEC* pInPt );
+};
+
+//--- IDXDMapper -------------------------------------------------
+// This is the coordinate mapping interface for a mapper object
+//
+[
+    object,
+    uuid(7FD9088B-35ED-11d1-81A1-0000F87557DB),
+    dual,
+    helpstring("IDXDMapper Interface"),
+    pointer_default(unique)
+]
+interface IDXDMapper : IDispatch
+{
+    HRESULT MapIn2Out( [in]SAFEARRAY(VARIANT) *pInPt, [out]SAFEARRAY(VARIANT) *pOutPt );
+    HRESULT MapOut2In( [in]SAFEARRAY(VARIANT) *pOutPt, [out]SAFEARRAY(VARIANT) *pInPt );
+};
+
+//--- IDXTComposite -------------------------------------------------
+// This is the compositor transform control interface
+typedef enum DXCOMPFUNC
+{
+    DXCOMPFUNC_SWAP_AB  = 0x10,
+    DXCOMPFUNC_FUNCMASK = 0xF,
+    //--- Compositing functions
+    DXCOMPFUNC_CLEAR = 0,
+    DXCOMPFUNC_MIN,
+    DXCOMPFUNC_MAX,
+    DXCOMPFUNC_A,
+    DXCOMPFUNC_A_OVER_B,
+    DXCOMPFUNC_A_IN_B,
+    DXCOMPFUNC_A_OUT_B,
+    DXCOMPFUNC_A_ATOP_B,
+    DXCOMPFUNC_A_SUBTRACT_B,
+    DXCOMPFUNC_A_ADD_B,
+    DXCOMPFUNC_A_XOR_B,
+    DXCOMPFUNC_B            = ( DXCOMPFUNC_A            | DXCOMPFUNC_SWAP_AB ),
+    DXCOMPFUNC_B_OVER_A     = ( DXCOMPFUNC_A_OVER_B     | DXCOMPFUNC_SWAP_AB ),
+    DXCOMPFUNC_B_IN_A       = ( DXCOMPFUNC_A_IN_B       | DXCOMPFUNC_SWAP_AB ),
+    DXCOMPFUNC_B_OUT_A      = ( DXCOMPFUNC_A_OUT_B      | DXCOMPFUNC_SWAP_AB ),
+    DXCOMPFUNC_B_ATOP_A     = ( DXCOMPFUNC_A_ATOP_B     | DXCOMPFUNC_SWAP_AB ),
+    DXCOMPFUNC_B_SUBTRACT_A = ( DXCOMPFUNC_A_SUBTRACT_B | DXCOMPFUNC_SWAP_AB ),
+    DXCOMPFUNC_B_ADD_A      = ( DXCOMPFUNC_A_ADD_B      | DXCOMPFUNC_SWAP_AB ), 
+    DXCOMPFUNC_NUMFUNCS             // This is used for range checking only
+} DXCOMPFUNC;
+
+typedef enum DXCOMPOSITEDISPID
+{
+    DISPID_DXCOMPOSITE_Function = 1,
+} DXCOMPOSITEDISPID;
+
+[
+    object,
+    uuid(9A43A843-0831-11D1-817F-0000F87557DB),
+    dual,
+    helpstring("IDXTComposite Interface"),
+    pointer_default(unique)
+]
+interface IDXTComposite : IDispatch
+{
+    [propput, id(DISPID_DXCOMPOSITE_Function)]
+        HRESULT Function([in] DXCOMPFUNC eFunc );
+    [propget, id(DISPID_DXCOMPOSITE_Function)]
+        HRESULT Function([out, retval]DXCOMPFUNC *peFunc );
+};
+
+//--- IExplode -------------------------------------------------
+typedef enum EXPLODEDISPID
+{
+    DISPID_Explode_Tumble = DISPID_DXE_NEXT_ID,
+    DISPID_Explode_MaxRotations,
+    DISPID_Explode_FinalVelocity,
+    DISPID_Explode_PositionJump,
+    DISPID_Explode_DecayTime    
+} EXPLODEDISPID;
+
+[
+    object,
+    uuid(141DBAF0-55FB-11D1-B83E-00A0C933BE86),
+    dual,
+    helpstring("IExplode Interface"),
+    pointer_default(unique)
+]
+interface IExplode : IDXEffect
+{
+    [propput, id(DISPID_Explode_Tumble)]
+    HRESULT Tumble([in] BOOL newVal );
+    [propget, id(DISPID_Explode_Tumble)]
+    HRESULT Tumble([out, retval] BOOL *pVal);   
+    [propput, id(DISPID_Explode_MaxRotations)]
+    HRESULT MaxRotations([in] LONG newVal);
+    [propget, id(DISPID_Explode_MaxRotations)]
+    HRESULT MaxRotations([out, retval] LONG *pVal); 
+    [propput, id(DISPID_Explode_FinalVelocity)]
+    HRESULT FinalVelocity([in] float  newVal); 
+    [propget, id(DISPID_Explode_FinalVelocity)]
+    HRESULT FinalVelocity([out, retval] float *pVal);   
+    [propput, id(DISPID_Explode_PositionJump)]
+    HRESULT PositionJump([in] float newVal);
+    [propget, id(DISPID_Explode_PositionJump)]
+    HRESULT PositionJump([out, retval] float *pVal);    
+    [propput, id(DISPID_Explode_DecayTime)]
+    HRESULT DecayTime([in] float newVal);
+    [propget, id(DISPID_Explode_DecayTime)]
+    HRESULT DecayTime([out, retval] float *pVal);   
+};
+
+//--- IRuffle -------------------------------------------------
+typedef enum RUFFLEDISPID
+{
+    DISPID_Ruffle_MaxRotations = DISPID_DXE_NEXT_ID
+} RUFFLEDISPID;
+
+[
+    object,
+    uuid(69EE49C4-6268-11D1-B83E-00A0C933BE86),
+    dual,
+    helpstring("IRuffle Interface"),
+    pointer_default(unique)
+]
+interface IRuffle : IDXEffect
+{
+    [propget, id(DISPID_Ruffle_MaxRotations)]
+        HRESULT MaxRotations([out, retval] long *pVal);
+    [propput, id(DISPID_Ruffle_MaxRotations)]
+        HRESULT MaxRotations([in] long newVal);
+};
+
+//--- IRipple -------------------------------------------------
+[
+    object,
+    uuid(6DA4A05E-8E9E-11D1-904E-00C04FD9189D),
+    dual,
+    helpstring("IRipple Interface"),
+    pointer_default(unique)
+]
+interface IRipple : IDXEffect
+{
+    [propget, id(11), helpstring("property XOrigin")] HRESULT XOrigin([out, retval] float *pVal);
+    [propput, id(11), helpstring("property XOrigin")] HRESULT XOrigin([in] float newVal);
+    [propget, id(12), helpstring("property YOrigin")] HRESULT YOrigin([out, retval] float *pVal);
+    [propput, id(12), helpstring("property YOrigin")] HRESULT YOrigin([in] float newVal);
+    [propget, id(13), helpstring("property Wavelength")] HRESULT Wavelength([out, retval] float *pVal);
+    [propput, id(13), helpstring("property Wavelength")] HRESULT Wavelength([in] float newVal);
+    [propget, id(14), helpstring("property Amplitude")] HRESULT Amplitude([out, retval] float *pVal);
+    [propput, id(14), helpstring("property Amplitude")] HRESULT Amplitude([in] float newVal);
+    [propget, id(15), helpstring("property NumberOfWaves")] HRESULT NumberOfWaves([out, retval] long *pVal);
+    [propput, id(15), helpstring("property NumberOfWaves")] HRESULT NumberOfWaves([in] long newVal);
+    [propget, id(16), helpstring("property MinSteps")] HRESULT MinSteps([out, retval] long *pVal);
+    [propput, id(16), helpstring("property MinSteps")] HRESULT MinSteps([in] long newVal);
+    [propget, id(17), helpstring("property MaxSteps")] HRESULT MaxSteps([out, retval] long *pVal);
+    [propput, id(17), helpstring("property MaxSteps")] HRESULT MaxSteps([in] long newVal);
+};
+
+//--- IDissolve -------------------------------------------------
+[
+    object,
+    uuid(90b5e2e0-5050-11d1-b83e-00a0c933be86),
+    dual,
+    helpstring("IDissolve Interface"),
+    pointer_default(unique)
+]
+interface IDissolve : IDXEffect
+{
+//      [propget, id(11), helpstring("property Direction")] HRESULT Direction([out, retval] long *pVal);
+//      [propput, id(11), helpstring("property Direction")] HRESULT Direction([in] long newVal);
+        [propget, id(1), helpstring("property SpeedPt0")] HRESULT SpeedPt0([out, retval] float *pVal);
+        [propput, id(1), helpstring("property SpeedPt0")] HRESULT SpeedPt0([in] float newVal);
+        [propget, id(2), helpstring("property SpeedPt1")] HRESULT SpeedPt1([out, retval] float *pVal);
+        [propput, id(2), helpstring("property SpeedPt1")] HRESULT SpeedPt1([in] float newVal);
+        [propget, id(3), helpstring("property SpeedPt2")] HRESULT SpeedPt2([out, retval] float *pVal);
+        [propput, id(3), helpstring("property SpeedPt2")] HRESULT SpeedPt2([in] float newVal);
+        [propget, id(4), helpstring("property SpeedPt3")] HRESULT SpeedPt3([out, retval] float *pVal);
+        [propput, id(4), helpstring("property SpeedPt3")] HRESULT SpeedPt3([in] float newVal);
+        [propget, id(5), helpstring("property SpeedPt4")] HRESULT SpeedPt4([out, retval] float *pVal);
+        [propput, id(5), helpstring("property SpeedPt4")] HRESULT SpeedPt4([in] float newVal);
+        [propget, id(6), helpstring("property SpeedPt5")] HRESULT SpeedPt5([out, retval] float *pVal);
+        [propput, id(6), helpstring("property SpeedPt5")] HRESULT SpeedPt5([in] float newVal);
+        [propget, id(7), helpstring("property SpeedPt6")] HRESULT SpeedPt6([out, retval] float *pVal);
+        [propput, id(7), helpstring("property SpeedPt6")] HRESULT SpeedPt6([in] float newVal);
+        [propget, id(8), helpstring("property SpeedPt7")] HRESULT SpeedPt7([out, retval] float *pVal);
+        [propput, id(8), helpstring("property SpeedPt7")] HRESULT SpeedPt7([in] float newVal);
+        [propget, id(9), helpstring("property SpeedPt8")] HRESULT SpeedPt8([out, retval] float *pVal);
+        [propput, id(9), helpstring("property SpeedPt8")] HRESULT SpeedPt8([in] float newVal);
+        [propget, id(10), helpstring("property SpeedPt9")] HRESULT SpeedPt9([out, retval] float *pVal);
+        [propput, id(10), helpstring("property SpeedPt9")] HRESULT SpeedPt9([in] float newVal);
+};
+
+//--- IFlip -------------------------------------------------
+typedef enum FLIPDISPID
+{
+    DISPID_Flip_Width = DISPID_DXE_NEXT_ID,
+    DISPID_Flip_Height,
+    DISPID_Flip_Depth
+} FLIPDISPID;
+[
+    object,
+    uuid(945F5841-3A8D-11D1-9037-00C04FD9189D),
+    dual,
+    helpstring("IFlip Interface"),
+    pointer_default(unique)
+]
+interface IFlip : IDXEffect
+{
+    [propget, id(DISPID_Flip_Width), helpstring("property Width")] 
+    HRESULT Width([out, retval] float *pVal);
+    [propput, id(DISPID_Flip_Width), helpstring("property Width")] 
+    HRESULT Width([in] float newVal);
+    [propget, id(DISPID_Flip_Height), helpstring("property Height")] 
+    HRESULT Height([out, retval] float *pVal);
+    [propput, id(DISPID_Flip_Height), helpstring("property Height")]
+    HRESULT Height([in] float newVal);
+
+    [propput, id(DISPID_Flip_Depth), helpstring("property Depth")] 
+    HRESULT Depth([in] float  newVal); 
+    [propget, id(DISPID_Flip_Depth), helpstring("property Depth")]
+    HRESULT Depth([out, retval] float *pVal);   
+};
+
+//--- IHeightField -------------------------------------------------
+typedef enum HeightFieldDISPID
+{
+    DISPID_HeightField_Width = DISPID_DXE_NEXT_ID,
+    DISPID_HeightField_Height,
+    DISPID_HeightField_Depth,
+    DISPID_HeightField_Samples
+} HeightFieldDISPID;
+[
+    object,
+    uuid(0492170A-B159-11d1-9207-0000F8758E66),
+    dual,
+    helpstring("IHeightField Interface"),
+    pointer_default(unique)
+]
+interface IHeightField : IDXEffect
+{
+    [propget, id(DISPID_HeightField_Width ), helpstring("property Width")] HRESULT Width([out, retval] float *pVal);
+    [propput, id(DISPID_HeightField_Width ), helpstring("property Width")] HRESULT Width([in] float newVal);
+    [propget, id(DISPID_HeightField_Height), helpstring("property Height")] HRESULT Height([out, retval] float *pVal);
+    [propput, id(DISPID_HeightField_Height), helpstring("property Height")] HRESULT Height([in] float newVal);
+    [propget, id(DISPID_HeightField_Depth), helpstring("property Depth")] HRESULT Depth([out, retval] float *pVal);
+    [propput, id(DISPID_HeightField_Depth), helpstring("property Depth")] HRESULT Depth([in] float newVal);
+    [propget, id(DISPID_HeightField_Samples), helpstring("property Samples")] HRESULT Samples([out, retval] long *pVal);
+    [propput, id(DISPID_HeightField_Samples), helpstring("property Samples")] HRESULT Samples([in] long newVal);
+};
+
+    
+//--- IDXTWipe -------------------------------------------------
+typedef enum DXWIPEDIRECTION
+{
+    DXWD_HORIZONTAL,
+    DXWD_VERTICAL
+} DXWIPEDIRECTION;
+
+typedef enum DXWIPEDISPID
+{
+    DISPID_DXW_GradientSize = DISPID_DXE_NEXT_ID,
+    DISPID_DXW_WipeStyle
+} DXWIPEDISPID;
+
+[
+    object,
+    uuid(AF279B2F-86EB-11D1-81BF-0000F87557DB),
+    dual,
+    helpstring("IDXTWipe Interface"),
+    pointer_default(unique)
+]
+interface IDXTWipe : IDXEffect
+{
+    [propget, id(DISPID_DXW_GradientSize)]
+        HRESULT GradientSize( [out, retval]float *pPercentSize );
+    [propput, id(DISPID_DXW_GradientSize)]
+        HRESULT GradientSize( [in]float PercentSize );
+    [propget, id(DISPID_DXW_WipeStyle)]
+        HRESULT WipeStyle( [out, retval]DXWIPEDIRECTION *pVal );
+    [propput, id(DISPID_DXW_WipeStyle)]
+        HRESULT WipeStyle( [in]DXWIPEDIRECTION newVal );
+};
+
+//--- ICrBlur -------------------------------------------------
+typedef enum CRBLURDISPID
+{
+    DISPID_CRB_MakeShadow = 1,
+    DISPID_CRB_ShadowOpacity,
+    DISPID_CRB_PixelRadius
+} CRBLURDISPID;
+
+[
+    object,
+    uuid(9F7C7827-E87A-11d1-81E0-0000F87557DB),
+    dual,
+    helpstring("ICrBlur Interface"),
+    pointer_default(unique)
+]
+interface ICrBlur : IDispatch
+{
+    [propget, id(DISPID_CRB_MakeShadow)]
+        HRESULT MakeShadow( [out, retval]VARIANT_BOOL *pVal );
+    [propput, id(DISPID_CRB_MakeShadow)]
+        HRESULT MakeShadow( [in]VARIANT_BOOL newVal );
+    [propget, id(DISPID_CRB_ShadowOpacity)]
+        HRESULT ShadowOpacity( [out, retval]float *pVal );
+    [propput, id(DISPID_CRB_ShadowOpacity)]
+        HRESULT ShadowOpacity( [in]float newVal );
+    [propget, id(DISPID_CRB_PixelRadius)]
+        HRESULT PixelRadius( [out, retval]float *pPixelRadius );
+    [propput, id(DISPID_CRB_PixelRadius)]
+        HRESULT PixelRadius( [in]float PixelRadius );
+};
+
+//--- ICrEngrave -------------------------------------------------
+typedef enum CRENGRAVEDISPID
+{
+    DISPID_CREN_Bias = 1,
+} CRENGRAVEDISPID;
+
+[
+    object,
+    uuid(E4ACFB7F-053E-11d2-81EA-0000F87557DB),
+    dual,
+    helpstring("ICrEngrave Interface"),
+    pointer_default(unique)
+]
+interface ICrEngrave : IDispatch
+{
+    [propget, id(DISPID_CREN_Bias)]
+        HRESULT Bias( [out, retval]float *pVal );
+    [propput, id(DISPID_CREN_Bias)]
+        HRESULT Bias( [in]float newVal );
+};
+
+//--- ICrEmboss -------------------------------------------------
+typedef enum CREMBOSSDISPID
+{
+    DISPID_CREM_Bias = 1,
+} CREMBOSSDISPID;
+
+[
+    object,
+    uuid(E4ACFB80-053E-11d2-81EA-0000F87557DB),
+    dual,
+    helpstring("ICrEmboss Interface"),
+    pointer_default(unique)
+]
+interface ICrEmboss : IDispatch
+{
+    [propget, id(DISPID_CREM_Bias)]
+        HRESULT Bias( [out, retval]float *pVal );
+    [propput, id(DISPID_CREM_Bias)]
+        HRESULT Bias( [in]float newVal );
+};
+
+//--- IDXTFade -------------------------------------------------
+[
+    object,
+    uuid(16B280C4-EE70-11D1-9066-00C04FD9189D),
+    dual,
+    helpstring("IDXTFade Interface"),
+    pointer_default(unique)
+]
+interface IDXTFade : IDXEffect
+{
+    [propget, id(1), helpstring("property Overlap")] HRESULT Overlap([out, retval] float *pVal);
+    [propput, id(1), helpstring("property Overlap")] HRESULT Overlap([in] float newVal);
+    [propget, id(2), helpstring("property Center")] HRESULT Center([out, retval] BOOL *pVal);
+    [propput, id(2), helpstring("property Center")] HRESULT Center([in] BOOL newVal);
+};
+
+//--- IDXBasicImage -------------------------------------------------
+[
+    object,
+    uuid(16B280C7-EE70-11D1-9066-00C04FD9189D),
+    dual,
+    helpstring("IDXBasicImage Interface"),
+    pointer_default(unique)
+]
+interface IDXBasicImage : IDispatch
+{
+    [propget, id(1), helpstring("property Rotation")] HRESULT Rotation([out, retval] int *pVal);
+    [propput, id(1), helpstring("property Rotation")] HRESULT Rotation([in] int newVal);
+    [propget, id(2), helpstring("property Mirror")] HRESULT Mirror([out, retval] BOOL *pVal);
+    [propput, id(2), helpstring("property Mirror")] HRESULT Mirror([in] BOOL newVal);
+    [propget, id(3), helpstring("property GrayScale")] HRESULT GrayScale([out, retval] BOOL *pVal);
+    [propput, id(3), helpstring("property GrayScale")] HRESULT GrayScale([in] BOOL newVal);
+    [propget, id(4), helpstring("property Opacity")] HRESULT Opacity([out, retval] float *pVal);
+    [propput, id(4), helpstring("property Opacity")] HRESULT Opacity([in] float newVal);
+    [propget, id(5), helpstring("property Invert")] HRESULT Invert([out, retval] BOOL *pVal);
+    [propput, id(5), helpstring("property Invert")] HRESULT Invert([in] BOOL newVal);
+    [propget, id(6), helpstring("property XRay")] HRESULT XRay([out, retval] BOOL *pVal);
+    [propput, id(6), helpstring("property XRay")] HRESULT XRay([in] BOOL newVal);
+    [propget, id(7), helpstring("property Mask")] HRESULT Mask([out, retval] BOOL *pVal);
+    [propput, id(7), helpstring("property Mask")] HRESULT Mask([in] BOOL newVal);
+    [propget, id(8), helpstring("property MaskColor")] HRESULT MaskColor([out, retval] int *pVal);
+    [propput, id(8), helpstring("property MaskColor")] HRESULT MaskColor([in] int newVal);
+};
+
+
+[
+    object,
+    uuid(D33E180F-FBE9-11d1-906A-00C04FD9189D),
+    dual,
+    helpstring("IDXPixelate Interface"),
+    pointer_default(unique)
+]
+interface IDXPixelate : IDXEffect
+{
+    [propget, id(1), helpstring("property MaxSquare")] HRESULT MaxSquare([out, retval] int *pVal);
+    [propput, id(1), helpstring("property MaxSquare")] HRESULT MaxSquare([in] int newVal);
+}
+
+//=== CoClass definitions =================================================
+[
+    uuid(5E77EB03-937C-11D1-B047-00AA003B6061),
+    version(1.0),
+    helpstring("DXTMsft 1.0 Type Library")
+]
+library DXTMSFTLib
+{
+    importlib("stdole32.tlb");
+    importlib("stdole2.tlb");
+
+    [
+    uuid(141DBAF1-55FB-11D1-B83E-00A0C933BE86),
+    helpstring("Explode Class")
+    ]
+    coclass Explode
+    {
+    [default] interface IExplode;
+    };
+    [
+    uuid(C53059E1-E6E3-11d1-BA12-00C04FB6BD36),
+    helpstring("ExplodeProp Class")
+    ]
+    coclass ExplodeProp
+    {
+    interface IUnknown;
+    };
+    [
+    uuid(69EE49C5-6268-11D1-B83E-00A0C933BE86),
+    helpstring("Ruffle Class")
+    ]
+    coclass Ruffle
+    {
+    [default] interface IRuffle;
+    };
+    [
+    uuid(A21CA3E1-E6DA-11d1-BA12-00C04FB6BD36),
+    helpstring("RuffleProp Class")
+    ]
+    coclass RuffleProp
+    {
+    interface IUnknown;
+    };
+    [
+    uuid(945F5842-3A8D-11D1-9037-00C04FD9189D),
+    helpstring("Ripple Class")
+    ]
+    coclass Ripple
+    {
+    [default] interface IRipple;
+    };
+    [
+    uuid(945F5843-3A8D-11D1-9037-00C04FD9189D),
+    helpstring("RipProp Class")
+    ]
+    coclass RipProp
+    {
+    interface IUnknown;
+    };
+    [
+    uuid(90b5e2e1-5050-11d1-b83e-00a0c933be86),
+    helpstring("Dissolve Class")
+    ]
+    coclass Dissolve
+    {
+    [default] interface IDissolve;
+    };
+    [
+        uuid(3A5EA1BA-3C28-11D1-9039-00C04FD9189D),
+        helpstring("Flip Class")
+    ]
+    coclass Flip
+    {
+    [default] interface IFlip;
+    };
+    [
+    uuid(04921709-B159-11d1-9207-0000F8758E66),
+    helpstring("HeightField Class")
+    ]
+    coclass HeightField
+    {
+    [default] interface IHeightField;
+    };
+    [
+        uuid(9A43A844-0831-11D1-817F-0000F87557DB),
+        helpstring("DXTComposite Class")
+    ]
+    coclass DXTComposite
+    {
+        [default] interface IDXTComposite;
+    };
+    [
+        uuid(015E2939-C341-11d1-81D1-0000F87557DB),
+        helpstring("DXTResampler Class")
+    ]
+    coclass DXTResampler
+    {
+        [default] interface IDXTResampler;
+    };
+    [
+        uuid(3E669F1A-9C23-11d1-9053-00C04FD9189D),
+        helpstring("DXBufferCache Class")
+    ]
+    coclass DXBufferCache
+    {
+        [default] interface IDXBufferCache;
+    };
+    [
+        uuid(1E54333B-2A00-11d1-8198-0000F87557DB),
+        helpstring("DXLUTBuilder Class")
+    ]
+    coclass DXLUTBuilder
+    {
+        [default] interface IDXDLUTBuilder;
+        interface IDXLUTBuilder;
+        interface IDXLookupTable;
+    };
+    [
+        uuid(623E2882-FC0E-11d1-9A77-0000F8756A10),
+        helpstring("DXTGradientD Class")
+    ]
+    coclass DXTGradientD
+    {
+        [default] interface IDXTGradientD;
+    };
+    [
+        uuid(AF279B30-86EB-11D1-81BF-0000F87557DB),
+        helpstring("DXTWipe Class")
+    ]
+    coclass DXTWipe
+    {
+    [default] interface IDXTWipe;
+    };
+    [
+        uuid(2BC0EF29-E6BA-11d1-81DD-0000F87557DB),
+        helpstring("DXTConvolution Class")
+    ]
+    coclass DXTConvolution
+    {
+        [default] interface IDXTConvolution;
+    };
+    [
+        uuid(7312498D-E87A-11d1-81E0-0000F87557DB),
+        helpstring("CrBlur Class")
+    ]
+    coclass CrBlur
+    {
+        [default] interface ICrBlur;
+    };
+    [
+        uuid(F515306D-0156-11d2-81EA-0000F87557DB),
+        helpstring("CrEmboss Class")
+    ]
+    coclass CrEmboss
+    {
+        [default] interface ICrEmboss;
+    };
+
+    [
+        uuid(F515306E-0156-11d2-81EA-0000F87557DB),
+        helpstring("CrEngrave Class")
+    ]
+    coclass CrEngrave
+    {
+        [default] interface ICrEngrave;
+    };
+    [
+        uuid(16B280C5-EE70-11D1-9066-00C04FD9189D),
+        helpstring("DXFade Class")
+    ]
+    coclass DXFade
+    {
+        [default] interface IDXTFade;
+    };
+    [
+        uuid(16B280C6-EE70-11D1-9066-00C04FD9189D),
+        helpstring("FadePP Class")
+    ]
+    coclass FadePP
+    {
+        interface IUnknown;
+    };
+
+    [
+        uuid(16B280C8-EE70-11D1-9066-00C04FD9189D),
+        helpstring("BasicImageEffects Class")
+    ]
+    coclass BasicImageEffects
+    {
+        [default] interface IDXBasicImage;
+    };
+    [
+        uuid(16B280C9-EE70-11D1-9066-00C04FD9189D),
+        helpstring("BasicImageEffectsPP Class")
+    ]
+    coclass BasicImageEffectsPP
+    {
+        interface IUnknown;
+    };
+
+    [
+        uuid(4CCEA634-FBE0-11d1-906A-00C04FD9189D),
+        helpstring("Pixelate Effect Class")
+    ]
+    coclass Pixelate
+    {
+        [default] interface IDXPixelate;
+    }
+
+    [
+        uuid(4CCEA635-FBE0-11d1-906A-00C04FD9189D),
+        helpstring("Pixelate Property Page Class")
+    ]
+    coclass PixelatePP
+    {
+        interface IUnknown;
+    };
+
+    [
+        uuid(7FFE4D08-FBFD-11d1-9A77-0000F8756A10),
+        helpstring("DXTWipePP Class")
+    ]
+    coclass DXTWipePP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(623E287C-FC0E-11d1-9A77-0000F8756A10),
+        helpstring("ResamplePP Class")
+    ]
+    coclass ResamplePP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(623E287E-FC0E-11d1-9A77-0000F8756A10),
+        helpstring("CrBlurPP Class")
+    ]
+    coclass CrBlurPP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(623E2880-FC0E-11d1-9A77-0000F8756A10),
+        helpstring("GradientPP Class")
+    ]
+    coclass GradientPP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(25B33660-FD83-11d1-8ADE-444553540001),
+        helpstring("CompositePP Class")
+    ]
+    coclass CompositePP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(25B33661-FD83-11d1-8ADE-444553540001),
+        helpstring("ConvolvePP Class")
+    ]
+    coclass ConvolvePP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(25B33662-FD83-11d1-8ADE-444553540001),
+        helpstring("LUTBuilderPP Class")
+    ]
+    coclass LUTBuilderPP
+    {
+        interface IUnknown;
+    };
+    [
+        uuid(7A8402E0-FBD6-11D1-B5E0-00AA003B6061),
+        helpstring("FlipProp Class")
+    ]
+    coclass FlipProp
+    {
+        interface IUnknown;
+    };
+    
+
+    [
+        uuid(7A8402E3-FBD6-11D1-B5E0-00AA003B6061),
+        helpstring("HtFieldProp Class")
+    ]
+    coclass HtFieldProp
+    {
+        interface IUnknown;
+    };
+
+    [
+        uuid(9A8A1CC2-FEEA-11D1-B5E0-00AA003B6061),
+        helpstring("Disslvpp Class")
+    ]
+    coclass Disslvpp
+    {
+        interface IUnknown;
+    };
+};

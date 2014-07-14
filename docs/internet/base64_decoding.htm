@@ -1,0 +1,182 @@
+<!-- received="Fri May 16 11:54:29 1997 PDT" -->
+<!-- sent="Fri, 16 May 1997 11:59:52 -0700" -->
+<!-- name="Chris Knepper" -->
+<!-- email="cknepper@starpt.com" -->
+<!-- subject="Re: MIME Base64 encoding and decoding routines in java???" -->
+<!-- id="" -->
+<!-- inreplyto="MIME Base64 encoding and decoding routines in java???" -->
+<title>advanced-java archive for 05/97: Re: MIME Base64 encoding and decoding routines in java???</title>
+<h1>Re: MIME Base64 encoding and decoding routines in java???</h1>
+Chris Knepper (<i>cknepper@starpt.com</i>)<br>
+<i>Fri, 16 May 1997 11:59:52 -0700</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#478">[ date ]</a><a href="index.html#478">[ thread ]</a><a href="subject.html#478">[ subject ]</a><a href="author.html#478">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0479.html">Naoki Hada: "Digital Cat's New article #8 "JavaRMI""</a>
+<li> <b>Previous message:</b> <a href="0477.html">John Zukowski: "Resource Bundling Q"</a>
+<li> <b>Maybe in reply to:</b> <a href="0445.html">C. Satish Kumar: "MIME Base64 encoding and decoding routines in java???"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+C. Satish Kumar wrote:<br>
+<p>
+<i>&gt; hi,</i><br>
+<i>&gt;     I am Satish, I was just developing a e-mail client.  Are there any</i><br>
+<i>&gt;</i><br>
+<i>&gt; general routines available in Java to encode and decode  different</i><br>
+<i>&gt; file</i><br>
+<i>&gt; formats using Base64. If there are any, forward them.</i><br>
+<i>&gt;</i><br>
+Please look over the following routines I wrote to encode (and decode)<br>
+the user name and passord using Base64 encoding. This was work I did to<br>
+support http basic authorization. You will likely need to rewrite it to<br>
+suit your needs, however, it is probably a reasonable base to begin<br>
+working from.<br>
+<p>
+If anyone spots a problem or two with the code, I would really<br>
+appreciate hearing about it.<br>
+<p>
+ public static String encode(String userName, String password)<br>
+ {<br>
+  char[] newCharArray = new char[256];<br>
+  int newCharIndex = 0;<br>
+  String target = userName + ":" + password;<br>
+  char[] charArray = target.toCharArray();<br>
+  for ( int i = 0; i &lt; charArray.length;  )<br>
+  {<br>
+   char ithChar = charArray[i];<br>
+   newCharArray[newCharIndex++] = base64Table((int)(ithChar &gt;&gt; 2));<br>
+<p>
+   char iPlusOneChar = '\0';<br>
+   if ( (i + 1) &lt; charArray.length )<br>
+    iPlusOneChar = charArray[i+1];<br>
+   ithChar &amp;= 3;<br>
+   ithChar &lt;&lt;= 4;<br>
+   ithChar |= (iPlusOneChar &gt;&gt;&gt; 4);<br>
+   newCharArray[newCharIndex++] = base64Table((int)ithChar);<br>
+<p>
+   if ( iPlusOneChar == '\0' )<br>
+   {<br>
+    newCharArray[newCharIndex++] = '=';<br>
+    newCharArray[newCharIndex++] = '=';<br>
+    break;<br>
+   }<br>
+<p>
+   ithChar = iPlusOneChar;<br>
+   iPlusOneChar = '\0';<br>
+   if ( (i + 2) &lt; charArray.length )<br>
+    iPlusOneChar = charArray[i+2];<br>
+   ithChar &amp;= 15;<br>
+   ithChar &lt;&lt;= 2;<br>
+   ithChar |= (iPlusOneChar &gt;&gt;&gt; 6);<br>
+   newCharArray[newCharIndex++] = base64Table((int)ithChar);<br>
+<p>
+   if ( iPlusOneChar == '\0' )<br>
+   {<br>
+    newCharArray[newCharIndex++] = '=';<br>
+    break;<br>
+   }<br>
+<p>
+   newCharArray[newCharIndex++] = base64Table((int)(iPlusOneChar &amp; 63));<br>
+<p>
+   i += 3;<br>
+  }<br>
+ // while ( newCharIndex &lt;<br>
+  return new String(newCharArray, 0, newCharIndex);<br>
+ }<br>
+<p>
+ public static String decode(String encodedString)<br>
+ {<br>
+  char[] newCharArray = new char[256];<br>
+  int newCharIndex = 0;<br>
+  char[] charArray = encodedString.toCharArray();<br>
+  for ( int i = 0; i &lt; charArray.length;  )<br>
+  {<br>
+   char ithChar = charArray[i];<br>
+   char iPlusOneChar = charArray[i+1];<br>
+   if ( ithChar == '=' || iPlusOneChar == '=' )<br>
+    break;<br>
+   char curChar = base64Table(ithChar);<br>
+   curChar &lt;&lt;= 2;<br>
+   curChar &amp;= 127;<br>
+   char nextChar = base64Table(iPlusOneChar);<br>
+   nextChar &gt;&gt;&gt;= 4;<br>
+   newCharArray[newCharIndex++] = (char)(curChar | nextChar);<br>
+<p>
+   ithChar = iPlusOneChar;<br>
+   iPlusOneChar = charArray[i+2];<br>
+   if ( iPlusOneChar == '=' )<br>
+    break;<br>
+   curChar = base64Table(ithChar);<br>
+   curChar &lt;&lt;= 4;<br>
+   curChar &amp;= 127;<br>
+   nextChar = base64Table(iPlusOneChar);<br>
+   nextChar &gt;&gt;&gt;= 2;<br>
+   newCharArray[newCharIndex++] = (char)(curChar | nextChar);<br>
+<p>
+   ithChar = iPlusOneChar;<br>
+   iPlusOneChar = charArray[i+3];<br>
+   if ( iPlusOneChar == '=' )<br>
+    break;<br>
+   curChar = base64Table(ithChar);<br>
+   curChar &lt;&lt;= 6;<br>
+   curChar &amp;= 127;<br>
+   nextChar = base64Table(iPlusOneChar);<br>
+   newCharArray[newCharIndex++] = (char)(curChar | nextChar);<br>
+<p>
+   i += 4;<br>
+  }<br>
+  return new String(newCharArray, 0, newCharIndex);<br>
+ }<br>
+<p>
+ private static char base64Table(int base64int)<br>
+ {<br>
+  if (( base64int &gt;= 0 ) &amp;&amp; ( base64int &lt;= 25 ))<br>
+   return (char)('A' + base64int);<br>
+  if (( base64int &gt;= 26 ) &amp;&amp; ( base64int &lt;= 51 ))<br>
+   return (char)(base64int - 26 + 'a');<br>
+  if (( base64int &gt;= 52 ) &amp;&amp; ( base64int &lt;= 61 ))<br>
+   return (char)(base64int - 52 + '0');<br>
+  if ( base64int == 62 )<br>
+   return '+';<br>
+  if ( base64int == 63 )<br>
+   return '/';<br>
+  return 0;<br>
+ }<br>
+<p>
+ private static char base64Table(char base64char)<br>
+ {<br>
+  if (( base64char &gt;= 'A' ) &amp;&amp; ( base64char &lt;= 'Z' ))<br>
+   return (char)(base64char - 'A');<br>
+  if (( base64char &gt;= 'a' ) &amp;&amp; ( base64char &lt;= 'z' ))<br>
+   return (char)(base64char - 'a' + 26);<br>
+  if (( base64char &gt;= '0' ) &amp;&amp; ( base64char &lt;= '9' ))<br>
+   return (char)(base64char - '0' + 52);<br>
+  if ( base64char == '+' )<br>
+   return 62;<br>
+  if ( base64char == '/' )<br>
+   return 63;<br>
+  return 0;<br>
+ }<br>
+<p>
+<pre>
+--
+-Chris
+<p>
+Chris Knepper                              cknepper@starpt.com
+Principal Engineer                         415-960-1100 x13
+StarPoint Software                         <a href="http://www.starpt.com">http://www.starpt.com</a>
+<p>
+___
+To subscribe/unsubscribe/see archives - <a href="http://www.xcf.berkeley.edu/lists.html">http://www.xcf.berkeley.edu/lists.html</a>
+</pre>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0479.html">Naoki Hada: "Digital Cat's New article #8 "JavaRMI""</a>
+<li> <b>Previous message:</b> <a href="0477.html">John Zukowski: "Resource Bundling Q"</a>
+<li> <b>Maybe in reply to:</b> <a href="0445.html">C. Satish Kumar: "MIME Base64 encoding and decoding routines in java???"</a>
+<!-- nextthread="start" -->
+</ul>

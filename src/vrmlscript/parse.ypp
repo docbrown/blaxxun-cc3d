@@ -1,0 +1,353 @@
+/*
+ * Vs syntactic analyzer (parser)
+ */
+
+%{
+
+#if 0
+#include "stdafx.h"
+// move to top
+// uncomment yystype because in y_tab.h
+#endif
+
+
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <string.h>
+
+#include "vsexpr.h"
+#include "vsfunction.h"
+#include "vsstatement.h"
+#include "vsparse.h"
+
+#include "y_tab.h"
+
+#include "GReporter.h"
+
+// Lex and YACC are hard-coded for these routine names:
+#define input() VsParseTree::input()
+#define unput(_char) VsParseTree::unput(_char)
+#define yyerror(_error) VsParseTree::yyerror(_error)
+
+#define gettxt(a,b) (b)  /* SGI YACC produces these... */
+#define YYDEBUG 0
+
+%}
+
+/* Types passed around: */
+%union {
+    const char *string;
+    double number;
+    VsExpr *expr;
+    VsVar *var;
+    VsArrayVar *arrayvar;
+    VsFunctionDef *funcDef;
+    VsFunctionCall *funcCall;
+    VsMethodCall   *objMethodCall;
+    VsMemberAccess *objMemberAccess;
+    VsStatement *stmnt;
+    VsExprList *exprList;
+    VsStatementList *stmntList;
+    VsNewCall   *newCall;   
+    void *funcList;
+}
+
+%type <expr> expr opt_expr comma_expr 
+%type <var> var varassign leftvar 
+%type <arrayvar> arrayderef
+%type <stmnt> for if return stmnt while break continue with varstmt varentry
+%type <stmntList> stmnts stmntblk varentrys
+%type <funcDef> func bgnFunc
+%type <funcList> script funcs
+%type <exprList> params 
+%type <number> args
+%type <funcCall> funccall
+%type <objMethodCall> objmethodcall
+%type <objMemberAccess> objmemberaccess
+%type <newCall> newcall
+
+%token <number> tNUMBER 
+%token <string> tSTRING
+%token <string> tIDENTIFIER
+%token tUNIMPL_KEYWORD 666
+%token tASSIGN
+%token tFUNCTION
+%token tIF tELSE tFOR tIN tWHILE
+%token tWITH tBREAK tCONTINUE tRETURN
+%token tNEW 
+%token tVAR
+%token tNULL
+
+%left   ';'
+%left   tCOMMA
+%right  tASSIGN tPLUSEQ tMINUSEQ tMULTIPLYEQ tDIVIDEEQ tMODEQ tRSHIFTEQ tLSHIFTEQ tRSHIFTFILLEQ tANDEQ tXOREQ tOREQ
+%left   tCONDTEST tCONDSEP
+%left   tLOR
+%left   tLAND
+%left   tOR
+%left   tXOR
+%left   tAND
+%left   tEQ tNE
+%left   tLT tLE tGE tGT
+%left   tRSHIFT tLSHIFT tRSHIFTFILL
+%left   tPLUS tMINUS
+%left   tMULTIPLY tDIVIDE tMOD
+%right  tNOT tNEG tONESCOMP tINCREMENT tDECREMENT
+%left   tDOT tRIGHTBRACKET tLEFTBRACKET
+ 
+%start  script
+
+/* general structure */
+
+%%
+script  : funcs 
+    | /* empty */ { $$ = NULL; }
+    ;
+
+funcs : funcs func { $$ = NULL; }
+    | func { $$ = NULL; }
+    ;
+        
+func : tFUNCTION bgnFunc '(' args ')' stmntblk
+            { $2->endDefinition($6); $$ = $2; }
+    ;
+
+bgnFunc : tIDENTIFIER { $$ = VsParseTree::beginFunction($1); free((void *)$1); }
+    ;
+
+args : args tCOMMA tIDENTIFIER  { VsFunctionDef::addArg($3); $$ = $1 + 1.; free((void *)$3); }
+    | tIDENTIFIER       { VsFunctionDef::addArg($1); $$ = 1.; free((void *)$1); }
+    | /* empty */       { $$ = 0.; }
+    ;
+
+
+stmntblk: '{' stmnts '}' { $$ = $2; }
+    | '{' '}'       { $$ = new VsStatementList; }
+    | stmnt     { $$ = new VsStatementList; if ($1) $$->append($1); }
+    ;
+
+/*     | ';'       { $$  = NULL; }  */
+
+stmnts  : stmnts stmnt  { if ($2) $1->append($2); $$ = $1; }
+    | stmnt     { $$ = new VsStatementList(); if ($1) $$->append($1); }
+ 	| /* empty */       { $$ =  new VsStatementList(); }
+	;
+
+/*    | ';'       { $$  = NULL; }  */
+
+stmnt   : if        { $$ = $1; }
+    | for       { $$ = $1; }
+    | while     { $$ = $1; } 
+    | comma_expr ';'  { $$ = $1; }
+    | return ';'   { $$ = $1; }
+    | with      { $$ = $1; }
+    | break ';' { $$ = $1; }
+    | continue ';'  { $$ = $1; } 
+    | varstmt  ';' { $$ = $1; } 
+	| ';'       { $$  = NULL; } 
+    ;
+
+/*    
+	| ';'       { $$  = NULL; } 
+
+*/
+
+
+return  : tRETURN comma_expr    { $$ = new VsReturn($2); }
+    | tRETURN   { $$ = new VsReturn(NULL); }
+    ;
+
+if  : tIF '(' comma_expr ')' stmntblk        { $$ = new VsIf($3,$5,NULL);}
+        | tIF '(' comma_expr ')' stmntblk tELSE stmntblk { $$ = new VsIf($3,$5,$7);}
+    ;
+
+for : tFOR '(' opt_expr ';' opt_expr ';' opt_expr ')' stmntblk
+        {  $$ = new VsFor($3, $5, $7, $9); }  
+    | tFOR '(' var tIN expr ')' stmntblk
+        { 
+        yyerror("<for..in> statement not implemented"); 
+        $$ = new VsForIn($3, $5, $7); 
+        }
+
+    ;
+
+break   : tBREAK 
+    { $$ = new VsBreak(); }
+    ;
+
+continue : tCONTINUE
+    { $$ = new VsContinue(); }
+    ;
+
+with    : tWITH '(' expr ')' stmntblk   
+    { yyerror("<with> statement not implemented"); $$ = new VsWith($3, $5); }
+    ;
+
+while : tWHILE '(' comma_expr ')' stmntblk 
+    { $$ = new VsWhile($3, $5); }
+    ;
+
+varentry :
+    tIDENTIFIER     { $$ = new VsAssign( VsFunctionDef::makeLocalVar($1), NULL); free((void *)$1); }
+    | tIDENTIFIER tASSIGN expr  { $$ = new VsAssign(VsFunctionDef::makeLocalVar($1), $3);free((void*)$1); }
+    ;
+
+
+
+varentrys :varentrys tCOMMA varentry { if ($3) $1->append($3); $$ = $1; }
+    | varentry      { $$ = new VsStatementList(); if ($1) $$->append($1); }
+    | /* empty */       { $$ = NULL; }  /* varentrys error  { $$ = $1; } */
+    ;
+
+
+varstmt : tVAR varentrys  { $$ = new VsVarStatement($2); } 
+    ;
+
+opt_expr: comma_expr    { $$ = $1; }
+    | /* empty */       { $$ = NULL; }
+    ;
+
+comma_expr: expr        { $$ = $1; }
+    | expr tCOMMA comma_expr      { $$ = new VsComma($1, $3); }
+    ;
+
+expr    : '(' comma_expr ')'        { $$ = $2; }
+        | tMINUS expr %prec tNOT { $$ = new VsUArithOp($2, tMINUS); }
+        | tNOT expr     { $$ = new VsULogicOp($2, tNOT); }
+    | tONESCOMP expr    { $$ = new VsUArithOp($2, tONESCOMP); }
+    | leftvar tASSIGN expr  { $$ = new VsAssign($1, $3); }
+    | leftvar tPLUSEQ expr  { $$ = new VsAssign($1, new VsArith($1, $3, tPLUS));}
+    | leftvar tMINUSEQ expr { $$ = new VsAssign($1, new VsArith($1, $3, tMINUS)); }
+    | leftvar tMULTIPLYEQ expr  { $$ = new VsAssign($1, new VsArith($1, $3, tMULTIPLY));}
+    | leftvar tDIVIDEEQ expr    { $$ = new VsAssign($1, new VsArith($1, $3, tDIVIDE)); }
+    | leftvar tMODEQ expr   { $$ = new VsAssign($1, new VsArith($1, $3, tMOD)); }
+    | leftvar tANDEQ expr   { $$ = new VsAssign($1, new VsArith($1, $3, tAND)); }
+    | leftvar tOREQ expr    { $$ = new VsAssign($1, new VsArith($1, $3, tOR)); }
+    | leftvar tXOREQ expr   { $$ = new VsAssign($1, new VsArith($1, $3, tXOR)); }
+    | leftvar tLSHIFTEQ expr    { $$ = new VsAssign($1, new VsArith($1, $3, tLSHIFT)); }
+    | leftvar tRSHIFTEQ expr    { $$ = new VsAssign($1, new VsArith($1, $3, tRSHIFT)); }
+    | leftvar tRSHIFTFILLEQ expr    { $$ = new VsAssign($1, new VsArith($1, $3, tRSHIFTFILL)); }
+    | tINCREMENT expr { $$ = new VsIncDec($2, TRUE,  TRUE); }  
+    | tDECREMENT expr { $$ = new VsIncDec($2, FALSE, TRUE);}   
+    | expr tINCREMENT    { $$ = new VsIncDec($1, TRUE,  FALSE); } 
+    | expr tDECREMENT   { $$ = new VsIncDec($1, FALSE, FALSE); }    
+    | expr tCONDTEST expr tCONDSEP expr     { $$ = new VsCondExpr($1, $3, $5); }
+        | expr tEQ expr     { $$ = new VsLogicOp($1, $3, tEQ); }
+        | expr tNE expr     { $$ = new VsLogicOp($1, $3, tNE); }
+        | expr tLT expr     { $$ = new VsLogicOp($1, $3, tLT); }
+        | expr tLE expr     { $$ = new VsLogicOp($1, $3, tLE); }
+        | expr tGE expr     { $$ = new VsLogicOp($1, $3, tGE); }
+        | expr tGT expr     { $$ = new VsLogicOp($1, $3, tGT); }
+        | expr tLAND expr   { $$ = new VsLogicOp($1, $3, tLAND); }
+        | expr tLOR expr    { $$ = new VsLogicOp($1, $3, tLOR); }
+        | expr tPLUS expr   { $$ = new VsArith($1, $3, tPLUS); }
+        | expr tMINUS expr  { $$ = new VsArith($1, $3, tMINUS); }
+        | expr tMULTIPLY expr   { $$ = new VsArith($1, $3, tMULTIPLY); }
+        | expr tDIVIDE expr { $$ = new VsArith($1, $3, tDIVIDE); }
+        | expr tMOD expr    { $$ = new VsArith($1, $3, tMOD); }
+        | expr tAND expr    { $$ = new VsArith($1, $3, tAND); }
+        | expr tOR expr     { $$ = new VsArith($1, $3, tOR); }
+        | expr tXOR expr    { $$ = new VsArith($1, $3, tXOR); }
+    | expr tLSHIFT expr { $$ = new VsArith($1, $3, tLSHIFT); }
+    | expr tRSHIFT expr { $$ = new VsArith($1, $3, tRSHIFT); }
+    | expr tRSHIFTFILL expr { $$ = new VsArith($1, $3, tRSHIFTFILL); }
+    | tSTRING       { $$ = new VsConstant($1); }
+    | tNUMBER       { $$ = new VsConstant($1); }
+    | tNULL         { $$ = new VsConstant(VsValue::nothing); }
+    | objmethodcall     { $$ = $1; }
+    | funccall      { $$ = $1; }
+    | newcall       { $$ = $1; }
+    | objmemberaccess   { $$ = $1; }
+    | arrayderef        { $$ = $1; }
+    | var           { $$ = $1; }
+    ;
+
+params  : params tCOMMA expr { if ($3) $1->append($3); $$ = $1; }
+    | expr           { $$ = new VsExprList(); if ($1) $$->append($1); }
+    | /* empty */        { $$ = new VsExprList(); }
+    ; 
+
+funccall    : tIDENTIFIER '(' params ')' 
+        { $$ = NULL; 
+          VsFunctionDef *funcDef = VsParseTree::getCurrent()->findFunction($1);  
+          if (funcDef != NULL) {
+              $$ = new VsFunctionCall( funcDef, *($3)); 
+          } else if (VsFunctionCall::isAnUnimplementedFunction($1)) {
+              char msg[256];
+              sprintf(msg, "Built-in function \'%s\' is not implemented", $1);
+              yyerror(msg);
+          } else {
+              $$ = new VsFunctionCallByName($1,*($3));
+              VsParseTree::getCurrent()->addUnresolvedFunctionCall((VsFunctionCallByName *) $$);                
+              /*
+              if (c == NULL) {
+                  char msg[256];
+                  sprintf(msg, "Function \'%s\' must be defined before it can be used", $1);
+                  yyerror(msg);
+              } else $$ = c;    
+              */
+          }
+          delete $3; $3 = NULL;  /* exprlist is by ref */
+		  free((void *)$1);
+        } 
+    ;
+
+objmethodcall   : expr tDOT tIDENTIFIER '(' params ')' 
+        {
+        $$ = NULL;
+        $$ = new VsMethodCall ($1, $3, *($5)); 
+        delete $5; $5 = NULL;  /* exprlist is by ref */
+        free((void *)$3); 
+        }
+        ;
+
+newcall : tNEW tIDENTIFIER '(' params ')' 
+        {
+        $$ = NULL;
+        $$ = new VsNewCall ($2, *($4)); 
+        delete $4; $4 = NULL;  /* exprlist is by ref */
+        free((void *)$2); 
+        }
+        ;
+
+
+leftvar : objmemberaccess 
+        { $$ = $1; } |
+      arrayderef      
+        { $$ = $1; } |
+      varassign         
+        { $$ = $1; }
+    ;
+
+objmemberaccess : expr tDOT tIDENTIFIER
+        { 
+            $$ = NULL;
+            $$ = new VsMemberAccess ($1, $3); 
+            free((void *)$3); 
+        }
+        ;
+
+arrayderef  : expr tRIGHTBRACKET comma_expr tLEFTBRACKET
+    { $$ = new VsArrayVar($1, $3); }
+    ;
+
+var : tIDENTIFIER   { 
+        $$ = NULL;
+        if (strcmp($1, "Math") != 0) {
+            $$ = VsFunctionDef::findIdentifier($1); 
+        }
+        free((void *)$1); }
+    ;
+
+varassign : tIDENTIFIER   { 
+        $$ = NULL;
+        if (strcmp($1, "Math") != 0) {
+            $$ = VsFunctionDef::findIdentifier($1,TRUE); 
+        }
+        free((void *)$1); }
+    ;
+
+

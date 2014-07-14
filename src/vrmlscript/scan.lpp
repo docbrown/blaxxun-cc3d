@@ -1,0 +1,257 @@
+/* 
+ *  Vs Lexical Analyzer (scanner)
+ */
+%{
+//#include "stdafx.h"
+// move to first line 
+#include <assert.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#undef input
+#undef unput
+
+#include "vsexpr.h"
+#include "vsfunction.h"
+#include "vsstatement.h"
+#include "vsparse.h"
+
+#include "y_tab.h"
+#include "GReporter.h"
+
+// Lex and YACC are hard-coded for these routine names:
+#define input() VsParseTree::input()
+#define unput(_char) VsParseTree::unput(_char)
+#define yyerror(_error) VsParseTree::yyerror(_error)
+
+//HG
+#define YY_INPUT(buf,result,max_size) \
+        { \
+        int c = input(); \
+        result = c == 0 ? 0 : 1; \
+        buf[0] = (char) c; \
+        } 
+
+static int curStringLength = 0;
+
+/* debugging macros */
+
+int lldebug = 0;
+
+
+
+#ifdef DEBUG
+#define RET(x)  { \
+            if (lldebug) printf("lex %hu [%s]\n", (int) x, yytext); \
+            return(x); \
+        }
+#else
+#define RET(x)  return(x)
+#endif
+
+/* forward references defined in this module */
+void skipSlashStarComments(void);
+char *getStringConstant(char delimiter);
+
+%}
+
+D       [0-9]
+Mantissa    (({D}+(\.{D}*)?)|({D}*\.{D}+))
+Exponent    ([Ee][\+\-]?{D}+)
+
+%%
+
+[ \t\n\r\f]+            { ; }
+
+"/*"    { skipSlashStarComments(); }
+"//"    { char c ; while ((c=input()) && !isEol(c)); }
+
+\"      {
+/* single and double quote enclosed string constants */
+            char *string = getStringConstant('\"');
+
+            yylval.string = string;
+
+            RET(tSTRING);
+        }
+
+"'"     {
+/* single and double quote enclosed string constants */
+            char *string = getStringConstant('\'');
+
+            yylval.string = string;
+
+            RET(tSTRING);
+        }
+
+
+0[0-7]*         { yylval.number = strtol(yytext, NULL, 0); RET(tNUMBER); }
+0[Xx][0-9A-Fa-f]+       { yylval.number = strtol(yytext, NULL, 0); RET(tNUMBER); }
+{Mantissa}{Exponent}?  { yylval.number = atof(yytext); RET(tNUMBER); }
+
+","         { RET(tCOMMA); }  /* ??? */
+">"         { RET(tGT); }
+">="            { RET(tGE); }
+"=="            { RET(tEQ); }
+"<"         { RET(tLT); }
+"<="            { RET(tLE); }
+"!="            { RET(tNE); }
+">>"            { RET(tRSHIFT); }       
+"<<"            { RET(tLSHIFT); }       
+">>>"           { RET(tRSHIFTFILL); }   
+"&&"            { RET(tLAND); }
+"||"            { RET(tLOR); }
+
+"="         { RET(tASSIGN); }
+"|"         { RET(tOR); }       
+"&"         { RET(tAND); }      
+"^"         { RET(tXOR); }      
+"+"         { RET(tPLUS); }
+"-"         { RET(tMINUS); }
+"*"         { RET(tMULTIPLY); }
+"/"         { RET(tDIVIDE); }
+"%"         { RET(tMOD); }
+"!"         { RET(tNOT); }
+"."         { RET(tDOT); }
+"["         { RET(tRIGHTBRACKET); }
+"]"         { RET(tLEFTBRACKET); }
+
+"+="            { RET(tPLUSEQ); } 
+"-="            { RET(tMINUSEQ); } 
+"*="            { RET(tMULTIPLYEQ); } 
+"/="            { RET(tDIVIDEEQ); } 
+"%="            { RET(tMODEQ); } 
+"<<="           { RET(tLSHIFTEQ); }     
+">>="           { RET(tRSHIFTEQ); }     
+">>>="          { RET(tRSHIFTFILLEQ); } 
+"&="            { RET(tANDEQ); }        
+"^="            { RET(tXOREQ); }        
+"|="            { RET(tOREQ); }     
+"?"         { RET(tCONDTEST); } 
+":"         { RET(tCONDSEP); } 
+"~"         { RET(tONESCOMP); }     
+"++"            { RET(tINCREMENT); } 
+"--"            { RET(tDECREMENT); } 
+
+"abstract"          { RET(tUNIMPL_KEYWORD); }
+"boolean"           { RET(tUNIMPL_KEYWORD); }
+"break"         { RET(tBREAK); }
+"byte"          { RET(tUNIMPL_KEYWORD); }
+"case"          { RET(tUNIMPL_KEYWORD); }
+"catch"         { RET(tUNIMPL_KEYWORD); }
+"char"          { RET(tUNIMPL_KEYWORD); }
+"class"         { RET(tUNIMPL_KEYWORD); }
+"const"         { RET(tUNIMPL_KEYWORD); }
+"continue"          { RET(tCONTINUE); }
+"default"           { RET(tUNIMPL_KEYWORD); }
+"do"            { RET(tUNIMPL_KEYWORD); }
+"double"            { RET(tUNIMPL_KEYWORD); }
+"else"          { RET(tELSE); }
+"extends"           { RET(tUNIMPL_KEYWORD); }
+"false"         { yylval.number = 0.0; RET(tNUMBER); }
+"FALSE"         { yylval.number = 0.0; RET(tNUMBER); }
+"final"         { RET(tUNIMPL_KEYWORD); }
+"finally"           { RET(tUNIMPL_KEYWORD); }
+"float"         { RET(tUNIMPL_KEYWORD); }
+"for"           { RET(tFOR); }
+"function"          { RET(tFUNCTION); }
+"goto"          { RET(tUNIMPL_KEYWORD); }
+"if"            { RET(tIF); }
+"implements"        { RET(tUNIMPL_KEYWORD); }
+"import"            { RET(tUNIMPL_KEYWORD); }
+"in"            { RET(tIN); }
+"instanceof"        { RET(tUNIMPL_KEYWORD); }
+"int"           { RET(tUNIMPL_KEYWORD); }
+"interface"     { RET(tUNIMPL_KEYWORD); }
+"long"          { RET(tUNIMPL_KEYWORD); }
+"native"            { RET(tUNIMPL_KEYWORD); }
+"new"           { RET(tNEW); }
+"null"          { RET(tNULL); }
+"package"           { RET(tUNIMPL_KEYWORD); }
+"private"           { RET(tUNIMPL_KEYWORD); }
+"protected"     { RET(tUNIMPL_KEYWORD); }
+"public"            { RET(tUNIMPL_KEYWORD); }
+"return"            { RET(tRETURN); }
+"short"         { RET(tUNIMPL_KEYWORD); }
+"static"            { RET(tUNIMPL_KEYWORD); }
+"super"         { RET(tUNIMPL_KEYWORD); }
+"switch"            { RET(tUNIMPL_KEYWORD); }
+"synchronized"      { RET(tUNIMPL_KEYWORD); }
+"this"          { RET(tUNIMPL_KEYWORD); }
+"throw"         { RET(tUNIMPL_KEYWORD); }
+"throws"            { RET(tUNIMPL_KEYWORD); }
+"transient"     { RET(tUNIMPL_KEYWORD); }
+"true"          { yylval.number = 1.0; RET(tNUMBER); }
+"TRUE"          { yylval.number = 1.0; RET(tNUMBER); }
+"try"           { RET(tUNIMPL_KEYWORD); }
+"var"           { RET(tVAR); }
+"void"          { RET(tUNIMPL_KEYWORD); }
+"while"         { RET(tWHILE); }
+"with"          { RET(tWITH); }
+
+[_A-Za-z][_A-Za-z0-9]* { yylval.string = strdup(yytext); RET(tIDENTIFIER); }
+
+.       RET (yytext[0]); /* anything else */
+
+%%
+
+// at eol or eof ?
+
+static int isEol(char c) {
+	return ( c=='\n') || (c==13) || (c==0)); 
+}
+
+/* 
+ *   Skip comments enclosed in slash-star ... star-slash pairs
+ */
+
+static void skipSlashStarComments(void)
+
+{
+    char cChar;
+
+    for ( ; ; )
+    {
+    	while ((cChar = input()) != '*') {
+	 		if (cChar == 0) return; // break out HG
+		}
+    	if (input() != '/') 
+    	{
+        	unput(yytext[yyleng-1]);
+    	}
+    	else return;
+    }
+}
+
+static char *getStringConstant(char delimiter)
+{
+    // READ IN A STRING CONSTANT
+    // THIS GOES "OUTSIDE" OF THE LEXER SINCE NO RULES
+    // SHOULD FIRE UNTIL CLOSING delimiter IS READ
+    // read in the string until the matching delimiter
+    int len = 0;
+    int maxlen = 64;
+    char cChar;
+    char *startChar = new char[maxlen];
+    while ((cChar = input()) != delimiter) { 
+
+    	if (len == maxlen) {
+        	char* tmpStr = new char[2*maxlen];
+
+        	for (int i=0; i<maxlen; i++) {
+        	tmpStr[i] = startChar[i];
+       	 	}
+        	maxlen *= 2;
+        	delete startChar;
+        	startChar = tmpStr;
+    	}
+		if (cChar == 0) break; // break out HG
+    	startChar[len++] = cChar;
+    }
+    startChar[len] = '\0';
+
+    return startChar;
+}
+

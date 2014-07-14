@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0058)http://www.web3d.org/WorkingGroups/umel/proposals/urn.html -->
+<HTML><HEAD><TITLE>VRML,</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2014.210" name=GENERATOR></HEAD>
+<BODY aLink=#ff0000 bgColor=#ffffff link=#0000ee text=#000000 vLink=#5c5c5c>
+<CENTER>
+<H1>VRML, URNs and UMEL</H1></CENTER>
+<CENTER>
+<H4>Recommended Practice Proposal</H4></CENTER><B>Table of Contents:</B> <BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#About">About</A> 
+<BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#Overview">Overview</A> 
+<BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#URN Syntax">URN 
+Syntax</A> <BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#URN Resolution">URN 
+Resolution</A> <BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#Platform Specific Bindings">Platform 
+Specific Bindings</A> <BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#Versioning">Versioning</A> 
+<BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#Related Resources">Related 
+Resources</A> <BR><A 
+href="http://www.web3d.org/WorkingGroups/umel/proposals/urn.html#Summary">Summary</A> 
+
+<H2><A name=About></A>About</H2>This document proposes the use of Uniform 
+Resource Names (URNs) as the general mechanism which the <A 
+href="http://www.web3d.org/WorkingGroups/umel/index.html">Universal Media 
+Element Library (UMEL)</A> shall use to reference library media elements. 
+<P>Document URL: <A 
+href="http://www.vrml.org/WorkingGroups/vrml-umel/proposals/urn.html">http://www.vrml.org/WorkingGroups/vrml-umel/proposals/urn.html</A> 
+<BR>Authors: <A href="mailto:mitra@earth.path.net">Mitra</A>, <A 
+href="mailto:chris@marrin.com">Chris Marrin</A>, <A 
+href="mailto:aaron@mantiscorp.com">Aaron E.Walsh</A>, and members of the <A 
+href="mailto:vrml-umel@vrml.org">VRML-UMEL Working Group</A>. <BR>Revised: 
+10/28/98 
+<P><I><FONT color=#666666>Note: This proposal is based on an earlier document 
+that describes the use of URNs in relation to VRML. Authored by Mitra, the 
+original URN work is referenced in the VRML specification and is available 
+at:</FONT></I> <BR><I><FONT color=#666666><A 
+href="http://earth.path.net/mitra/papers/vrml-urn.html">http://earth.path.net/mitra/papers/vrml-urn.html</A>.</FONT></I> 
+<BR>
+<HR>
+
+<H2><A name=Overview></A>Overview</H2>VRML2.0 (ISO/IEC 14772-1:1997) requires 
+that browsers either support or ignore URNs in "url" MFString fields. Conforming 
+browsers are required to ignore URNs if they don't understand what to do with 
+them, and to skip on to the first URL in the field in this case. 
+<P>URNs are ideal for naming elements of a library independent of their actual 
+location. In fact, this is exactly what URNs were originally designed for, 
+making them ideal for use with the Universal Media Element Library. 
+<P>URN resolution (how a browser "resolves", or translates, a URN into a file) 
+is the key issue addressed in this UMEL recommended practice proposal. While the 
+Internet Engineering Task Force (IETF) has spent many years attempting to define 
+how URNs should be resolved, an issue which remains outstanding, the lack of a 
+standard solution for URN resolution does not <FONT 
+color=#000000>preclude</FONT> the use of URNs for our purposes. Since "url" 
+fields in VRML are multi-value, unlike those in HTML (which are single-value), 
+and will only resolve to a previously installed library, our use of URNs is not 
+contingent on the network-wide resolution method currently being sought by the 
+IETF. 
+<P>This document specifies a resolution mechanism to be used when a browser 
+encounters a URN in a multi-value <I>url</I> field. 
+<UL>
+  <LI>Conforming browsers will follow this method to determine if&nbsp; a local 
+  copy of the file exists, or will find out where&nbsp; to get it. If the file 
+  isn't accessible, the browser will skip ahead to the next entry in the 
+  <I>url</I> field. 
+  <LI>Non-conforming browsers will follow the VRML2.0 requirements and skip over 
+  the URN directly to the first URL. </LI></UL>
+<H2><BR><A name="URN Syntax"></A>URN Syntax</H2>
+<CENTER><IMG alt=urn:vrml:umel:texture/wood/oak.gif height=154 
+src="urn_files/urn_syntax.gif" width=419> <BR>&nbsp; <BR>&nbsp; 
+<P><FONT size=+0>URNs used to reference an element in the UMEL will look like 
+this:</FONT> <BR><B>urn:vrml:umel:texture/wood/oak.gif</B></CENTER>
+<P>Where: <BR>&nbsp; 
+<TABLE border=0>
+  <TBODY>
+  <TR>
+    <TD><PRE><B>urn:</B></PRE></TD>
+    <TD>Is the defined prefix for all URNs.</TD></TR>
+  <TR>
+    <TD><PRE><B>vrml:</B></PRE></TD>
+    <TD>Specifies that this is the VRML Consortium's namespace (i.e. a place 
+      where the VRML Consortium defines the rules on&nbsp; name 
+  allocation).</TD></TR>
+  <TR>
+    <TD vAlign=top><PRE><B>umel:</B></PRE></TD>
+    <TD>Is a string assigned by the VRML Consortium that specifies who is 
+      assigning names. In this case, it specifies that the names are being 
+      assigned by the Universal Medial Element Library working group. The the 
+      VRML Consortium could, for example, also allocate "lw" to Living Worlds 
+      defined names (for example Prototypes) or "pharmaceutical" to a working 
+      group assigning names to Pharmaceutically related media elements.</TD></TR>
+  <TR>
+    <TD><PRE><B>texture/wood/oak.gif&nbsp;&nbsp;</B></PRE></TD>
+    <TD>Is an example string assigned by the UMEL working group that is used 
+      to reference a specific media element, which is a texture in this 
+      case&nbsp; (note: the exact format of this string is still to be 
+      determined by that group).</TD></TR></TBODY></TABLE>
+<P>The naming authority&nbsp; may also be any domain name registered to the 
+supplier of a&nbsp; library, meaning,&nbsp; for example, that a URN could be of 
+the form urn:vrml:sgi.com:toollibrary/0001.jpg&nbsp; where sgi.com has allocated 
+the name "toollibrary/0001.jpg" 
+<H2><BR><A name="URN Resolution"></A>URN Resolution</H2>When a browser tries to 
+resolve a URN, it will attempt to determine where a library is installed,&nbsp; 
+looking for the file there. In order to do this, the browser must first find 
+configuration information (stored in a platform dependent location, as described 
+in the Platform Specific Bindings section below) for an initial sub-string 
+match. For example, with the URN above the browser is typically looking for a 
+place that all or parts of the library "urn:vrml:umel:" is installed. 
+<P>When the browser determines the location of the library, it will replace the 
+initial sub-string of the URN with the location of the library, and find the 
+file relative to that location. For instance, if the browser determines that the 
+library "urn:vrml:umel:" is installed at "C:\vrml-libraries\umel\" then it will 
+look for the file above at "C:\vrml-libraries\umel\texture\wood\oak.gif". If it 
+finds the library is at "http://vrml.org/libs/umel",&nbsp; it will then retrieve 
+the file from "http://vrml.org/libs/umel/texture/wood/oak.gif". 
+<P><I>Note that on some platforms the character "/" in the URN will need to be 
+replaced with the appropriate directory hierarchy separator character, for 
+example "\" in DOS.</I> 
+<P>If the file is not found at the location specified,&nbsp; the browser will 
+then move to the next string in the <I>url</I> field. The next string in the 
+<I>url</I> field&nbsp; will typically be the location (URL) of the file, 
+although it might also be another URN. <BR>&nbsp; 
+<H2><A name="Platform Specific Bindings"></A>Platform Specific Bindings</H2>The 
+following section defines binding information for the most common personal 
+computing platforms. 
+<H3>Windows 95 and Windows NT</H3>Windows 95 / NT configuration information is 
+kept in the registry. Registry entries live under the following key: <PRE>&nbsp; <B>HKEY_LOCAL_MACHINE\VRML\PROTOCOLS\urn</B></PRE>where the key's 
+name is derived from the URN, and the value gives the URL of the installed 
+location of a specific library. This is a semi-colon separated list of 
+alternative locations. 
+<P>Continuing the example above, the key 
+HKEY_LOCAL_MACHINE\VRML\PROTOCOLS\urn\vrml\umel would have a value 
+"file:///C|/vrml-libraries/umel". 
+<P>If the library might optionally be found on a CD, then it might also have a 
+value of "file:C|/vrml-libraries/umel;D:" 
+<H3>Unix</H3>In Unix there must exist a file (named "urn_bindings") located at 
+/etc/urn_bindings which contains one line per entry, such as: <PRE>&nbsp;<B>urn:vrml:umel:&nbsp;&nbsp;&nbsp; file:///usr/local/lib/vrml-libraries/umel</B></PRE>or 
+for multiple entries, with one option available locally via HTTP: <PRE>&nbsp;<B>urn:vrml:umel:&nbsp;&nbsp;&nbsp; file:///usr/local/lib/vrml-libraries/umel;http://myserver/vrml-libraries/umel</B></PRE>where 
+the part on the right is the initial sub-string being matched, and it is 
+separated by white-space before the semi-colon (and optionally white-space) 
+separated locations of the libraries. 
+<P>Continuation lines may be separated by white-space, so the above could be 
+written: <BR>&nbsp; <PRE><B>&nbsp;urn:vrml:umel:&nbsp;&nbsp;&nbsp; file:///usr/local/lib/vrml-libraries/umel;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; http://myserver/vrml-libraries/umel</B></PRE>
+<H3>Macintosh</H3>A file named "urn_bindings", identical to that for the Unix 
+bindings above, is placed in the System/Preferences folder. 
+<P><I>Note:&nbsp; The Preferences folder itself may need to be creating under 
+System 6.x and earlier if it doesn't already exist since these versions of the 
+Macintosh OS don't inherently support the notion of "Preferences" as System 7.x 
+and greater does.</I> 
+<H2><A name=Versioning></A><B>Versioning</B></H2>This proposed media element 
+referencing system inherently handles versioning, and so no additional mechanism 
+is necessary to accommodate different versions of libraries and/or individual 
+library elements. While a detailed discussion of library content versioning 
+isn't appropriate for this proposal (this proposal deals specifically with the 
+issue of referencing library elements using URNs, not content issues such as 
+versioning), a brief explanation of how UMEL handles versioning for entire 
+libraries (the "Textures" library, for example) as well as the individual 
+elements in those libraries (such as a texture element named "redbrick.gif") 
+follows: 
+<P><FONT size=-1>UMEL versioning is an additive process. New and/or updated 
+content is assigned a unique name and added alongside existing content. Existing 
+UMEL content is never replaced with new or updated material; it is only added to 
+over time. This approach applies to entire libraries as well as individual 
+elements.</FONT> 
+<P><FONT size=-1>Specifically, UMEL versioning is handled on an 
+element-by-element basis by the introduction of new files (images, audio clips 
+and 3D objects) into the core set of libraries ("Textures", "Sounds" and 
+"Objects"). Similarly UMEL accommodates versioning on a library-by-library basis 
+by the introduction of entirely new libraries to the core system ("Textures2.0", 
+"Sounds2.0" and "Objects2.0", for example, which will reside alongside the core 
+libraries).</FONT> 
+<P><FONT size=-1>When a update to an existing library element is added to UMEL, 
+it is given a unique file name to distinguish it from earlier versions of the 
+element ("redbrick2.gif", for instance, would represent a new version of the 
+"redbrick.gif" texture). Likewise, when a new version of the entire UMEL 
+"Textures" library is introduced, it will be giving a unique name such as 
+"Textures2.0" to distinguish it from the original "Textures" library.</FONT> 
+<P><FONT size=-1>This simple, elegant approach to versioning allows authors to 
+specify precisely the media element they desire by name, without concern for 
+changes or updates to UMEL. Since each new version of a library or element is 
+assigned a unique name, authors can be certain that the elements they reference 
+will never be replaced with an updated version. If they wish to take advantage 
+of an updated library or element version, they do so by updating their VRML 
+world's URN references accordingly.</FONT> 
+<P><I>Note: A directory named "version" (urn:vrml:umel:version) is reserved for 
+future use should the need to track version numbers arise (inside this directory 
+files related to library version numbers can be stored if needed).</I> 
+<BR>&nbsp; <BR>&nbsp; 
+<H2><A name="Related Resources"></A>Related Resources</H2>The following 
+URN-related information sources may be of use when evaluating this proposal. 
+<H3>Web pages</H3>IETF URN Charter: <A 
+href="http://www.ietf.org/html.charters/urn-charter.html">http://www.ietf.org/html.charters/urn-charter.html</A> 
+
+<P>World Wide Web Consortium Addressing: <A 
+href="http://www.w3.org/Addressing/Addressing.html">http://www.w3.org/Addressing/Addressing.html</A> 
+<BR>&nbsp; 
+<H3>RFCs and Internet Drafts</H3>The following Request For Comments (RFC) and 
+Internet Draft documents are available from <A 
+href="ftp://ftp.ietf.org/internet-drafts/">ftp://ftp.ietf.org/internet-drafts/</A> 
+and various mirror sites: 
+<P><B>"A URN Namespace for IETF Documents"</B> <BR>&nbsp;&nbsp; Filename: 
+draft-ietf-urn-ietf-07.txt <BR>&nbsp;&nbsp; Web: <A 
+href="ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-ietf-07.txt">ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-ietf-07.txt</A> 
+
+<P><B>&nbsp;"URN Namespace Mechanisms"</B> <BR>&nbsp;&nbsp; Filename: 
+draft-ietf-urn-nid-req-07.txt <BR>&nbsp;&nbsp; Web:&nbsp; <A 
+href="ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-nid-req-07.txt">ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-nid-req-07.txt</A> 
+
+<P><B>"URN Syntax"</B> <BR>&nbsp;&nbsp; Filename: draft-ietf-urn-syntax-06.txt 
+<BR>&nbsp;&nbsp; Web: <A 
+href="ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-syntax-06.txt">ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-syntax-06.txt</A> 
+
+<P><B>"Persistent Document Identifiers"</B> <BR>&nbsp; Filename: 
+draft-mallery-urn-pdi-00.txt <BR>&nbsp; Web: <A 
+href="ftp://ftp.ietf.org/internet-drafts/draft-mallery-urn-pdi-00.txt">ftp://ftp.ietf.org/internet-drafts/draft-mallery-urn-pdi-00.txt</A> 
+
+<P><B>"URI Resolution Services Necessary for URN Resolution"</B> <BR>&nbsp; 
+Filename: draft-ietf-urn-resolution-services-07.txt <BR>&nbsp; Web: <A 
+href="ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-resolution-services-07.txt">ftp://ftp.ietf.org/internet-drafts/draft-ietf-urn-resolution-services-07.txt</A> 
+
+<P><B>"Functional Requirements for Uniform Resource Names"</B> <BR>&nbsp;&nbsp; 
+Memo: RFC 1737 
+<P><B>"URN Syntax"</B> <BR>&nbsp;&nbsp; RFC 2141 
+<P><B>"Resolution of Uniform Resource Identifiers using the Domain Name 
+System"</B> <BR>&nbsp; RFC 2168 
+<H2><BR><A name=Summary></A>Summary</H2>URNs are an ideal mechanism for 
+referencing VRML Universal Media Element Library (VRML-UMEL) elements such as 
+textures, sounds and objects. Using URNs in VRML-UMEL does not require the IETF 
+to define a standard resolution method. By following the recommended practice 
+set forth in this document, VRML tool vendors, browser developers and content 
+authors may use URNs to reference UMEL elements today. 
+<CENTER>
+<P>###</CENTER></P></BODY></HTML>

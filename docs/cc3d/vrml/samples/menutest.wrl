@@ -1,0 +1,94 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+	title "blaxxunCC3D VRML menu sensor example"
+	info [ "Open the popupmenu over the sphere" ]
+	
+}
+
+EXTERNPROTO MenuSensor[
+	exposedField SFBool enabled
+	exposedField SFString title 
+	exposedField MFInt32 choices 
+	exposedField MFString descriptions 
+	exposedField SFString position
+	eventOut SFBool isActive
+	eventOut SFInt32 choice
+	]
+["urn:inet:blaxxun.com:node:MenuSensor","http://www.blaxxun.com/vrml/protos/nodes.wrl#MenuSensor","nodes.wrl#MenuSensor"]
+
+NavigationInfo { headlight FALSE } # We'll add our own light
+
+DirectionalLight {   
+       direction 0 0 -1      # Light illuminating the scene
+}
+
+Transform {
+  children [
+
+    Transform {               # a red sphere
+      translation 3 0 1
+      children [
+	    DEF TS TouchSensor {} 
+        Shape {
+          geometry Sphere { radius 2.3 }
+          appearance Appearance {
+            material DEF MAT Material { diffuseColor 0.5 0 0.7 } 
+         }
+        }
+      ]
+    }
+
+    Transform {               #  a blue box 
+      translation -2.4 .2 1
+      rotation     0 1 1  .9
+      children [
+        Shape {
+          geometry Box {}
+          appearance Appearance {
+            material Material { diffuseColor 0 0 1 }  # Blue
+         }
+        }
+      ]
+    }
+
+  ] # end of children for world
+}
+
+
+##describe the menu
+
+DEF MS MenuSensor {
+	enabled TRUE
+	title "Test Menu ..."
+	descriptions [ "Red","Green","Blue" ]
+	choices [1,2,3]
+}
+
+## Menu logic 
+
+DEF M Script {
+	eventIn SFInt32 menue_choice
+	eventOut SFColor color
+	eventIn SFBool overObject
+	url "javascript:
+		function menue_choice(choice) 
+		{
+			if (choice == 1) color = new SFColor(1,0,0);
+			else if (choice == 2) color = new SFColor(0,1,0);
+			else if (choice == 3) color = new SFColor(0,0,1);
+			else if (choice == 4) color = new SFColor(1,0,1);
+		}
+		function overObject(value) {
+			if (value)
+				Browser.setDescription('Activate the test menu via the Right Mouse Button Menue');
+		}
+	"
+}
+
+ROUTE MS.choice_changed TO M.menue_choice
+ROUTE M.color TO MAT.set_diffuseColor 
+
+## enable menue only if over sphere 
+ROUTE TS.isOver TO MS.set_enabled
+ROUTE TS.isOver TO M.overObject

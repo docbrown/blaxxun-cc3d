@@ -1,0 +1,414 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>VRML NURBS Nodes</title>
+</head>
+<body>
+
+<center>
+<h4>
+Table of contents: Node Reference</h4></center>
+
+<table BORDER=2 CELLSPACING=4 CELLPADDING=8 >
+<tr>
+    <td VALIGN=top WIDTH="30%"> 
+      	<A href="#Contour2D"> Contour2D</A>	<br>
+      	<A href="#CoordinateDeformer"> CoordinateDeformer</A> <br>
+        <A href="#NurbsCurve"> NurbsCurve</A> <br>
+        <A href="#NurbsCurve2D"> NurbsCurve2D</A> <br>
+        <A href="#NurbsGroup"> NurbsGroup</A> <br>
+        <A href="#NurbsPositionInterpolator"> NurbsPositionInterpolator</A> <br>
+        <A href="#NurbsSurface">NurbsSurface</A> <br>
+        <A href="#NurbsTextureSurface"> NurbsTextureSurface</A> <br>
+        <a href="#Polyline2D">Polyline2D</a>  <br>
+        <A href="#TrimmedSurface">TrimmedSurface</A> <br>
+    </td>
+</tr>
+</table>
+
+<p><br>
+  &nbsp; </p>
+<h3><a name="Contour2D"></a>Contour2D</h3>
+<pre><b>Contour2D {&nbsp;
+  </b>eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp; addChildren
+&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp; removeChildren
+&nbsp; exposedField MFNode&nbsp;<b> children&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f <b>bboxCenter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0</b>&nbsp;&nbsp;&nbsp;&nbsp; # (-<img height=10 src="infinity.gif" width=21>,<img height=10 src="infinity.gif" width=21>)
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f <b>bboxSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1 -1</b>&nbsp; # (0,<img height=10 src="infinity.gif" width=21>) or -1,-1,-1
+<b>}</b></pre>
+<p>The Contour2D node groups a set of curves nodes to a common contour.</p>
+<p>&nbsp; </p>
+<p>&nbsp;</p>
+<h3> <a NAME="CoordinateDeformer"></a>CoordinateDeformer</h3>
+
+<pre><b>CoordinateDeformer {&nbsp;
+
+&nbsp; </b>eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp; addChildren
+&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp;&nbsp; removeChildren
+&nbsp; exposedField MFNode&nbsp;<b>  children&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f <b> bboxCenter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0</b>&nbsp;&nbsp;&nbsp;&nbsp; # (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f <b> bboxSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1 -1</b>&nbsp; # (0,<IMG height=10 src="infinity.gif" width=21>) or -1,-1,-1
+
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>uDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>vDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>wDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</b></pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> uKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> vKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> wKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []</b></pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>uOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>vOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>wOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</b></pre>
+
+<pre>&nbsp; exposedField MFVec3f&nbsp;<b> controlPoint&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; exposedField MFFloat&nbsp;<b> weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []</b></pre>
+
+<pre>&nbsp; exposedField MFNode&nbsp;<b> inputCoord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL
+</b>&nbsp; exposedField MFNode&nbsp;<b> inputTransform&nbsp;&nbsp;&nbsp; NULL
+</b>&nbsp; exposedField MFNode&nbsp;<b> outputCoord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL</b></pre>
+
+<pre><b>}</b></pre>
+<b>CoordinateDeformer</b> allows a free form deformation on a set of MFVec3f
+Coordinate node list by using a NURBS volume. The input to the Interpolator
+is a list of Coordinate Nodes, each Coordinate node point entry defines
+a 3D parameter (u,v,w) for evaluation. The corresponding cartesian output
+value is computed from the NURBS control grid. The children are containing
+a scene graph which typically contains IndexedFaceSet nodes referring to
+a deformed Coordinate node in outputCoords.
+<p><i><b>uDimension</b>, <b>vDimension, wDimension, controlPoint, weight,
+uKnot, vKnot, wKnot, uOrder, vOrder, wOrder</b></i><b> </b>defining the
+NURBS in the 3 dimensions. The definition is similar to the NurbsSurface
+node.
+<p>The<b> <i>inputCoord</i></b> field, if specified, shall contain a set
+of <b><a href="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html#Coordinate">Coordinate</a></b>
+nodes.
+<p>The<b> <i>outputCoord</i></b> field, shall contain a set of <b><a href="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html#Coordinate">Coordinate</a></b>
+nodes. The number of nodes must be equal to the number of nodes in <b>inputCoord</b>.
+The nodes itself should be distinct from nodes in inputCoords.
+<p>The<b> <i>inputTransform</i></b> field, if specified, shall contain
+a set of <b><a href="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html#Transform">Transform</a></b>
+nodes, the number of nodes must be equal to the number of nodes in <b>inputCoord</b>.
+<p>By animating the controlPoint field IndexedFaceSet - Meshes using a
+Coordinate node from outputCoords are deformed over time. Similar the point
+field in a input Coordinate node can be animated. By animating a Transform
+node in the inputTransforms, Meshes can be moved through the deformation
+space. (Space warp)
+<p><b>CoordinateDeformer</b> is a group node and must be part of the Transform
+hierarchy if evaluations is required. Points in the Coordinate node contained
+in outputCoords are recomputed and updated whenever the points of the inputCoords
+Coordinate are changed, any exposedField of the CoordinateDeformer itself
+is changed, or if present the Transform in any of the inputTransforms is
+changed.
+<br>Implementations may defer or even skip evaluation, until the CoordinateDeformerGroup
+is traversed and need to be displayed. I.e. if the node is currently not
+part of the traversed scene graph or the node is not being rendered because
+the boundingBox of the node or the boundingBox computed from controlPoint
+falls outside the view frustum.
+<p>In some respect CoordinateDeformer is a special version of a VRML <b><a href="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html#CoordinateInterpolator">CoordinateInterpolator</a></b>.
+We haven choosen to wrap this potential expensive function in a Group node
+in order to make the animation locatable in the scene graph at a certain
+3d positition. Interpolations in VRML are having normally no boundig box
+and so are not cullable based on visibility if the author doesn't cull
+the behaviour by using an explicit VisibilitySensor and routing the output
+of that to the controlling TimeSensor.
+<br>&nbsp;
+<br>&nbsp;
+<pre>Example:&nbsp;
+DEF FFD CoordinateDeformer&nbsp; {&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; controlPoint [ ..... ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inputCoord&nbsp;&nbsp; DEF inputCoord&nbsp; Coordinate&nbsp; { point [ ...] }&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; outputCoord&nbsp; DEF outputCoord Coordinate&nbsp; { point [] }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; children Shape {&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; geometry IndexedFaceSet {&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coord USE outputCoord
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; coordIndex [ .... ]&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;
+}</pre>
+additional code to animate the FFDGrid
+<pre><font face="Courier New, Courier, mono">DEF Timer TimeSensor {}
+DEF FFDGridInterpolator CoordinateInterpolator { ..... }&nbsp;
+ROUTE FFDGridInterpolator.value_changed TO FFD.set_controlPoint&nbsp;
+ROUTE Timer.fraction_changed O FFDGridInterpolator.set_fraction</font></pre>
+If a given input coordinate value (optionally transformed&nbsp; by the
+Matrix of the corresponding Transform node) exceeds the parametric range
+of one of the knot vectors, the corresponding output coordinate value will
+be left unchanged. This is useful to deform only a subset of the coordinates
+or to animated different parts of the coordinate node by different CoordinateDeformerGroup
+nodes.
+<p>Pseudo code to formulate the operation of this node :
+<br>&nbsp;
+<pre>function PerformDeformation() {</pre>
+
+<pre><font face="Courier New, Courier, mono">for (n=0; n&lt;inputCoords.length;i++) {</font></pre>
+
+<pre>&nbsp;&nbsp;&nbsp; Deform(inputCoord[i].point,MatrixOf(inputTransform[i]),outputCoord[i].point);</pre>
+
+<pre><font face="Courier New, Courier, mono">}</font></pre>
+
+<pre>}</pre>
+
+<pre>function Deform(MFVec3f input, Matrix m, MFVec3f output)</pre>
+
+<pre>{</pre>
+
+<pre><font face="Courier New, Courier, mono">if (output.length &lt; input.length) output.length = input.length;</font></pre>
+<font face="Courier New, Courier, mono">for (i=0; i&lt;input.length;i++)
+{</font>
+<br><font face="Courier New, Courier, mono">&nbsp;&nbsp;&nbsp; SFVec3f
+parameter = m * input[i];</font>
+<br><font face="Courier New, Courier, mono">&nbsp;&nbsp;&nbsp; if (ParameterInRange(parameter))
+{</font>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output[i] =               NurbsEvaluate3(parameter);
+<p>&nbsp;&nbsp;&nbsp; }
+<br><font face="Courier New, Courier, mono">}</font>
+<br>}
+<p>SFVec3f NurbsEvaluate3(SFVec3f parameter)
+<br>&nbsp;-- evaluate standard NURBS formula
+<br>&nbsp;
+<h3> <a NAME="NurbsCurve"></a><b>NurbsCurve</b></h3>
+
+<pre><b>NurbsCurve {</b>
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b>  knot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b> order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp; </b># [2,<IMG height=10 src="infinity.gif" width=21>)
+
+&nbsp; exposedField&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFVec3f&nbsp;<b>  controlPoint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)
+&nbsp; exposedField&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp; <b> weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]&nbsp;&nbsp;&nbsp; </b># (0,<IMG height=10 src="infinity.gif" width=21>)
+&nbsp; exposedField&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp;  <STRONG>tessellation</STRONG>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <STRONG> </STRONG>&nbsp;&nbsp;&nbsp; # (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>) 
+} </pre>
+<P>The NurbsCurve is the NURBS counter part to a IndexedLineSet. A description 
+of the parameters can be found in the NurbsSurface.</P>
+<A href="#5"></A> 
+<h3><a NAME="NurbsCurve2D"></a>NurbsCurve2D</h3>
+
+<p>&nbsp; </p>
+<PRE><STRONG>NurbsCurve2D </STRONG> {
+<br>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;	<STRONG>knot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]</STRONG>
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp;	<STRONG>order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3</STRONG>
+&nbsp; exposedField MFVec2f&nbsp; <STRONG>controlPoint&nbsp;&nbsp;&nbsp;&nbsp;[]</STRONG>
+&nbsp; exposedField MFFloat&nbsp; <STRONG>weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[]</STRONG>
+&nbsp; exposedField SFInt32&nbsp; <STRONG>tessellation&nbsp;&nbsp;&nbsp;&nbsp;0</STRONG>
+}</PRE>
+<P>NurbsCurve2D is a 2D NURBS curve and can be used in the context of a TrimmedSurface 
+  node. <br>
+  &nbsp; </P>
+<h3> <a NAME="NurbsGroup"></a>NurbsGroup</h3>
+
+<pre><b>NurbsGroup {&nbsp;
+
+&nbsp; </b>eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp; addChildren
+&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp; removeChildren
+&nbsp; exposedField MFNode&nbsp;<b> children&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f <b>bboxCenter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0 0</b>&nbsp;&nbsp;&nbsp;&nbsp; # (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f <b>bboxSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 -1 -1</b>&nbsp; # (0,<IMG height=10 src="infinity.gif" width=21>) or -1,-1,-1
+&nbsp; exposedField SFFloat<b> tessellationScale&nbsp;1.0
+}</b></pre>
+The NurbsGroup node groups a set of NurbsSurface nodes to a common group.
+This provides a hint to the browser to treat the set of NurbsSurface as
+a unit during tessellation to enforce tessellation continuity along borders.
+The <b>tessellationScale</b> parameter is scaling the the tessellation
+values in lower level NurbsSurface nodes. If a set of NurbsSurfaces use
+a matching set of controlPoints along the borders, this results in a common
+tessellation stepping.
+<br>Besides that the NurbsGroup is a normal Group node.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+<h3> <a NAME="NurbsPositionInterpolator"></a><b>NurbsPositionInterpolator</b></h3>
+
+<pre><b>NurbsPositionInterpolator {</b>&nbsp;
+
+&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFFloat &nbsp;set_fraction
+&nbsp; exposedField SFBool&nbsp; <b> fractionAbsolute TRUE&nbsp;</b>
+&nbsp; exposedField MFFloat&nbsp;<b> knot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</b>&nbsp; exposedField SFInt32&nbsp; <b>order&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;
+</b>&nbsp; exposedField MFVec3f&nbsp;<b> keyValue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; exposedField MFFloat&nbsp; <b>keyWeight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []
+</b>&nbsp; eventOut&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp; value_changed&nbsp;
+
+<b>}</b></pre>
+<P>
+<b>NurbsPositionInterpolator</b> describes a 3D NURBS Curve using <i>dimension
+keyValue, keyWeight, knot</i> and <i>orde</i>r . Sending a <i>set_fraction</i>
+input computes a 3D position on the curve, which is sent by <i>value_changed</i>. </P>
+<P>If <EM>fractionAbsolute </EM>is set to TRUE the fraction is directly used to 
+generate an output value. The fraction has to be within the knot vector. If set 
+to FALSE the fraction is spanned over the knot vector. </P>
+<P>It is under consideration to expand the functionality to also compute 
+tangents: </P>          
+
+<p>exposedField SFBool&nbsp;&nbsp; <b>computeTangent&nbsp;&nbsp; FALSE</b>
+<br>eventOut&nbsp;&nbsp;&nbsp;&nbsp; SFVec3f&nbsp; tangent_changed
+<p>The tangent is computed if the <i>computeTangent</i> field is TRUE.
+This eventOut can be used to compute a frame of reference at the current
+position along the curve.
+<p>Using a VRML PositionInterpolator it is not possible to specify a smooth
+movement like a path along a circle until the curve is sampled to a very
+fine stepping. In many existing VRML content the data for Interpolators
+take up a serious amount of&nbsp;&nbsp; the total size of the VRML file.
+Using Spline (NURBS) based interpolation we hope that this amount of data
+can be reduced. Feedback from Content Developers and Tool Vendors is required
+to evaluate this Node and its usability and data reduction capbilities.
+<br>&nbsp;
+
+<h3><a NAME="NurbsSurface"></a><b>NurbsSurface</b></h3>
+
+<pre><b>NurbsSurface {&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>uDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; </b># [0,<IMG height=10 src="infinity.gif" width=21>)&nbsp;&nbsp;
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>vDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; </b># [0,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> uKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)<b>&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> vKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>uOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; </b># [2,<IMG height=10 src="infinity.gif" width=21>)&nbsp;&nbsp;
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>vOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; </b># [2,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; exposedField MFVec3f&nbsp;<b> controlPoint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; exposedField MFFloat&nbsp; <b>weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (0,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre><b>&nbsp; </b>exposedField SFInt32<b>&nbsp; uTessellation&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; </b><i># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)</i><b>&nbsp;&nbsp;
+</b>&nbsp; exposedField SFInt32<b>&nbsp; vTessellation&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)<b>&nbsp;&nbsp;
+
+</b>&nbsp; exposedField SFNode&nbsp;&nbsp; <b>texCoord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []</b></pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp; <b>ccw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFBool&nbsp;&nbsp; <b>solid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRUE
+}</b></pre>
+<b><i>uDimension</i></b> and <b><i>vDimension</i></b> definr the number
+of control points in the u and v dimensions.
+<p><b><i>uOrder</i></b> and <b><i>vOrder</i></b> definr the order of surface.
+From a mathematical point of view, the surface is defined by polynomials
+of the degree <i>order-1</i>.
+<br>The order of the curves uOrder and vOrder must be greater or equal
+to 2. An implementation may limit uOrder and vOrder to a certain number.
+The most common orders are 3 (quadratic polynomial) and 4 (cubic polynomial),
+which are sufficient to achieve the desired curvature in most cases.
+<br>The number of control points must be at least equal to the order of
+the curve. The order defines the number of adjacent control points that
+influence a given control point.
+<p><b><i>controlPoint</i></b> defines a set of control points of dimension
+uDimension * vDimension. This set of points defines a mesh similar to the
+grid of a ElevationGrid whereas the points do not have a uniform spacing.
+Depending on the weight-values and the order this hull is approximated
+by the resulting surface. #uDimension points define a polyline in u-direction
+followed by further u-polylines with the v-parameter in ascending order.
+The number of control points must be equal or greater than the order. A
+closed B-Spline surface can be specified by repeating the limiting control
+points.
+<p>The control&nbsp; vertex corresponding to the control point P[i, j]
+on the control grid is :
+<p>&nbsp;&nbsp;&nbsp; P[i,j].x = controlPoints[i + ( j &times; uDimension)].x
+<br>&nbsp;&nbsp;&nbsp; P[i,j].y =               controlPoints[i + ( j &times; uDimension)].y
+<br>&nbsp;&nbsp;&nbsp; P[i,j].z = controlPoints[i + ( j &times; uDimension)].z
+<br>&nbsp;&nbsp;&nbsp; P[i,j].w = weight[ i + (j &times; uDimension)]
+<p>&nbsp;&nbsp;&nbsp; where 0 &lt;= i &lt; uDimension and 0 &lt;= j &lt;
+vDimension.
+<p>A <b><i>weight</i></b> value that must be greater than zero is assigned
+to each controlPoint. The ordering of the values is equivalent to the ordering
+of the control point values. If the weight of a control point increased
+above 1 the point is closer approximated by the surface. The number of
+values must be identical to the number of control points. If the length
+of the weight vector is 0, the default weight 1.0 is assumed for each control
+point.
+<p>As a result of the lack of&nbsp; 4D Coordinate field type in VRML the
+control points and the corresponding weight values are held in separate
+fields. This separation also allows independent animation of the controlPoint
+fields using a CoordinateInterpolator node.
+<p><b><i>uKnots</i></b> and <b><i>vKnots</i></b> define the knot vector.
+The number of knots must be equal to the number of control points plus
+the order of the curve. The order must be non-decreasing. By setting successive
+knot values equal the degree of continuity is decreased, which implies
+that the surface gets edges. If k is the order of the curve, k consecutive
+knots at the end or the beginning of the vector let converge the curve
+to the last or the first control point respectively. Within the knot vector
+there may be not more than k-1 consecutive knots of equal value.
+<br>If the length of a knot vector&nbsp; is 0,&nbsp; a default uniform
+knot vector is computed.
+<p><b><i>uTessellation</i></b> and <b><i>vTessellation</i></b> give hints to
+the surface tessellator, u/v Tessellation &gt; = u/v Order sets an absolute
+number of subdivision step, 0 lets the browser choose an suitable tessellation.
+Interpretation of values below 0 are implementation dependent.
+<p>For an implementation subdividing the surface in a equal number of subdivision
+steps tessellation values could be interpreted in the following way:
+<br>if a tessellation value is greater 0, the number of tessellation points
+are tessellation+1;
+<br>if a tessellation value is smaller than 0, the number of tessellation
+points are (-tessellation * (u/v)dimension)+1
+<br>if a tessellation value is&nbsp; 0, the number of tessellation points
+are&nbsp; (2 * (u/v)dimension)+1
+<p>For implementations doing tessellations based on choord length tessellation
+values &lt;0 could be interpreted as the max choord length deviation in
+pixels.
+<p>Implementations doing fully autmatic tessellation may ingore the thessellation
+hint parameters.
+</p>
+<p><b><i>texCoord</i></b> (not implemented) could provide additional information on how to
+generate texture coordinates.
+<br>By default texture coordinates in the unit square are generated automatically
+from the parametric subdivision.
+<br>It is under consideration to use a NurbsTextureSurface Node or simply
+an TextureCoordinate node in order to be able to compute a texture coordinate
+given a u/v parameter of the NurbsSurface. NurbsTextureSurface would also
+allow for non animated surfaces to specify a chord-length based texture
+coordinate parametrization. Feedback from content developers is required
+to resolve this open issue.
+<br>&nbsp;
+<p><b><i>ccw</i></b> and <b><i>solid</i></b> are defined like in other
+VRML Geometry nodes. solid TRUE enables two-sided lighting, the surface
+is visible from both sides, and normals are flipped toward the viewer,
+prior to shading.
+
+<h3> <a NAME="NurbsTextureSurface"></a>NurbsTextureSurface</h3>
+(not yet implemented)
+<p>In order to allow better control over generated texture coordinates,
+the NurbsTextureSurface node can be used to generate texture coordinates
+based on NURBS Surface, generating 2D texture coordinates.
+<pre><b>NurbsTextureSurface {&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>uDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; </b># [0,<IMG height=10 src="infinity.gif" width=21>)&nbsp;&nbsp;
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>vDimension&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; </b># [0,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> uKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)<b>&nbsp;
+</b>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFFloat&nbsp;<b> vKnot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>uOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; </b># [2,<IMG height=10 src="infinity.gif" width=21>)&nbsp;&nbsp;
+&nbsp; field&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SFInt32&nbsp; <b>vOrder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp; </b># [2,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; exposedField MFVec2f&nbsp;<b> controlPoint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (-<IMG height=10 src="infinity.gif" width=21>,<IMG height=10 src="infinity.gif" width=21>)</pre>
+
+<pre>&nbsp; exposedField MFFloat&nbsp; <b>weight&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; []&nbsp;&nbsp;&nbsp; </b># (0,<IMG height=10 src="infinity.gif" width=21>)</pre>
+<b>}</b> 
+<h3><a name="Polyline2D"></a>Polyline2D</h3>
+<p>&nbsp; </p>
+<pre><strong>Polyline2D </strong> {
+<br>&nbsp; exposedField MFVec2f&nbsp; <strong>point&nbsp;&nbsp;&nbsp;&nbsp;[]</strong>
+}</pre>
+<p>Polyline2D is a 2D linear curve and can be used in the context of a TrimmedSurface 
+  node. <br>
+</p>
+<h3> <a NAME="TrimmedSurface"></a>TrimmedSurface</h3>
+(not yet implemented) 
+<pre><b>TrimmedSurface {&nbsp;
+
+&nbsp; </b>eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp; addTrimmingContour
+&nbsp; eventIn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MFNode&nbsp; removeTrimmingContour
+&nbsp; exposedField MFNode&nbsp;<b> trimmingContour&nbsp;&nbsp; []
+&nbsp; </b>exposedField SFNode<b>&nbsp; surface&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL&nbsp;&nbsp;
+}</b></pre>
+TrimmedSurface groups a set of trimming controus and a NurbsSurface node. 
+<p>The <b>trimmingContour</b> field, if specified, shall contain a set of<b> Contour2D</b> 
+  nodes. Each <b>Contour2D</b> node can contain an ordered list of <b>NurbsCurve2D</b> 
+  or <b>Polyline2D nodes. </b>The <b>surface</b> field, if specified, shall contain 
+  a <b>NurbsSurface</b>. 
+<p>We currently examine the implementation of trimmed NURBS Surfaces. We are aware 
+  that trimming might be a too CPU intensive process to be done in real time. 
+  Furthermore we see the problem that the tessellation of adjacent trimmed surface 
+  patches may not lign up, resulting in visible cracks in the displayed model. 
+  These problems could only be solved by using a more elaborated Boundary Representation 
+  Data Model (B-REP) which is currently out of scope. <br>
+</p>
+</body>
+</html>

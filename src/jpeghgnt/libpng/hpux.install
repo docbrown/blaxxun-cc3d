@@ -1,0 +1,37 @@
+NOTE ! This package requires the zlib library to be installed prior to
+compilation. This is currently available as the package: /hpux/Misc/zlib-1.0.4
+
+Files changed:
+
+* Imakefile:
+  - Added rules to build a shared library version as well as an archive
+    library version.
+  - Added "make install" rule, which installs both libraries and includes
+  
+* png10.txt:
+  - 10th draft spec of the PNG format, transferred separately.
+
+To compile:
+
+INSTALL THE zlib LIBRARY FIRST !!
+
+[Edit ZLIBINCDIR, ZLIBLIBDIR, PINCDIR and PLIBDIR lines in the Imakefile 
+appropriately]
+
+xmkmf
+make
+
+To test:
+
+make test
+[NOTE: Will also install the libraries]
+
+To install:
+
+make install
+
+Notes:
+
+* Any application (xpaint for example) using this png library 
+  must also, of course, link with the zlib library.
+

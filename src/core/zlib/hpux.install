@@ -1,0 +1,58 @@
+WARNING: Make sure that "what /opt/ansic/bin/cc" reports at least
+A.10.32.08 - if not, you must remove optimisation from the source build.
+If you compile with "-O" with an unpatched HP ANSI C compiler, then
+libpng's "make test" will core dump.
+
+Files changed:
+
+* ChangeLog:
+  - Added an entry to mention these mods because the README suggested I did.
+
+* Makefile.in:
+  - Set up ANSI flags for HP-UX.
+  - Changed RANLIB to be /bin/true.
+  - Added SHLIB and ARLIB definitions to make it easier to change.
+  - Added libdir and incdir for a "make install".
+  - Build a .sl shared library version as well as an archive one.
+  - Delete ztest*.c during a "make clean".
+
+* configure:
+  - Set compile/link flags for HP-UX.
+  - Changed prefix for our site.
+  - Make sure BOTH static and dynamic libraries can be built.
+
+To compile:
+
+[Edit prefix in configure for your site]
+ksh configure
+make
+
+To test:
+
+make test
+
+To install:
+
+make install
+
+Notes:
+
+* What a complete mess the authors have made of this distribution with their
+  use of configure ! If I hadn't changed the original setup, you:
+  - Could only build EITHER a static OR a shared library, but not both !
+  - You couldn't build the shared library with a .sl extension because
+    .so.$(VER) was hard-coded everywhere.
+  - There were no definitions for "obvious" things like libdir and incdir.
+    so you'd have to change numerous occurrences of hard-coded paths.
+
+* This is a purely a "gzip library" and is intended for use by other
+  application programs (e.g. ImageMagick, mosaic etc) or libraries
+  (particularly libpng).
+
+* The function call documentation for this library is all contained in the
+  zlib.h header file.
+
+* You should get the gzip package in /hpux/Gnu if you want to use the "real"
+  gzip, because the minigzip supplied here doesn't keep timestamps and isn't
+  as robust or feature-laden as the "real" gzip. This is also why neither of
+  the 2 example programs are installed during a "make install".

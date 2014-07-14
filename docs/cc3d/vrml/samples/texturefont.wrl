@@ -1,0 +1,21 @@
+#VRML V2.0 utf8
+
+Shape {
+appearance Appearance 
+{
+texture DEF FONTT ImageTexture { url "font512.gif" repeatS FALSE repeatT FALSE }
+
+material Material {
+diffuseColor 1 1 1
+}
+}
+geometry Text {
+string [ "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"]
+fontStyle FontStyle {
+family ["TEXTURE"]
+#family ["SANS"]
+#family ["TYPEWRITER"]
+justify "LEFT"
+}
+}
+}

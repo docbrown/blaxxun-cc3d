@@ -1,0 +1,50 @@
+#VRML V2.0 utf8
+
+BspTree {}
+BspGroup {}
+
+Occlusion {}
+Inclusion {} 
+MenuSensor {} 
+CullGroup {}
+
+
+# extra nodes
+
+HUD {}
+Fog2 {}
+
+Selection {}
+
+
+NurbsSurface {}
+NurbsGroup {}
+
+NurbsCurve {}
+NurbsCurve2D {}
+Polyline2D {}
+
+NurbsPositionInterpolator {}
+
+TrimmedSurface {}
+Contour2D {}
+
+CoordinateDeformer {}
+Layer3D {}
+
+#experimental
+
+
+MultiTexture {}
+Polygon {}
+
+Layer {}
+MatrixTransform {}
+
+
+#extra fields
+#Inline {}
+#MovieTexture {}
+AudioClip {} 
+
+

@@ -1,0 +1,108 @@
+#VRML V2.0 utf8
+
+WorldInfo {
+	info "display most CC3D extended javascript browser status informatioin"
+}
+
+PROTO kugel[
+eventOut SFTime touchTime
+]
+{
+Group {
+    children [
+        DEF TOUCHME TouchSensor { touchTime IS touchTime }
+        Shape {
+            appearance Appearance { material Material {diffuseColor 1 0 0}}
+            geometry Sphere {}
+        }
+    ]
+}
+
+DEF TESTSCRIPT Script {
+eventIn SFBool isActive
+url "vrmlscript:
+    function isActive(value, stamp)
+    {
+    }"
+}
+
+
+ROUTE TOUCHME.isActive TO TESTSCRIPT.isActive
+
+}
+
+DEF CapTest Script {
+	eventIn SFTime click
+	field MFString capNames [ "OpenGL" "Direct3D" "IS_HARDWARE"	  
+					"TOTAL_VIDEO_MEMORY"  "FREE_VIDEO_MEMORY" "RGB_LIGHTING" "ALPHA_BLENDING" "MIPMAPPING"  
+					"MAX_TEXTURESIZE_X" "MAX_TEXTURESIZE_Y"	"TEXTURE_SQUARE" "MAX_LIGHTS"
+					## 4.3
+					"FREE_TEXTURE_MEMORY" 	"TOTAL_TEXTURE_MEMORY"
+					"FREE_PHYSICAL_MEMORY (KB)" 	"TOTAL_PHYSICAL_MEMORY (DB)" "USED_PHYSICAL_MEMORY %"
+
+					]
+
+url "javascript:
+    function printCaps()
+    {
+		print('Browser = '+Browser.getName());
+		print('Version = '+Browser.getVersion());
+
+		var b=Browser.getName();
+		if (!((b == 'GLView') ||(b == 'blaxxunCC3D'))) return;
+		var num=capNames.length;
+		for (i=0 ; i<num; i++) {
+			
+			print('  cap '+i+' '+capNames[i]+' = '+Browser.getCap(i));
+		}
+		// special MU stuff 
+		print('world URL = '+Browser.worldUrl);
+
+		if ( Browser.sharedZone) print('having a shared zone ');
+		if ( Browser.myAvatar) print('having a myAvatar node ');
+		if ( Browser.boundAvatar) print('myAvatar is bound to scene ');
+
+		print('my avatar URL = '+Browser.myAvatarURL);
+		print('my avatar Name = '+Browser.myAvatarName);
+		print('Window size is  '+Browser.windowSize);
+		print('Window windowAspect is  '+Browser.windowAspect);
+		print('Viewpoint position is  '+Browser.viewpointPosition);
+		print('Viewpoint orientation is  '+Browser.viewpointOrientation);
+
+		if (Browser.getVersion()<4.00) return;
+
+		print('Browser time stamp is '+Browser.time_changed);
+		// 4.001
+		print('Navigation Mode is '+Browser.getNavigationMode());
+
+		print('getGravity is '+Browser.getGravity());
+		print('getCollisionDetection is '+Browser.getCollisionDetection());
+		print('getHeadLight is '+Browser.getHeadLight());
+		print('getViewpointAnimation is '+Browser.getViewpointAnimation());
+		print('getVisibilityLimit is '+Browser.getVisibilityLimit());
+		print('getCollisionDistance is '+Browser.getCollisionDistance());
+		print('getAvatarHeight is '+Browser.getAvatarHeight());
+		print('getStepOverSize is '+Browser.getStepOverSize());
+		print('getZNear is '+Browser.getZNear());
+		print('getZFar is '+Browser.getZFar());
+		print('getThirdPersonView is   '+Browser.getThirdPersonView());
+		print('thirdPersonView followDolly is   '+Browser.followDolly);
+		print('thirdPersonView followOrbit is   '+Browser.followOrbit);
+		print('thirdPersonView followPan is   '+Browser.followPan);
+
+    }
+    function initialize(value, stamp)
+    {
+		printCaps();
+	}
+
+    function click(value, stamp)
+    {
+		printCaps();
+	}
+	
+	"
+}
+DEF kugel kugel { }
+ROUTE kugel.touchTime TO CapTest.click
+

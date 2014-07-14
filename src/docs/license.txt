@@ -1,0 +1,49 @@
+==============================================================
+GLView version 2.07  02.03.96
+3D OpenGL Viewer for Windows/NT 3.51/95
+Copyright (C) 1994-1996 Holger Grahn
+All Rights Reserved
+==============================================================
+For ordering information, see the file ORDER.TXT.
+
+License Agreement
+
+You should carefully read the following terms and conditions
+before using this software. Unless you have a different license agreement 
+signed by Holger Grahn, your use of this software indicates 
+your acceptance of this license agreement and warranty.
+
+Evaluation and Registration
+
+This is not free software. You are hereby licensed to use this
+software for evaluation purposes without charge for a period of 14 days. 
+If you use this software after the 14 day evaluation period 
+a registration fee of $65 is required.  ( see order.txt ) 
+When your payment is received you will be sent the commercial copy of GLView.
+
+Unregistered use of GLView after the 14-day evaluation period is in violation of international copyright laws.
+Use of GLView in the evaluation period for commercial presentations like trade shows or 
+product demonstrations is strictly prohibited. 
+
+
+Registered Version
+
+One registered copy of GLView may either be used by a single
+person who uses the software personally on one or more computers,
+or installed on a single workstation used nonsimultaneously by multiple people, but not both.
+
+Public demonstration of GLView at trade shows or other product demonstrations or bundling the 
+demonstration version with a commercial product needs a special distribution agreement.
+Sourcecode licenses are available.
+
+For distribution of the evaluation version, please contact an authorized distributor for
+more information (see order.txt).
+
+Disclaimer of Warranty
+
+THIS SOFTWARE AND THE ACCOMPANYING FILES ARE SOLD "AS IS" AND
+WITHOUT WARRANTIES AS TO PERFORMANCE OF MERCHANTABILITY OR ANY
+OTHER WARRANTIES WHETHER EXPRESSED OR IMPLIED.
+NO WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE IS OFFERED.
+ANY LIABILITY OF THE SELLER WILL BE LIMITED EXCLUSIVELY TO PRODUCT
+REPLACEMENT OR REFUND OF PURCHASE PRICE.

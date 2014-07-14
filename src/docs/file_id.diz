@@ -1,0 +1,15 @@
+GLView 4.3 3D OpenGL VRML Viewer for Windows NT 4.0/95/98/2000
+from Holger Grahn http://www.snafu.de/~hg
+VRML 2.0 and VRML 1.0 support
+Integrated network access for World Wide Web 3D VRML files.
+GLView allows the dynamic rotation of 3D objects and supports different viewstyles 
+like smooth shading, wireframe .., Material-editing, Texture-Mapping
+File Formats : dxf, dib, rgb, raw, geo, stl, pov, vrml, GLView
+Runs well with hardware accelerated OpenGL boards like those with
+a Glint Chip from 3DLabs. 
+Other features VRML Editor, 3D TrueType Logos, Morphing, DXF read, VRML,RAW,POV,GEO write
+For Windows 95 please download opengl95.zip also
+Free, unsupported Version
+See also the Direct 3D Version
+
+Keywords : VRML 2.0 VRML 97 3D OPENGL VIEWER GLVIEW RAW GLINT RENDERING NT TEXTURE DXF WAVEFRONT VRML WRL POV WWW

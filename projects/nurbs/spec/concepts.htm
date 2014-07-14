@@ -1,0 +1,218 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>NURBS Concepts</title>
+</head>
+<body>
+
+<center>
+<h4>
+Table of contents, Concepts</h4></center>
+
+<table BORDER =1>
+<tr>
+<td><b><A href="#1.1">1.1 Basic Nurbs Support</A></b>
+<br>&nbsp; <A href="#1.1.1">1.1.1 Nodes</A>
+<br>&nbsp; <A href="#1.1.2">1.1.2 Tessellation Strategies</A>
+<br>&nbsp; <A href="#1.1.3">1.1.3 Automatic Level of Detail</A>
+<p><b><A href="#1.2">1.2 Trimmed NURBS</A></b>
+<p><b><A href="#1.3">1.3 NURBS and Animation</A></b></p>
+</td>
+</tr>
+</table>
+
+<h2>
+<a NAME="1.1"></a>1.1 Basic NURBS Support</h2>
+This section describes the proposed VRML nodes. Some have been implemented
+in a sample version of <A href="ftp://ftp.blaxxun.de/pub/blaxxunContact41P3.exe">blaxxun
+Contact 4.1</A>. Others have not yet been implemented.
+<br>&nbsp;
+<h3>
+<a NAME="1.1.1"></a>1.1.1 Nodes</h3>
+The characteristics of a <A href="./nodes.htm#5">NurbsSurface</A>and a <A href="./nodes.htm#2">NurbsCurve</A> are basically determined by a set
+of <b>control points</b> (control vertices, CV) similar to an <b><a href="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html#ElevationGrid">ElevationGrid</a></b>.
+These points are approximated to a certain degree, that is defined in the
+<b>weight</b>
+value of every CV. The whole surface can be seen as the weighted average
+of all control points with the control points having only strong influence
+in their periphery. The range of the influence is determined by the knot
+vector.
+
+<p><br>There are many surface construction techniques. To name a few:
+<ol>
+<li>
+special cases of NURBS surfaces such as sphere, 
+    cylinder or Bezier surfaces 
+    
+
+<li>
+Extrusion / swept surfaces, constructed given a 
+    spine and a cross section curve which both can be NURBS curves 
+    
+
+<li>
+surfaces of revolution, constructed given a 
+    circle/arc and a NURBS cross section curve 
+    
+
+<li>
+skinned surface constructed from a set of curves 
+    
+
+<li>
+Gordon surfaces interpolating two sets of curves 
+    
+
+<li>
+Coons patches, a bicubic blended surface 
+    constructed from 4 border curves 
+    
+
+<li>
+Surfaces interpolating a set of points</li>
+</ol>
+For now we assume that creation of such surfaces is only a construction
+step at authoring time and that the surface will be represented as a general
+NurbsSurface for VRML runtime delivery.
+<br>&nbsp;
+<h3>
+<a NAME="1.1.2"></a><b>1.1.2 Tessellation strategies</b></h3>
+
+<p><br>Because low-level real-time rendering API's currently can handle
+only planar triangles, a NURBS surface needs to be broken down, or tessellated
+into an set of triangles approximating the true surface.
+<p>Tessellation can be done in different coordinate spaces :
+<ol>
+<li>
+Tessellation in object space and the internal 
+    computation of the equivalent to an VRML IndexedFaceSet. 
+    
+
+<li>
+Transforming the control vertices to screen space, and tessellation in
+screen space</li>
+</ol>
+There are different methods to determine tessellation points on the surface
+<ol>
+<li>
+fixed tessellation based on a absolute number of 
+    subdivisions. 
+    
+
+<li>
+adaptive tessellation based on chord length 
+    
+
+<li>
+adaptive tessellation based on the angle between two 
+    triangles 
+    
+
+<li>
+view dependent tessellation, fine tessellation near silhouette edges</li>
+</ol>
+As a first step we choose to implement 1/1.
+<br>In the second step we implement 2/1. Because of the transformation
+of the control vertices from object space to screen space, the computed
+tessellated vertices need not to be transformed. Tessellation in screen
+space requires the ability to pass already transformed vertices to the
+rendering API. This is possible using the Microsoft Direct 3D IM-API. However
+passing data at this level requires the application to already light the
+vertices (see <a href="http://www.vrml.org/Specifications/VRML97/part1/concepts.html#4.14">VRML
+Lighting model</a>) and pass the resulting color and specular RGB values
+for each vertex of a triangle.<br>
+In order to avoid cracks at the junction of two surfaces tessellation values of a whole set of 
+surfaces can be specified in the <A href="./nodes.htm#4">NurbsGroup</A>.<br>
+<p>A specific goal of this implementation is to study new NURBS animation
+techniqes by dynamical altering of the controlPoint and weight field of
+a NurbsSurface. Using fixed tessellation the NURBS blending function at
+the evaluation point could be cached and need not to be recomputed on an
+animation.
+<br>&nbsp;
+<h3>
+<a NAME="1.1.3"></a><b>1.1.3 Automatic Level of Detail</b></h3>
+
+<p><br>Taking advantage of the totally flexible tessellation of NURBS models
+new ways of&nbsp; LOD will be explored. Dependent on various parameters
+the output of the tesselation process is adapted in every frame. This trade
+off between quality of the rendered model and the frame-rate must take
+account of
+<ul>
+<li>
+required target frame rate, 
+    
+
+<li>
+available triangle budget per frame/object, 
+    
+
+<li>
+number of triangles of the last frame/object, 
+    
+
+<li>
+available CPU performance, 
+    
+
+<li>
+distance of object to viewer, 
+    
+
+<li>
+number of current visible NurbsSurfaces, 
+    
+
+<li>
+area of control point grid projected to screen space / area of the bounding
+box of the control point grid projected to screen space.</li>
+</ul>
+
+<h2>
+<a NAME="1.2"></a>1.2 Trimmed NURBS</h2>
+(not yet implemented)
+<p>The trimming curve specifies a NURBS-curve that limits the NURBS surface
+in order to create NURBS surfaces that contain holes or have smooth boundaries.
+Trimming curves are curves in the parametric space of the surface. An implementation
+approach can be based on the OpenGL trimming definition:
+<p>A trimming region is defined by a set of closed trimming loops in the
+parameter space of a surface. When a loop is oriented counter-clockwise,
+the area within the loop is retained, and the part outside is discarded.
+When the loop is oriented clockwise, the area within the loop is discarded,
+and the rest is retained. Loops may be nested, but a nested loop must be
+oriented oppositely from the loop that contains it. The outermost loop
+must be oriented counter-clockwise.
+<br>A trimming loop consists of a connected sequence of NURBS curves and
+piece wise linear curves. The last point of every curve in the sequence
+must be the same as the first point of the next curve, and the last point
+of the last curve must be the same as the first point of the first curve.
+Self intersecting curves are not allowed.
+<p>The following Nodes sketch a trimmed NURBS surface extension.
+<ul>
+<li>
+<A href="./nodes.htm#3">NurbsCurve2D</A>
+
+<li>
+<A href="./nodes.htm#8">TrimmedSurface</A></li>
+</ul>
+
+<h2>
+<a NAME="1.3"></a>Using NURBS for animation</h2>
+<p>Basically NURBS can be simply animated by alteration of single control vertices. Thereby the NURBS surface will always
+keep its smoothness. With the order of the surface the impact of the cv-animation on adjacent control points and so the range 
+of the animation can be changed.</p>
+<p>
+NURBS are also applicable for the animation of values using smooth curves
+expressed in NURBS format. An adaption of the VRML <a href="http://www.vrml.org/Specifications/VRML97/part1/nodesRef.html#PositionInterpolator">PositionInterpolator</a>
+node to a NURBS description leads to the <A href="./nodes.htm#6">NurbsPositionInterpolator</A>.
+</p>
+<p>
+Extending the concept NurbsCurve (one Parameter), NurbsSurface (two parameters)
+to the parametric dimension 3 results in a NurbsVolume. So given a (u,v,w)
+parameter as input a 3D (x,y,z) output can be computed. The <A href="./nodes.htm#1">CoordinateDeformer</A> 
+defines a volume and applies a space warp to this volume. Any given conventional 
+VRML node can be deformated by this node. This concept can also be found in programs like 3D Studio Max in form
+of a Free From Deformation (FFD).</p>            
+</body>
+</html>
